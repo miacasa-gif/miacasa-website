@@ -1363,56 +1363,57 @@ function resetBookingForm(){
 <script>
 async function generateInvoice() {
 
-  const bookingId = document.getElementById("inv-input-id").value.trim();
+  const bookingId = document.getElementById("inv-input-id").value.trim().toUpperCase();
   const email = document.getElementById("inv-input-email").value.trim().toLowerCase();
 
   const errorBox = document.getElementById("inv-error");
   const outputBox = document.getElementById("invoice-output");
 
   errorBox.style.display = "none";
-  errorBox.textContent = "";
   outputBox.style.display = "none";
 
-  if (!bookingId) {
+  if (!bookingId || !email) {
     errorBox.style.display = "block";
-    errorBox.textContent = "Please enter your booking ID.";
+    errorBox.textContent = "Please enter Booking ID and Email.";
     return;
   }
-
-  if (!email) {
-    errorBox.style.display = "block";
-    errorBox.textContent = "Please enter your email.";
-    return;
-  }
-
-  // Show loading state
-  errorBox.style.display = "block";
-  errorBox.style.color = "#555";
-  errorBox.textContent = "Processing your request...";
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "getInvoice",
-        bookingId: bookingId,
-        email: email
-      })
-    });
+    errorBox.style.display = "block";
+    errorBox.style.color = "#555";
+    errorBox.textContent = "Fetching invoice...";
 
-    const result = await response.json();
+    const url = `${SHEETS_ENDPOINT}?bookingId=${bookingId}&email=${email}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-    if (result.status === "success") {
-      errorBox.style.color = "green";
-      errorBox.textContent = "✅ Invoice has been sent to your email.";
-    } else {
-      errorBox.style.color = "#8B2020";
-      errorBox.textContent = result.message;
+    if (data.status !== "ok") {
+      throw new Error(data.message || "Booking not found");
     }
 
+    // Populate invoice UI
+    document.getElementById("inv-out-id").innerText = data.bookingId;
+    document.getElementById("inv-out-name").innerText = data.name;
+    document.getElementById("inv-out-email").innerText = data.email;
+    document.getElementById("inv-out-prop").innerText = data.property;
+    document.getElementById("inv-out-room").innerText = data.room;
+    document.getElementById("inv-out-ci").innerText = data.checkIn;
+    document.getElementById("inv-out-co").innerText = data.checkOut;
+    document.getElementById("inv-out-nights").innerText = data.nights;
+    document.getElementById("inv-out-guests").innerText = data.guests;
+    document.getElementById("inv-out-total").innerText =
+      Number(data.amount).toLocaleString() + " VND";
+
+    document.getElementById("inv-out-date").innerText =
+      new Date().toLocaleDateString();
+
+    outputBox.style.display = "block";
+    errorBox.style.display = "none";
+
   } catch (err) {
+    errorBox.style.display = "block";
     errorBox.style.color = "#8B2020";
-    errorBox.textContent = "Something went wrong. Please try again.";
+    errorBox.textContent = err.message || "Something went wrong.";
   }
 }
 </script>
