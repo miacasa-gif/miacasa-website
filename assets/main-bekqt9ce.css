@@ -6,3 +6,6 @@
   object-fit: cover;
   display: block;
 }
+.img-ph {
+  display: none;
+}
