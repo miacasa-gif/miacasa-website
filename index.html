@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiaCasa Homestays — Hanoi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* Slider */
+.slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  min-width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+/* Arrows */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:black;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+:root{--sand:#f5efe6;--sand-dark:#e8ddd0;--terracotta:#c17a5a;--terracotta-dark:#9e5f3f;--sage:#7a9e7e;--sage-light:#b5cdb8;--cream:#faf6f0;--ink:#2c2416;--ink-light:#6b5c47;--warm-white:#fffdf9;--border:rgba(193,122,90,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);font-weight:300;line-height:1.7;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,240,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--terracotta);letter-spacing:0.02em;text-decoration:none;}
+.nav-logo span{color:var(--ink);font-weight:300;font-style:italic;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--terracotta);}
+.nav-book{background:var(--terracotta)!important;color:white!important;padding:0.5rem 1.2rem;border-radius:2px;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;overflow:hidden;}
+.hero-left{background:var(--sand);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5rem;position:relative;}
+.hero-left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--terracotta),transparent);}
+.hero-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
+.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--terracotta);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:1.5rem;}
+.hero h1 em{color:var(--terracotta);font-style:italic;}
+.hero-sub{font-size:1rem;color:var(--ink-light);max-width:360px;margin-bottom:2.5rem;line-height:1.8;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--terracotta);color:white;padding:0.85rem 2rem;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--terracotta-dark);}
+.btn-outline{background:transparent;color:var(--ink);padding:0.85rem 2rem;border:1px solid var(--ink-light);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.hero-right{position:relative;overflow:hidden;}
+.hero-mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;gap:3px;}
+.mosaic-cell{overflow:hidden;position:relative;}
+.mosaic-cell.tall{grid-row:span 2;}
+.img-ph{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:0.72rem;letter-spacing:0.05em;color:rgba(255,255,255,0.65);}
+.hero-badge{position:absolute;bottom:2rem;left:2rem;background:rgba(250,246,240,0.93);backdrop-filter:blur(8px);padding:1rem 1.5rem;border-radius:2px;border-left:3px solid var(--terracotta);}
+.hero-badge p{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
+.hero-badge strong{font-size:1.05rem;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--ink);}
+section{padding:6rem 0;}
+.container{max-width:1200px;margin:0 auto;padding:0 2rem;}
+.section-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.8rem;}
+.section-tag::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--terracotta);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--ink);margin-bottom:1rem;}
+.section-title em{font-style:italic;color:var(--terracotta);}
+.section-sub{color:var(--ink-light);max-width:520px;line-height:1.8;margin-bottom:3rem;}
+#properties{background:var(--warm-white);}
+.properties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:1rem;}
+.property-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;background:white;display:flex;flex-direction:column;}
+.property-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(44,36,22,0.1);}
+.property-img{height:240px;overflow:hidden;position:relative;flex-shrink:0;}
+.property-badge{position:absolute;top:1rem;left:1rem;background:var(--terracotta);color:white;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:2px;}
+.property-body{padding:1.5rem;display:flex;flex-direction:column;flex:1;}
+.property-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:0.2rem;}
+.property-loc{font-size:0.75rem;color:var(--terracotta);letter-spacing:0.05em;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.35rem;}
+.property-desc{font-size:0.88rem;color:var(--ink-light);line-height:1.8;margin-bottom:1.25rem;flex:1;}
+.property-meta{display:flex;gap:1.2rem;margin-bottom:1.25rem;padding-top:1rem;border-top:1px solid var(--border);}
+.meta-item{text-align:center;}
+.meta-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terracotta);display:block;}
+.meta-lbl{font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);}
+#booking{background:var(--sand);}
+.property-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:2rem;}
+.prop-select-btn{padding:0.75rem 1rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--ink-light);transition:all 0.2s;text-align:left;}
+.prop-select-btn.active{border-color:var(--terracotta);background:var(--terracotta);color:white;}
+.prop-select-btn .pbn{font-weight:500;display:block;margin-bottom:2px;}
+.prop-select-btn .pbs{font-size:0.72rem;opacity:0.75;}
+.booking-form-wrap{background:white;border:1px solid var(--border);border-radius:4px;padding:2.5rem;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-group label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);}
+.form-group input,.form-group select{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--terracotta);}
+.pricing-note{margin-top:1.5rem;padding:1rem 1.25rem;background:var(--sand);border-left:3px solid var(--terracotta);border-radius:0 2px 2px 0;font-size:0.84rem;color:var(--ink-light);}
+.sync-platforms{margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);}
+.sync-title{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1rem;}
+.platform-badges{display:flex;flex-wrap:wrap;gap:0.75rem;}
+.platform-badge{padding:0.45rem 1rem;border:1px solid var(--border);border-radius:2px;font-size:0.76rem;color:var(--ink-light);display:flex;align-items:center;gap:0.5rem;}
+.platform-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.sync-info{margin-top:1.25rem;font-size:0.82rem;color:var(--ink-light);line-height:1.7;}
+.sync-info a{color:var(--terracotta);text-decoration:none;}
+.confirm-msg{display:none;margin-top:1rem;color:var(--sage);font-size:0.88rem;padding:0.85rem 1rem;background:rgba(122,158,126,0.1);border-radius:2px;border-left:3px solid var(--sage);}
+#availability{background:var(--warm-white);}
+.cal-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.5rem;}
+.cal-tab{padding:0.55rem 1.25rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);transition:all 0.2s;}
+.cal-tab.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.cal-frame-wrap{display:none;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:white;}
+.cal-frame-wrap.active{display:block;}
+.cal-frame-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+.cal-frame-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);}
+.cal-frame-sub{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
+.cal-frame-wrap iframe{display:block;width:100%;border:none;}
+
+#gallery{background:var(--sand);}
+.gallery-filter{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.75rem;}
+.filter-btn{padding:0.42rem 1.1rem;border:1px solid var(--border);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:6px;}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer;border-radius:2px;}
+.gallery-item.wide{grid-column:span 2;}
+.gallery-item.tall{grid-row:span 2;}
+.gal-overlay{position:absolute;inset:0;background:rgba(44,36,22,0.38);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;}
+.gallery-item:hover .gal-overlay{opacity:1;}
+.gal-overlay span{color:white;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.55);padding:0.35rem 0.9rem;border-radius:2px;}
+#amenities{background:var(--warm-white);}
+.amenities-tabs{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content;flex-wrap:wrap;}
+.amenity-tab{padding:0.65rem 1.5rem;background:transparent;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
+.amenity-tab:last-child{border-right:none;}
+.amenity-tab.active{background:var(--terracotta);color:white;}
+.amenity-panel{display:none;}
+.amenity-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75rem;}
+.amenity-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.85rem;border-radius:2px;transition:background 0.2s;border:1px solid transparent;}
+.amenity-item:hover{background:var(--sand);border-color:var(--border);}
+.amenity-icon{width:34px;height:34px;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
+.amenity-text{font-size:0.86rem;color:var(--ink);line-height:1.5;}
+.amenity-text span{display:block;font-size:0.73rem;color:var(--ink-light);}
+#rules{background:var(--sand);}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
+.rule-card{background:white;border:1px solid var(--border);border-radius:4px;padding:1.5rem;}
+.rule-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:0.9rem;}
+.rule-icon.g{background:rgba(122,158,126,0.12);}
+.rule-icon.r{background:rgba(193,122,90,0.12);}
+.rule-title{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.7rem;}
+.rule-list{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.rule-list li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.84rem;color:var(--ink);line-height:1.5;}
+.rule-list li::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--terracotta);flex-shrink:0;margin-top:0.55em;}
+#testimonials{background:var(--ink);color:white;}
+#testimonials .section-title{color:white;}
+#testimonials .section-sub{color:rgba(255,255,255,0.55);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.testimonial-card{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:1.75rem;}
+.stars{color:var(--terracotta);font-size:0.82rem;margin-bottom:0.9rem;letter-spacing:2px;}
+.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.75;color:rgba(255,255,255,0.82);margin-bottom:1.4rem;}
+.reviewer{display:flex;align-items:center;gap:0.75rem;}
+.reviewer-avatar{width:34px;height:34px;border-radius:50%;background:var(--terracotta);display:flex;align-items:center;justify-content:center;font-size:0.76rem;font-weight:500;color:white;flex-shrink:0;}
+.reviewer-name{font-size:0.84rem;font-weight:500;color:white;}
+.reviewer-meta{font-size:0.72rem;color:rgba(255,255,255,0.45);}
+#contact{background:var(--cream);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;}
+.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:1.75rem;}
+.contact-items{display:flex;flex-direction:column;gap:1.25rem;}
+.contact-item{display:flex;gap:1rem;align-items:flex-start;}
+.contact-item-icon{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
+.contact-item-text{font-size:0.84rem;color:var(--ink-light);line-height:1.7;}
+.contact-item-text strong{display:block;color:var(--ink);font-weight:500;margin-bottom:0.1rem;}
+.contact-form-box{background:white;border:1px solid var(--border);border-radius:4px;padding:2.25rem;}
+.form-full{grid-column:1/-1;}
+textarea{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;resize:vertical;min-height:110px;width:100%;}
+textarea:focus{border-color:var(--terracotta);}
+.form-submit-row{display:flex;justify-content:flex-end;margin-top:1.25rem;}
+.chatbot-fab{position:fixed;bottom:2rem;right:2rem;z-index:200;width:54px;height:54px;border-radius:50%;background:var(--terracotta);color:white;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(193,122,90,0.38);transition:transform 0.2s;}
+.chatbot-fab:hover{transform:scale(1.08);}
+.chatbot-window{position:fixed;bottom:5.5rem;right:2rem;z-index:200;width:330px;border-radius:8px;background:white;border:1px solid var(--border);box-shadow:0 20px 60px rgba(44,36,22,0.14);display:none;flex-direction:column;overflow:hidden;max-height:460px;}
+.chatbot-window.open{display:flex;}
+.chatbot-header{background:var(--terracotta);color:white;padding:0.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;}
+.chatbot-header-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;}
+.chatbot-header-sub{font-size:0.68rem;opacity:0.78;margin-top:1px;}
+.chatbot-close{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;opacity:0.75;}
+.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.65rem;}
+.msg{max-width:85%;padding:0.55rem 0.85rem;border-radius:2px;font-size:0.83rem;line-height:1.5;}
+.msg.bot{background:var(--sand);color:var(--ink);align-self:flex-start;}
+.msg.user{background:var(--terracotta);color:white;align-self:flex-end;}
+.chat-quick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0 1rem 0.65rem;}
+.quick-btn{font-size:0.7rem;padding:0.28rem 0.65rem;border:1px solid var(--border);background:transparent;cursor:pointer;border-radius:2px;color:var(--ink-light);font-family:'Jost',sans-serif;transition:all 0.15s;}
+.quick-btn:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.chatbot-input-area{padding:0.65rem 0.9rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+.chatbot-input{flex:1;padding:0.45rem 0.7rem;border:1px solid var(--border);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.83rem;outline:none;color:var(--ink);}
+.chatbot-input:focus{border-color:var(--terracotta);}
+.chatbot-send{background:var(--terracotta);color:white;border:none;padding:0.45rem 0.85rem;border-radius:2px;cursor:pointer;font-size:0.83rem;}
+footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;}
+.footer-brand p{font-size:0.84rem;line-height:1.8;margin-top:0.9rem;}
+.footer-brand .nav-logo span{color:rgba(255,255,255,0.75);}
+.footer-col h4{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:white;margin-bottom:1.1rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.48);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--terracotta);}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;font-size:0.76rem;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{height:320px;}.hero-left{padding:3rem 2rem;}.contact-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.hamburger{display:flex;}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-item.wide{grid-column:span 1;}.footer-grid{grid-template-columns:1fr;}}
+
+.reviews-filter{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.75rem;}
+.review-filter-btn{padding:0.42rem 1.1rem;border:1px solid rgba(255,255,255,0.2);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:all 0.2s;}
+.review-filter-btn.active,.review-filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.platform-tag{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;}
+.platform-tag.airbnb{background:rgba(255,90,95,0.2);color:#ff5a5f;}
+.platform-tag.booking{background:rgba(0,99,196,0.2);color:#6ab0f5;}
+.platform-tag.agoda{background:rgba(239,68,68,0.15);color:#fca5a5;}
+.platform-tag.google{background:rgba(66,133,244,0.15);color:#93c5fd;}
+.platform-tag.tripadvisor{background:rgba(52,183,110,0.2);color:#6ee7b7;}
+.prop-highlights{list-style:none;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.35rem;}
+.prop-highlights li{font-size:0.82rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5;}
+.prop-highlights li::before{content:'✦';color:var(--terracotta);flex-shrink:0;font-size:0.65rem;margin-top:0.2em;}
+.prop-notice{font-size:0.78rem;color:var(--ink-light);background:var(--sand);border-left:3px solid var(--terracotta);padding:0.6rem 0.85rem;border-radius:0 2px 2px 0;margin-bottom:1rem;line-height:1.6;}
+.reviews-load-more{text-align:center;margin-top:2.5rem;}
+.hidden-review{display:none;}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.hero-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#home">MiaCasa<span> Homestays</span></a>
+  <ul class="nav-links">
+    <li><a href="#properties">Stays</a></li>
+    <li><a href="#booking">Book</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#amenities">Amenities</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#invoice">Invoice</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#booking" class="nav-book">Book Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img">
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Hanoi, Vietnam</div>
+    <h1>MiaCasa<br><em>Homestays</em></h1>
+    <p class="hero-sub">Two distinct stays in Hanoi — a quiet boho retreat in a local neighbourhood, and a lively apartment in the beating heart of the Old Quarter.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">Check Availability</a>
+      <a href="#properties" class="btn-outline">Explore Stays</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="mosaic-cell tall"><div class="img-ph" style="background:linear-gradient(160deg,#d4b896,#a07850);"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Add photo</span></div></div>
+      <div class="mosaic-cell"><div class="img-ph" style="background:linear-gradient(160deg,#b5d4c0,#608080);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+      <div class="mosaic-cell"><div class="img-ph" style="background:linear-gradient(160deg,#e0c8a8,#987040);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div></div>
+    </div>
+    <div class="hero-badge"><p>Rated across Airbnb &amp; Booking.com</p><strong>★ 4.9 — 200+ Happy Guests</strong></div>
+  </div>
+</section>
+
+<section id="properties"><div class="container">
+  <div class="section-tag">Our Stays</div>
+  <h2 class="section-title">Two stays, <em>one spirit</em></h2>
+  <p class="section-sub">Each MiaCasa property has its own character — choose the quiet neighbourhood charm of MiaCasaHanoi, or the electric energy of MiaCasaOldQuarter right in the Old Quarter.</p>
+  <div class="properties-grid" id="properties-grid"></div>
+</div></section>
+
+<section id="booking"><div class="container">
+  <div class="section-tag">Reservations</div>
+  <h2 class="section-title">Book your <em>escape</em></h2>
+  <p class="section-sub">Reserve directly with us for the best rate — no platform fees, flexible policies, and a personal welcome.</p>
+  <div class="property-select-grid" id="booking-prop-sel"></div>
+  <div class="booking-form-wrap">
+    <div class="form-grid">
+      <div class="form-group"><label>Room / Space</label><select id="room-type-sel"></select></div>
+      <div class="form-group"><label>Check-in</label><input type="date" id="checkin"></div>
+      <div class="form-group"><label>Check-out</label><input type="date" id="checkout"></div>
+      <div class="form-group"><label>Guests</label><select id="guests-sel"></select></div>
+      <div class="form-group"><label>Full Name</label><input type="text" id="guest-name" placeholder="Your name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="guest-email" placeholder="your@email.com"></div>
+    </div>
+    <div class="pricing-note" id="pricing-note"></div>
+    <div style="margin-top:1.5rem;"><button class="btn-primary" onclick="submitBooking()">Request Booking →</button></div>
+    <div class="confirm-msg" id="booking-confirm">✓ Booking request received! We'll confirm within 2 hours.</div>
+
+  </div>
+</div></section>
+
+<section id="availability"><div class="container">
+  <div class="section-tag">Availability</div>
+  <h2 class="section-title">Live <em>calendars</em></h2>
+  <p class="section-sub">Synced in real time across Airbnb, Booking.com, Agoda, Dayladau, Trip.com and more. Select a room below to check dates.</p>
+  <div class="cal-tabs" id="cal-tabs"></div>
+  <div id="cal-frames"></div>
+
+</div></section>
+
+<section id="gallery"><div class="container">
+  <div class="section-tag">Gallery</div>
+  <h2 class="section-title">A peek <em>inside</em></h2>
+  <p class="section-sub">Handcrafted spaces designed to feel lived-in, layered, and effortlessly beautiful.</p>
+  <div class="gallery-filter" id="gallery-filter"></div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+<div class="slider" id="slider1">
+  <div class="slides">
+
+    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg')" onclick="openLightbox(this)"></div>
+
+    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6640_a9lvq8.jpg')" onclick="openLightbox(this)"></div>
+
+    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638541/DSC_6891_tdrw6z.jpg')" onclick="openLightbox(this)"></div>
+
+    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638546/DSC_6843_yayzw9.jpg')" onclick="openLightbox(this)"></div>
+
+  </div>
+
+  <button class="slider-btn prev" onclick="moveSlide(-1, 'slider1')">‹</button>
+  <button class="slider-btn next" onclick="moveSlide(1, 'slider1')">›</button>
+</div>
+</div></section>
+
+<section id="amenities"><div class="container">
+  <div class="section-tag">What's Included</div>
+  <h2 class="section-title">Every comfort, <em>thoughtfully provided</em></h2>
+  <p class="section-sub">We've curated every detail so you can simply arrive and feel at home.</p>
+  <div class="amenities-tabs" id="amenities-tabs"></div>
+  <div id="amenities-panels"></div>
+</div></section>
+
+<section id="rules"><div class="container">
+  <div class="section-tag">House Rules</div>
+  <h2 class="section-title">A few things to <em>keep in mind</em></h2>
+  <p class="section-sub">To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.</p>
+  <div class="rules-grid">
+    <div class="rule-card reveal"><div class="rule-icon g">🕐</div><div class="rule-title">Check-in / Check-out</div><ul class="rule-list"><li>Check-in from 2:00 PM (self check-in)</li><li>Check-out by 11:00 AM</li><li>Early/late check-in available on request</li><li>Free luggage storage</li></ul></div>
+    <div class="rule-card reveal d1"><div class="rule-icon g">🤫</div><div class="rule-title">Noise &amp; Guests</div><ul class="rule-list"><li>Quiet hours 10:00 PM – 7:00 AM</li><li>No unregistered overnight guests</li><li>Be mindful of neighbours</li><li>Groups of 4+ need prior notice</li></ul></div>
+    <div class="rule-card reveal d2"><div class="rule-icon r">🚭</div><div class="rule-title">Smoking &amp; Pets</div><ul class="rule-list"><li>No smoking indoors</li><li>Balcony/terrace smoking only</li><li>No pets allowed</li><li>Candles permitted with care</li></ul></div>
+    <div class="rule-card reveal d3"><div class="rule-icon g">🏠</div><div class="rule-title">Property Care</div><ul class="rule-list"><li>Treat the space as your own home</li><li>Report damages promptly</li><li>No shoes inside — slippers provided</li><li>Use designated rubbish bins</li></ul></div>
+    <div class="rule-card reveal"><div class="rule-icon g">💳</div><div class="rule-title">Payments &amp; Cancellation</div><ul class="rule-list"><li>50% deposit at booking</li><li>Free cancellation up to 48h prior</li><li>Cash (VND/USD), bank transfer, PayPal</li><li>Security deposit for long stays</li></ul></div>
+    <div class="rule-card reveal d1"><div class="rule-icon g">🌿</div><div class="rule-title">Eco Guidelines</div><ul class="rule-list"><li>Turn off A/C when leaving</li><li>Reusable water bottles provided</li><li>We avoid single-use plastics</li><li>Towel reuse encouraged</li></ul></div>
+  </div>
+</div></section>
+
+<section id="testimonials"><div class="container">
+  <div class="section-tag" style="color:var(--terracotta);">Guest Reviews</div>
+  <h2 class="section-title">Stories from <em>our guests</em></h2>
+  <p class="section-sub">Genuine words from people who've called MiaCasa home.</p>
+  <div class="reviews-filter" id="reviews-filter"></div>
+  <div class="testimonials-grid" id="reviews-grid"></div>
+  <div class="reviews-load-more" id="reviews-load-more">
+    <button class="btn-outline" onclick="loadMoreReviews()">Load more reviews</button>
+  </div>
+</div></section>
+
+<section id="contact"><div class="container">
+  <div class="section-tag">Get in Touch</div>
+  <h2 class="section-title">We'd love to <em>hear from you</em></h2>
+  <p class="section-sub">Questions, special requests, or just want to say hello — reach out anytime.</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Find us in Hanoi</h3>
+      <div class="contact-items" id="contact-locations"></div>
+      <div style="margin-top:1.5rem;" class="contact-items">
+        <div class="contact-item"><div class="contact-item-icon">📱</div><div class="contact-item-text"><strong>WhatsApp / Phone</strong><a href="https://wa.me/84869922261" target="_blank" style="color:var(--terracotta);text-decoration:none;">+84 869 922 261</a></div></div>
+        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong>Email</strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2aaa7aeaead82afaba3a1a3b1a3aaa3acadabeca1adaf">[email&#160;protected]</a></div></div>
+        <div class="contact-item"><div class="contact-item-icon">🕐</div><div class="contact-item-text"><strong>Response time</strong>Within 2 hours · 7am – 10pm ICT</div></div>
+      </div>
+    </div>
+    <div class="contact-form-box">
+      <div class="form-grid">
+        <div class="form-group"><label>Name</label><input type="text" id="contact-name" placeholder="Your name"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Property</label><select id="contact-prop-sel"></select></div>
+        <div class="form-group"><label>Subject</label><select id="contact-subject"><option>Booking Enquiry</option><option>Special Request</option><option>Calendar Sync / Channel Manager</option><option>Other</option></select></div>
+        <div class="form-group form-full"><label>Message</label><textarea id="contact-message" placeholder="Tell us how we can help..."></textarea></div>
+      </div>
+      <div class="form-submit-row"><button class="btn-primary" onclick="sendWhatsApp()">Send via WhatsApp →</button></div>
+      <div class="confirm-msg" id="contact-confirm">✓ Message sent! We'll be in touch soon.</div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#home" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+      <p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+    </div>
+    <div class="footer-col"><h4>Our Stays</h4><ul id="footer-stays"></ul></div>
+    <div class="footer-col"><h4>Information</h4><ul><li><a href="#amenities">Amenities</a></li><li><a href="#rules">House Rules</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#testimonials">Reviews</a></li></ul></div>
+    <div class="footer-col"><h4>Also on</h4><ul><li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li><li><a href="https://www.airbnb.co.in/rooms/1444661721704448383" target="_blank">Airbnb – MiaCasaOldQuarter</a></li><li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li><li><a href="https://www.booking.com/hotel/vn/miacasaoldquarter.html" target="_blank">Booking.com – MiaCasaOldQuarter</a></li><li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li><li><a href="https://www.agoda.com/en-in/miacasaoldquarter/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaOldQuarter</a></li><li><a href="https://dayladau.com/listings/lsbkvoicpe" target="_blank">Dayladau – MiaCasaHanoi</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 MiaCasa Hanoi. All rights reserved.</span><span style="color:rgba(255,255,255,0.25);">Made with ♡ in Hanoi</span></div>
+</div></footer>
+
+<button class="chatbot-fab" onclick="toggleChat()">💬</button>
+<div class="chatbot-window" id="chatbot">
+  <div class="chatbot-header">
+    <div><div class="chatbot-header-title">MiaCasa Assistant</div><div class="chatbot-header-sub">Usually replies in minutes</div></div>
+    <button class="chatbot-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="msg bot">Xin chào! 👋 Welcome to MiaCasa Homestays — two unique stays in Hanoi. I can help with rooms, availability, prices, or anything about MiaCasaHanoi or MiaCasaOldQuarter. What would you like to know?</div>
+  </div>
+  <div class="chat-quick" id="quick-replies">
+    <button class="quick-btn" onclick="quickReply('What properties do you have?')">Our properties?</button>
+    <button class="quick-btn" onclick="quickReply('What are the prices?')">Prices?</button>
+    <button class="quick-btn" onclick="quickReply('Where are you located?')">Location?</button>
+    <button class="quick-btn" onclick="quickReply('What is the cancellation policy?')">Cancellation?</button>
+  </div>
+  <div class="chatbot-input-area">
+    <input type="text" class="chatbot-input" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chatbot-send" onclick="sendChat()">→</button>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ================================================================
+   PROPERTIES DATA  ─  Add a new property here. Everything else
+   on the page (cards, booking, calendar, gallery, amenities,
+   contact, footer) updates automatically.
+   ================================================================ */
+const PROPERTIES = [
+  {
+    id: 'hanoi',
+    name: 'MiaCasaHanoi',
+    badge: 'Rooms with Kitchenette',
+    location: '92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội',
+    desc: 'Three private boho rooms — Spring, Summer, and Autumn — each with attached bathroom and kitchenette. A quiet, characterful retreat in a local neighbourhood, perfect for solo travellers, couples, and digital nomads.',
+    maxGuests: 2,
+    guestNote: 'Max 2 guests (or 2 adults + 1 child)',
+    rating: '4.9',
+    priceNote: 'From 750,000₫ (~$30 USD) / night per room',
+    color: '#d4b896', color2: '#a07850',
+    rooms: ['Spring Room', 'Summer Room', 'Autumn Room'],
+    highlights: ['Quiet & cozy, away from busy streets','Beautiful minimal boho interiors','Ensuite bathroom + kitchenette in every room','Café right downstairs for your morning coffee','Friendly host who genuinely cares'],
+    bookedDays: [3,4,5,10,11,12,18,19,25,26],
+    amenities: [
+      {icon:'🛁',name:'Ensuite private bathroom',sub:'Premium toiletries & fluffy towels'},
+      {icon:'🍳',name:'In-room kitchenette',sub:'Mini fridge, kettle & cooking basics'},
+      {icon:'❄️',name:'Air conditioning & fan',sub:'Climate control in every room'},
+      {icon:'📶',name:'High-speed WiFi',sub:'100 Mbps — great for remote work'},
+      {icon:'☕',name:'Café downstairs',sub:'Your daily coffee ritual sorted'},
+      {icon:'🔒',name:'Self check-in',sub:'Keypad entry, arrive anytime'},
+      {icon:'🗺️',name:'Local guide & curated map',sub:'Hidden gems, cafés & tips from the host'},
+    ],
+    gallery: [
+      {label:'Spring Room',cls:'wide',bg:'linear-gradient(135deg,#d4b896,#a07850)'},
+      {label:'Common Lounge',cls:'tall',bg:'linear-gradient(135deg,#b8a090,#806050)'},
+      {label:'Summer Room',cls:'',bg:'linear-gradient(135deg,#c8b090,#907060)'},
+      {label:'Autumn Room',cls:'',bg:'linear-gradient(135deg,#c0a080,#886040)'},
+    ],
+  },
+  {
+    id: 'oldquarter',
+    name: 'MiaCasaOldQuarter',
+    badge: 'Whole Apartment',
+    location: '38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hà Nội',
+    desc: 'A whole apartment in the heart of the Old Quarter. Two beds on the main level and one in the upper attic, plus an open terrace above the city. Ideal for groups and friends who want to be right where the action is.',
+    maxGuests: 6,
+    rating: '4.8',
+    priceNote: 'From 1,200,000₫ (~$48 USD) / night · Base rate for 2 guests · +100,000₫ per extra guest (max 6)',
+    color: '#90b0b0', color2: '#406080',
+    rooms: ['Entire Apartment (3 king beds)'],
+    highlights: ['Prime location in the Old Quarter','2 beds on main level + 1 attic bed upstairs','Open terrace for relaxing evenings above the city','Street food, cafés & nightlife at your doorstep','Best for groups & friends traveling together'],
+    notice: '⚠ Heads up: The neighbourhood is lively and can be noisy at night. Access is via steep stairs — not ideal for young children, elderly guests, or anyone with mobility concerns.',
+    bookedDays: [1,2,7,8,9,14,15,22,23,24,29,30],
+    amenities: [
+      {icon:'🏠',name:'Entire apartment — yours alone',sub:'Complete privacy for your group'},
+      {icon:'🛏️',name:'2 beds on main level + 1 attic bed',sub:'Spacious layout across two levels'},
+      {icon:'🚿',name:'1 bathroom',sub:'Premium linens & toiletries provided'},
+      {icon:'🌿',name:'Open outdoor terrace',sub:'Your quiet corner above the Old Quarter'},
+      {icon:'🍜',name:'Street food & cafés at the door',sub:'The best of Hanoi within walking distance'},
+      {icon:'📶',name:'WiFi throughout',sub:'Stay connected across both levels'},
+      {icon:'⚠️',name:'Good to know',sub:'Steep stairs · can be noisy at night · not ideal for young children or elderly guests'},
+    ],
+    gallery: [
+      {label:'Master Bedroom',cls:'wide',bg:'linear-gradient(135deg,#90b0b0,#508090)'},
+      {label:'Outdoor Terrace',cls:'tall',bg:'linear-gradient(135deg,#a8c0b8,#608890)'},
+      {label:'Second Bedroom',cls:'',bg:'linear-gradient(135deg,#b8c8c0,#789090)'},
+      {label:'Third Bedroom',cls:'',bg:'linear-gradient(135deg,#98b8b0,#507080)'},
+    ],
+  },
+  /* ── TO ADD A NEW PROPERTY, COPY THE BLOCK ABOVE AND PASTE HERE ──
+  {
+    id: 'westlake',
+    name: 'MiaCasaWestLake',
+    badge: 'Lake View Studio',
+    location: 'Tay Ho District · West Lake',
+    desc: 'Description here.',
+    maxGuests: 2,
+    rating: '5.0',
+    priceNote: 'From $45 USD / night',
+    color: '#90a8c8', color2: '#405880',
+    rooms: ['Lake View Studio'],
+    bookedDays: [5,6,13,14],
+    amenities: [...],
+    gallery: [...],
+  },
+  ─────────────────────────────────────────────────────────────── */
+];
+
+/* ================================================================
+   RENDER — everything below reads from PROPERTIES, do not edit
+   ================================================================ */
+
+// Property cards
+const propGrid = document.getElementById('properties-grid');
+PROPERTIES.forEach((p,i) => {
+  propGrid.innerHTML += `<div class="property-card reveal ${i>0?'d'+Math.min(i,3):''}">
+    <div class="property-img">
+      <div class="img-ph" style="background:linear-gradient(135deg,${p.color},${p.color2});height:100%;">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>${p.name}</span>
+      </div>
+      <div class="property-badge">${p.badge}</div>
+    </div>
+    <div class="property-body">
+      <div class="property-name">${p.name}</div>
+      <div class="property-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
+      <p class="property-desc">${p.desc}</p>
+      ${p.highlights ? `<ul class="prop-highlights">${p.highlights.map(h=>'<li>'+h+'</li>').join('')}</ul>` : ''}
+      ${p.notice ? `<div class="prop-notice">${p.notice}</div>` : ''}
+      <div class="property-meta">
+        <div class="meta-item"><span class="meta-num">${p.rooms.length}</span><span class="meta-lbl">${p.rooms.length>1?'Rooms':'Unit'}</span></div>
+        <div class="meta-item"><span class="meta-num">1–${p.maxGuests}</span><span class="meta-lbl">Guests</span></div>
+        <div class="meta-item"><span class="meta-num">${p.rating}★</span><span class="meta-lbl">Rating</span></div>
+      </div>
+      <a href="#booking" class="btn-primary" onclick="selectProp('${p.id}')">Book Now →</a>
+    </div>
+  </div>`;
+});
+
+// Booking selector
+let activeProp = PROPERTIES[0].id;
+const bookSel = document.getElementById('booking-prop-sel');
+PROPERTIES.forEach((p,i) => {
+  bookSel.innerHTML += `<button class="prop-select-btn ${i===0?'active':''}" id="bsb-${p.id}" onclick="selectProp('${p.id}')">
+    <span class="pbn">${p.name}</span><span class="pbs">${p.badge} · ${p.rating}★</span>
+  </button>`;
+});
+function selectProp(id) {
+  activeProp = id;
+  document.querySelectorAll('.prop-select-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('bsb-'+id).classList.add('active');
+  const p = PROPERTIES.find(x=>x.id===id);
+  document.getElementById('room-type-sel').innerHTML = p.rooms.map(r=>`<option>${r}</option>`).join('');
+  document.getElementById('guests-sel').innerHTML = (() => {
+    if(p.id === 'hanoi') {
+      return '<option value="1">1 Guest</option><option value="2" selected>2 Guests</option><option value="2c">2 Adults + 1 Child</option>';
+    }
+    return Array.from({length:p.maxGuests},(_,i)=>`<option value="${i+1}">${i+1} Guest${i>0?'s':''}</option>`).join('');
+  })();
+  document.getElementById('pricing-note').innerHTML = `💡 ${p.priceNote}. Best rate guaranteed when booking direct.`;
+}
+selectProp(PROPERTIES[0].id);
+function submitBooking(){const c=document.getElementById('booking-confirm');c.style.display='block';setTimeout(()=>c.style.display='none',6000);}
+
+// Calendars — Google Calendar embeds + iCal sync reference
+// Convert ical URL to embed URL helper
+function icalToEmbed(icalUrl) {
+  const src = icalUrl
+    .replace('https://calendar.google.com/calendar/ical/', '')
+    .replace('/public/basic.ics', '')
+    .replace('/public/full.ics', '');
+  return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(decodeURIComponent(src))}&ctz=Asia%2FHo_Chi_Minh&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23faf6f0&color=%23c17a5a`;
+}
+
+// Room calendars — Google embed src IDs
+const ROOM_CALS = [
+  {
+    id: 'spring',
+    name: 'Spring Room',
+    property: 'MiaCasaHanoi',
+    embedSrc: '87a5f7749b35560f564c62ec0ee8cf00101a6e331907f34effbd803846638607%40group.calendar.google.com',
+    ical: [
+      {platform:'Google',    url:'https://calendar.google.com/calendar/ical/87a5f7749b35560f564c62ec0ee8cf00101a6e331907f34effbd803846638607%40group.calendar.google.com/public/basic.ics'},
+      {platform:'Airbnb',    url:'https://www.airbnb.co.in/calendar/ical/1368525470549843347.ics?t=ab8805eed77f47349e0a8b4bc253ed31'},
+      {platform:'Booking',   url:'https://ical.booking.com/v1/export/t/e655bb8a-06ee-4c83-afba-de8d58d9acda.ics'},
+      {platform:'Dayladau',  url:'https://api.dayladau.com/v1/listings/lsl45hnosh/ical'},
+      {platform:'Trip.com',  url:'https://ebooking.ctrip.com/ebkovsroom/icalendar/export/71faba69-6f92-4a8f-8ac9-bf2a4cb45971.ics'},
+    ]
+  },
+  {
+    id: 'summer',
+    name: 'Summer Room',
+    property: 'MiaCasaHanoi',
+    embedSrc: '26d50548c42e4b8e731240566110420643aa4bce48233af14e62233a888438c0%40group.calendar.google.com',
+    ical: [
+      {platform:'Google',    url:'https://calendar.google.com/calendar/ical/26d50548c42e4b8e731240566110420643aa4bce48233af14e62233a888438c0%40group.calendar.google.com/public/basic.ics'},
+      {platform:'Airbnb',    url:'https://www.airbnb.co.in/calendar/ical/1150577368273097590.ics?t=74f453c9face42b39955c6b180edbb13'},
+      {platform:'Booking',   url:'https://ical.booking.com/v1/export/t/4b9f52e0-6940-4e88-9a46-edc2f0cc8edb.ics'},
+      {platform:'Dayladau',  url:'https://api.dayladau.com/v1/listings/lshkxjmpx5/ical'},
+      {platform:'Trip.com',  url:'https://ebooking.ctrip.com/ebkovsroom/icalendar/export/547163ae-3ed8-40d7-94e7-d5ce3768c379.ics'},
+    ]
+  },
+  {
+    id: 'autumn',
+    name: 'Autumn Room',
+    property: 'MiaCasaHanoi',
+    embedSrc: 'b7be4b233604c94b69c4a7f95e13e61e9bac756c20b255d402d817071481ff24%40group.calendar.google.com',
+    ical: [
+      {platform:'Google',    url:'https://calendar.google.com/calendar/ical/b7be4b233604c94b69c4a7f95e13e61e9bac756c20b255d402d817071481ff24%40group.calendar.google.com/public/basic.ics'},
+      {platform:'Airbnb',    url:'https://www.airbnb.co.in/calendar/ical/1149901131702910023.ics?t=ac0829aecf2b49479aa6006fee841048'},
+      {platform:'Booking',   url:'https://ical.booking.com/v1/export/t/a9e95444-5fd3-49ee-b0a0-15e2a3f82af9.ics'},
+      {platform:'Dayladau',  url:'https://api.dayladau.com/v1/listings/lsd4ov12cx/ical'},
+      {platform:'Trip.com',  url:'https://ebooking.ctrip.com/ebkovsroom/icalendar/export/305604c1-650b-4205-bb87-3e4ba11be07f.ics'},
+    ]
+  },
+  {
+    id: 'oldquarter',
+    name: 'MiaCasaOldQuarter',
+    property: 'MiaCasaOldQuarter',
+    embedSrc: '81d1ef063261354d380e1f80b38325d413a118e15b1819b9b8aff47fa1069f79%40group.calendar.google.com',
+    ical: [
+      {platform:'Google',    url:'https://calendar.google.com/calendar/ical/81d1ef063261354d380e1f80b38325d413a118e15b1819b9b8aff47fa1069f79%40group.calendar.google.com/public/basic.ics'},
+      {platform:'Airbnb',    url:'https://www.airbnb.co.in/calendar/ical/1444661721704448383.ics?t=cce83927bc29402eb49e1b816d4293bb'},
+      {platform:'Booking',   url:'https://ical.booking.com/v1/export/t/eb318a0d-65ba-45e8-b3e0-53d59c08b135.ics'},
+      {platform:'Agoda',     url:'https://ycs.agoda.com/en-us/api/ari/icalendar?key=6dGjUOZZbINBbLBLbfyu0UEYxBTfTvFs'},
+    ]
+  },
+];
+
+const calTabsCont = document.getElementById('cal-tabs');
+const calFramesCont = document.getElementById('cal-frames');
+const CAL_PARAMS = '&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c17a5a&hl=en';
+
+ROOM_CALS.forEach((r, i) => {
+  // Tab button
+  const tab = document.createElement('button');
+  tab.className = 'cal-tab' + (i===0?' active':'');
+  tab.textContent = r.name;
+  tab.onclick = () => switchCal(r.id, tab);
+  calTabsCont.appendChild(tab);
+
+  // Embed frame
+  const wrap = document.createElement('div');
+  wrap.className = 'cal-frame-wrap' + (i===0?' active':'');
+  wrap.id = 'cal-' + r.id;
+  wrap.innerHTML = `
+    <div class="cal-frame-header">
+      <span class="cal-frame-title">${r.name}</span>
+      <span class="cal-frame-sub">${r.property} · Live availability · Asia/Ho_Chi_Minh</span>
+    </div>
+    <iframe
+      src="https://calendar.google.com/calendar/embed?src=${r.embedSrc}${CAL_PARAMS}"
+      style="height:500px;"
+      frameborder="0"
+      scrolling="no"
+      loading="lazy"
+    ></iframe>`;
+  calFramesCont.appendChild(wrap);
+
+
+});
+
+function switchCal(id, activeTab) {
+  document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.cal-frame-wrap').forEach(f => f.classList.remove('active'));
+  activeTab.classList.add('active');
+  document.getElementById('cal-' + id).classList.add('active');
+}
+
+
+// Gallery
+const gf=document.getElementById('gallery-filter'),gg=document.getElementById('gallery-grid');
+gf.innerHTML=`<button class="filter-btn active" onclick="filterGal('all',this)">All</button>`;
+PROPERTIES.forEach(p=>{
+  gf.innerHTML+=`<button class="filter-btn" onclick="filterGal('${p.id}',this)">${p.name}</button>`;
+  p.gallery.forEach(g=>{
+    gg.innerHTML+=`<div class="gallery-item ${g.cls}" data-prop="${p.id}"><div class="img-ph" style="background:${g.bg};min-height:210px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>${g.label}</span></div><div class="gal-overlay"><span>${p.name} · ${g.label}</span></div></div>`;
+  });
+});
+function filterGal(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.gallery-item').forEach(el=>{el.style.display=(cat==='all'||el.dataset.prop===cat)?'':' none';});}
+
+// Amenities
+const at=document.getElementById('amenities-tabs'),ap=document.getElementById('amenities-panels');
+PROPERTIES.forEach((p,i)=>{
+  at.innerHTML+=`<button class="amenity-tab ${i===0?'active':''}" onclick="switchAmen('${p.id}',this)">${p.name}</button>`;
+  ap.innerHTML+=`<div class="amenity-panel ${i===0?'active':''}" id="amen-${p.id}">${p.amenities.map(a=>`<div class="amenity-item"><div class="amenity-icon">${a.icon}</div><div class="amenity-text">${a.name}<span>${a.sub}</span></div></div>`).join('')}</div>`;
+});
+function switchAmen(id,btn){document.querySelectorAll('.amenity-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.amenity-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('amen-'+id).classList.add('active');}
+
+// Contact & Footer
+const cl=document.getElementById('contact-locations');
+PROPERTIES.forEach(p=>{cl.innerHTML+=`<div class="contact-item"><div class="contact-item-icon">📍</div><div class="contact-item-text"><strong>${p.name}</strong>${p.location}</div></div>`;});
+const cs=document.getElementById('contact-prop-sel');
+PROPERTIES.forEach(p=>{cs.innerHTML+=`<option>${p.name}</option>`;});
+cs.innerHTML+=`<option>General Enquiry</option>`;
+const fs=document.getElementById('footer-stays');
+fs.innerHTML=PROPERTIES.map(p=>`<li><a href="#properties">${p.name}</a></li>`).join('')+`<li><a href="#booking">Book Direct</a></li><li><a href="#availability">Availability</a></li>`;
+
+function sendWhatsApp() {
+  const name    = document.getElementById('contact-name').value.trim();
+  const email   = document.getElementById('contact-email').value.trim();
+  const prop    = document.getElementById('contact-prop-sel').value;
+  const subject = document.getElementById('contact-subject').value;
+  const message = document.getElementById('contact-message').value.trim();
+  if (!name || !message) {
+    alert('Please fill in your name and message before sending.');
+    return;
+  }
+  const text = 'Hi MiaCasa! \uD83D\uDC4B\n\n*Name:* ' + name + '\n*Email:* ' + (email || 'not provided') + '\n*Property:* ' + prop + '\n*Subject:* ' + subject + '\n\n*Message:*\n' + message;
+  const url = 'https://wa.me/84869922261?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+}
+
+// Chatbot
+const R={
+  price:()=>PROPERTIES.map(p=>`${p.name}: ${p.priceNote}`).join(' · '),
+  props:()=>`We have ${PROPERTIES.length} ${PROPERTIES.length===1?'property':'properties'}: `+PROPERTIES.map(p=>`${p.name} (${p.badge})`).join(', ')+'.',
+  locs:()=>PROPERTIES.map(p=>`${p.name}: ${p.location}`).join(' · '),
+  cancel:()=>'Free cancellation up to 48h before check-in. 50% deposit at booking, balance on arrival.',
+  checkin:()=>'Check-in from 2:00 PM, check-out by 11:00 AM. Self check-in and check-out.',
+  wifi:()=>'High-speed WiFi at all properties. OldQuarter also has a dedicated work desk.',
+  book:()=>'Book directly on this page for the best rate. We\'re also on Airbnb, Booking.com, Agoda, and Dayladau.',
+  def:()=>'Thanks! Reach us at miacasahanoi@gmail.com or use the Contact form. We reply within 2 hours! 🌿'
+};
+function getReply(m){
+  m=m.toLowerCase();
+  if(m.includes('price')||m.includes('cost')||m.includes('how much')||m.includes('rate'))return R.price();
+  if(m.includes('propert')||m.includes('stay')||m.includes('room')||m.includes('apartment')||m.includes('available'))return R.props();
+  if(m.includes('where')||m.includes('location')||m.includes('address'))return R.locs();
+  if(m.includes('cancel')||m.includes('refund')||m.includes('policy'))return R.cancel();
+  if(m.includes('check')||m.includes('time')||m.includes('arrive'))return R.checkin();
+  if(m.includes('wifi')||m.includes('internet')||m.includes('work'))return R.wifi();
+  if(m.includes('book')||m.includes('reserve'))return R.book();
+  return R.def();
+}
+function addMsg(t,type){const msgs=document.getElementById('chat-messages');const d=document.createElement('div');d.className='msg '+type;d.textContent=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
+function sendChat(){const i=document.getElementById('chat-input');const t=i.value.trim();if(!t)return;addMsg(t,'user');i.value='';document.getElementById('quick-replies').style.display='none';setTimeout(()=>addMsg(getReply(t),'bot'),650);}
+function quickReply(t){addMsg(t,'user');document.getElementById('quick-replies').style.display='none';setTimeout(()=>addMsg(getReply(t),'bot'),650);}
+function toggleChat(){document.getElementById('chatbot').classList.toggle('open');}
+
+// Nav
+function toggleMenu(){const ul=document.querySelector('.nav-links');ul.style.cssText=ul.style.display==='flex'?'':'display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--cream);padding:1rem 2rem;gap:1rem;border-bottom:1px solid var(--border);z-index:99;';}
+
+
+// ── REVIEWS DATA ─────────────────────────────────────────────
+// Add real reviews here. platform: 'airbnb' | 'booking' | 'agoda' | 'google' | 'tripadvisor'
+const REVIEWS = [
+  {
+    platform: 'airbnb',
+    property: 'MiaCasaHanoi',
+    rating: 5,
+    text: "Stayed in the Spring Room for 4 nights — the Boho design is exactly as shown in the photos. King bed, Netflix projector, private kitchenette and bathroom, all very clean. The host Linh is super responsive and gave great tips for food spots nearby. Loved the rooftop area for evening hangs. Will be back!",
+    name: "Sarah M.",
+    origin: "London, UK",
+    initials: "SM",
+    date: "March 2025"
+  },
+  {
+    platform: 'booking',
+    property: 'MiaCasaHanoi',
+    rating: 5,
+    text: "Charming townhouse with genuine Boho character. Each room has complete privacy — your own bathroom, kitchenette, and AC. 6-minute drive to Hoan Kiem Lake and very close to Train Street cafés. Self check-in is completely seamless. Exactly what you want from a Hanoi base.",
+    name: "Thomas B.",
+    origin: "Amsterdam, Netherlands",
+    initials: "TB",
+    date: "February 2025"
+  },
+  {
+    platform: 'airbnb',
+    property: 'MiaCasaOldQuarter',
+    rating: 5,
+    text: "This apartment is an absolute gem right in the Old Quarter! We were 5 friends and the three queen beds fit everyone perfectly. The 17m² balcony with BBQ was our favourite spot every evening. Steps from Tạ Hiện Street — you can walk to literally everything. The Netflix projector and white noise machine were brilliant touches.",
+    name: "Julia & Marc",
+    origin: "Paris, France",
+    initials: "JM",
+    date: "March 2025"
+  },
+  {
+    platform: 'agoda',
+    property: 'MiaCasaHanoi',
+    rating: 5,
+    text: "Stayed in the Summer Room for 5 nights and it felt like home from day one. Induction stove and full cooking equipment meant we could cook our own meals. The 24/7 laundry with free detergent was a huge plus for a longer stay. Fast WiFi, great AC, and a peaceful quiet alley despite being close to the city centre.",
+    name: "Kevin L.",
+    origin: "Sydney, Australia",
+    initials: "KL",
+    date: "February 2025"
+  },
+  {
+    platform: 'booking',
+    property: 'MiaCasaOldQuarter',
+    rating: 5,
+    text: "Perfect location for exploring Hanoi's Old Quarter. The apartment has a lovely loft bedroom upstairs and a spacious main room — great layout for our group. Big balcony is perfect for morning coffee. The keypad entry made midnight arrival stress-free. Host was helpful with restaurant recommendations in the area.",
+    name: "Anna R.",
+    origin: "Berlin, Germany",
+    initials: "AR",
+    date: "January 2025"
+  },
+  {
+    platform: 'airbnb',
+    property: 'MiaCasaHanoi',
+    rating: 5,
+    text: "The Autumn Room has such a warm, considered design — you can tell real thought went into every detail. Big windows with a green view, projector for Netflix, snacks in the mini fridge, and a rooftop terrace with darts and plants. Only 6 minutes to Hoan Kiem Lake by motorbike. Highly recommend for couples or solo travellers.",
+    name: "Mei L.",
+    origin: "Singapore",
+    initials: "ML",
+    date: "March 2025"
+  },
+  {
+    platform: 'agoda',
+    property: 'MiaCasaOldQuarter',
+    rating: 5,
+    text: "Stayed here while working remotely for 2 weeks. Fast WiFi, dedicated workspace, and the Old Quarter atmosphere makes it surprisingly productive. The fully equipped kitchen saved us money on meals. Linh was always quick to respond and genuinely helpful. Fair warning: there is some noise from Ta Hien Street at night — part of the charm!",
+    name: "James T.",
+    origin: "Toronto, Canada",
+    initials: "JT",
+    date: "February 2025"
+  },
+  {
+    platform: 'booking',
+    property: 'MiaCasaHanoi',
+    rating: 5,
+    text: "We took the whole house for a family trip — Spring, Summer and Autumn rooms all together. It worked beautifully. The rooftop is the highlight: BBQ, darts, plants, and a view of Hanoi's rooftops. Free motorbike parking on the ground floor and a shared kitchen. Pets are welcome too which was great for us!",
+    name: "Nguyen Family",
+    origin: "Ho Chi Minh City, Vietnam",
+    initials: "NF",
+    date: "December 2024"
+  },
+];
+
+const PLATFORM_LABELS = {
+  airbnb: 'Airbnb',
+  booking: 'Booking.com',
+  agoda: 'Agoda',
+  google: 'Google',
+  tripadvisor: 'Tripadvisor',
+};
+
+let reviewsShown = 6;
+let activeReviewFilter = 'all';
+
+function renderReviews() {
+  const filtered = activeReviewFilter === 'all'
+    ? REVIEWS
+    : REVIEWS.filter(r => r.platform === activeReviewFilter);
+  const grid = document.getElementById('reviews-grid');
+  grid.innerHTML = filtered.map((r, i) => `
+    <div class="testimonial-card reveal ${i>0?'d'+Math.min(i%3+1,3):''} ${i >= reviewsShown ? 'hidden-review' : ''}">
+      <div class="platform-tag ${r.platform}">${PLATFORM_LABELS[r.platform]}</div>
+      <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+      <p class="testimonial-text">"${r.text}"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">${r.initials}</div>
+        <div>
+          <div class="reviewer-name">${r.name}</div>
+          <div class="reviewer-meta">${r.origin} · ${r.property} · ${r.date}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  // Show/hide load more
+  document.getElementById('reviews-load-more').style.display =
+    filtered.length > reviewsShown ? 'block' : 'none';
+  // Re-observe new cards
+  document.querySelectorAll('.testimonial-card.reveal').forEach(el => obs.observe(el));
+}
+
+function loadMoreReviews() {
+  reviewsShown += 3;
+  renderReviews();
+}
+
+// Build platform filter buttons
+const rf = document.getElementById('reviews-filter');
+const platforms = ['all', ...new Set(REVIEWS.map(r => r.platform))];
+platforms.forEach(p => {
+  const btn = document.createElement('button');
+  btn.className = 'review-filter-btn' + (p === 'all' ? ' active' : '');
+  btn.textContent = p === 'all' ? 'All platforms' : PLATFORM_LABELS[p];
+  btn.onclick = () => {
+    document.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeReviewFilter = p;
+    reviewsShown = 6;
+    renderReviews();
+  };
+  rf.appendChild(btn);
+});
+
+renderReviews();
+// ─────────────────────────────────────────────────────────────
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Default dates
+const td2=new Date(),tm=new Date(td2);tm.setDate(tm.getDate()+1);
+document.getElementById('checkin').value=td2.toISOString().split('T')[0];
+document.getElementById('checkout').value=tm.toISOString().split('T')[0];
+
+/* ================================================================
+   PRICING ENGINE
+   ================================================================ */
+const SPECIAL_RANGES = [
+  // Tết 2025 & 2026
+  ['2025-01-28','2025-02-04'],['2026-02-16','2026-02-23'],['2027-02-06','2027-02-13'],
+  // Christmas to New Year
+  ['2024-12-24','2025-01-02'],['2025-12-24','2026-01-02'],['2026-12-24','2027-01-02'],
+  // Vietnam Independence Day week (around Sep 2)
+  ['2025-08-29','2025-09-05'],['2026-08-28','2026-09-04'],['2027-08-28','2027-09-04'],
+];
+function isSpecialDay(dateStr){
+  const d=new Date(dateStr);
+  for(const [s,e] of SPECIAL_RANGES){if(d>=new Date(s)&&d<=new Date(e))return true;}
+  return false;
+}
+function isWeekendNight(dateStr){
+  const day=new Date(dateStr).getDay();
+  return day===5||day===6; // Fri or Sat night
+}
+const MCH_RATES={weekday:750000,weekend:800000,special:900000};
+const MCOQ_RATES={weekday:1200000,weekend:1350000,special:1400000};
+const EXTRA_GUEST_FEE=100000;
+
+function nightRate(dateStr,propId){
+  const r=propId==='hanoi'?MCH_RATES:MCOQ_RATES;
+  if(isSpecialDay(dateStr))return r.special;
+  if(isWeekendNight(dateStr))return r.weekend;
+  return r.weekday;
+}
+function calcTotal(propId,checkIn,checkOut,guests){
+  const ci=new Date(checkIn),co=new Date(checkOut);
+  if(isNaN(ci)||isNaN(co)||co<=ci)return null;
+  let nights=0,baseTotal=0;
+  const d=new Date(ci);
+  while(d<co){
+    baseTotal+=nightRate(d.toISOString().slice(0,10),propId);
+    nights++;
+    d.setDate(d.getDate()+1);
+  }
+  let extra=0;
+  if(propId==='oldquarter'&&guests>2){extra=(guests-2)*EXTRA_GUEST_FEE*nights;}
+  return{nights,baseTotal,extra,total:baseTotal+extra};
+}
+function fmtVND(n){return n.toLocaleString('vi-VN')+'₫';}
+function fmtUSD(n){return '$'+(n/25000).toFixed(0);}
+
+/* ================================================================
+   BOOKING ID GENERATOR
+   ================================================================ */
+const ROOM_CODE={'Spring Room':'SPR','Summer Room':'SUM','Autumn Room':'AUT','Entire Apartment (3 king beds)':'OLQ'};
+const PROP_CODE={'hanoi':'MCH','oldquarter':'MCOQ'};
+function getBookingCounter(key){
+  const v=parseInt(localStorage.getItem('mia_ctr_'+key)||'0')+1;
+  localStorage.setItem('mia_ctr_'+key,v);
+  return v;
+}
+function makeBookingId(propId,room){
+  const pc=PROP_CODE[propId]||'MIA';
+  const rc=ROOM_CODE[room]||'GEN';
+  const n=getBookingCounter(pc+'_'+rc);
+  return pc+'-'+rc+'-'+String(n).padStart(4,'0');
+}
+
+/* ================================================================
+   BOOKING STORAGE (localStorage)
+   ================================================================ */
+function saveBooking(data){localStorage.setItem('mia_booking_'+data.bookingId,JSON.stringify(data));}
+function loadBooking(id){const v=localStorage.getItem('mia_booking_'+id.toUpperCase().trim());return v?JSON.parse(v):null;}
+
+/* ================================================================
+   GOOGLE SHEETS LOGGING
+   Sheet URL: https://docs.google.com/spreadsheets/d/1MEWkt1K6w0bVyxNrreVifgpYeyjO_hmHUp6AjD7OBUg/edit?gid=0#gid=0
+   Requires a deployed Google Apps Script Web App that accepts POST.
+   Paste your Web App URL in SHEETS_ENDPOINT below.
+   ================================================================ */
+const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec';
+
+async function logToSheets(data){
+  try{
+    await fetch(SHEETS_ENDPOINT,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        date:new Date().toISOString(),
+        bookingId:data.bookingId,
+        property:data.property,
+        room:data.room,
+        dates:data.checkIn+' to '+data.checkOut,
+        guests:data.guests,
+        amount:data.total
+      })
+    });
+  }catch(e){console.warn('Sheets log failed:',e);}
+}
+
+/* ================================================================
+   PRICE DISPLAY — injected into existing booking form area
+   ================================================================ */
+(function injectBookingUI(){
+  const bfw=document.querySelector('.booking-form-wrap');
+  if(!bfw)return;
+
+  // Remove old submit button row and old confirm msg
+  const oldBtn=bfw.querySelector('.btn-primary');
+  if(oldBtn&&oldBtn.parentNode)oldBtn.parentNode.remove();
+  const oldConfirm=document.getElementById('booking-confirm');
+  if(oldConfirm)oldConfirm.remove();
+
+  // Price summary box
+  const priceBox=document.createElement('div');
+  priceBox.id='mia-price-box';
+  priceBox.style.cssText='display:none;margin-top:1.5rem;background:var(--ink);color:white;border-radius:4px;padding:1.5rem;';
+  priceBox.innerHTML=`
+    <div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:4px 0;color:rgba(255,255,255,0.6);"><span>Property / Room</span><span id="ps-pr-val">—</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:0.84rem;padding:4px 0;color:rgba(255,255,255,0.6);"><span>Dates &amp; Nights</span><span id="ps-dates-val">—</span></div>
+    <div id="ps-extrarow" style="display:none;justify-content:space-between;font-size:0.84rem;padding:4px 0;color:rgba(255,255,255,0.6);"><span>Extra guests surcharge</span><span id="ps-extra-val">—</span></div>
+    <div style="display:flex;justify-content:space-between;font-size:1rem;font-weight:500;padding-top:10px;margin-top:8px;border-top:1px solid rgba(255,255,255,0.15);color:var(--sand);">
+      <span>Total</span><span id="ps-total-val">—</span>
+    </div>
+    <div style="font-size:0.7rem;color:rgba(255,255,255,0.38);margin-top:6px;">Booking ID: <span id="ps-bid">—</span></div>
+    <div style="margin-top:10px;font-size:0.75rem;color:rgba(255,255,255,0.45);">💡 Rates on this website are 10–15% cheaper than other booking platforms.</div>
+  `;
+  bfw.appendChild(priceBox);
+
+  // Payment section
+  const paySection=document.createElement('div');
+  paySection.id='mia-payment-section';
+  paySection.style.display='none';
+  paySection.innerHTML=`
+    <div style="margin-top:1.5rem;">
+      <div style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.85rem;">Payment method</div>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+        <button id="pay-tab-paypal" onclick="selectPayTab('paypal')" style="padding:0.6rem 1.2rem;border:1.5px solid var(--terracotta);background:var(--terracotta);color:white;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;">💳 PayPal</button>
+        <button id="pay-tab-vietqr" onclick="selectPayTab('vietqr')" style="padding:0.6rem 1.2rem;border:1.5px solid var(--border);background:transparent;color:var(--ink-light);border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;">🏦 VietQR Bank Transfer</button>
+      </div>
+      <div id="paypal-panel">
+        <button onclick="processPayPal()" style="background:#003087;color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.88rem;cursor:pointer;width:100%;letter-spacing:0.05em;">Pay with PayPal →</button>
+        <p style="font-size:0.75rem;color:var(--ink-light);margin-top:0.6rem;text-align:center;">You'll be redirected to PayPal to complete payment securely. PayPal will send confirmation emails automatically.</p>
+      </div>
+      <div id="vietqr-panel" style="display:none;">
+        <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:1.5rem;text-align:center;">
+          <p style="font-size:0.75rem;color:var(--ink-light);margin-bottom:1rem;">Scan with any Vietnamese banking app (MB Bank, Vietcombank, BIDV, etc.)</p>
+          <div id="qr-img" style="width:200px;height:200px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;background:var(--sand);border-radius:4px;font-size:0.76rem;color:var(--ink-light);">Generating QR…</div>
+          <div style="text-align:left;font-size:0.83rem;line-height:2;">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:3px 0;"><span style="color:var(--ink-light);">Bank</span><span style="font-weight:500;">Sacombank</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:3px 0;"><span style="color:var(--ink-light);">Account holder</span><span style="font-weight:500;">Bá Thị Bích Ngọc</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:3px 0;"><span style="color:var(--ink-light);">Account number</span><span style="font-weight:500;">021091408386</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:3px 0;"><span style="color:var(--ink-light);">SWIFT</span><span style="font-weight:500;">SGTTVNVXXXX</span></div>
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:3px 0;"><span style="color:var(--ink-light);">Amount (VND)</span><strong style="color:var(--terracotta);" id="qr-amount-display">—</strong></div>
+            <div style="display:flex;justify-content:space-between;padding:3px 0;"><span style="color:var(--ink-light);">Transfer reference</span><strong id="qr-ref-display">—</strong></div>
+          </div>
+          <button onclick="confirmVietQR()" style="margin-top:1.25rem;width:100%;background:var(--terracotta);color:white;border:none;padding:0.85rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.88rem;cursor:pointer;">I've completed the transfer →</button>
+        </div>
+      </div>
+      <div id="pay-error" style="display:none;margin-top:0.75rem;color:#8B2020;background:rgba(139,32,32,0.08);border-left:3px solid #8B2020;padding:0.6rem 0.85rem;font-size:0.84rem;border-radius:0 2px 2px 0;"></div>
+    </div>
+  `;
+  bfw.appendChild(paySection);
+
+  // Confirmation box
+  const confBox=document.createElement('div');
+  confBox.id='mia-confirm-box';
+  confBox.style.cssText='display:none;margin-top:1.5rem;background:rgba(122,158,126,0.1);border:1px solid rgba(122,158,126,0.4);border-radius:4px;padding:1.75rem;text-align:center;';
+  confBox.innerHTML=`
+    <div style="font-size:2rem;margin-bottom:0.75rem;">✓</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem;">Booking Confirmed!</div>
+    <div id="conf-bid" style="font-family:monospace;color:var(--terracotta);font-size:1rem;margin-bottom:1rem;"></div>
+    <div id="conf-details" style="text-align:left;font-size:0.86rem;line-height:2;max-width:360px;margin:0 auto;"></div>
+    <p style="font-size:0.78rem;color:var(--ink-light);margin-top:1rem;">Please keep your Booking ID — you'll need it to generate an invoice after check-out.</p>
+    <button onclick="resetBookingForm()" style="margin-top:1rem;background:var(--terracotta);color:white;border:none;padding:0.7rem 1.5rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;">Make another booking</button>
+  `;
+  bfw.appendChild(confBox);
+})();
+
+/* ================================================================
+   INJECT INVOICE SECTION — add after #testimonials section
+   ================================================================ */
+(function injectInvoiceSection(){
+  const testimonialsSection=document.getElementById('testimonials');
+  if(!testimonialsSection)return;
+  const invSection=document.createElement('section');
+  invSection.id='invoice';
+  invSection.style.background='var(--sand)';
+  invSection.innerHTML=`
+  <div class="container">
+    <div class="section-tag">Post-Stay</div>
+    <h2 class="section-title">Request an <em>invoice</em></h2>
+    <p class="section-sub">After check-out, enter your booking ID to generate and download your invoice.</p>
+    <div style="max-width:480px;">
+      <div class="form-group" style="margin-bottom:1rem;"><label>Booking ID</label><input type="text" id="inv-input-id" placeholder="e.g. MCH-SPR-0001" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="form-group" style="margin-bottom:1rem;"><label>Email used at booking</label><input type="email" id="inv-input-email" placeholder="your@email.com"></div>
+      <button onclick="generateInvoice()" style="background:var(--terracotta);color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">Generate Invoice →</button>
+      <div id="inv-error" style="display:none;margin-top:0.75rem;color:#8B2020;background:rgba(139,32,32,0.08);border-left:3px solid #8B2020;padding:0.6rem 0.85rem;font-size:0.84rem;border-radius:0 2px 2px 0;"></div>
+    </div>
+    <div id="invoice-output" style="display:none;margin-top:2.5rem;max-width:520px;">
+      <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:2rem;" id="invoice-print-area">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terracotta);">MiaCasa Homestays</div>
+            <div style="font-size:0.78rem;color:var(--ink-light);margin-top:4px;">Hanoi, Vietnam · miacasahanoi@gmail.com</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);">INVOICE</div>
+            <div style="font-family:monospace;font-size:0.88rem;color:var(--terracotta);" id="inv-out-id">—</div>
+            <div style="font-size:0.76rem;color:var(--ink-light);" id="inv-out-date">—</div>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Guest name</td><td style="text-align:right;padding:6px 0;" id="inv-out-name">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Email</td><td style="text-align:right;padding:6px 0;" id="inv-out-email">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Property</td><td style="text-align:right;padding:6px 0;" id="inv-out-prop">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Room</td><td style="text-align:right;padding:6px 0;" id="inv-out-room">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Check-in</td><td style="text-align:right;padding:6px 0;" id="inv-out-ci">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Check-out</td><td style="text-align:right;padding:6px 0;" id="inv-out-co">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Nights</td><td style="text-align:right;padding:6px 0;" id="inv-out-nights">—</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:6px 0;color:var(--ink-light);">Guests</td><td style="text-align:right;padding:6px 0;" id="inv-out-guests">—</td></tr>
+          <tr><td style="padding:10px 0;font-weight:500;font-size:0.95rem;">Total paid</td><td style="text-align:right;padding:10px 0;font-weight:500;color:var(--terracotta);font-size:0.95rem;" id="inv-out-total">—</td></tr>
+        </table>
+        <p style="font-size:0.76rem;color:var(--ink-light);margin-top:1.25rem;">Thank you for staying with us. We hope to welcome you back!</p>
+      </div>
+      <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <button onclick="window.print()" style="background:var(--terracotta);color:white;border:none;padding:0.7rem 1.5rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;">Print / Save PDF</button>
+        <button onclick="document.getElementById('invoice-output').style.display='none';" style="background:transparent;color:var(--ink-light);border:1px solid var(--border);padding:0.7rem 1.5rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+  `;
+  testimonialsSection.insertAdjacentElement('afterend',invSection);
+})();
+
+/* ================================================================
+   PRICE UPDATER — watches booking form inputs
+   ================================================================ */
+let currentBookingId='';
+let selectedPayTab='paypal';
+
+function updatePriceDisplay(){
+  const propId=activeProp;
+  const room=document.getElementById('room-type-sel').value;
+  const ci=document.getElementById('checkin').value;
+  const co=document.getElementById('checkout').value;
+  const guestVal=document.getElementById('guests-sel').value;
+  const guests=parseInt(guestVal)||1;
+
+  const priceBox=document.getElementById('mia-price-box');
+  const paySection=document.getElementById('mia-payment-section');
+  if(!ci||!co||!room){
+    if(priceBox)priceBox.style.display='none';
+    if(paySection)paySection.style.display='none';
+    return;
+  }
+  const result=calcTotal(propId,ci,co,guests);
+  if(!result){
+    if(priceBox)priceBox.style.display='none';
+    if(paySection)paySection.style.display='none';
+    return;
+  }
+  currentBookingId=makeBookingId(propId,room);
+  const propName=PROPERTIES.find(p=>p.id===propId)?.name||propId;
+  document.getElementById('ps-pr-val').textContent=propName+' · '+room;
+  document.getElementById('ps-dates-val').textContent=ci+' → '+co+' ('+result.nights+' night'+(result.nights>1?'s':'')+')';
+  const extraRow=document.getElementById('ps-extrarow');
+  if(result.extra>0){
+    extraRow.style.display='flex';
+    document.getElementById('ps-extra-val').textContent=fmtVND(result.extra)+' (~'+fmtUSD(result.extra)+')';
+  }else{extraRow.style.display='none';}
+  document.getElementById('ps-total-val').textContent=fmtVND(result.total)+' (~'+fmtUSD(result.total)+')';
+  document.getElementById('ps-bid').textContent=currentBookingId;
+  if(priceBox)priceBox.style.display='block';
+  if(paySection)paySection.style.display='block';
+  // Update QR
+  const qrAmtEl=document.getElementById('qr-amount-display');
+  const qrRefEl=document.getElementById('qr-ref-display');
+  if(qrAmtEl)qrAmtEl.textContent=fmtVND(result.total);
+  if(qrRefEl)qrRefEl.textContent=currentBookingId;
+  // Generate VietQR
+  const qrImg=document.getElementById('qr-img');
+  if(qrImg){
+    const qrUrl=`https://img.vietqr.io/image/SACOMBANK-021091408386-compact2.png?amount=${result.total}&addInfo=${encodeURIComponent(currentBookingId)}&accountName=Ba%20Thi%20Bich%20Ngoc`;
+    qrImg.innerHTML=`<img src="${qrUrl}" style="width:200px;height:200px;border-radius:4px;" alt="VietQR" onerror="this.parentElement.innerHTML='<span style=\\'font-size:0.76rem;color:var(--ink-light);\\'>QR unavailable.<br>Use bank details below.</span>'">`;
+  }
+}
+
+// Hook into existing form inputs
+['checkin','checkout','guests-sel','room-type-sel'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.addEventListener('change',updatePriceDisplay);
+});
+// Also hook selectProp so price updates when property changes
+const _origSelectProp=selectProp;
+selectProp=function(id){
+  _origSelectProp(id);
+  setTimeout(updatePriceDisplay,50);
+};
+
+function selectPayTab(type){
+  selectedPayTab=type;
+  const pp=document.getElementById('paypal-panel');
+  const vp=document.getElementById('vietqr-panel');
+  const tpp=document.getElementById('pay-tab-paypal');
+  const tvp=document.getElementById('pay-tab-vietqr');
+  if(pp)pp.style.display=type==='paypal'?'block':'none';
+  if(vp)vp.style.display=type==='vietqr'?'block':'none';
+  if(tpp){tpp.style.background=type==='paypal'?'var(--terracotta)':'transparent';tpp.style.color=type==='paypal'?'white':'var(--ink-light)';tpp.style.borderColor=type==='paypal'?'var(--terracotta)':'var(--border)';}
+  if(tvp){tvp.style.background=type==='vietqr'?'var(--terracotta)':'transparent';tvp.style.color=type==='vietqr'?'white':'var(--ink-light)';tvp.style.borderColor=type==='vietqr'?'var(--terracotta)':'var(--border)';}
+}
+
+function collectBookingData(){
+  const propId=activeProp;
+  const propName=PROPERTIES.find(p=>p.id===propId)?.name||propId;
+  const room=document.getElementById('room-type-sel').value;
+  const ci=document.getElementById('checkin').value;
+  const co=document.getElementById('checkout').value;
+  const guests=parseInt(document.getElementById('guests-sel').value)||1;
+  const result=calcTotal(propId,ci,co,guests);
+  const guestName=(document.getElementById('guest-name')?.value||'').trim();
+  const guestEmail=(document.getElementById('guest-email')?.value||'').trim();
+  return{bookingId:currentBookingId,property:propName,room,checkIn:ci,checkOut:co,guests,nights:result?result.nights:0,total:result?result.total:0,guestName,guestEmail,bookedAt:new Date().toISOString(),paymentMethod:selectedPayTab};
+}
+
+function validateBookingForm(){
+  const ci=document.getElementById('checkin').value;
+  const co=document.getElementById('checkout').value;
+  const name=(document.getElementById('guest-name')?.value||'').trim();
+  const email=(document.getElementById('guest-email')?.value||'').trim();
+  if(!ci||!co)return'Please select check-in and check-out dates.';
+  if(new Date(co)<=new Date(ci))return'Check-out must be after check-in.';
+  if(!document.getElementById('room-type-sel').value)return'Please select a room.';
+  if(!name)return'Please enter your full name.';
+  if(!email||!email.includes('@'))return'Please enter a valid email address.';
+  return null;
+}
+
+function showPayError(msg){const el=document.getElementById('pay-error');if(el){el.textContent=msg;el.style.display='block';}}
+function hidePayError(){const el=document.getElementById('pay-error');if(el)el.style.display='none';}
+
+function processPayPal(){
+  hidePayError();
+  const err=validateBookingForm();
+  if(err){showPayError(err);return;}
+  const data=collectBookingData();
+  saveBooking(data);
+  logToSheets(data);
+  // Build PayPal URL — PayPal handles email confirmations to guest and owner
+  const itemName=encodeURIComponent(data.property+' – '+data.room);
+  const desc=encodeURIComponent('Dates: '+data.checkIn+'–'+data.checkOut+' | Guests: '+data.guests+' | Booking ID: '+data.bookingId);
+  const usdAmt=(data.total/25000).toFixed(2);
+  const retUrl=encodeURIComponent(window.location.href.split('?')[0]+'?booking='+data.bookingId+'&paid=1');
+  const cancelUrl=encodeURIComponent(window.location.href.split('?')[0]+'?booking='+data.bookingId+'&paid=0');
+  const ppUrl=`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi%40gmail.com&item_name=${itemName}&custom=${encodeURIComponent(data.bookingId)}&amount=${usdAmt}&currency_code=USD&return=${retUrl}&cancel_return=${cancelUrl}&on1=Booking+ID&os1=${encodeURIComponent(data.bookingId)}&on2=Description&os2=${desc}&no_shipping=1`;
+  window.open(ppUrl,'_blank');
+  // Show confirmation immediately (payment handled in new tab)
+  showBookingConfirmation(data);
+}
+
+function confirmVietQR(){
+  hidePayError();
+  const err=validateBookingForm();
+  if(err){showPayError(err);return;}
+  const data=collectBookingData();
+  saveBooking(data);
+  logToSheets(data);
+  showBookingConfirmation(data);
+}
+
+function showBookingConfirmation(data){
+  const paySection=document.getElementById('mia-payment-section');
+  const priceBox=document.getElementById('mia-price-box');
+  const confBox=document.getElementById('mia-confirm-box');
+  if(paySection)paySection.style.display='none';
+  if(priceBox)priceBox.style.display='none';
+  if(confBox){
+    confBox.style.display='block';
+    document.getElementById('conf-bid').textContent='Booking ID: '+data.bookingId;
+    document.getElementById('conf-details').innerHTML=
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Property</span><span>'+data.property+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Room</span><span>'+data.room+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Check-in</span><span>'+data.checkIn+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Check-out</span><span>'+data.checkOut+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Guests</span><span>'+data.guests+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;padding:4px 0;font-weight:500;"><span>Total</span><span style="color:var(--terracotta);">'+fmtVND(data.total)+' (~'+fmtUSD(data.total)+')</span></div>';
+  }
+}
+
+function resetBookingForm(){
+  const confBox=document.getElementById('mia-confirm-box');
+  const priceBox=document.getElementById('mia-price-box');
+  const paySection=document.getElementById('mia-payment-section');
+  if(confBox)confBox.style.display='none';
+  if(priceBox)priceBox.style.display='none';
+  if(paySection)paySection.style.display='none';
+  const gn=document.getElementById('guest-name');if(gn)gn.value='';
+  const ge=document.getElementById('guest-email');if(ge)ge.value='';
+  document.getElementById('checkin').value='';
+  document.getElementById('checkout').value='';
+}
+
+/* ================================================================
+   INVOICE GENERATOR
+   ================================================================ */
+<script>
+async function generateInvoice() {
+
+  const bookingId = document.getElementById("inv-input-id").value.trim();
+  const email = document.getElementById("inv-input-email").value.trim().toLowerCase();
+
+  const errorBox = document.getElementById("inv-error");
+  const outputBox = document.getElementById("invoice-output");
+
+  errorBox.style.display = "none";
+  errorBox.textContent = "";
+  outputBox.style.display = "none";
+
+  if (!bookingId) {
+    errorBox.style.display = "block";
+    errorBox.textContent = "Please enter your booking ID.";
+    return;
+  }
+
+  if (!email) {
+    errorBox.style.display = "block";
+    errorBox.textContent = "Please enter your email.";
+    return;
+  }
+
+  // Show loading state
+  errorBox.style.display = "block";
+  errorBox.style.color = "#555";
+  errorBox.textContent = "Processing your request...";
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "getInvoice",
+        bookingId: bookingId,
+        email: email
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      errorBox.style.color = "green";
+      errorBox.textContent = "✅ Invoice has been sent to your email.";
+    } else {
+      errorBox.style.color = "#8B2020";
+      errorBox.textContent = result.message;
+    }
+
+  } catch (err) {
+    errorBox.style.color = "#8B2020";
+    errorBox.textContent = "Something went wrong. Please try again.";
+  }
+}
+</script>
+
+/* ================================================================
+   HANDLE RETURN FROM PAYPAL
+   ================================================================ */
+(function handlePayPalReturn(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('paid')==='1'){
+    const bid=params.get('booking');
+    if(bid){
+      const data=loadBooking(bid);
+      if(data){
+        // Scroll to booking section and show confirmation
+        setTimeout(()=>{
+          document.getElementById('booking')?.scrollIntoView({behavior:'smooth'});
+          showBookingConfirmation(data);
+        },500);
+      }
+    }
+  }
+})();
+
+/* ================================================================
+   UPDATE PRICING-NOTE to reflect direct booking savings
+   ================================================================ */
+(function(){
+  const pn=document.getElementById('pricing-note');
+  if(pn)pn.innerHTML='💡 <strong>Book direct &amp; save 10–15%</strong> — Rates on this website are cheaper than Airbnb, Booking.com, Agoda and other platforms. Prices are calculated automatically when you select your dates.';
+})();
+
+/* ================================================================
+   UPDATE CONTACT RESPONSE TIME
+   ================================================================ */
+(function(){
+  document.querySelectorAll('.contact-item-text').forEach(el=>{
+    if(el.textContent.includes('Response time')||el.textContent.includes('Within 2 hours')){
+      const strong=el.querySelector('strong');
+      if(strong)strong.textContent='Response time';
+      el.innerHTML=(strong?strong.outerHTML:'<strong>Response time</strong>')+'Within 2 hours (7am–10pm Vietnam time) · Within 4 hours outside that window';
+    }
+  });
+  // Also update chatbot response reference
+})();
+
+</script>
+<style>
+@media print{nav,footer,.chatbot-fab,.chatbot-window,#booking,#availability,#gallery,#amenities,#rules,#testimonials,#contact,#properties,.hero{display:none!important;}#invoice{display:block!important;}.section-tag,.section-sub,.section-title{display:none!important;}}
+</style>
+<script>
+let slideIndexMap = {};
+
+function moveSlide(direction, sliderId) {
+  const slider = document.getElementById(sliderId);
+  const slides = slider.querySelector(".slides");
+  const totalSlides = slides.children.length;
+
+  if (!slideIndexMap[sliderId]) slideIndexMap[sliderId] = 0;
+
+  slideIndexMap[sliderId] += direction;
+
+  if (slideIndexMap[sliderId] < 0) slideIndexMap[sliderId] = totalSlides - 1;
+  if (slideIndexMap[sliderId] >= totalSlides) slideIndexMap[sliderId] = 0;
+
+  slides.style.transform = `translateX(-${slideIndexMap[sliderId] * 100}%)`;
+}
+
+// Lightbox
+function openLightbox(el) {
+  const bg = el.style.backgroundImage;
+  const url = bg.slice(5, -2);
+
+  document.getElementById("lightbox-img").src = url;
+  document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+document.querySelectorAll('.slider').forEach(slider => {
+  let startX = 0;
+
+  slider.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+
+  slider.addEventListener('touchend', e => {
+    let endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 50) moveSlide(1, slider.id);
+    if (endX - startX > 50) moveSlide(-1, slider.id);
+  });
+});
+</script>
+</body>
+</html>
