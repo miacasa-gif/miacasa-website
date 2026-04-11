@@ -1484,25 +1484,22 @@ async function processPayPal() {
   console.log("🚀 PayPal flow started");
 
   try {
-    const propertyEl = document.getElementById("property");
-    const roomEl = document.getElementById("room");
-    const checkInEl = document.getElementById("checkin");
-    const checkOutEl = document.getElementById("checkout");
-    const guestsEl = document.getElementById("guests");
-    const nameEl = document.getElementById("guestName");
-    const emailEl = document.getElementById("guestEmail");
+    const room = document.getElementById("room-type-sel").value;
+    const checkIn = document.getElementById("checkin").value;
+    const checkOut = document.getElementById("checkout").value;
+    const guests = document.getElementById("guests-sel").value;
+    const guestName = document.getElementById("guest-name").value;
+    const guestEmail = document.getElementById("guest-email").value;
 
-    if (!propertyEl || !roomEl || !checkInEl || !checkOutEl || !nameEl || !emailEl) {
-      throw new Error("Form elements not found. Check input IDs.");
+    if (!room || !checkIn || !checkOut || !guestName || !guestEmail) {
+      throw new Error("Please fill all required fields.");
     }
 
-    const property = propertyEl.value;
-    const room = roomEl.value;
-    const checkIn = checkInEl.value;
-    const checkOut = checkOutEl.value;
-    const guests = guestsEl?.value || 1;
-    const guestName = nameEl.value;
-    const guestEmail = emailEl.value;
+    // 🔹 Infer property from room
+    let property = "MiaCasaHanoi";
+    if (room.toLowerCase().includes("old")) {
+      property = "MiaCasaOldQuarter";
+    }
 
     if (!currentBookingId) {
       throw new Error("Booking ID not generated yet.");
@@ -1533,9 +1530,10 @@ async function processPayPal() {
     console.log("📡 Response:", res);
 
     if (!res || res.status !== "ok") {
-      throw new Error("API failed");
+      throw new Error("Failed to save booking");
     }
 
+    // 🔹 Open PayPal
     const amountUSD = (amount / 25000).toFixed(2);
 
     const paypalLink =
@@ -1547,7 +1545,7 @@ async function processPayPal() {
 
     window.open(paypalLink, "_blank");
 
-    alert("Booking created! Complete payment on PayPal.");
+    alert("Booking created! Please complete payment on PayPal.");
 
   } catch (err) {
     console.error("❌ FULL ERROR:", err);
