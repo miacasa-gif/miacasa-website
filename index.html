@@ -1478,23 +1478,36 @@ function validateBookingForm(){
 function showPayError(msg){const el=document.getElementById('pay-error');if(el){el.textContent=msg;el.style.display='block';}}
 function hidePayError(){const el=document.getElementById('pay-error');if(el)el.style.display='none';}
 
-function processPayPal(){
-  hidePayError();
-  const err=validateBookingForm();
-  if(err){showPayError(err);return;}
-  const data=collectBookingData();
-  saveBooking(data);
-  logToSheets(data);
-  // Build PayPal URL — PayPal handles email confirmations to guest and owner
-  const itemName=encodeURIComponent(data.property+' – '+data.room);
-  const desc=encodeURIComponent('Dates: '+data.checkIn+'–'+data.checkOut+' | Guests: '+data.guests+' | Booking ID: '+data.bookingId);
-  const usdAmt=(data.total/25000).toFixed(2);
-  const retUrl=encodeURIComponent(window.location.href.split('?')[0]+'?booking='+data.bookingId+'&paid=1');
-  const cancelUrl=encodeURIComponent(window.location.href.split('?')[0]+'?booking='+data.bookingId+'&paid=0');
-  const ppUrl=`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi%40gmail.com&item_name=${itemName}&custom=${encodeURIComponent(data.bookingId)}&amount=${usdAmt}&currency_code=USD&return=${retUrl}&cancel_return=${cancelUrl}&on1=Booking+ID&os1=${encodeURIComponent(data.bookingId)}&on2=Description&os2=${desc}&no_shipping=1`;
-  window.open(ppUrl,'_blank');
-  // Show confirmation immediately (payment handled in new tab)
-  showBookingConfirmation(data);
+async function processPayPal() {
+
+  console.log("🚀 PayPal flow started");
+
+  const payload = buildBookingPayload(); // your existing data builder
+
+  // 1️⃣ Save booking FIRST
+  const res = await callSheetsAPI(payload);
+
+  console.log("Response from Apps Script:", res);
+
+  if (res.status !== "ok") {
+    alert("Booking failed. Please try again.");
+    return;
+  }
+
+  // 2️⃣ Open PayPal
+  const amountUSD = payload.amount / 25000;
+
+  const paypalLink =
+    `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick` +
+    `&business=miacasahanoi@gmail.com` +
+    `&amount=${amountUSD}` +
+    `&currency_code=USD` +
+    `&item_name=${payload.bookingId}`;
+
+  window.open(paypalLink, "_blank");
+
+  // 3️⃣ Show confirmation (PENDING)
+  showPendingConfirmation(payload);
 }
 
 function confirmVietQR(){
