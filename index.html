@@ -1479,9 +1479,72 @@ function validateBookingForm(){
 function showPayError(msg){const el=document.getElementById('pay-error');if(el){el.textContent=msg;el.style.display='block';}}
 function hidePayError(){const el=document.getElementById('pay-error');if(el)el.style.display='none';}
 
-function processPayPal() {
-  console.log("🔥 PayPal clicked");
-  alert("PayPal triggered");
+async function processPayPal() {
+
+  console.log("🚀 PayPal flow started");
+
+  try {
+    // 🔹 Collect form values (adjust IDs if needed)
+    const property = document.getElementById("property").value;
+    const room = document.getElementById("room").value;
+    const checkIn = document.getElementById("checkin").value;
+    const checkOut = document.getElementById("checkout").value;
+    const guests = document.getElementById("guests").value;
+    const guestName = document.getElementById("guestName").value;
+    const guestEmail = document.getElementById("guestEmail").value;
+
+    const nights = calculateNights(checkIn, checkOut);
+    const amount = calculateAmount(property, room, checkIn, checkOut);
+
+    const bookingId = currentBookingId;
+
+    // 🔹 Build payload
+    const payload = {
+      bookingId,
+      property,
+      room,
+      checkIn,
+      checkOut,
+      nights,
+      guests,
+      amount,
+      guestName,
+      guestEmail,
+      paymentMethod: "paypal",
+      bookedAt: new Date().toISOString()
+    };
+
+    console.log("📦 Payload:", payload);
+
+    // 🔹 Send to Google Sheets
+    const res = await callSheetsAPI(payload);
+
+    console.log("📡 Response from Apps Script:", res);
+
+    if (res.status !== "ok") {
+      alert("Booking failed. Please try again.");
+      return;
+    }
+
+    // 🔹 Open PayPal
+    const amountUSD = (amount / 25000).toFixed(2);
+
+    const paypalLink =
+      `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick` +
+      `&business=miacasahanoi@gmail.com` +
+      `&amount=${amountUSD}` +
+      `&currency_code=USD` +
+      `&item_name=${bookingId}`;
+
+    window.open(paypalLink, "_blank");
+
+    // 🔹 Show pending confirmation
+    alert("Booking created! Please complete payment on PayPal.");
+
+  } catch (err) {
+    console.error("❌ Error:", err);
+    alert("Something went wrong. Please try again.");
+  }
 }
   
 /*async function processPayPal() {
