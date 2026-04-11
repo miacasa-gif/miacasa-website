@@ -6,61 +6,6 @@
 <title>MiaCasa Homestays — Hanoi</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/* Slider */
-.slider {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-}
-
-.slides {
-  display: flex;
-  transition: transform 0.4s ease;
-}
-
-.slide {
-  min-width: 100%;
-  height: 260px;
-  background-size: cover;
-  background-position: center;
-  cursor: pointer;
-}
-
-/* Arrows */
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.4);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
-
-/* Lightbox */
-.lightbox {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background:black;
-  justify-content: center;
-  align-items: center;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-}
 :root{--sand:#f5efe6;--sand-dark:#e8ddd0;--terracotta:#c17a5a;--terracotta-dark:#9e5f3f;--sage:#7a9e7e;--sage-light:#b5cdb8;--cream:#faf6f0;--ink:#2c2416;--ink-light:#6b5c47;--warm-white:#fffdf9;--border:rgba(193,122,90,0.2);}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -254,24 +199,6 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .prop-notice{font-size:0.78rem;color:var(--ink-light);background:var(--sand);border-left:3px solid var(--terracotta);padding:0.6rem 0.85rem;border-radius:0 2px 2px 0;margin-bottom:1rem;line-height:1.6;}
 .reviews-load-more{text-align:center;margin-top:2.5rem;}
 .hidden-review{display:none;}
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.gallery img {
-  width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.hero-img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
 </style>
 </head>
 <body>
@@ -291,10 +218,6 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img">
-</div>
-
 <section class="hero" id="home">
   <div class="hero-left">
     <div class="hero-tag">Hanoi, Vietnam</div>
@@ -307,20 +230,10 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   </div>
   <div class="hero-right">
     <div class="hero-mosaic">
-
-  <div class="mosaic-cell tall">
-    <div class="img" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6634_pwmg8r.jpg');"></div>
-  </div>
-
-  <div class="mosaic-cell">
-    <div class="img" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg');"></div>
-  </div>
-
-  <div class="mosaic-cell">
-    <div class="img" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6640_a9lvq8.jpg');"></div>
-  </div>
-
-</div>
+      <div class="mosaic-cell tall"><img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6634_pwmg8r.jpg" alt="MiaCasaHanoi" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="MiaCasaOldQuarter" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+    </div>
     <div class="hero-badge"><p>Rated across Airbnb &amp; Booking.com</p><strong>★ 4.9 — 200+ Happy Guests</strong></div>
   </div>
 </section>
@@ -347,7 +260,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
       <div class="form-group"><label>Email</label><input type="email" id="guest-email" placeholder="your@email.com"></div>
     </div>
     <div class="pricing-note" id="pricing-note"></div>
-    <div style="margin-top:1.5rem;"><button class="btn-primary" onclick="submitBooking()">Request Booking →</button></div>
+    <div id="old-submit-row" style="margin-top:1.5rem;"><button class="btn-primary" onclick="submitBooking()">Request Booking →</button></div>
     <div class="confirm-msg" id="booking-confirm">✓ Booking request received! We'll confirm within 2 hours.</div>
 
   </div>
@@ -368,22 +281,6 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   <p class="section-sub">Handcrafted spaces designed to feel lived-in, layered, and effortlessly beautiful.</p>
   <div class="gallery-filter" id="gallery-filter"></div>
   <div class="gallery-grid" id="gallery-grid"></div>
-<div class="slider" id="slider1">
-  <div class="slides">
-
-    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg')" onclick="openLightbox(this)"></div>
-
-    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6640_a9lvq8.jpg')" onclick="openLightbox(this)"></div>
-
-    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638541/DSC_6891_tdrw6z.jpg')" onclick="openLightbox(this)"></div>
-
-    <div class="slide" style="background-image:url('https://res.cloudinary.com/dczfocztf/image/upload/v1775638546/DSC_6843_yayzw9.jpg')" onclick="openLightbox(this)"></div>
-
-  </div>
-
-  <button class="slider-btn prev" onclick="moveSlide(-1, 'slider1')">‹</button>
-  <button class="slider-btn next" onclick="moveSlide(1, 'slider1')">›</button>
-</div>
 </div></section>
 
 <section id="amenities"><div class="container">
@@ -399,11 +296,11 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   <h2 class="section-title">A few things to <em>keep in mind</em></h2>
   <p class="section-sub">To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.</p>
   <div class="rules-grid">
-    <div class="rule-card reveal"><div class="rule-icon g">🕐</div><div class="rule-title">Check-in / Check-out</div><ul class="rule-list"><li>Check-in from 2:00 PM (self check-in)</li><li>Check-out by 11:00 AM</li><li>Early/late check-in available on request</li><li>Free luggage storage</li></ul></div>
+    <div class="rule-card reveal"><div class="rule-icon g">🕐</div><div class="rule-title">Check-in / Check-out</div><ul class="rule-list"><li>Check-in from 2:00 PM (self check-in)</li><li>MiaCasaHanoi: check-out by 12:00 PM (noon)</li><li>MiaCasaOldQuarter: check-out by 11:00 AM</li><li>Early/late check-in available on request</li><li>Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge</li></ul></div>
     <div class="rule-card reveal d1"><div class="rule-icon g">🤫</div><div class="rule-title">Noise &amp; Guests</div><ul class="rule-list"><li>Quiet hours 10:00 PM – 7:00 AM</li><li>No unregistered overnight guests</li><li>Be mindful of neighbours</li><li>Groups of 4+ need prior notice</li></ul></div>
-    <div class="rule-card reveal d2"><div class="rule-icon r">🚭</div><div class="rule-title">Smoking &amp; Pets</div><ul class="rule-list"><li>No smoking indoors</li><li>Balcony/terrace smoking only</li><li>No pets allowed</li><li>Candles permitted with care</li></ul></div>
+    <div class="rule-card reveal d2"><div class="rule-icon g">🐾</div><div class="rule-title">Smoking &amp; Pets</div><ul class="rule-list"><li>No smoking indoors</li><li>Balcony/terrace smoking only</li><li>Pets welcome — additional charge applies, please inform the host in advance</li><li>Candles permitted with care</li></ul></div>
     <div class="rule-card reveal d3"><div class="rule-icon g">🏠</div><div class="rule-title">Property Care</div><ul class="rule-list"><li>Treat the space as your own home</li><li>Report damages promptly</li><li>No shoes inside — slippers provided</li><li>Use designated rubbish bins</li></ul></div>
-    <div class="rule-card reveal"><div class="rule-icon g">💳</div><div class="rule-title">Payments &amp; Cancellation</div><ul class="rule-list"><li>50% deposit at booking</li><li>Free cancellation up to 48h prior</li><li>Cash (VND/USD), bank transfer, PayPal</li><li>Security deposit for long stays</li></ul></div>
+    <div class="rule-card reveal"><div class="rule-icon g">💳</div><div class="rule-title">Payments &amp; Cancellation</div><ul class="rule-list"><li>Free cancellation up to 48h prior</li><li>Bank transfer or PayPal accepted</li><li>Security deposit for long stays</li></ul></div>
     <div class="rule-card reveal d1"><div class="rule-icon g">🌿</div><div class="rule-title">Eco Guidelines</div><ul class="rule-list"><li>Turn off A/C when leaving</li><li>Reusable water bottles provided</li><li>We avoid single-use plastics</li><li>Towel reuse encouraged</li></ul></div>
   </div>
 </div></section>
@@ -429,7 +326,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
       <div class="contact-items" id="contact-locations"></div>
       <div style="margin-top:1.5rem;" class="contact-items">
         <div class="contact-item"><div class="contact-item-icon">📱</div><div class="contact-item-text"><strong>WhatsApp / Phone</strong><a href="https://wa.me/84869922261" target="_blank" style="color:var(--terracotta);text-decoration:none;">+84 869 922 261</a></div></div>
-        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong>Email</strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2aaa7aeaead82afaba3a1a3b1a3aaa3acadabeca1adaf">[email&#160;protected]</a></div></div>
+        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong>Email</strong><a href="mailto:miacasahanoi@gmail.com" style="color:var(--terracotta);text-decoration:none;">miacasahanoi@gmail.com</a></div></div>
         <div class="contact-item"><div class="contact-item-icon">🕐</div><div class="contact-item-text"><strong>Response time</strong>Within 2 hours · 7am – 10pm ICT</div></div>
       </div>
     </div>
@@ -457,7 +354,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <div class="footer-col"><h4>Information</h4><ul><li><a href="#amenities">Amenities</a></li><li><a href="#rules">House Rules</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#testimonials">Reviews</a></li></ul></div>
     <div class="footer-col"><h4>Also on</h4><ul><li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li><li><a href="https://www.airbnb.co.in/rooms/1444661721704448383" target="_blank">Airbnb – MiaCasaOldQuarter</a></li><li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li><li><a href="https://www.booking.com/hotel/vn/miacasaoldquarter.html" target="_blank">Booking.com – MiaCasaOldQuarter</a></li><li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li><li><a href="https://www.agoda.com/en-in/miacasaoldquarter/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaOldQuarter</a></li><li><a href="https://dayladau.com/listings/lsbkvoicpe" target="_blank">Dayladau – MiaCasaHanoi</a></li></ul></div>
   </div>
-  <div class="footer-bottom"><span>© 2025 MiaCasa Hanoi. All rights reserved.</span><span style="color:rgba(255,255,255,0.25);">Made with ♡ in Hanoi</span></div>
+  <div class="footer-bottom"><span>© 2025 MiaCasa Homestays. All rights reserved.</span><span style="color:rgba(255,255,255,0.25);">Made with ♡ in Hanoi</span></div>
 </div></footer>
 
 <button class="chatbot-fab" onclick="toggleChat()">💬</button>
@@ -481,7 +378,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ================================================================
    PROPERTIES DATA  ─  Add a new property here. Everything else
    on the page (cards, booking, calendar, gallery, amenities,
@@ -494,10 +391,11 @@ const PROPERTIES = [
     badge: 'Rooms with Kitchenette',
     location: '92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội',
     desc: 'Three private boho rooms — Spring, Summer, and Autumn — each with attached bathroom and kitchenette. A quiet, characterful retreat in a local neighbourhood, perfect for solo travellers, couples, and digital nomads.',
-    maxGuests: 2,
-    guestNote: 'Max 2 guests (or 2 adults + 1 child)',
+    maxGuests: 8,
+    guestNote: 'Max 8 guests (entire house: all 3 rooms)',
     rating: '4.9',
-    priceNote: 'From 750,000₫ (~$30 USD) / night per room',
+    priceNote: 'From 750,000₫ (~$30 USD) / room / night · Up to 8 guests across all 3 rooms',
+    heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6634_pwmg8r.jpg',
     color: '#d4b896', color2: '#a07850',
     rooms: ['Spring Room', 'Summer Room', 'Autumn Room'],
     highlights: ['Quiet & cozy, away from busy streets','Beautiful minimal boho interiors','Ensuite bathroom + kitchenette in every room','Café right downstairs for your morning coffee','Friendly host who genuinely cares'],
@@ -508,14 +406,22 @@ const PROPERTIES = [
       {icon:'❄️',name:'Air conditioning & fan',sub:'Climate control in every room'},
       {icon:'📶',name:'High-speed WiFi',sub:'100 Mbps — great for remote work'},
       {icon:'☕',name:'Café downstairs',sub:'Your daily coffee ritual sorted'},
-      {icon:'🔒',name:'Self check-in',sub:'Keypad entry, arrive anytime'},
+      {icon:'🔑',name:'Lockbox · 24h self check-in',sub:'Code-protected lockbox · return key after entry for other guests'},
       {icon:'🗺️',name:'Local guide & curated map',sub:'Hidden gems, cafés & tips from the host'},
     ],
     gallery: [
-      {label:'Spring Room',cls:'wide',bg:'linear-gradient(135deg,#d4b896,#a07850)'},
-      {label:'Common Lounge',cls:'tall',bg:'linear-gradient(135deg,#b8a090,#806050)'},
-      {label:'Summer Room',cls:'',bg:'linear-gradient(135deg,#c8b090,#907060)'},
-      {label:'Autumn Room',cls:'',bg:'linear-gradient(135deg,#c0a080,#886040)'},
+      {label:'Spring Room',       cls:'wide', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg'},
+      {label:'Rooftop Terrace',   cls:'tall', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638388/DSC_7094_pgqf9u.jpg'},
+      {label:'Summer Room',       cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6640_a9lvq8.jpg'},
+      {label:'Autumn Room',       cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638541/DSC_6891_tdrw6z.jpg'},
+      {label:'Kitchenette',       cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638546/DSC_6843_yayzw9.jpg'},
+      {label:'Bathroom',          cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638634/DSC_6622_qk8kxo.jpg'},
+      {label:'Netflix Projector', cls:'wide', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638623/DSC_6867_jsctq7.jpg'},
+      {label:'Decor',             cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638620/DSC_6897_ijol0i.jpg'},
+      {label:'Game Room',         cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638635/DSC_6616_nr6tfl.jpg'},
+      {label:'Dining Table',      cls:'wide', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638556/DSC_6574_uaicqa.jpg'},
+      {label:'Laundry',           cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775638643/DSC_6450_iqmfyn.jpg'},
+      {label:'Entrance',          cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735170/DSC_6909_m7zy5d.jpg'},
     ],
   },
   {
@@ -527,6 +433,7 @@ const PROPERTIES = [
     maxGuests: 6,
     rating: '4.8',
     priceNote: 'From 1,200,000₫ (~$48 USD) / night · Base rate for 2 guests · +100,000₫ per extra guest (max 6)',
+    heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
     color: '#90b0b0', color2: '#406080',
     rooms: ['Entire Apartment (3 king beds)'],
     highlights: ['Prime location in the Old Quarter','2 beds on main level + 1 attic bed upstairs','Open terrace for relaxing evenings above the city','Street food, cafés & nightlife at your doorstep','Best for groups & friends traveling together'],
@@ -538,14 +445,21 @@ const PROPERTIES = [
       {icon:'🚿',name:'1 bathroom',sub:'Premium linens & toiletries provided'},
       {icon:'🌿',name:'Open outdoor terrace',sub:'Your quiet corner above the Old Quarter'},
       {icon:'🍜',name:'Street food & cafés at the door',sub:'The best of Hanoi within walking distance'},
-      {icon:'📶',name:'WiFi throughout',sub:'Stay connected across both levels'},
+      {icon:'📶',name:'High-speed WiFi',sub:'100 Mbps throughout — great for remote work'},
+      {icon:'🔒',name:'Smart lock · 24h self check-in',sub:'Keypad entry — arrive any time, no key needed'},
       {icon:'⚠️',name:'Good to know',sub:'Steep stairs · can be noisy at night · not ideal for young children or elderly guests'},
     ],
     gallery: [
-      {label:'Master Bedroom',cls:'wide',bg:'linear-gradient(135deg,#90b0b0,#508090)'},
-      {label:'Outdoor Terrace',cls:'tall',bg:'linear-gradient(135deg,#a8c0b8,#608890)'},
-      {label:'Second Bedroom',cls:'',bg:'linear-gradient(135deg,#b8c8c0,#789090)'},
-      {label:'Third Bedroom',cls:'',bg:'linear-gradient(135deg,#98b8b0,#507080)'},
+      {label:'Living Room',       cls:'wide', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg'},
+      {label:'Terrace',           cls:'tall', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg'},
+      {label:'First Room',        cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg'},
+      {label:'Second Room',       cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735587/att.ZrId_tWb4FLAHaPOrAP9h4htc6j8u1jYCQLw0fRxXlY_sdk41k.jpg'},
+      {label:'Kitchen',           cls:'wide', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735582/att.SszKf77iwqmJ2QnmCevpIVDSeMSwC-i0cS4sJp_tFfM_o00fji.jpg'},
+      {label:'Bathroom',          cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735584/att.VsZB0CH4Fmnn8UwIaRXcmbZjoTKFnyt-TBQw5-FPa3Y_x3kpvo.jpg'},
+      {label:'Netflix Projector', cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735583/att.uAJUJm-27mQBw_YYl0YWcUMhvIV7aJ19sW8poEQaBwk_m21yak.jpg'},
+      {label:'Decor',             cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735591/att.PZw6tLe4EzYVaHbgdYKcXFj3rlV4lu3fjY9UscB7GyA_zztwey.jpg'},
+      {label:'Dining Table',      cls:'wide', img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735579/att.piQ8HTdFrBo4fLx8s18JIj2mEst9qf2AFm4CzqB6l0s_nnqkpj.jpg'},
+      {label:'Entrance',          cls:'',     img:'https://res.cloudinary.com/dczfocztf/image/upload/v1775735577/att.fHeggy-LOs7YV6_hfdEusI_1W_VwYOWduV3OD23ZG2A_r39afs.jpg'},
     ],
   },
   /* ── TO ADD A NEW PROPERTY, COPY THE BLOCK ABOVE AND PASTE HERE ──
@@ -574,28 +488,44 @@ const PROPERTIES = [
 // Property cards
 const propGrid = document.getElementById('properties-grid');
 PROPERTIES.forEach((p,i) => {
-  propGrid.innerHTML += `<div class="property-card reveal ${i>0?'d'+Math.min(i,3):''}">
-    <div class="property-img">
-      <div class="img-ph" style="background:linear-gradient(135deg,${p.color},${p.color2});height:100%;">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <span>${p.name}</span>
-      </div>
-      <div class="property-badge">${p.badge}</div>
-    </div>
-    <div class="property-body">
-      <div class="property-name">${p.name}</div>
-      <div class="property-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${p.location}</div>
-      <p class="property-desc">${p.desc}</p>
-      ${p.highlights ? `<ul class="prop-highlights">${p.highlights.map(h=>'<li>'+h+'</li>').join('')}</ul>` : ''}
-      ${p.notice ? `<div class="prop-notice">${p.notice}</div>` : ''}
-      <div class="property-meta">
-        <div class="meta-item"><span class="meta-num">${p.rooms.length}</span><span class="meta-lbl">${p.rooms.length>1?'Rooms':'Unit'}</span></div>
-        <div class="meta-item"><span class="meta-num">1–${p.maxGuests}</span><span class="meta-lbl">Guests</span></div>
-        <div class="meta-item"><span class="meta-num">${p.rating}★</span><span class="meta-lbl">Rating</span></div>
-      </div>
-      <a href="#booking" class="btn-primary" onclick="selectProp('${p.id}')">Book Now →</a>
-    </div>
-  </div>`;
+  const card = document.createElement('div');
+  card.className = 'property-card reveal' + (i>0?' d'+Math.min(i,3):'');
+
+  // Build image element separately to avoid nested template-literal issues
+  const imgDiv = document.createElement('div');
+  imgDiv.className = 'property-img';
+  if(p.heroImg){
+    const img = document.createElement('img');
+    img.src = p.heroImg;
+    img.alt = p.name;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;';
+    imgDiv.appendChild(img);
+  } else {
+    imgDiv.innerHTML = '<div class="img-ph" style="background:linear-gradient(135deg,'+p.color+','+p.color2+');height:100%;"><span>'+p.name+'</span></div>';
+  }
+  const badge = document.createElement('div');
+  badge.className = 'property-badge';
+  badge.textContent = p.badge;
+  imgDiv.appendChild(badge);
+
+  const body = document.createElement('div');
+  body.className = 'property-body';
+  body.innerHTML =
+    '<div class="property-name">'+p.name+'</div>'+
+    '<div class="property-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+p.location+'</div>'+
+    '<p class="property-desc">'+p.desc+'</p>'+
+    (p.highlights ? '<ul class="prop-highlights">'+p.highlights.map(h=>'<li>'+h+'</li>').join('')+'</ul>' : '')+
+    (p.notice ? '<div class="prop-notice">'+p.notice+'</div>' : '')+
+    '<div class="property-meta">'+
+      '<div class="meta-item"><span class="meta-num">'+p.rooms.length+'</span><span class="meta-lbl">'+(p.rooms.length>1?'Rooms':'Unit')+'</span></div>'+
+      '<div class="meta-item"><span class="meta-num">1–'+p.maxGuests+'</span><span class="meta-lbl">Guests</span></div>'+
+      '<div class="meta-item"><span class="meta-num">'+p.rating+'★</span><span class="meta-lbl">Rating</span></div>'+
+    '</div>'+
+    '<a href="#booking" class="btn-primary" onclick="selectProp(\"'+p.id+'\")">Book Now →</a>';
+
+  card.appendChild(imgDiv);
+  card.appendChild(body);
+  propGrid.appendChild(card);
 });
 
 // Booking selector
@@ -612,18 +542,23 @@ function selectProp(id) {
   document.getElementById('bsb-'+id).classList.add('active');
   const p = PROPERTIES.find(x=>x.id===id);
   document.getElementById('room-type-sel').innerHTML = p.rooms.map(r=>`<option>${r}</option>`).join('');
-  document.getElementById('guests-sel').innerHTML = (() => {
-    if(p.id === 'hanoi') {
-      return '<option value="1">1 Guest</option><option value="2" selected>2 Guests</option><option value="2c">2 Adults + 1 Child</option>';
-    }
-    return Array.from({length:p.maxGuests},(_,i)=>`<option value="${i+1}">${i+1} Guest${i>0?'s':''}</option>`).join('');
-  })();
+  document.getElementById('guests-sel').innerHTML =
+    Array.from({length:p.maxGuests},(_,i)=>`<option value="${i+1}">${i+1} Guest${i>0?'s':''}</option>`).join('');
   document.getElementById('pricing-note').innerHTML = `💡 ${p.priceNote}. Best rate guaranteed when booking direct.`;
 }
 selectProp(PROPERTIES[0].id);
 function submitBooking(){const c=document.getElementById('booking-confirm');c.style.display='block';setTimeout(()=>c.style.display='none',6000);}
 
-  
+// Calendars — Google Calendar embeds + iCal sync reference
+// Convert ical URL to embed URL helper
+function icalToEmbed(icalUrl) {
+  const src = icalUrl
+    .replace('https://calendar.google.com/calendar/ical/', '')
+    .replace('/public/basic.ics', '')
+    .replace('/public/full.ics', '');
+  return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(decodeURIComponent(src))}&ctz=Asia%2FHo_Chi_Minh&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23faf6f0&color=%23c17a5a`;
+}
+
 // Room calendars — Google embed src IDs
 const ROOM_CALS = [
   {
@@ -679,62 +614,54 @@ const ROOM_CALS = [
   },
 ];
 
+const calTabsCont = document.getElementById('cal-tabs');
+const calFramesCont = document.getElementById('cal-frames');
+const CAL_PARAMS = '&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c17a5a&hl=en';
 
-  
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+ROOM_CALS.forEach((r, i) => {
+  // Tab button
+  const tab = document.createElement('button');
+  tab.className = 'cal-tab' + (i===0?' active':'');
+  tab.textContent = r.name;
+  tab.onclick = () => switchCal(r.id, tab);
+  calTabsCont.appendChild(tab);
 
-  const calTabsCont = document.getElementById('cal-tabs');
-  const calFramesCont = document.getElementById('cal-frames');
+  // Calendar panel — links instead of iframes (iframes blocked by Google CSP on non-Google domains)
+  const wrap = document.createElement('div');
+  wrap.className = 'cal-frame-wrap' + (i===0?' active':'');
+  wrap.id = 'cal-' + r.id;
 
-  if (!calTabsCont || !calFramesCont) {
-    console.error("Calendar containers not found");
-    return;
-  }
+  const googleCalUrl = `https://calendar.google.com/calendar/embed?src=${r.embedSrc}${CAL_PARAMS}`;
+  const icalLinks = (r.ical||[]).map(ic =>
+    `<a href="${ic.url}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:0.35rem 0.85rem;border:1px solid var(--border);border-radius:2px;font-size:0.72rem;color:var(--ink-light);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--terracotta)';this.style.color='var(--terracotta)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--ink-light)'">${ic.platform} iCal ↓</a>`
+  ).join('');
 
-  const CAL_PARAMS = '&ctz=Asia%2FHo_Chi_Minh&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c17a5a&hl=en';
-
-  ROOM_CALS.forEach((r, i) => {
-
-    const tab = document.createElement('button');
-    tab.className = 'cal-tab' + (i === 0 ? ' active' : '');
-    tab.textContent = r.name;
-    tab.onclick = () => switchCal(r.id, tab);
-    calTabsCont.appendChild(tab);
-
-    const wrap = document.createElement('div');
-    wrap.className = 'cal-frame-wrap' + (i === 0 ? ' active' : '');
-    wrap.id = 'cal-' + r.id;
-
-    wrap.innerHTML = `
-      <div class="cal-frame-header">
-        <span class="cal-frame-title">${r.name}</span>
-        <span class="cal-frame-sub">${r.property} · Live availability · Asia/Ho_Chi_Minh</span>
-      </div>
-      <iframe
-        src="https://calendar.google.com/calendar/embed?src=${r.embedSrc}${CAL_PARAMS}"
-        style="height:500px;width:100%;border:0;"
-        loading="lazy"
-      ></iframe>
-    `;
-
-    calFramesCont.appendChild(wrap);
-  });
-
+  wrap.innerHTML = `
+    <div class="cal-frame-header">
+      <span class="cal-frame-title">${r.name}</span>
+      <span class="cal-frame-sub">${r.property} · Live availability</span>
+    </div>
+    <div style="padding:1.5rem;background:white;">
+      <a href="${googleCalUrl}" target="_blank" rel="noopener"
+         style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding:1.25rem 1.5rem;background:var(--sand);border:1px solid var(--border);border-radius:4px;text-decoration:none;margin-bottom:1.5rem;transition:box-shadow 0.2s;"
+         onmouseover="this.style.boxShadow='0 4px 16px rgba(44,36,22,0.1)'" onmouseout="this.style.boxShadow='none'">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:3px;">View ${r.name} Calendar</div>
+          <div style="font-size:0.78rem;color:var(--ink-light);">Opens Google Calendar in a new tab — live availability synced in real time</div>
+        </div>
+        <div style="background:var(--terracotta);color:white;padding:0.55rem 1.2rem;border-radius:2px;font-size:0.78rem;font-weight:500;letter-spacing:0.06em;white-space:nowrap;">Open Calendar →</div>
+      </a>
+      ${icalLinks ? `<div style="margin-bottom:0.75rem;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);">Subscribe / sync with your calendar app</div><div style="display:flex;flex-wrap:wrap;gap:0.5rem;">${icalLinks}</div>` : ''}
+    </div>`;
+  calFramesCont.appendChild(wrap);
 });
-</script>  
-  
-  
-  
-<script>
+
 function switchCal(id, activeTab) {
   document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.cal-frame-wrap').forEach(f => f.classList.remove('active'));
-
   activeTab.classList.add('active');
   document.getElementById('cal-' + id).classList.add('active');
 }
-</script>
 
 
 // Gallery
@@ -743,7 +670,27 @@ gf.innerHTML=`<button class="filter-btn active" onclick="filterGal('all',this)">
 PROPERTIES.forEach(p=>{
   gf.innerHTML+=`<button class="filter-btn" onclick="filterGal('${p.id}',this)">${p.name}</button>`;
   p.gallery.forEach(g=>{
-    gg.innerHTML+=`<div class="gallery-item ${g.cls}" data-prop="${p.id}"><div class="img-ph" style="background:${g.bg};min-height:210px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>${g.label}</span></div><div class="gal-overlay"><span>${p.name} · ${g.label}</span></div></div>`;
+    const item = document.createElement('div');
+    item.className = 'gallery-item' + (g.cls ? ' '+g.cls : '');
+    item.dataset.prop = p.id;
+    if(g.img){
+      const img = document.createElement('img');
+      img.src = g.img;
+      img.alt = g.label;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;';
+      item.appendChild(img);
+    } else {
+      const ph = document.createElement('div');
+      ph.className = 'img-ph';
+      ph.style.cssText = 'background:'+(g.bg||'#888')+';min-height:210px;';
+      ph.innerHTML = '<span>'+g.label+'</span>';
+      item.appendChild(ph);
+    }
+    const overlay = document.createElement('div');
+    overlay.className = 'gal-overlay';
+    overlay.innerHTML = '<span>'+p.name+' · '+g.label+'</span>';
+    item.appendChild(overlay);
+    gg.appendChild(item);
   });
 });
 function filterGal(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.gallery-item').forEach(el=>{el.style.display=(cat==='all'||el.dataset.prop===cat)?'':' none';});}
@@ -785,8 +732,8 @@ const R={
   price:()=>PROPERTIES.map(p=>`${p.name}: ${p.priceNote}`).join(' · '),
   props:()=>`We have ${PROPERTIES.length} ${PROPERTIES.length===1?'property':'properties'}: `+PROPERTIES.map(p=>`${p.name} (${p.badge})`).join(', ')+'.',
   locs:()=>PROPERTIES.map(p=>`${p.name}: ${p.location}`).join(' · '),
-  cancel:()=>'Free cancellation up to 48h before check-in. 50% deposit at booking, balance on arrival.',
-  checkin:()=>'Check-in from 2:00 PM, check-out by 11:00 AM. Self check-in and check-out.',
+  cancel:()=>'Free cancellation up to 48h before check-in. Payment by bank transfer or PayPal.',
+  checkin:()=>'Check-in from 2:00 PM, check-out by 11:00 AM. Self check-in via smart lock.',
   wifi:()=>'High-speed WiFi at all properties. OldQuarter also has a dedicated work desk.',
   book:()=>'Book directly on this page for the best rate. We\'re also on Airbnb, Booking.com, Agoda, and Dayladau.',
   def:()=>'Thanks! Reach us at miacasahanoi@gmail.com or use the Contact form. We reply within 2 hours! 🌿'
@@ -828,7 +775,7 @@ const REVIEWS = [
     platform: 'booking',
     property: 'MiaCasaHanoi',
     rating: 5,
-    text: "Charming townhouse with genuine Boho character. Each room has complete privacy — your own bathroom, kitchenette, and AC. 6-minute drive to Hoan Kiem Lake and very close to Train Street cafés. Self check-in is completely seamless. Exactly what you want from a Hanoi base.",
+    text: "Charming townhouse with genuine Boho character. Each room has complete privacy — your own bathroom, kitchenette, and AC. 6-minute drive to Hoan Kiem Lake and very close to Train Street cafés. Smart lock made check-in completely seamless. Exactly what you want from a Hanoi base.",
     name: "Thomas B.",
     origin: "Amsterdam, Netherlands",
     initials: "TB",
@@ -954,12 +901,12 @@ platforms.forEach(p => {
   rf.appendChild(btn);
 });
 
-renderReviews();
-// ─────────────────────────────────────────────────────────────
-
-// Scroll reveal
+// Scroll reveal — must be defined BEFORE renderReviews() calls obs.observe()
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+renderReviews();
+// ─────────────────────────────────────────────────────────────
 
 // Default dates
 const td2=new Date(),tm=new Date(td2);tm.setDate(tm.getDate()+1);
@@ -1038,29 +985,38 @@ function loadBooking(id){const v=localStorage.getItem('mia_booking_'+id.toUpperC
 
 /* ================================================================
    GOOGLE SHEETS LOGGING
-   Sheet URL: https://docs.google.com/spreadsheets/d/1MEWkt1K6w0bVyxNrreVifgpYeyjO_hmHUp6AjD7OBUg/edit?gid=0#gid=0
-   Requires a deployed Google Apps Script Web App that accepts POST.
-   Paste your Web App URL in SHEETS_ENDPOINT below.
+   On Netlify: /api/log-booking proxies to Apps Script (avoids CORS).
+   Direct Apps Script URL (local dev only):
+   https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec
    ================================================================ */
-const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec';
+const SHEETS_ENDPOINT = '/api/log-booking';
 
 async function logToSheets(data){
+  const payload = {
+    bookingId:     data.bookingId,
+    property:      data.property,
+    room:          data.room,
+    checkIn:       data.checkIn,
+    checkOut:      data.checkOut,
+    nights:        data.nights,
+    guests:        data.guests,
+    amount:        data.total,
+    guestName:     data.guestName,
+    guestEmail:    data.guestEmail,
+    paymentMethod: data.paymentMethod,
+    bookedAt:      data.bookedAt,
+  };
   try{
-    await fetch(SHEETS_ENDPOINT,{
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        date:new Date().toISOString(),
-        bookingId:data.bookingId,
-        property:data.property,
-        room:data.room,
-        dates:data.checkIn+' to '+data.checkOut,
-        guests:data.guests,
-        amount:data.total
-      })
+    const res = await fetch(SHEETS_ENDPOINT, {
+      method:  'POST',
+      headers: {'Content-Type':'application/json'},
+      body:    JSON.stringify(payload),
     });
-  }catch(e){console.warn('Sheets log failed:',e);}
+    const json = await res.json().catch(()=>({}));
+    if(json.status !== 'ok') console.warn('Sheets log response:', json);
+  } catch(e) {
+    console.warn('Sheets log failed:', e);
+  }
 }
 
 /* ================================================================
@@ -1071,8 +1027,8 @@ async function logToSheets(data){
   if(!bfw)return;
 
   // Remove old submit button row and old confirm msg
-  const oldBtn=bfw.querySelector('.btn-primary');
-  if(oldBtn&&oldBtn.parentNode)oldBtn.parentNode.remove();
+  const oldRow=document.getElementById('old-submit-row');
+  if(oldRow)oldRow.remove();
   const oldConfirm=document.getElementById('booking-confirm');
   if(oldConfirm)oldConfirm.remove();
 
@@ -1155,12 +1111,13 @@ async function logToSheets(data){
   <div class="container">
     <div class="section-tag">Post-Stay</div>
     <h2 class="section-title">Request an <em>invoice</em></h2>
-    <p class="section-sub">After check-out, enter your booking ID to generate and download your invoice.</p>
+    <p class="section-sub">After check-out, enter your booking ID and the email you used at booking. Your invoice will be sent to that address.</p>
     <div style="max-width:480px;">
-      <div class="form-group" style="margin-bottom:1rem;"><label>Booking ID</label><input type="text" id="inv-input-id" placeholder="e.g. MCH-SPR-0001" oninput="this.value=this.value.toUpperCase()"></div>
-      <div class="form-group" style="margin-bottom:1rem;"><label>Email used at booking</label><input type="email" id="inv-input-email" placeholder="your@email.com"></div>
-      <button onclick="generateInvoice()" style="background:var(--terracotta);color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">Generate Invoice →</button>
-      <div id="inv-error" style="display:none;margin-top:0.75rem;color:#8B2020;background:rgba(139,32,32,0.08);border-left:3px solid #8B2020;padding:0.6rem 0.85rem;font-size:0.84rem;border-radius:0 2px 2px 0;"></div>
+      <div class="form-group" style="margin-bottom:1rem;"><label>Booking ID</label><input type="text" id="invoiceId" placeholder="e.g. MCH-SPR-0001" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="form-group" style="margin-bottom:1rem;"><label>Email used at booking</label><input type="email" id="invoiceEmail" placeholder="your@email.com"></div>
+      <button onclick="generateInvoice()" style="background:var(--terracotta);color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">Request Invoice →</button>
+      <div id="invoiceError" style="margin-top:0.75rem;color:#8B2020;font-size:0.84rem;min-height:1.2em;"></div>
+      <div id="invoiceResult" style="margin-top:0.5rem;font-size:0.84rem;color:var(--sage);"></div>
     </div>
     <div id="invoice-output" style="display:none;margin-top:2.5rem;max-width:520px;">
       <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:2rem;" id="invoice-print-area">
@@ -1202,6 +1159,8 @@ async function logToSheets(data){
    PRICE UPDATER — watches booking form inputs
    ================================================================ */
 let currentBookingId='';
+let currentBookingKey='';
+let lastPriceResult=null;
 let selectedPayTab='paypal';
 
 function updatePriceDisplay(){
@@ -1220,12 +1179,19 @@ function updatePriceDisplay(){
     return;
   }
   const result=calcTotal(propId,ci,co,guests);
+  lastPriceResult=result;
   if(!result){
     if(priceBox)priceBox.style.display='none';
     if(paySection)paySection.style.display='none';
     return;
   }
-  currentBookingId=makeBookingId(propId,room);
+  // Only generate a new booking ID if we don't have one yet, or if
+  // the property/room changed (key changes, total stays stable for same selection)
+  const newKey=propId+'|'+room;
+  if(!currentBookingId||currentBookingKey!==newKey){
+    currentBookingId=makeBookingId(propId,room);
+    currentBookingKey=newKey;
+  }
   const propName=PROPERTIES.find(p=>p.id===propId)?.name||propId;
   document.getElementById('ps-pr-val').textContent=propName+' · '+room;
   document.getElementById('ps-dates-val').textContent=ci+' → '+co+' ('+result.nights+' night'+(result.nights>1?'s':'')+')';
@@ -1282,10 +1248,24 @@ function collectBookingData(){
   const ci=document.getElementById('checkin').value;
   const co=document.getElementById('checkout').value;
   const guests=parseInt(document.getElementById('guests-sel').value)||1;
-  const result=calcTotal(propId,ci,co,guests);
+  // Re-use lastPriceResult cached by updatePriceDisplay to avoid double-calculation
+  const result=lastPriceResult||calcTotal(propId,ci,co,guests);
   const guestName=(document.getElementById('guest-name')?.value||'').trim();
   const guestEmail=(document.getElementById('guest-email')?.value||'').trim();
-  return{bookingId:currentBookingId,property:propName,room,checkIn:ci,checkOut:co,guests,nights:result?result.nights:0,total:result?result.total:0,guestName,guestEmail,bookedAt:new Date().toISOString(),paymentMethod:selectedPayTab};
+  return{
+    bookingId:     currentBookingId,
+    property:      propName,
+    room:          room,
+    checkIn:       ci,
+    checkOut:      co,
+    guests:        guests,
+    nights:        result?result.nights:0,
+    total:         result?result.total:0,
+    guestName:     guestName,
+    guestEmail:    guestEmail,
+    bookedAt:      new Date().toISOString(),
+    paymentMethod: selectedPayTab,
+  };
 }
 
 function validateBookingForm(){
@@ -1363,68 +1343,106 @@ function resetBookingForm(){
   const ge=document.getElementById('guest-email');if(ge)ge.value='';
   document.getElementById('checkin').value='';
   document.getElementById('checkout').value='';
+  lastPriceResult=null;
+  currentBookingId='';
+  currentBookingKey='';
 }
 
 /* ================================================================
    INVOICE GENERATOR
+   Sends action:"getInvoice" to the Apps Script (via Netlify proxy).
+   The Apps Script looks up the booking by ID + email and emails
+   the invoice PDF to the guest. It also renders a preview inline.
    ================================================================ */
-<script>
-async function generateInvoice() {
+async function generateInvoice(){
+  const id = (document.getElementById('invoiceId')?.value || '').trim().toUpperCase();
+  const email = (document.getElementById('invoiceEmail')?.value || '').trim().toLowerCase();
+  const errorBox = document.getElementById('invoiceError');
+  const resultBox = document.getElementById('invoiceResult');
 
-  const bookingId = document.getElementById("inv-input-id").value.trim().toUpperCase();
-  const email = document.getElementById("inv-input-email").value.trim().toLowerCase();
+  // Clear previous state
+  errorBox.textContent = '';
+  resultBox.innerHTML = '';
 
-  const errorBox = document.getElementById("inv-error");
-  const outputBox = document.getElementById("invoice-output");
-
-  errorBox.style.display = "none";
-  outputBox.style.display = "none";
-
-  if (!bookingId || !email) {
-    errorBox.style.display = "block";
-    errorBox.textContent = "Please enter Booking ID and Email.";
+  if(!id){
+    errorBox.textContent = 'Please enter your booking ID.';
+    return;
+  }
+  if(!email){
+    errorBox.textContent = 'Please enter your email address.';
     return;
   }
 
-  try {
-    errorBox.style.display = "block";
-    errorBox.style.color = "#555";
-    errorBox.textContent = "Fetching invoice...";
+  // First check localStorage for this booking (works for same-browser bookings)
+  const localData = loadBooking(id);
+  if(localData && localData.guestEmail.toLowerCase() === email){
+    // Render invoice inline immediately from local data
+    renderInvoicePreview(localData);
+    resultBox.innerHTML = '';
+    return;
+  }
 
-    const url = `${SHEETS_ENDPOINT}?bookingId=${bookingId}&email=${email}`;
-    const res = await fetch(url);
-    const data = await res.json();
+  // If not found locally (guest on different device/browser), query the sheet via Apps Script
+  resultBox.innerHTML = '<span style="color:var(--ink-light);">Looking up your booking…</span>';
 
-    if (data.status !== "ok") {
-      throw new Error(data.message || "Booking not found");
+  try{
+    const response = await fetch(SHEETS_ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        action:    'getInvoice',
+        bookingId: id,
+        email:     email,
+      }),
+    });
+
+    // Guard: non-OK HTTP
+    if(!response.ok){
+      throw new Error('Server error: '+response.status);
     }
 
-    // Populate invoice UI
-    document.getElementById("inv-out-id").innerText = data.bookingId;
-    document.getElementById("inv-out-name").innerText = data.name;
-    document.getElementById("inv-out-email").innerText = data.email;
-    document.getElementById("inv-out-prop").innerText = data.property;
-    document.getElementById("inv-out-room").innerText = data.room;
-    document.getElementById("inv-out-ci").innerText = data.checkIn;
-    document.getElementById("inv-out-co").innerText = data.checkOut;
-    document.getElementById("inv-out-nights").innerText = data.nights;
-    document.getElementById("inv-out-guests").innerText = data.guests;
-    document.getElementById("inv-out-total").innerText =
-      Number(data.amount).toLocaleString() + " VND";
+    const result = await response.json();
 
-    document.getElementById("inv-out-date").innerText =
-      new Date().toLocaleDateString();
+    if(result.status === 'success' && result.booking){
+      // Sheet returned the booking data — render it inline
+      renderInvoicePreview(result.booking);
+      resultBox.innerHTML = '';
+    } else if(result.status === 'success'){
+      // Sheet acknowledged but no data returned — invoice emailed
+      resultBox.innerHTML = '&#10003; Invoice has been sent to your email.';
+    } else {
+      errorBox.textContent = result.message || 'Booking not found. Please check your booking ID and email.';
+      resultBox.innerHTML = '';
+    }
 
-    outputBox.style.display = "block";
-    errorBox.style.display = "none";
-
-  } catch (err) {
-    errorBox.style.display = "block";
-    errorBox.style.color = "#8B2020";
-    errorBox.textContent = err.message || "Something went wrong.";
+  } catch(err){
+    errorBox.textContent = 'Something went wrong. Please try again or contact miacasahanoi@gmail.com.';
+    resultBox.innerHTML = '';
+    console.error('Invoice fetch error:', err);
   }
 }
 
+function renderInvoicePreview(data){
+  const outEl = document.getElementById('invoice-output');
+  if(!outEl) return;
+
+  // Populate all invoice fields
+  document.getElementById('inv-out-id').textContent    = data.bookingId;
+  document.getElementById('inv-out-date').textContent  = 'Issued: ' + new Date().toLocaleDateString('en-GB');
+  document.getElementById('inv-out-name').textContent  = data.guestName  || '—';
+  document.getElementById('inv-out-email').textContent = data.guestEmail || '—';
+  document.getElementById('inv-out-prop').textContent  = data.property;
+  document.getElementById('inv-out-room').textContent  = data.room;
+  document.getElementById('inv-out-ci').textContent    = data.checkIn;
+  document.getElementById('inv-out-co').textContent    = data.checkOut;
+  document.getElementById('inv-out-nights').textContent = data.nights;
+  document.getElementById('inv-out-guests').textContent = data.guests;
+  document.getElementById('inv-out-total').textContent =
+    fmtVND(Number(data.total)) + ' (~' + fmtUSD(Number(data.total)) + ')';
+
+  outEl.style.display = 'block';
+  document.getElementById('invoice').scrollIntoView({behavior:'smooth'});
+}
 
 /* ================================================================
    HANDLE RETURN FROM PAYPAL
@@ -1472,50 +1490,5 @@ async function generateInvoice() {
 <style>
 @media print{nav,footer,.chatbot-fab,.chatbot-window,#booking,#availability,#gallery,#amenities,#rules,#testimonials,#contact,#properties,.hero{display:none!important;}#invoice{display:block!important;}.section-tag,.section-sub,.section-title{display:none!important;}}
 </style>
-<script>
-let slideIndexMap = {};
-
-function moveSlide(direction, sliderId) {
-  const slider = document.getElementById(sliderId);
-  const slides = slider.querySelector(".slides");
-  const totalSlides = slides.children.length;
-
-  if (!slideIndexMap[sliderId]) slideIndexMap[sliderId] = 0;
-
-  slideIndexMap[sliderId] += direction;
-
-  if (slideIndexMap[sliderId] < 0) slideIndexMap[sliderId] = totalSlides - 1;
-  if (slideIndexMap[sliderId] >= totalSlides) slideIndexMap[sliderId] = 0;
-
-  slides.style.transform = `translateX(-${slideIndexMap[sliderId] * 100}%)`;
-}
-
-// Lightbox
-function openLightbox(el) {
-  const bg = el.style.backgroundImage;
-  const url = bg.slice(5, -2);
-
-  document.getElementById("lightbox-img").src = url;
-  document.getElementById("lightbox").style.display = "flex";
-}
-
-function closeLightbox() {
-  document.getElementById("lightbox").style.display = "none";
-}
-document.querySelectorAll('.slider').forEach(slider => {
-  let startX = 0;
-
-  slider.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener('touchend', e => {
-    let endX = e.changedTouches[0].clientX;
-
-    if (startX - endX > 50) moveSlide(1, slider.id);
-    if (endX - startX > 50) moveSlide(-1, slider.id);
-  });
-});
-</script>
 </body>
 </html>
