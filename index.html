@@ -560,6 +560,8 @@ async function callSheetsAPI(payload) {
       body: JSON.stringify(payload)
     });
 
+    console.log("Response from Apps Script:", res);
+    
     const json = await res.json();
     return json;
 
