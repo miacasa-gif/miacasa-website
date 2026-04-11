@@ -326,7 +326,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
       <div class="contact-items" id="contact-locations"></div>
       <div style="margin-top:1.5rem;" class="contact-items">
         <div class="contact-item"><div class="contact-item-icon">📱</div><div class="contact-item-text"><strong>WhatsApp / Phone</strong><a href="https://wa.me/84869922261" target="_blank" style="color:var(--terracotta);text-decoration:none;">+84 869 922 261</a></div></div>
-        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong>Email</strong><a href="mailto:miacasahanoi@gmail.com" style="color:var(--terracotta);text-decoration:none;">miacasahanoi@gmail.com</a></div></div>
+        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong>Email</strong><a href="/cdn-cgi/l/email-protection#781511191b190b191019161711381f15191114561b1715" style="color:var(--terracotta);text-decoration:none;"><span class="__cf_email__" data-cfemail="dbb6b2bab8baa8bab3bab5b4b29bbcb6bab2b7f5b8b4b6">[email&#160;protected]</span></a></div></div>
         <div class="contact-item"><div class="contact-item-icon">🕐</div><div class="contact-item-text"><strong>Response time</strong>Within 2 hours · 7am – 10pm ICT</div></div>
       </div>
     </div>
@@ -378,7 +378,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ================================================================
    PROPERTIES DATA  ─  Add a new property here. Everything else
    on the page (cards, booking, calendar, gallery, amenities,
@@ -548,25 +548,23 @@ function selectProp(id) {
 }
 selectProp(PROPERTIES[0].id);
 
-const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec";
+// SHEETS_ENDPOINT must be the Netlify proxy — direct Apps Script calls are
+// blocked by CORS from the browser. The proxy in netlify/functions/log-booking.js
+// forwards the request server-side where CORS does not apply.
+const SHEETS_ENDPOINT = "/api/log-booking";
 
 async function callSheetsAPI(payload) {
   try {
     const res = await fetch(SHEETS_ENDPOINT, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
-
-    console.log("Response from Apps Script:", res);
-    
+    if (!res.ok) throw new Error("HTTP " + res.status);
     const json = await res.json();
     return json;
-
   } catch (err) {
-    console.error("Sheets API error:", err);
+    console.warn("Sheets API error:", err);
     return { status: "error", message: err.toString() };
   }
 }
@@ -576,7 +574,6 @@ async function callSheetsAPI(payload) {
   
 async function submitBooking() {
   console.log("🚀 submitBooking triggered");
-  alert("submitBooking is running");
   if (!currentBookingId) {
   alert("Please select property and room first");
   return;
@@ -1206,6 +1203,12 @@ async function logToSheets(data){
     paymentMethod: data.paymentMethod,
     bookedAt:      data.bookedAt,
   };
+  try {
+    const res = await callSheetsAPI(payload);
+    if (res.status !== "ok") console.warn("Sheets log response:", res);
+  } catch(e) {
+    console.warn("Sheets log failed:", e);
+  }
 }
 
 /* ================================================================
@@ -1520,13 +1523,8 @@ async function processPayPal() {
 
     console.log("📦 Payload:", payload);
 
-    const res = await callSheetsAPI(payload);
-
-    console.log("📡 Response:", res);
-
-    if (!res || res.status !== "ok") {
-      throw new Error("Failed to save booking");
-    }
+    // Log to sheets in the background — don't block PayPal if it fails
+    logToSheets(payload).catch(e => console.warn("Sheet log error:", e));
 
     // 🔹 Open PayPal
     const amountUSD = (amount / 25000).toFixed(2);
@@ -1770,7 +1768,4 @@ window.submitBooking = submitBooking;
 window.processPayPal = processPayPal;
 </script>
 <style>
-@media print{nav,footer,.chatbot-fab,.chatbot-window,#booking,#availability,#gallery,#amenities,#rules,#testimonials,#contact,#properties,.hero{display:none!important;}#invoice{display:block!important;}.section-tag,.section-sub,.section-title{display:none!important;}}
-</style>
-</body>
-</html>
+@media print{nav,footer,.chatbot-fab,.chatbot
