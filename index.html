@@ -572,58 +572,44 @@ async function callSheetsAPI(payload) {
 }
   
 async function submitBooking() {
+  console.log("🚀 submitBooking triggered");
 
   const confirmBox = document.getElementById('booking-confirm');
 
-  // 👉 Collect form values
-  const property = document.getElementById("property").value;
-  const room = document.getElementById("room").value;
-  const checkIn = document.getElementById("checkin").value;
-  const checkOut = document.getElementById("checkout").value;
-  const guests = document.getElementById("guests").value;
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const paymentMethod = document.getElementById("payment").value;
-
-  // 👉 Generate booking ID (since your backend expects it)
-  const bookingId = makeBookingId(property, room);
-
+  // 👉 collect your form values here
   const payload = {
-    bookingId: bookingId,
-    property: property,
-    room: room,
-    checkIn: checkIn,
-    checkOut: checkOut,
+    bookingId: makeBookingId(...), // your logic
+    property: document.getElementById('property').value,
+    room: document.getElementById('room').value,
+    checkIn: document.getElementById('checkin').value,
+    checkOut: document.getElementById('checkout').value,
     nights: calculateNights(),
-    guests: guests,
+    guests: document.getElementById('guests').value,
     amount: calculateAmount(),
-    guestName: name,
-    guestEmail: email,
-    paymentMethod: paymentMethod,
+    guestName: document.getElementById('name').value,
+    guestEmail: document.getElementById('email').value,
+    paymentMethod: "paypal",
     bookedAt: new Date().toISOString()
   };
 
- try {
-  const res = await callSheetsAPI(payload);
+  console.log("📦 Payload ready:", payload);
 
-  if (res.status !== "ok") {
-    throw new Error(res.message || "Booking failed");
-  }
+  try {
+    const res = await callSheetsAPI(payload);
 
-  // ✅ SUCCESS UI
-  confirmBox.innerHTML = `
-    Booking confirmed! 🎉<br><br>
-    Your Booking ID:<br>
-    <strong>${bookingId}</strong>
-  `;
-  confirmBox.style.display = 'block';
+    console.log("Response from Apps Script:", res);
 
-  setTimeout(() => confirmBox.style.display = 'none', 8000);
+    if (res.status !== "ok") {
+      throw new Error(res.message || "Booking failed");
+    }
 
-} catch (err) {
-  confirmBox.innerHTML = "❌ Booking failed. Please try again.";
-  confirmBox.style.display = 'block';
-  console.error(err);
+    confirmBox.innerHTML = `Booking confirmed! 🎉<br><strong>${payload.bookingId}</strong>`;
+    confirmBox.style.display = 'block';
+
+  } catch (err) {
+    confirmBox.innerHTML = "❌ Booking failed. Please try again.";
+    confirmBox.style.display = 'block';
+    console.error(err);
   }
 }
 
