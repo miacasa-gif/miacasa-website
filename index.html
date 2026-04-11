@@ -1484,23 +1484,35 @@ async function processPayPal() {
   console.log("🚀 PayPal flow started");
 
   try {
-    // 🔹 Collect form values (adjust IDs if needed)
-    const property = document.getElementById("property").value;
-    const room = document.getElementById("room").value;
-    const checkIn = document.getElementById("checkin").value;
-    const checkOut = document.getElementById("checkout").value;
-    const guests = document.getElementById("guests").value;
-    const guestName = document.getElementById("guestName").value;
-    const guestEmail = document.getElementById("guestEmail").value;
+    const propertyEl = document.getElementById("property");
+    const roomEl = document.getElementById("room");
+    const checkInEl = document.getElementById("checkin");
+    const checkOutEl = document.getElementById("checkout");
+    const guestsEl = document.getElementById("guests");
+    const nameEl = document.getElementById("guestName");
+    const emailEl = document.getElementById("guestEmail");
+
+    if (!propertyEl || !roomEl || !checkInEl || !checkOutEl || !nameEl || !emailEl) {
+      throw new Error("Form elements not found. Check input IDs.");
+    }
+
+    const property = propertyEl.value;
+    const room = roomEl.value;
+    const checkIn = checkInEl.value;
+    const checkOut = checkOutEl.value;
+    const guests = guestsEl?.value || 1;
+    const guestName = nameEl.value;
+    const guestEmail = emailEl.value;
+
+    if (!currentBookingId) {
+      throw new Error("Booking ID not generated yet.");
+    }
 
     const nights = calculateNights(checkIn, checkOut);
     const amount = calculateAmount(property, room, checkIn, checkOut);
 
-    const bookingId = currentBookingId;
-
-    // 🔹 Build payload
     const payload = {
-      bookingId,
+      bookingId: currentBookingId,
       property,
       room,
       checkIn,
@@ -1516,17 +1528,14 @@ async function processPayPal() {
 
     console.log("📦 Payload:", payload);
 
-    // 🔹 Send to Google Sheets
     const res = await callSheetsAPI(payload);
 
-    console.log("📡 Response from Apps Script:", res);
+    console.log("📡 Response:", res);
 
-    if (res.status !== "ok") {
-      alert("Booking failed. Please try again.");
-      return;
+    if (!res || res.status !== "ok") {
+      throw new Error("API failed");
     }
 
-    // 🔹 Open PayPal
     const amountUSD = (amount / 25000).toFixed(2);
 
     const paypalLink =
@@ -1534,16 +1543,15 @@ async function processPayPal() {
       `&business=miacasahanoi@gmail.com` +
       `&amount=${amountUSD}` +
       `&currency_code=USD` +
-      `&item_name=${bookingId}`;
+      `&item_name=${currentBookingId}`;
 
     window.open(paypalLink, "_blank");
 
-    // 🔹 Show pending confirmation
-    alert("Booking created! Please complete payment on PayPal.");
+    alert("Booking created! Complete payment on PayPal.");
 
   } catch (err) {
-    console.error("❌ Error:", err);
-    alert("Something went wrong. Please try again.");
+    console.error("❌ FULL ERROR:", err);
+    alert(err.message);
   }
 }
   
