@@ -570,24 +570,42 @@ async function callSheetsAPI(payload) {
     return { status: "error", message: err.toString() };
   }
 }
+
+
+if (!currentBookingId) {
+  alert("Please select property and room first");
+  return;
+}
   
 async function submitBooking() {
   console.log("🚀 submitBooking triggered");
 
   const confirmBox = document.getElementById('booking-confirm');
 
-  // 👉 collect your form values here
+  const property = document.getElementById('property').value;
+  const room = document.getElementById('room').value;
+  const checkIn = document.getElementById('checkin').value;
+  const checkOut = document.getElementById('checkout').value;
+  const guests = document.getElementById('guests').value;
+  const guestName = document.getElementById('name').value;
+  const guestEmail = document.getElementById('email').value;
+
+  const nights = calculateNights();
+  const amount = calculateAmount();
+
+  const bookingId = currentBookingId;
+
   const payload = {
-    bookingId: makeBookingId(...), // your logic
-    property: document.getElementById('property').value,
-    room: document.getElementById('room').value,
-    checkIn: document.getElementById('checkin').value,
-    checkOut: document.getElementById('checkout').value,
-    nights: calculateNights(),
-    guests: document.getElementById('guests').value,
-    amount: calculateAmount(),
-    guestName: document.getElementById('name').value,
-    guestEmail: document.getElementById('email').value,
+    bookingId,
+    property,
+    room,
+    checkIn,
+    checkOut,
+    nights,
+    guests,
+    amount,
+    guestName,
+    guestEmail,
     paymentMethod: "paypal",
     bookedAt: new Date().toISOString()
   };
@@ -603,7 +621,11 @@ async function submitBooking() {
       throw new Error(res.message || "Booking failed");
     }
 
-    confirmBox.innerHTML = `Booking confirmed! 🎉<br><strong>${payload.bookingId}</strong>`;
+    confirmBox.innerHTML = `
+      Booking confirmed! 🎉<br><br>
+      Your Booking ID:<br>
+      <strong>${bookingId}</strong>
+    `;
     confirmBox.style.display = 'block';
 
   } catch (err) {
