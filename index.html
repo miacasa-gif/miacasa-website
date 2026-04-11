@@ -550,6 +550,25 @@ selectProp(PROPERTIES[0].id);
 
 const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec";
 
+async function callSheetsAPI(payload) {
+  try {
+    const res = await fetch(SHEETS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const json = await res.json();
+    return json;
+
+  } catch (err) {
+    console.error("Sheets API error:", err);
+    return { status: "error", message: err.toString() };
+  }
+}
+  
 async function submitBooking() {
 
   const confirmBox = document.getElementById('booking-confirm');
@@ -583,12 +602,12 @@ async function submitBooking() {
   };
 
   try {
-    const res = await fetch(SHEETS_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
+    const res = await callSheetsAPI(payload);
+
+if (res.status !== "ok") {
+  alert("Booking failed. Please try again.");
+  return;
+}
     });
 
     const data = await res.json();
@@ -1170,7 +1189,7 @@ function loadBooking(id){const v=localStorage.getItem('mia_booking_'+id.toUpperC
    Direct Apps Script URL (local dev only):
    https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec
    ================================================================ */
-const SHEETS_ENDPOINT = '/api/log-booking';
+
 
 async function logToSheets(data){
   const payload = {
@@ -1187,17 +1206,6 @@ async function logToSheets(data){
     paymentMethod: data.paymentMethod,
     bookedAt:      data.bookedAt,
   };
-  try{
-    const res = await fetch(SHEETS_ENDPOINT, {
-      method:  'POST',
-      headers: {'Content-Type':'application/json'},
-      body:    JSON.stringify(payload),
-    });
-    const json = await res.json().catch(()=>({}));
-    if(json.status !== 'ok') console.warn('Sheets log response:', json);
-  } catch(e) {
-    console.warn('Sheets log failed:', e);
-  }
 }
 
 /* ================================================================
@@ -1567,16 +1575,19 @@ async function generateInvoice(){
   resultBox.innerHTML = '<span style="color:var(--ink-light);">Looking up your booking…</span>';
 
   try{
-    const response = await fetch(SHEETS_ENDPOINT, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        action:    'getInvoice',
-        bookingId: id,
-        email:     email,
-      }),
+    const response = await callSheetsAPI({
+      action: "getInvoice",
+      bookingId: id,
+      email: email
     });
 
+    if (response.status !== "success") {
+      resultBox.innerHTML = `<span style="color:red;">${response.message}</span>`;
+    return;
+    }
+
+    resultBox.innerHTML = `<span style="color:green;">Invoice sent to your email ✅</span>`;
+    
     // Guard: non-OK HTTP
     if(!response.ok){
       throw new Error('Server error: '+response.status);
