@@ -1254,7 +1254,8 @@ async function logToSheets(data){
         <button id="pay-tab-vietqr" onclick="selectPayTab('vietqr')" style="padding:0.6rem 1.2rem;border:1.5px solid var(--border);background:transparent;color:var(--ink-light);border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;cursor:pointer;">🏦 VietQR Bank Transfer</button>
       </div>
       <div id="paypal-panel">
-        <button onclick="processPayPal()" style="background:#003087;color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.88rem;cursor:pointer;width:100%;letter-spacing:0.05em;">Pay with PayPal →</button>
+        <button type="button" onclick="window.processPayPal()" style="background:#003087;color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.88rem;cursor:pointer;width:100%;letter-spacing:0.05em;">
+  Pay with PayPal → </button>
         <p style="font-size:0.75rem;color:var(--ink-light);margin-top:0.6rem;text-align:center;">You'll be redirected to PayPal to complete payment securely. PayPal will send confirmation emails automatically.</p>
       </div>
       <div id="vietqr-panel" style="display:none;">
@@ -1478,7 +1479,12 @@ function validateBookingForm(){
 function showPayError(msg){const el=document.getElementById('pay-error');if(el){el.textContent=msg;el.style.display='block';}}
 function hidePayError(){const el=document.getElementById('pay-error');if(el)el.style.display='none';}
 
-async function processPayPal() {
+function processPayPal() {
+  console.log("🔥 PayPal clicked");
+  alert("PayPal triggered");
+}
+  
+/*async function processPayPal() {
 
   console.log("🚀 PayPal flow started");
 
@@ -1509,7 +1515,7 @@ async function processPayPal() {
   // 3️⃣ Show confirmation (PENDING)
   showPendingConfirmation(payload);
 }
-
+*/
 function confirmVietQR(){
   hidePayError();
   const err=validateBookingForm();
@@ -1697,6 +1703,7 @@ function renderInvoicePreview(data){
 })();
 
 window.submitBooking = submitBooking;
+window.processPayPal = processPayPal;
 </script>
 <style>
 @media print{nav,footer,.chatbot-fab,.chatbot-window,#booking,#availability,#gallery,#amenities,#rules,#testimonials,#contact,#properties,.hero{display:none!important;}#invoice{display:block!important;}.section-tag,.section-sub,.section-title{display:none!important;}}
