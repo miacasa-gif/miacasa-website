@@ -623,8 +623,7 @@ function selectProp(id) {
 selectProp(PROPERTIES[0].id);
 function submitBooking(){const c=document.getElementById('booking-confirm');c.style.display='block';setTimeout(()=>c.style.display='none',6000);}
 
-
-
+  
 // Room calendars — Google embed src IDs
 const ROOM_CALS = [
   {
@@ -680,45 +679,62 @@ const ROOM_CALS = [
   },
 ];
 
-const calTabsCont = document.getElementById('cal-tabs');
-const calFramesCont = document.getElementById('cal-frames');
-const CAL_PARAMS = '&ctz=Asia%2FHo_Chi_Minh&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c17a5a&hl=en';
+
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const calTabsCont = document.getElementById('cal-tabs');
+  const calFramesCont = document.getElementById('cal-frames');
+
+  if (!calTabsCont || !calFramesCont) {
+    console.error("Calendar containers not found");
+    return;
+  }
+
+  const CAL_PARAMS = '&ctz=Asia%2FHo_Chi_Minh&mode=MONTH&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c17a5a&hl=en';
 
   ROOM_CALS.forEach((r, i) => {
-  // Tab button
-  const tab = document.createElement('button');
-  tab.className = 'cal-tab' + (i===0?' active':'');
-  tab.textContent = r.name;
-  tab.onclick = () => switchCal(r.id, tab);
-  calTabsCont.appendChild(tab);
 
-  // Embed frame
-  const wrap = document.createElement('div');
-  wrap.className = 'cal-frame-wrap' + (i===0?' active':'');
-  wrap.id = 'cal-' + r.id;
-  wrap.innerHTML = `
-    <div class="cal-frame-header">
-      <span class="cal-frame-title">${r.name}</span>
-      <span class="cal-frame-sub">${r.property} · Live availability · Asia/Ho_Chi_Minh</span>
-    </div>
-    <iframe
-      src="https://calendar.google.com/calendar/embed?src=${r.embedSrc}${CAL_PARAMS}"
-      style="height:500px;"
-      frameborder="0"
-      scrolling="no"
-      loading="lazy"
-    ></iframe>`;
-  calFramesCont.appendChild(wrap);
+    const tab = document.createElement('button');
+    tab.className = 'cal-tab' + (i === 0 ? ' active' : '');
+    tab.textContent = r.name;
+    tab.onclick = () => switchCal(r.id, tab);
+    calTabsCont.appendChild(tab);
 
+    const wrap = document.createElement('div');
+    wrap.className = 'cal-frame-wrap' + (i === 0 ? ' active' : '');
+    wrap.id = 'cal-' + r.id;
+
+    wrap.innerHTML = `
+      <div class="cal-frame-header">
+        <span class="cal-frame-title">${r.name}</span>
+        <span class="cal-frame-sub">${r.property} · Live availability · Asia/Ho_Chi_Minh</span>
+      </div>
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=${r.embedSrc}${CAL_PARAMS}"
+        style="height:500px;width:100%;border:0;"
+        loading="lazy"
+      ></iframe>
+    `;
+
+    calFramesCont.appendChild(wrap);
+  });
 
 });
-
+</script>  
+  
+  
+  
+<script>
 function switchCal(id, activeTab) {
   document.querySelectorAll('.cal-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.cal-frame-wrap').forEach(f => f.classList.remove('active'));
+
   activeTab.classList.add('active');
   document.getElementById('cal-' + id).classList.add('active');
 }
+</script>
 
 
 // Gallery
