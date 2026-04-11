@@ -601,34 +601,27 @@ async function submitBooking() {
     bookedAt: new Date().toISOString()
   };
 
-  try {
-    const res = await callSheetsAPI(payload);
+ try {
+  const res = await callSheetsAPI(payload);
 
-if (res.status !== "ok") {
-  alert("Booking failed. Please try again.");
-  return;
-}
-    });
-
-    const data = await res.json();
-
-    if (data.status !== "ok") throw new Error();
-
-    // ✅ SUCCESS UI
-    confirmBox.innerHTML = `
-      Booking confirmed! 🎉<br><br>
-      Your Booking ID:<br>
-      <strong>${bookingId}</strong>
-    `;
-    confirmBox.style.display = 'block';
-
-    setTimeout(() => confirmBox.style.display = 'none', 8000);
-
-  } catch (err) {
-    confirmBox.innerHTML = "❌ Booking failed. Please try again.";
-    confirmBox.style.display = 'block';
-    console.error(err);
+  if (res.status !== "ok") {
+    throw new Error(res.message || "Booking failed");
   }
+
+  // ✅ SUCCESS UI
+  confirmBox.innerHTML = `
+    Booking confirmed! 🎉<br><br>
+    Your Booking ID:<br>
+    <strong>${bookingId}</strong>
+  `;
+  confirmBox.style.display = 'block';
+
+  setTimeout(() => confirmBox.style.display = 'none', 8000);
+
+} catch (err) {
+  confirmBox.innerHTML = "❌ Booking failed. Please try again.";
+  confirmBox.style.display = 'block';
+  console.error(err);
 }
 
 function calculateNights() {
