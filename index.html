@@ -547,8 +547,189 @@ function selectProp(id) {
   document.getElementById('pricing-note').innerHTML = `💡 ${p.priceNote}. Best rate guaranteed when booking direct.`;
 }
 selectProp(PROPERTIES[0].id);
-function submitBooking(){const c=document.getElementById('booking-confirm');c.style.display='block';setTimeout(()=>c.style.display='none',6000);}
 
+const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxwPpTMSM8fNsJ8KXVWRnGWkHIemlits21Ek1ENF0DtPbYhhIBTR0VO1UizWgAEoVMJ4w/exec";
+
+async function submitBooking() {
+
+  const confirmBox = document.getElementById('booking-confirm');
+
+  // 👉 Collect form values
+  const property = document.getElementById("property").value;
+  const room = document.getElementById("room").value;
+  const checkIn = document.getElementById("checkin").value;
+  const checkOut = document.getElementById("checkout").value;
+  const guests = document.getElementById("guests").value;
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const paymentMethod = document.getElementById("payment").value;
+
+  // 👉 Generate booking ID (since your backend expects it)
+  const bookingId = makeBookingId(property, room);
+
+  const payload = {
+    bookingId: bookingId,
+    property: property,
+    room: room,
+    checkIn: checkIn,
+    checkOut: checkOut,
+    nights: calculateNights(),
+    guests: guests,
+    amount: calculateAmount(),
+    guestName: name,
+    guestEmail: email,
+    paymentMethod: paymentMethod,
+    bookedAt: new Date().toISOString()
+  };
+
+  try {
+    const res = await fetch(SHEETS_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (data.status !== "ok") throw new Error();
+
+    // ✅ SUCCESS UI
+    confirmBox.innerHTML = `
+      Booking confirmed! 🎉<br><br>
+      Your Booking ID:<br>
+      <strong>${bookingId}</strong>
+    `;
+    confirmBox.style.display = 'block';
+
+    setTimeout(() => confirmBox.style.display = 'none', 8000);
+
+  } catch (err) {
+    confirmBox.innerHTML = "❌ Booking failed. Please try again.";
+    confirmBox.style.display = 'block';
+    console.error(err);
+  }
+}
+
+function calculateNights() {
+  const checkIn = new Date(document.getElementById("checkin").value);
+  const checkOut = new Date(document.getElementById("checkout").value);
+
+  if (!checkIn || !checkOut) return 0;
+
+  const diff = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+  return diff > 0 ? diff : 0;
+}
+
+function calculateAmount() {
+  const checkIn = new Date(document.getElementById("checkin").value);
+  const checkOut = new Date(document.getElementById("checkout").value);
+  const room = document.getElementById("room").value;
+
+  if (!checkIn || !checkOut) return 0;
+
+  let total = 0;
+  let current = new Date(checkIn);
+
+  // 👉 Base pricing for 2025
+  const basePricing = {
+    weekday: {
+      "Spring Room": 750000,
+      "Summer Room": 750000,
+      "Autumn Room": 750000,
+      "OldQuarter": 1200000
+    },
+    weekend: {
+      "Spring Room": 800000,
+      "Summer Room": 800000,
+      "Autumn Room": 800000,
+      "OldQuarter": 1350000
+    },
+    special: {
+      "Spring Room": 900000,
+      "Summer Room": 900000,
+      "Autumn Room": 900000,
+      "OldQuarter": 1400000
+    }
+  };
+
+  // 👉 Special date ranges (MULTI-YEAR)
+  const specialRanges = [
+    // Tet (approx — adjust if needed)
+    { start: "2025-01-28", end: "2025-02-04" },
+    { start: "2026-02-14", end: "2026-02-21" },
+    { start: "2027-02-03", end: "2027-02-10" },
+    { start: "2028-01-23", end: "2028-01-30" },
+    { start: "2029-02-10", end: "2029-02-17" },
+    { start: "2030-01-29", end: "2030-02-05" },
+
+    // Independence Day (fixed pattern)
+    { start: "2025-08-30", end: "2025-09-03" },
+    { start: "2026-08-30", end: "2026-09-03" },
+    { start: "2027-08-30", end: "2027-09-03" },
+    { start: "2028-08-30", end: "2028-09-03" },
+    { start: "2029-08-30", end: "2029-09-03" },
+    { start: "2030-08-30", end: "2030-09-03" },
+
+    // Christmas
+    { start: "2025-12-23", end: "2025-12-27" },
+    { start: "2026-12-23", end: "2026-12-27" },
+    { start: "2027-12-23", end: "2027-12-27" },
+    { start: "2028-12-23", end: "2028-12-27" },
+    { start: "2029-12-23", end: "2029-12-27" },
+    { start: "2030-12-23", end: "2030-12-27" }
+  ];
+
+  function isSpecial(date) {
+    return specialRanges.some(range => {
+      const start = new Date(range.start);
+      const end = new Date(range.end);
+      return date >= start && date <= end;
+    });
+  }
+
+  function getRoomKey(room) {
+    if (room.includes("Spring")) return "Spring Room";
+    if (room.includes("Summer")) return "Summer Room";
+    if (room.includes("Autumn")) return "Autumn Room";
+    return "OldQuarter";
+  }
+
+  function getYearMultiplier(year) {
+    const baseYear = 2025;
+    const diff = year - baseYear;
+    return Math.pow(1.10, diff); // 10% yearly increase
+  }
+
+  const roomKey = getRoomKey(room);
+
+  while (current < checkOut) {
+
+    const year = current.getFullYear();
+    const multiplier = getYearMultiplier(year);
+
+    const day = current.getDay();
+    let basePrice = 0;
+
+    if (isSpecial(current)) {
+  basePrice = pricing.special[roomKey];
+} else if (day === 5 || day === 6) {
+  basePrice = pricing.weekend[roomKey]; // Fri + Sat
+} else {
+  basePrice = pricing.weekday[roomKey];
+}
+
+    const finalPrice = Math.round(basePrice * multiplier);
+
+    total += finalPrice;
+
+    current.setDate(current.getDate() + 1);
+  }
+
+  return total;
+}
+  
 // Calendars — Google Calendar embeds + iCal sync reference
 // Convert ical URL to embed URL helper
 function icalToEmbed(icalUrl) {
