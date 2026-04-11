@@ -572,14 +572,14 @@ async function callSheetsAPI(payload) {
 }
 
 
-if (!currentBookingId) {
-  alert("Please select property and room first");
-  return;
-}
+
   
 async function submitBooking() {
   console.log("🚀 submitBooking triggered");
-
+  if (!currentBookingId) {
+  alert("Please select property and room first");
+  return;
+  }
   const confirmBox = document.getElementById('booking-confirm');
 
   const property = document.getElementById('property').value;
