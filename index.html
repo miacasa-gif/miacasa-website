@@ -636,22 +636,21 @@ async function submitBooking() {
   }
 }
 
-function calculateNights() {
-  const checkIn = new Date(document.getElementById("checkin").value);
-  const checkOut = new Date(document.getElementById("checkout").value);
+function calculateNights(checkIn, checkOut) {
+  const start = new Date(checkIn);
+  const end = new Date(checkOut);
 
-  if (!checkIn || !checkOut) return 0;
-
-  const diff = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
-  return diff > 0 ? diff : 0;
+  return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
 }
 
-function calculateAmount() {
-  const checkIn = new Date(document.getElementById("checkin").value);
-  const checkOut = new Date(document.getElementById("checkout").value);
-  const room = document.getElementById("room").value;
+function calculateAmount(property, room, checkInStr, checkOutStr) {
 
-  if (!checkIn || !checkOut) return 0;
+  if (!checkInStr || !checkOutStr || !room) return 0;
+
+  const checkIn = new Date(checkInStr);
+  const checkOut = new Date(checkOutStr);
+
+  if (isNaN(checkIn) || isNaN(checkOut) || checkIn >= checkOut) return 0;
 
   let total = 0;
   let current = new Date(checkIn);
@@ -678,9 +677,8 @@ function calculateAmount() {
     }
   };
 
-  // 👉 Special date ranges (MULTI-YEAR)
+  // 👉 Special date ranges
   const specialRanges = [
-    // Tet (approx — adjust if needed)
     { start: "2025-01-28", end: "2025-02-04" },
     { start: "2026-02-14", end: "2026-02-21" },
     { start: "2027-02-03", end: "2027-02-10" },
@@ -688,7 +686,6 @@ function calculateAmount() {
     { start: "2029-02-10", end: "2029-02-17" },
     { start: "2030-01-29", end: "2030-02-05" },
 
-    // Independence Day (fixed pattern)
     { start: "2025-08-30", end: "2025-09-03" },
     { start: "2026-08-30", end: "2026-09-03" },
     { start: "2027-08-30", end: "2027-09-03" },
@@ -696,7 +693,6 @@ function calculateAmount() {
     { start: "2029-08-30", end: "2029-09-03" },
     { start: "2030-08-30", end: "2030-09-03" },
 
-    // Christmas
     { start: "2025-12-23", end: "2025-12-27" },
     { start: "2026-12-23", end: "2026-12-27" },
     { start: "2027-12-23", end: "2027-12-27" },
@@ -737,15 +733,14 @@ function calculateAmount() {
     let basePrice = 0;
 
     if (isSpecial(current)) {
-  basePrice = pricing.special[roomKey];
-} else if (day === 5 || day === 6) {
-  basePrice = pricing.weekend[roomKey]; // Fri + Sat
-} else {
-  basePrice = pricing.weekday[roomKey];
-}
+      basePrice = basePricing.special[roomKey];
+    } else if (day === 5 || day === 6) {
+      basePrice = basePricing.weekend[roomKey]; // Fri + Sat
+    } else {
+      basePrice = basePricing.weekday[roomKey];
+    }
 
     const finalPrice = Math.round(basePrice * multiplier);
-
     total += finalPrice;
 
     current.setDate(current.getDate() + 1);
