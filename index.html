@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MiaCasa Homestays — Hanoi</title>
+<title id="page-title">MiaCasa Homestays — Hanoi</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--sand:#f5efe6;--sand-dark:#e8ddd0;--terracotta:#c17a5a;--terracotta-dark:#9e5f3f;--sage:#7a9e7e;--sage-light:#b5cdb8;--cream:#faf6f0;--ink:#2c2416;--ink-light:#6b5c47;--warm-white:#fffdf9;--border:rgba(193,122,90,0.2);}
@@ -206,26 +206,30 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 <nav>
   <a class="nav-logo" href="#home">MiaCasa<span> Homestays</span></a>
   <ul class="nav-links">
-    <li><a href="#properties">Stays</a></li>
-    <li><a href="#booking">Book</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#amenities">Amenities</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#invoice">Invoice</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#booking" class="nav-book">Book Now</a></li>
+    <li><a href="#properties" id="nav-stays">Stays</a></li>
+    <li><a href="#booking" id="nav-book">Book</a></li>
+    <li><a href="#gallery" id="nav-gallery">Gallery</a></li>
+    <li><a href="#amenities" id="nav-amenities">Amenities</a></li>
+    <li><a href="#testimonials" id="nav-reviews">Reviews</a></li>
+    <li><a href="#invoice" id="nav-invoice">Invoice</a></li>
+    <li><a href="#contact" id="nav-contact">Contact</a></li>
+    <li><a href="#booking" class="nav-book" id="nav-booknow">Book Now</a></li>
   </ul>
+  <div class="lang-toggle">
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">🇬🇧 EN</button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">🇻🇳 VN</button>
+  </div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
 <section class="hero" id="home">
   <div class="hero-left">
-    <div class="hero-tag">Hanoi, Vietnam</div>
+    <div class="hero-tag" id="hero-tag">Hanoi, Vietnam</div>
     <h1>MiaCasa<br><em>Homestays</em></h1>
-    <p class="hero-sub">Two distinct stays in Hanoi — a quiet boho retreat in a local neighbourhood, and a lively apartment in the beating heart of the Old Quarter.</p>
+    <p class="hero-sub" id="hero-sub">Two distinct stays in Hanoi — a quiet boho retreat in a local neighbourhood, and a lively apartment in the beating heart of the Old Quarter.</p>
     <div class="hero-btns">
-      <a href="#booking" class="btn-primary">Check Availability</a>
-      <a href="#properties" class="btn-outline">Explore Stays</a>
+      <a href="#booking" class="btn-primary" id="hero-cta1">Check Availability</a>
+      <a href="#properties" class="btn-outline" id="hero-cta2">Explore Stays</a>
     </div>
   </div>
   <div class="hero-right">
@@ -234,30 +238,197 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
       <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
       <div class="mosaic-cell"><img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775735589/att.aQA6rtgLiq4xNohnI_5evOChVLQEerfY7zuplUnX52E_iaxuvn.jpg" alt="MiaCasaOldQuarter" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     </div>
-    <div class="hero-badge"><p>Rated across Airbnb &amp; Booking.com</p><strong>★ 4.9 — 200+ Happy Guests</strong></div>
+    <div class="hero-badge"><p id="hero-rated">Rated across Airbnb &amp; Booking.com</p><strong>★ 4.9 — 200+ Happy Guests</strong></div>
   </div>
 </section>
 
 <section id="properties"><div class="container">
-  <div class="section-tag">Our Stays</div>
-  <h2 class="section-title">Two stays, <em>one spirit</em></h2>
-  <p class="section-sub">Each MiaCasa property has its own character — choose the quiet neighbourhood charm of MiaCasaHanoi, or the electric energy of MiaCasaOldQuarter right in the Old Quarter.</p>
+  <div class="section-tag" id="sec-stays">Our Stays</div>
+  <h2 class="section-title" id="props-title">Two stays, <em>one spirit</em></h2>
+  <p class="section-sub" id="props-sub">Each MiaCasa property has its own character — choose the quiet neighbourhood charm of MiaCasaHanoi, or the electric energy of MiaCasaOldQuarter right in the Old Quarter.</p>
   <div class="properties-grid" id="properties-grid"></div>
 </div></section>
 
 <section id="booking"><div class="container">
-  <div class="section-tag">Reservations</div>
-  <h2 class="section-title">Book your <em>escape</em></h2>
-  <p class="section-sub">Reserve directly with us for the best rate — no platform fees, flexible policies, and a personal welcome.</p>
+  <div class="section-tag" id="sec-book">Reservations</div>
+  <h2 class="section-title" id="book-title">Book your <em>escape</em></h2>
+  <p class="section-sub" id="book-sub">Reserve directly with us for the best rate — no platform fees, flexible policies, and a personal welcome.</p>
   <div class="property-select-grid" id="booking-prop-sel"></div>
   <div class="booking-form-wrap">
     <div class="form-grid">
-      <div class="form-group"><label>Room / Space</label><select id="room-type-sel"></select></div>
-      <div class="form-group"><label>Check-in</label><input type="date" id="checkin"></div>
-      <div class="form-group"><label>Check-out</label><input type="date" id="checkout"></div>
-      <div class="form-group"><label>Guests</label><select id="guests-sel"></select></div>
-      <div class="form-group"><label>Full Name</label><input type="text" id="guest-name" placeholder="Your name"></div>
-      <div class="form-group"><label>Email</label><input type="email" id="guest-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label id="lbl-room">Room / Space</label><select id="room-type-sel" onchange="updateGuestOptions(); updatePriceDisplay();"></select></div>
+      <div class="form-group"><label id="lbl-checkin">Check-in</label><input type="date" id="checkin" title="Dates shown as DD/MM/YYYY in summaries"></div>
+      <div class="form-group"><label id="lbl-checkout">Check-out</label><input type="date" id="checkout" title="Dates shown as DD/MM/YYYY in summaries"></div>
+      <div class="form-group"><label id="lbl-guests">Guests</label><select id="guests-sel"></select></div>
+      <div class="form-group"><label id="lbl-name">Full Name</label><input type="text" id="guest-name" placeholder="Your name"></div>
+      <div class="form-group"><label id="lbl-email">Email</label><input type="email" id="guest-email" placeholder="your@email.com"></div>
+      <div class="form-group" style="grid-column:1/-1;">
+        <label id="lbl-phone">Phone Number</label>
+        <div style="display:flex;gap:0.5rem;">
+          <select id="guest-phone-code" style="width:220px;flex-shrink:0;padding:0.75rem 0.5rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--ink);outline:none;">
+            <option value="+84">🇻🇳 +84 (Vietnam)</option>
+            <optgroup label="── Asia Pacific ──">
+            <option value="+93">🇦🇫 +93 (Afghanistan)</option>
+            <option value="+61">🇦🇺 +61 (Australia)</option>
+            <option value="+880">🇧🇩 +880 (Bangladesh)</option>
+            <option value="+975">🇧🇹 +975 (Bhutan)</option>
+            <option value="+673">🇧🇳 +673 (Brunei)</option>
+            <option value="+855">🇰🇭 +855 (Cambodia)</option>
+            <option value="+86">🇨🇳 +86 (China)</option>
+            <option value="+679">🇫🇯 +679 (Fiji)</option>
+            <option value="+852">🇭🇰 +852 (Hong Kong)</option>
+            <option value="+91">🇮🇳 +91 (India)</option>
+            <option value="+62">🇮🇩 +62 (Indonesia)</option>
+            <option value="+81">🇯🇵 +81 (Japan)</option>
+            <option value="+82">🇰🇷 +82 (South Korea)</option>
+            <option value="+856">🇱🇦 +856 (Laos)</option>
+            <option value="+853">🇲🇴 +853 (Macau)</option>
+            <option value="+60">🇲🇾 +60 (Malaysia)</option>
+            <option value="+960">🇲🇻 +960 (Maldives)</option>
+            <option value="+976">🇲🇳 +976 (Mongolia)</option>
+            <option value="+95">🇲🇲 +95 (Myanmar)</option>
+            <option value="+977">🇳🇵 +977 (Nepal)</option>
+            <option value="+64">🇳🇿 +64 (New Zealand)</option>
+            <option value="+92">🇵🇰 +92 (Pakistan)</option>
+            <option value="+675">🇵🇬 +675 (Papua New Guinea)</option>
+            <option value="+63">🇵🇭 +63 (Philippines)</option>
+            <option value="+94">🇱🇰 +94 (Sri Lanka)</option>
+            <option value="+886">🇹🇼 +886 (Taiwan)</option>
+            <option value="+66">🇹🇭 +66 (Thailand)</option>
+            <option value="+670">🇹🇱 +670 (Timor-Leste)</option>
+            </optgroup>
+            <optgroup label="── Europe ──">
+            <option value="+355">🇦🇱 +355 (Albania)</option>
+            <option value="+376">🇦🇩 +376 (Andorra)</option>
+            <option value="+43">🇦🇹 +43 (Austria)</option>
+            <option value="+375">🇧🇾 +375 (Belarus)</option>
+            <option value="+32">🇧🇪 +32 (Belgium)</option>
+            <option value="+387">🇧🇦 +387 (Bosnia)</option>
+            <option value="+359">🇧🇬 +359 (Bulgaria)</option>
+            <option value="+385">🇭🇷 +385 (Croatia)</option>
+            <option value="+357">🇨🇾 +357 (Cyprus)</option>
+            <option value="+420">🇨🇿 +420 (Czech Republic)</option>
+            <option value="+45">🇩🇰 +45 (Denmark)</option>
+            <option value="+372">🇪🇪 +372 (Estonia)</option>
+            <option value="+358">🇫🇮 +358 (Finland)</option>
+            <option value="+33">🇫🇷 +33 (France)</option>
+            <option value="+49">🇩🇪 +49 (Germany)</option>
+            <option value="+30">🇬🇷 +30 (Greece)</option>
+            <option value="+36">🇭🇺 +36 (Hungary)</option>
+            <option value="+354">🇮🇸 +354 (Iceland)</option>
+            <option value="+353">🇮🇪 +353 (Ireland)</option>
+            <option value="+39">🇮🇹 +39 (Italy)</option>
+            <option value="+383">🇽🇰 +383 (Kosovo)</option>
+            <option value="+371">🇱🇻 +371 (Latvia)</option>
+            <option value="+423">🇱🇮 +423 (Liechtenstein)</option>
+            <option value="+370">🇱🇹 +370 (Lithuania)</option>
+            <option value="+352">🇱🇺 +352 (Luxembourg)</option>
+            <option value="+356">🇲🇹 +356 (Malta)</option>
+            <option value="+373">🇲🇩 +373 (Moldova)</option>
+            <option value="+382">🇲🇪 +382 (Montenegro)</option>
+            <option value="+31">🇳🇱 +31 (Netherlands)</option>
+            <option value="+47">🇳🇴 +47 (Norway)</option>
+            <option value="+48">🇵🇱 +48 (Poland)</option>
+            <option value="+351">🇵🇹 +351 (Portugal)</option>
+            <option value="+40">🇷🇴 +40 (Romania)</option>
+            <option value="+7">🇷🇺 +7 (Russia)</option>
+            <option value="+381">🇷🇸 +381 (Serbia)</option>
+            <option value="+421">🇸🇰 +421 (Slovakia)</option>
+            <option value="+386">🇸🇮 +386 (Slovenia)</option>
+            <option value="+34">🇪🇸 +34 (Spain)</option>
+            <option value="+46">🇸🇪 +46 (Sweden)</option>
+            <option value="+41">🇨🇭 +41 (Switzerland)</option>
+            <option value="+380">🇺🇦 +380 (Ukraine)</option>
+            <option value="+44">🇬🇧 +44 (UK)</option>
+            </optgroup>
+            <optgroup label="── Americas ──">
+            <option value="+1">🇺🇸 +1 (USA)</option>
+            <option value="+1-CA">🇨🇦 +1 (Canada)</option>
+            <option value="+54">🇦🇷 +54 (Argentina)</option>
+            <option value="+591">🇧🇴 +591 (Bolivia)</option>
+            <option value="+55">🇧🇷 +55 (Brazil)</option>
+            <option value="+56">🇨🇱 +56 (Chile)</option>
+            <option value="+57">🇨🇴 +57 (Colombia)</option>
+            <option value="+506">🇨🇷 +506 (Costa Rica)</option>
+            <option value="+53">🇨🇺 +53 (Cuba)</option>
+            <option value="+593">🇪🇨 +593 (Ecuador)</option>
+            <option value="+503">🇸🇻 +503 (El Salvador)</option>
+            <option value="+502">🇬🇹 +502 (Guatemala)</option>
+            <option value="+504">🇭🇳 +504 (Honduras)</option>
+            <option value="+52">🇲🇽 +52 (Mexico)</option>
+            <option value="+505">🇳🇮 +505 (Nicaragua)</option>
+            <option value="+507">🇵🇦 +507 (Panama)</option>
+            <option value="+595">🇵🇾 +595 (Paraguay)</option>
+            <option value="+51">🇵🇪 +51 (Peru)</option>
+            <option value="+1-PR">🇵🇷 +1 (Puerto Rico)</option>
+            <option value="+598">🇺🇾 +598 (Uruguay)</option>
+            <option value="+58">🇻🇪 +58 (Venezuela)</option>
+            </optgroup>
+            <optgroup label="── Middle East ──">
+            <option value="+973">🇧🇭 +973 (Bahrain)</option>
+            <option value="+964">🇮🇶 +964 (Iraq)</option>
+            <option value="+98">🇮🇷 +98 (Iran)</option>
+            <option value="+972">🇮🇱 +972 (Israel)</option>
+            <option value="+962">🇯🇴 +962 (Jordan)</option>
+            <option value="+965">🇰🇼 +965 (Kuwait)</option>
+            <option value="+961">🇱🇧 +961 (Lebanon)</option>
+            <option value="+968">🇴🇲 +968 (Oman)</option>
+            <option value="+974">🇶🇦 +974 (Qatar)</option>
+            <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
+            <option value="+963">🇸🇾 +963 (Syria)</option>
+            <option value="+90">🇹🇷 +90 (Turkey)</option>
+            <option value="+971">🇦🇪 +971 (UAE)</option>
+            <option value="+967">🇾🇪 +967 (Yemen)</option>
+            </optgroup>
+            <optgroup label="── Africa ──">
+            <option value="+213">🇩🇿 +213 (Algeria)</option>
+            <option value="+244">🇦🇴 +244 (Angola)</option>
+            <option value="+229">🇧🇯 +229 (Benin)</option>
+            <option value="+267">🇧🇼 +267 (Botswana)</option>
+            <option value="+226">🇧🇫 +226 (Burkina Faso)</option>
+            <option value="+257">🇧🇮 +257 (Burundi)</option>
+            <option value="+237">🇨🇲 +237 (Cameroon)</option>
+            <option value="+236">🇨🇫 +236 (Central African Republic)</option>
+            <option value="+235">🇹🇩 +235 (Chad)</option>
+            <option value="+242">🇨🇬 +242 (Congo)</option>
+            <option value="+225">🇨🇮 +225 (Côte d'Ivoire)</option>
+            <option value="+20">🇪🇬 +20 (Egypt)</option>
+            <option value="+251">🇪🇹 +251 (Ethiopia)</option>
+            <option value="+233">🇬🇭 +233 (Ghana)</option>
+            <option value="+224">🇬🇳 +224 (Guinea)</option>
+            <option value="+254">🇰🇪 +254 (Kenya)</option>
+            <option value="+266">🇱🇸 +266 (Lesotho)</option>
+            <option value="+231">🇱🇷 +231 (Liberia)</option>
+            <option value="+218">🇱🇾 +218 (Libya)</option>
+            <option value="+261">🇲🇬 +261 (Madagascar)</option>
+            <option value="+265">🇲🇼 +265 (Malawi)</option>
+            <option value="+223">🇲🇱 +223 (Mali)</option>
+            <option value="+222">🇲🇷 +222 (Mauritania)</option>
+            <option value="+230">🇲🇺 +230 (Mauritius)</option>
+            <option value="+212">🇲🇦 +212 (Morocco)</option>
+            <option value="+258">🇲🇿 +258 (Mozambique)</option>
+            <option value="+264">🇳🇦 +264 (Namibia)</option>
+            <option value="+227">🇳🇪 +227 (Niger)</option>
+            <option value="+234">🇳🇬 +234 (Nigeria)</option>
+            <option value="+250">🇷🇼 +250 (Rwanda)</option>
+            <option value="+221">🇸🇳 +221 (Senegal)</option>
+            <option value="+232">🇸🇱 +232 (Sierra Leone)</option>
+            <option value="+252">🇸🇴 +252 (Somalia)</option>
+            <option value="+27">🇿🇦 +27 (South Africa)</option>
+            <option value="+211">🇸🇸 +211 (South Sudan)</option>
+            <option value="+249">🇸🇩 +249 (Sudan)</option>
+            <option value="+268">🇸🇿 +268 (Eswatini)</option>
+            <option value="+255">🇹🇿 +255 (Tanzania)</option>
+            <option value="+228">🇹🇬 +228 (Togo)</option>
+            <option value="+216">🇹🇳 +216 (Tunisia)</option>
+            <option value="+256">🇺🇬 +256 (Uganda)</option>
+            <option value="+260">🇿🇲 +260 (Zambia)</option>
+            <option value="+263">🇿🇼 +263 (Zimbabwe)</option>
+            </optgroup>
+          </select>
+          <input type="tel" id="guest-phone-number" placeholder="Phone number" style="flex:1;padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;">
+        </div>
+      </div>
     </div>
     <div class="pricing-note" id="pricing-note"></div>
     <div id="old-submit-row" style="margin-top:1.5rem;"><button type="button" class="btn-primary" onclick="submitBooking()">Request Booking →</button></div>
@@ -267,78 +438,79 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 </div></section>
 
 <section id="availability"><div class="container">
-  <div class="section-tag">Availability</div>
-  <h2 class="section-title">Live <em>calendars</em></h2>
-  <p class="section-sub">Synced in real time across Airbnb, Booking.com, Agoda, Dayladau, Trip.com and more. Select a room below to check dates.</p>
+  <div class="section-tag" id="sec-avail">Availability</div>
+  <h2 class="section-title" id="avail-title">Live <em>calendars</em></h2>
+  <p class="section-sub" id="avail-sub">Synced in real time across Airbnb, Booking.com, Agoda, Dayladau, Trip.com and more. Select a room below to check dates.</p>
   <div class="cal-tabs" id="cal-tabs"></div>
   <div id="cal-frames"></div>
 
 </div></section>
 
 <section id="gallery"><div class="container">
-  <div class="section-tag">Gallery</div>
-  <h2 class="section-title">A peek <em>inside</em></h2>
-  <p class="section-sub">Handcrafted spaces designed to feel lived-in, layered, and effortlessly beautiful.</p>
+  <div class="section-tag" id="sec-gallery">Gallery</div>
+  <h2 class="section-title" id="gallery-title">A peek <em>inside</em></h2>
+  <p class="section-sub" id="gallery-sub">Handcrafted spaces designed to feel lived-in, layered, and effortlessly beautiful.</p>
   <div class="gallery-filter" id="gallery-filter"></div>
   <div class="gallery-grid" id="gallery-grid"></div>
 </div></section>
 
 <section id="amenities"><div class="container">
-  <div class="section-tag">What's Included</div>
-  <h2 class="section-title">Every comfort, <em>thoughtfully provided</em></h2>
-  <p class="section-sub">We've curated every detail so you can simply arrive and feel at home.</p>
+  <div class="section-tag" id="sec-amenities">What's Included</div>
+  <h2 class="section-title" id="amen-title">Every comfort, <em>thoughtfully provided</em></h2>
+  <p class="section-sub" id="amen-sub">We've curated every detail so you can simply arrive and feel at home.</p>
   <div class="amenities-tabs" id="amenities-tabs"></div>
   <div id="amenities-panels"></div>
 </div></section>
 
 <section id="rules"><div class="container">
-  <div class="section-tag">House Rules</div>
-  <h2 class="section-title">A few things to <em>keep in mind</em></h2>
-  <p class="section-sub">To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.</p>
+  <div class="section-tag" id="sec-rules">House Rules</div>
+  <h2 class="section-title" id="rules-title">A few things to <em>keep in mind</em></h2>
+  <p class="section-sub" id="rules-sub">To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.</p>
   <div class="rules-grid">
-    <div class="rule-card reveal"><div class="rule-icon g">🕐</div><div class="rule-title">Check-in / Check-out</div><ul class="rule-list"><li>Check-in from 2:00 PM (self check-in)</li><li>MiaCasaHanoi: check-out by 12:00 PM (noon)</li><li>MiaCasaOldQuarter: check-out by 11:00 AM</li><li>Early/late check-in available on request</li><li>Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge</li></ul></div>
-    <div class="rule-card reveal d1"><div class="rule-icon g">🤫</div><div class="rule-title">Noise &amp; Guests</div><ul class="rule-list"><li>Quiet hours 10:00 PM – 7:00 AM</li><li>No unregistered overnight guests</li><li>Be mindful of neighbours</li><li>Groups of 4+ need prior notice</li></ul></div>
-    <div class="rule-card reveal d2"><div class="rule-icon g">🐾</div><div class="rule-title">Smoking &amp; Pets</div><ul class="rule-list"><li>No smoking indoors</li><li>Balcony/terrace smoking only</li><li>Pets welcome — additional charge applies, please inform the host in advance</li><li>Candles permitted with care</li></ul></div>
-    <div class="rule-card reveal d3"><div class="rule-icon g">🏠</div><div class="rule-title">Property Care</div><ul class="rule-list"><li>Treat the space as your own home</li><li>Report damages promptly</li><li>No shoes inside — slippers provided</li><li>Use designated rubbish bins</li></ul></div>
-    <div class="rule-card reveal"><div class="rule-icon g">💳</div><div class="rule-title">Payments &amp; Cancellation</div><ul class="rule-list"><li>Free cancellation up to 48h prior</li><li>Bank transfer or PayPal accepted</li><li>Security deposit for long stays</li></ul></div>
-    <div class="rule-card reveal d1"><div class="rule-icon g">🌿</div><div class="rule-title">Eco Guidelines</div><ul class="rule-list"><li>Turn off A/C when leaving</li><li>Reusable water bottles provided</li><li>We avoid single-use plastics</li><li>Towel reuse encouraged</li></ul></div>
+    <div class="rule-card reveal"><div class="rule-icon g">🕐</div><div class="rule-title" id="rule-checkinout">Check-in / Check-out</div><ul class="rule-list" id="rules-checkinout-list"><li>Check-in from 2:00 PM (self check-in)</li><li>MiaCasaHanoi: check-out by 12:00 PM (noon)</li><li>MiaCasaOldQuarter: check-out by 11:00 AM</li><li>Early/late check-in available on request</li><li>Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge</li></ul></div>
+    <div class="rule-card reveal d1"><div class="rule-icon g">🤫</div><div class="rule-title" id="rule-noise">Noise &amp; Guests</div><ul class="rule-list" id="rules-noise-list"><li>Quiet hours 10:00 PM – 7:00 AM</li><li>No unregistered overnight guests</li><li>Be mindful of neighbours</li><li>Groups of 4+ need prior notice</li></ul></div>
+    <div class="rule-card reveal d2"><div class="rule-icon g">🐾</div><div class="rule-title" id="rule-smoking">Smoking &amp; Pets</div><ul class="rule-list" id="rules-smoking-list"><li>No smoking indoors</li><li>Balcony/terrace smoking only</li><li>Pets welcome — additional charge applies, please inform the host in advance</li><li>Candles permitted with care</li></ul></div>
+    <div class="rule-card reveal d3"><div class="rule-icon g">🏠</div><div class="rule-title" id="rule-propcare">Property Care</div><ul class="rule-list" id="rules-propcare-list"><li>Treat the space as your own home</li><li>Report damages promptly</li><li>No shoes inside — slippers provided</li><li>Use designated rubbish bins</li></ul></div>
+    <div class="rule-card reveal"><div class="rule-icon g">🛂</div><div class="rule-title" id="rule-legal">Legal Requirement</div><ul class="rule-list" id="rules-legal-list"><li>Vietnamese law requires all guests to provide a copy of their passport or national ID</li><li>Please send a photo to the host via WhatsApp or email before or upon check-in</li><li>Bookings cannot be confirmed without this document</li><li>Information is used solely for local authority registration</li></ul></div>
+    <div class="rule-card reveal"><div class="rule-icon g">💳</div><div class="rule-title" id="rule-payment">Payments &amp; Cancellation</div><ul class="rule-list" id="rules-payment-list"><li>Free cancellation up to 48h prior</li><li>Bank transfer or PayPal accepted</li><li>Security deposit for long stays</li></ul></div>
+    <div class="rule-card reveal d1"><div class="rule-icon g">🌿</div><div class="rule-title" id="rule-eco">Eco Guidelines</div><ul class="rule-list" id="rules-eco-list"><li>Turn off A/C when leaving</li><li>Mineral water provided (2 bottles per room per stay)</li><li>We minimise single-use plastics where possible</li><li>Towel reuse encouraged</li></ul></div>
   </div>
 </div></section>
 
 <section id="testimonials"><div class="container">
-  <div class="section-tag" style="color:var(--terracotta);">Guest Reviews</div>
-  <h2 class="section-title">Stories from <em>our guests</em></h2>
-  <p class="section-sub">Genuine words from people who've called MiaCasa home.</p>
+  <div class="section-tag" style="color:var(--terracotta);" id="sec-reviews">Guest Reviews</div>
+  <h2 class="section-title" id="reviews-title">Stories from <em>our guests</em></h2>
+  <p class="section-sub" id="reviews-sub">Genuine words from people who've called MiaCasa home.</p>
   <div class="reviews-filter" id="reviews-filter"></div>
   <div class="testimonials-grid" id="reviews-grid"></div>
   <div class="reviews-load-more" id="reviews-load-more">
-    <button class="btn-outline" onclick="loadMoreReviews()">Load more reviews</button>
+    <button class="btn-outline" id="reviews-loadmore" onclick="loadMoreReviews()">Load more reviews</button>
   </div>
 </div></section>
 
 <section id="contact"><div class="container">
-  <div class="section-tag">Get in Touch</div>
-  <h2 class="section-title">We'd love to <em>hear from you</em></h2>
-  <p class="section-sub">Questions, special requests, or just want to say hello — reach out anytime.</p>
+  <div class="section-tag" id="sec-contact">Get in Touch</div>
+  <h2 class="section-title" id="contact-title">We'd love to <em>hear from you</em></h2>
+  <p class="section-sub" id="contact-sub">Questions, special requests, or just want to say hello — reach out anytime.</p>
   <div class="contact-grid">
     <div class="contact-info">
-      <h3>Find us in Hanoi</h3>
+      <h3 id="contact-findus">Find us in Hanoi</h3>
       <div class="contact-items" id="contact-locations"></div>
       <div style="margin-top:1.5rem;" class="contact-items">
-        <div class="contact-item"><div class="contact-item-icon">📱</div><div class="contact-item-text"><strong>WhatsApp / Phone</strong><a href="https://wa.me/84869922261" target="_blank" style="color:var(--terracotta);text-decoration:none;">+84 869 922 261</a></div></div>
-        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong>Email</strong><a href="/cdn-cgi/l/email-protection#781511191b190b191019161711381f15191114561b1715" style="color:var(--terracotta);text-decoration:none;"><span class="__cf_email__" data-cfemail="dbb6b2bab8baa8bab3bab5b4b29bbcb6bab2b7f5b8b4b6">[email&#160;protected]</span></a></div></div>
-        <div class="contact-item"><div class="contact-item-icon">🕐</div><div class="contact-item-text"><strong>Response time</strong>Within 2 hours · 7am – 10pm ICT</div></div>
+        <div class="contact-item"><div class="contact-item-icon">📱</div><div class="contact-item-text"><strong id="contact-whatsapp-lbl">WhatsApp / Phone</strong><a href="https://wa.me/84869922261" target="_blank" style="color:var(--terracotta);text-decoration:none;">+84 869 922 261</a></div></div>
+        <div class="contact-item"><div class="contact-item-icon">✉️</div><div class="contact-item-text"><strong id="contact-email-lbl">Email</strong><a href="mailto:miacasahanoi@gmail.com" style="color:var(--terracotta);text-decoration:none;">miacasahanoi@gmail.com</a></div></div>
+        <div class="contact-item"><div class="contact-item-icon">🕐</div><div class="contact-item-text"><strong id="contact-response-lbl">Response time</strong><span id="contact-response-val"> Within 2 hours · 7am – 10pm ICT</span></div></div>
       </div>
     </div>
     <div class="contact-form-box">
       <div class="form-grid">
-        <div class="form-group"><label>Name</label><input type="text" id="contact-name" placeholder="Your name"></div>
+        <div class="form-group"><label id="lbl-cname">Name</label><input type="text" id="contact-name" placeholder="Your name"></div>
         <div class="form-group"><label>Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
-        <div class="form-group"><label>Property</label><select id="contact-prop-sel"></select></div>
-        <div class="form-group"><label>Subject</label><select id="contact-subject"><option>Booking Enquiry</option><option>Special Request</option><option>Calendar Sync / Channel Manager</option><option>Other</option></select></div>
-        <div class="form-group form-full"><label>Message</label><textarea id="contact-message" placeholder="Tell us how we can help..."></textarea></div>
+        <div class="form-group"><label id="lbl-cprop">Property</label><select id="contact-prop-sel"></select></div>
+        <div class="form-group"><label id="lbl-csubject">Subject</label><select id="contact-subject"><option>Booking Enquiry</option><option>Special Request</option><option>Calendar Sync / Channel Manager</option><option>Other</option></select></div>
+        <div class="form-group form-full"><label id="lbl-cmsg">Message</label><textarea id="contact-message" placeholder="Tell us how we can help..."></textarea></div>
       </div>
-      <div class="form-submit-row"><button class="btn-primary" onclick="sendWhatsApp()">Send via WhatsApp →</button></div>
+      <div class="form-submit-row"><button class="btn-primary" id="btn-whatsapp" onclick="sendWhatsApp()">Send via WhatsApp →</button></div>
       <div class="confirm-msg" id="contact-confirm">✓ Message sent! We'll be in touch soon.</div>
     </div>
   </div>
@@ -348,23 +520,23 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   <div class="footer-grid">
     <div class="footer-brand">
       <a class="nav-logo" href="#home" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
-      <p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+      <p id="footer-tagline">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
     </div>
     <div class="footer-col"><h4>Our Stays</h4><ul id="footer-stays"></ul></div>
-    <div class="footer-col"><h4>Information</h4><ul><li><a href="#amenities">Amenities</a></li><li><a href="#rules">House Rules</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#testimonials">Reviews</a></li></ul></div>
-    <div class="footer-col"><h4>Also on</h4><ul><li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li><li><a href="https://www.airbnb.co.in/rooms/1444661721704448383" target="_blank">Airbnb – MiaCasaOldQuarter</a></li><li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li><li><a href="https://www.booking.com/hotel/vn/miacasaoldquarter.html" target="_blank">Booking.com – MiaCasaOldQuarter</a></li><li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li><li><a href="https://www.agoda.com/en-in/miacasaoldquarter/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaOldQuarter</a></li><li><a href="https://dayladau.com/listings/lsbkvoicpe" target="_blank">Dayladau – MiaCasaHanoi</a></li></ul></div>
+    <div class="footer-col"><h4 id="footer-info-title">Information</h4><ul><li><a href="#amenities" id="footer-lnk-amenities">Amenities</a></li><li><a href="#rules" id="footer-lnk-rules">House Rules</a></li><li><a href="#gallery" id="footer-lnk-gallery">Gallery</a></li><li><a href="#testimonials" id="footer-lnk-reviews">Reviews</a></li></ul></div>
+    <div class="footer-col"><h4 id="footer-also-title">Also on</h4><ul><li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li><li><a href="https://www.airbnb.co.in/rooms/1444661721704448383" target="_blank">Airbnb – MiaCasaOldQuarter</a></li><li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li><li><a href="https://www.booking.com/hotel/vn/miacasaoldquarter.html" target="_blank">Booking.com – MiaCasaOldQuarter</a></li><li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li><li><a href="https://www.agoda.com/en-in/miacasaoldquarter/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaOldQuarter</a></li><li><a href="https://dayladau.com/listings/lsbkvoicpe" target="_blank">Dayladau – MiaCasaHanoi</a></li></ul></div>
   </div>
-  <div class="footer-bottom"><span>© 2025 MiaCasa Homestays. All rights reserved.</span><span style="color:rgba(255,255,255,0.25);">Made with ♡ in Hanoi</span></div>
+  <div class="footer-bottom"><span id="footer-copy">© 2025 MiaCasa Homestays. All rights reserved.</span><span style="color:rgba(255,255,255,0.25);" id="footer-made">Made with ♡ in Hanoi</span></div>
 </div></footer>
 
 <button class="chatbot-fab" onclick="toggleChat()">💬</button>
 <div class="chatbot-window" id="chatbot">
   <div class="chatbot-header">
-    <div><div class="chatbot-header-title">MiaCasa Assistant</div><div class="chatbot-header-sub">Usually replies in minutes</div></div>
+    <div><div class="chatbot-header-title" id="chat-title">MiaCasa Assistant</div><div class="chatbot-header-sub" id="chat-sub">Usually replies in minutes</div></div>
     <button class="chatbot-close" onclick="toggleChat()">✕</button>
   </div>
   <div class="chat-messages" id="chat-messages">
-    <div class="msg bot">Xin chào! 👋 Welcome to MiaCasa Homestays — two unique stays in Hanoi. I can help with rooms, availability, prices, or anything about MiaCasaHanoi or MiaCasaOldQuarter. What would you like to know?</div>
+    <div class="msg bot" id="chat-welcome">Xin chào! 👋 Welcome to MiaCasa Homestays — two unique stays in Hanoi. I can help with rooms, availability, prices, or anything about MiaCasaHanoi or MiaCasaOldQuarter. What would you like to know?</div>
   </div>
   <div class="chat-quick" id="quick-replies">
     <button class="quick-btn" onclick="quickReply('What properties do you have?')">Our properties?</button>
@@ -374,11 +546,24 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
   </div>
   <div class="chatbot-input-area">
     <input type="text" class="chatbot-input" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chatbot-send" onclick="sendChat()">→</button>
+    <button class="chatbot-send" id="chat-send" onclick="sendChat()">→</button>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// ── Language must be declared first — used by getField/buildCardBody during initial render
+let currentLang = (function(){ try{ return localStorage.getItem('mia_lang') || 'en'; }catch(e){ return 'en'; } })();
+
+const ROOM_CAPACITY = {
+  "Spring Room": 3,
+  "Summer Room": 3,
+  "Autumn Room": 3,
+  "Entire Apartment (3 king beds)": 6
+};
+
+const EXTRA_GUEST_FEE = 100000;
+const INCLUDED_GUESTS = 2;
+
 /* ================================================================
    PROPERTIES DATA  ─  Add a new property here. Everything else
    on the page (cards, booking, calendar, gallery, amenities,
@@ -392,10 +577,29 @@ const PROPERTIES = [
     location: '92 Ngh. 51 Ng. Linh Quang, Văn Chương, Văn Miếu – Quốc Tử Giám, Hà Nội',
     desc: 'Three private boho rooms — Spring, Summer, and Autumn — each with attached bathroom and kitchenette. A quiet, characterful retreat in a local neighbourhood, perfect for solo travellers, couples, and digital nomads.',
     maxGuests: 8,
+    maxGuestsPerRoom: 3,
     guestNote: 'Max 8 guests (entire house: all 3 rooms)',
     rating: '4.9',
     priceNote: 'From 750,000₫ (~$30 USD) / room / night · Up to 8 guests across all 3 rooms',
+    vn: {
+      badge: 'Phòng có bếp nhỏ',
+      desc: 'Ba phòng boho riêng tư — Xuân, Hạ và Thu — mỗi phòng có phòng tắm riêng và bếp nhỏ. Chốn nghỉ ngơi yên tĩnh trong khu phố địa phương, lý tưởng cho khách du lịch đơn lẻ, cặp đôi và người làm việc từ xa.',
+      priceNote: 'Từ 750.000₫ (~30 USD) / phòng / đêm · Tối đa 8 khách trong cả 3 phòng',
+      rooms: ['Phòng Xuân', 'Phòng Hạ', 'Phòng Thu'],
+      highlights: ['Yên tĩnh & ấm cúng, xa khỏi đường phố ồn ào','Nội thất boho tối giản đẹp mắt','Phòng tắm riêng + bếp nhỏ trong mỗi phòng','Quán cà phê ngay tầng dưới cho buổi sáng của bạn','Chủ nhà thân thiện và luôn quan tâm'],
+      guestNote: 'Tối đa 8 khách (toàn nhà: cả 3 phòng)',
+      amenities: [
+        {icon:'🛁',name:'Phòng tắm riêng',sub:'Dụng cụ vệ sinh cao cấp & khăn tắm mềm mại'},
+        {icon:'🍳',name:'Bếp nhỏ trong phòng',sub:'Tủ lạnh mini, ấm đun & dụng cụ nấu ăn cơ bản'},
+        {icon:'❄️',name:'Điều hoà & quạt',sub:'Kiểm soát nhiệt độ trong mỗi phòng'},
+        {icon:'📶',name:'WiFi tốc độ cao',sub:'100 Mbps — phù hợp làm việc từ xa'},
+        {icon:'☕',name:'Quán cà phê tầng dưới',sub:'Thói quen cà phê sáng của bạn được đảm bảo'},
+        {icon:'🔑',name:'Hộp khoá · Tự nhận phòng 24h',sub:'Hộp khoá bảo mật · trả chìa khoá sau khi vào phòng'},
+        {icon:'🗺️',name:'Bản đồ địa phương',sub:'Những địa điểm ẩn, quán cà phê & mẹo từ chủ nhà'},
+      ],
+    },
     heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6634_pwmg8r.jpg',
+    mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.2210192039947!2d105.83919480000002!3d21.023840699999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abf7d6be703f%3A0xe6e8fe5df444028d!2sMiaCasaHanoi!5e0!3m2!1sen!2sin!4v1776085121658!5m2!1sen!2sin',
     color: '#d4b896', color2: '#a07850',
     rooms: ['Spring Room', 'Summer Room', 'Autumn Room'],
     highlights: ['Quiet & cozy, away from busy streets','Beautiful minimal boho interiors','Ensuite bathroom + kitchenette in every room','Café right downstairs for your morning coffee','Friendly host who genuinely cares'],
@@ -433,7 +637,27 @@ const PROPERTIES = [
     maxGuests: 6,
     rating: '4.8',
     priceNote: 'From 1,200,000₫ (~$48 USD) / night · Base rate for 2 guests · +100,000₫ per extra guest (max 6)',
+    vn: {
+      badge: 'Toàn bộ căn hộ',
+      desc: 'Toàn bộ căn hộ giữa lòng Phố Cổ. Hai giường ở tầng chính và một giường ở gác xép phía trên, cùng sân thượng mở nhìn ra thành phố. Lý tưởng cho nhóm bạn muốn ở ngay trung tâm náo nhiệt.',
+      priceNote: 'Từ 1.200.000₫ (~48 USD) / đêm · Giá cơ bản cho 2 khách · +100.000₫ mỗi khách thêm (tối đa 6)',
+      rooms: ['Toàn bộ căn hộ (3 giường đôi)'],
+      highlights: ['Vị trí đắc địa trong Phố Cổ','2 giường tầng chính + 1 giường gác xép','Sân thượng mở thoáng mát nhìn ra thành phố','Đồ ăn đường phố, quán cà phê & cuộc sống về đêm ngay cửa','Phù hợp nhất cho nhóm bạn du lịch cùng nhau'],
+      notice: '⚠ Lưu ý: Khu vực sôi động và có thể ồn vào ban đêm. Lối vào qua cầu thang dốc — không phù hợp cho trẻ nhỏ, người cao tuổi hoặc người hạn chế vận động.',
+      amenities: [
+        {icon:'🏠',name:'Toàn bộ căn hộ — riêng tư hoàn toàn',sub:'Sự riêng tư tuyệt đối cho nhóm của bạn'},
+        {icon:'🛏️',name:'2 giường tầng chính + 1 giường gác xép',sub:'Bố cục rộng rãi trên hai tầng'},
+        {icon:'🚿',name:'1 phòng tắm',sub:'Đồ vải cao cấp & dụng cụ vệ sinh được cung cấp'},
+        {icon:'🌿',name:'Sân thượng mở',sub:'Góc thư giãn của bạn trên Phố Cổ'},
+        {icon:'🍜',name:'Đồ ăn đường phố & quán cà phê ngay cửa',sub:'Những tinh hoa ẩm thực Hà Nội trong tầm tay'},
+        {icon:'📶',name:'WiFi tốc độ cao',sub:'100 Mbps xuyên suốt — phù hợp làm việc từ xa'},
+        {icon:'🔒',name:'Khoá thông minh · Tự nhận phòng 24h',sub:'Nhập mã vào bất cứ lúc nào — không cần chìa khoá'},
+        {icon:'🔊',name:'Máy tạo tiếng ồn trắng',sub:'Giúp che tiếng ồn đường phố, ngủ ngon hơn'},
+        {icon:'⚠️',name:'Lưu ý',sub:'Cầu thang dốc · có thể ồn vào ban đêm · không phù hợp cho trẻ nhỏ hoặc người cao tuổi'},
+      ],
+    },
     heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
+    mapSrc: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.9409657948354!2d105.84924097558715!3d21.03504798061591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab6cdd87ff3b%3A0x13d24d129dfc21e1!2sMiaCasaOldQuarter!5e0!3m2!1sen!2sin!4v1776085220321!5m2!1sen!2sin',
     color: '#90b0b0', color2: '#406080',
     rooms: ['Entire Apartment (3 king beds)'],
     highlights: ['Prime location in the Old Quarter','2 beds on main level + 1 attic bed upstairs','Open terrace for relaxing evenings above the city','Street food, cafés & nightlife at your doorstep','Best for groups & friends traveling together'],
@@ -447,6 +671,7 @@ const PROPERTIES = [
       {icon:'🍜',name:'Street food & cafés at the door',sub:'The best of Hanoi within walking distance'},
       {icon:'📶',name:'High-speed WiFi',sub:'100 Mbps throughout — great for remote work'},
       {icon:'🔒',name:'Smart lock · 24h self check-in',sub:'Keypad entry — arrive any time, no key needed'},
+      {icon:'🔊',name:'White noise machine',sub:'Provided for your comfort — helps mask street noise'},
       {icon:'⚠️',name:'Good to know',sub:'Steep stairs · can be noisy at night · not ideal for young children or elderly guests'},
     ],
     gallery: [
@@ -482,8 +707,56 @@ const PROPERTIES = [
 ];
 
 /* ================================================================
+   LANGUAGE HELPER — reads VN version if available, falls back to EN
+   ================================================================ */
+function getField(p, field, lang) {
+  if (lang === 'vn' && p.vn && p.vn[field] !== undefined) return p.vn[field];
+  return p[field];
+}
+// Shorthand: get current-language version of a property
+function pL(p) { return (currentLang === 'vn' && p.vn) ? p : p; } // use getField per field
+
+/* ================================================================
    RENDER — everything below reads from PROPERTIES, do not edit
    ================================================================ */
+
+// ── Shared card body builder — used by initial render AND setLang re-render
+function buildCardBody(p, lang) {
+  const badge    = getField(p, 'badge', lang);
+  const desc     = getField(p, 'desc', lang);
+  const highlights = getField(p, 'highlights', lang);
+  const notice   = getField(p, 'notice', lang);
+  const guestNote= getField(p, 'guestNote', lang);
+  const rooms    = getField(p, 'rooms', lang);
+  const roomsLbl = rooms.length > 1 ? (lang==='vn'?'Phòng':'Rooms') : (lang==='vn'?'Căn hộ':'Unit');
+  const guestsLbl = lang==='vn' ? 'Khách' : 'Guests';
+  const ratingLbl = lang==='vn' ? 'Đánh giá' : 'Rating';
+  const bookBtn   = lang==='vn' ? 'Đặt ngay →' : 'Book Now →';
+  return (
+    '<div class="property-name">'+p.name+'</div>'+
+    '<div class="property-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+p.location+'</div>'+
+    '<p class="property-desc">'+desc+'</p>'+
+    (highlights ? '<ul class="prop-highlights">'+highlights.map(function(h){return '<li>'+h+'</li>';}).join('')+'</ul>' : '')+
+    (notice ? '<div class="prop-notice">'+notice+'</div>' : '')+
+    '<div class="property-meta">'+
+      '<div class="meta-item"><span class="meta-num">'+rooms.length+'</span><span class="meta-lbl">'+roomsLbl+'</span></div>'+
+      '<div class="meta-item"><span class="meta-num">1–8'+p.maxGuests+'</span><span class="meta-lbl">'+guestsLbl+'</span></div>'+
+      '<div class="meta-item"><span class="meta-num">'+p.rating+'★</span><span class="meta-lbl">'+ratingLbl+'</span></div>'+
+    '</div>'+
+    '<a href="#booking" class="btn-primary" onclick="selectAndScroll(\''+p.id+'\')">' + bookBtn + '</a>'+
+    (p.mapSrc ? '<div style="margin-top:1.25rem;border-radius:4px;overflow:hidden;border:1px solid var(--border);"><iframe src="'+p.mapSrc+'" width="100%" height="220" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>' : '')
+  );
+}
+
+// ── buildAmenityPanel — used by initial render AND setLang re-render
+function buildAmenityPanel(p, lang) {
+  const amenities = getField(p, 'amenities', lang);
+  console.log('BUILD AMENITIES LANG:', lang);
+  return amenities.map(function(a) {
+    return '<div class="amenity-item"><div class="amenity-icon">'+a.icon+'</div>'+
+           '<div class="amenity-text">'+a.name+'<span>'+a.sub+'</span></div></div>';
+  }).join('');
+}
 
 // Property cards
 const propGrid = document.getElementById('properties-grid');
@@ -505,23 +778,12 @@ PROPERTIES.forEach((p,i) => {
   }
   const badge = document.createElement('div');
   badge.className = 'property-badge';
-  badge.textContent = p.badge;
+  badge.textContent = getField(p, 'badge', currentLang);
   imgDiv.appendChild(badge);
 
   const body = document.createElement('div');
   body.className = 'property-body';
-  body.innerHTML =
-    '<div class="property-name">'+p.name+'</div>'+
-    '<div class="property-loc"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+p.location+'</div>'+
-    '<p class="property-desc">'+p.desc+'</p>'+
-    (p.highlights ? '<ul class="prop-highlights">'+p.highlights.map(h=>'<li>'+h+'</li>').join('')+'</ul>' : '')+
-    (p.notice ? '<div class="prop-notice">'+p.notice+'</div>' : '')+
-    '<div class="property-meta">'+
-      '<div class="meta-item"><span class="meta-num">'+p.rooms.length+'</span><span class="meta-lbl">'+(p.rooms.length>1?'Rooms':'Unit')+'</span></div>'+
-      '<div class="meta-item"><span class="meta-num">1–'+p.maxGuests+'</span><span class="meta-lbl">Guests</span></div>'+
-      '<div class="meta-item"><span class="meta-num">'+p.rating+'★</span><span class="meta-lbl">Rating</span></div>'+
-    '</div>'+
-    '<a href="#booking" class="btn-primary" onclick="selectProp(\"'+p.id+'\")">Book Now →</a>';
+  body.innerHTML = buildCardBody(p, currentLang);
 
   card.appendChild(imgDiv);
   card.appendChild(body);
@@ -532,8 +794,9 @@ PROPERTIES.forEach((p,i) => {
 let activeProp = PROPERTIES[0].id;
 const bookSel = document.getElementById('booking-prop-sel');
 PROPERTIES.forEach((p,i) => {
+  const badge0 = getField(p, 'badge', currentLang);
   bookSel.innerHTML += `<button class="prop-select-btn ${i===0?'active':''}" id="bsb-${p.id}" onclick="selectProp('${p.id}')">
-    <span class="pbn">${p.name}</span><span class="pbs">${p.badge} · ${p.rating}★</span>
+    <span class="pbn">${p.name}</span><span class="pbs">${badge0} · ${p.rating}★</span>
   </button>`;
 });
 function selectProp(id) {
@@ -541,10 +804,16 @@ function selectProp(id) {
   document.querySelectorAll('.prop-select-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('bsb-'+id).classList.add('active');
   const p = PROPERTIES.find(x=>x.id===id);
-  document.getElementById('room-type-sel').innerHTML = p.rooms.map(r=>`<option>${r}</option>`).join('');
+  const rooms = getField(p, 'rooms', currentLang);
+  document.getElementById('room-type-sel').innerHTML = rooms.map(r=>`<option>${r}</option>`).join('');
+  const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
+  const guestWord = currentLang==='vn' ? 'Khách' : 'Guest';
+  const guestWordPl = currentLang==='vn' ? 'Khách' : 'Guests';
   document.getElementById('guests-sel').innerHTML =
-    Array.from({length:p.maxGuests},(_,i)=>`<option value="${i+1}">${i+1} Guest${i>0?'s':''}</option>`).join('');
-  document.getElementById('pricing-note').innerHTML = `💡 ${p.priceNote}. Best rate guaranteed when booking direct.`;
+    Array.from({length:bookingMaxGuests},(_,i)=>`<option value="${i+1}">${i+1} ${i>0?guestWordPl:guestWord}</option>`).join('');
+  const priceNote = getField(p, 'priceNote', currentLang);
+  const bestRate = currentLang==='vn' ? 'Giá tốt nhất khi đặt trực tiếp.' : 'Best rate guaranteed when booking direct.';
+  document.getElementById('pricing-note').innerHTML = `💡 ${priceNote}. ${bestRate}`;
 }
 selectProp(PROPERTIES[0].id);
 
@@ -570,6 +839,18 @@ async function callSheetsAPI(payload) {
 }
 
 
+function getPropertyFromRoom(room) {
+  if (!room) return "";
+
+  const ROOM_PROPERTY_MAP = {
+    "Spring Room": "MiaCasaHanoi",
+    "Summer Room": "MiaCasaHanoi",
+    "Autumn Room": "MiaCasaHanoi",
+    "Entire Apartment (3 king beds)": "MiaCasaOldQuarter"
+  };
+
+  return ROOM_PROPERTY_MAP[room] || "MiaCasaHanoi";
+}
 
   
 async function submitBooking() {
@@ -580,7 +861,7 @@ async function submitBooking() {
   }
   const confirmBox = document.getElementById('booking-confirm');
 
-  const property = document.getElementById('property').value;
+  const property = document.getElementById("contact-prop-sel")?.value || "";
   const room = document.getElementById('room').value;
   const checkIn = document.getElementById('checkin').value;
   const checkOut = document.getElementById('checkout').value;
@@ -593,6 +874,7 @@ async function submitBooking() {
 
   const bookingId = currentBookingId;
 
+  console.log("Selected property:", property);
   const payload = {
     bookingId,
     property,
@@ -631,6 +913,39 @@ async function submitBooking() {
     confirmBox.style.display = 'block';
     console.error(err);
   }
+}
+
+
+function updateGuestOptions() {
+  const room = document.getElementById("room-type-sel")?.value;
+  const guestSelect = document.getElementById("guests-sel");
+
+  if (!room || !guestSelect) return;
+
+  const ROOM_CAPACITY = {
+    "Spring Room": 3,
+    "Summer Room": 3,
+    "Autumn Room": 3,
+    "Entire Apartment (3 king beds)": 6
+  };
+
+  const maxGuests = ROOM_CAPACITY[room] || 2;
+
+  const currentValue = parseInt(guestSelect.value || "1");
+
+  // Clear dropdown
+  guestSelect.innerHTML = "";
+
+  // Rebuild options
+  for (let i = 1; i <= maxGuests; i++) {
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = i + (i === 1 ? " guest" : " guests");
+    guestSelect.appendChild(opt);
+  }
+
+  // Preserve selection if possible
+  guestSelect.value = Math.min(currentValue, maxGuests);
 }
 
 function calculateNights(checkIn, checkOut) {
@@ -895,8 +1210,16 @@ function filterGal(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>
 // Amenities
 const at=document.getElementById('amenities-tabs'),ap=document.getElementById('amenities-panels');
 PROPERTIES.forEach((p,i)=>{
-  at.innerHTML+=`<button class="amenity-tab ${i===0?'active':''}" onclick="switchAmen('${p.id}',this)">${p.name}</button>`;
-  ap.innerHTML+=`<div class="amenity-panel ${i===0?'active':''}" id="amen-${p.id}">${p.amenities.map(a=>`<div class="amenity-item"><div class="amenity-icon">${a.icon}</div><div class="amenity-text">${a.name}<span>${a.sub}</span></div></div>`).join('')}</div>`;
+  const tabBtn = document.createElement('button');
+  tabBtn.className = 'amenity-tab' + (i===0?' active':'');
+  tabBtn.textContent = p.name;
+  tabBtn.onclick = function(){ switchAmen(p.id, this); };
+  at.appendChild(tabBtn);
+  const panel = document.createElement('div');
+  panel.className = 'amenity-panel' + (i===0?' active':'');
+  panel.id = 'amen-'+p.id;
+  panel.innerHTML = buildAmenityPanel(p, currentLang);
+  ap.appendChild(panel);
 });
 function switchAmen(id,btn){document.querySelectorAll('.amenity-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.amenity-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('amen-'+id).classList.add('active');}
 
@@ -1132,7 +1455,6 @@ function isWeekendNight(dateStr){
 }
 const MCH_RATES={weekday:750000,weekend:800000,special:900000};
 const MCOQ_RATES={weekday:1200000,weekend:1350000,special:1400000};
-const EXTRA_GUEST_FEE=100000;
 
 function nightRate(dateStr,propId){
   const r=propId==='hanoi'?MCH_RATES:MCOQ_RATES;
@@ -1150,12 +1472,22 @@ function calcTotal(propId,checkIn,checkOut,guests){
     nights++;
     d.setDate(d.getDate()+1);
   }
+  // Surcharge: 100,000₫ per night per guest beyond 2
+  // MCH rooms: max 3 guests, so at most 1 extra (3rd guest)
+  // MCOQ: max 6 guests, so up to 4 extra guests beyond the base 2
   let extra=0;
-  if(propId==='oldquarter'&&guests>2){extra=(guests-2)*EXTRA_GUEST_FEE*nights;}
+  if(guests>INCLUDED_GUESTS){extra=(guests-INCLUDED_GUESTS)*EXTRA_GUEST_FEE*nights;}
   return{nights,baseTotal,extra,total:baseTotal+extra};
 }
 function fmtVND(n){return n.toLocaleString('vi-VN')+'₫';}
 function fmtUSD(n){return '$'+(n/25000).toFixed(0);}
+function fmtDateVN(dateStr){
+  // Convert YYYY-MM-DD to DD/MM/YYYY for display
+  if(!dateStr)return'—';
+  const parts=dateStr.split('-');
+  if(parts.length===3)return parts[2]+'/'+parts[1]+'/'+parts[0];
+  return dateStr;
+}
 
 /* ================================================================
    BOOKING ID GENERATOR
@@ -1200,6 +1532,7 @@ async function logToSheets(data){
     amount:        data.total,
     guestName:     data.guestName,
     guestEmail:    data.guestEmail,
+    guestPhone:    data.guestPhone || '',
     paymentMethod: data.paymentMethod,
     bookedAt:      data.bookedAt,
   };
@@ -1302,12 +1635,12 @@ async function logToSheets(data){
   invSection.style.background='var(--sand)';
   invSection.innerHTML=`
   <div class="container">
-    <div class="section-tag">Post-Stay</div>
+    <div class="section-tag" id="sec-invoice">Post-Stay</div>
     <h2 class="section-title">Request an <em>invoice</em></h2>
     <p class="section-sub">After check-out, enter your booking ID and the email you used at booking. Your invoice will be sent to that address.</p>
     <div style="max-width:480px;">
-      <div class="form-group" style="margin-bottom:1rem;"><label>Booking ID</label><input type="text" id="invoiceId" placeholder="e.g. MCH-SPR-0001" oninput="this.value=this.value.toUpperCase()"></div>
-      <div class="form-group" style="margin-bottom:1rem;"><label>Email used at booking</label><input type="email" id="invoiceEmail" placeholder="your@email.com"></div>
+      <div class="form-group" style="margin-bottom:1rem;"><label id="lbl-bookingid">Booking ID</label><input type="text" id="invoiceId" placeholder="e.g. MCH-SPR-0001" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="form-group" style="margin-bottom:1rem;"><label id="lbl-inv-email">Email used at booking</label><input type="email" id="invoiceEmail" placeholder="your@email.com"></div>
       <button onclick="generateInvoice()" style="background:var(--terracotta);color:white;border:none;padding:0.85rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;">Request Invoice →</button>
       <div id="invoiceError" style="margin-top:0.75rem;color:#8B2020;font-size:0.84rem;min-height:1.2em;"></div>
       <div id="invoiceResult" style="margin-top:0.5rem;font-size:0.84rem;color:var(--sage);"></div>
@@ -1387,7 +1720,7 @@ function updatePriceDisplay(){
   }
   const propName=PROPERTIES.find(p=>p.id===propId)?.name||propId;
   document.getElementById('ps-pr-val').textContent=propName+' · '+room;
-  document.getElementById('ps-dates-val').textContent=ci+' → '+co+' ('+result.nights+' night'+(result.nights>1?'s':'')+')';
+  document.getElementById('ps-dates-val').textContent=fmtDateVN(ci)+' → '+fmtDateVN(co)+' ('+result.nights+' night'+(result.nights>1?'s':'')+')';
   const extraRow=document.getElementById('ps-extrarow');
   if(result.extra>0){
     extraRow.style.display='flex';
@@ -1421,6 +1754,10 @@ selectProp=function(id){
   _origSelectProp(id);
   setTimeout(updatePriceDisplay,50);
 };
+function selectAndScroll(id){
+  selectProp(id);
+  setTimeout(function(){document.getElementById('booking').scrollIntoView({behavior:'smooth'});},50);
+}
 
 function selectPayTab(type){
   selectedPayTab=type;
@@ -1445,6 +1782,9 @@ function collectBookingData(){
   const result=lastPriceResult||calcTotal(propId,ci,co,guests);
   const guestName=(document.getElementById('guest-name')?.value||'').trim();
   const guestEmail=(document.getElementById('guest-email')?.value||'').trim();
+  const phoneCode=(document.getElementById('guest-phone-code')?.value||'+84');
+  const phoneNum=(document.getElementById('guest-phone-number')?.value||'').trim();
+  const guestPhone=phoneCode+' '+phoneNum;
   return{
     bookingId:     currentBookingId,
     property:      propName,
@@ -1456,6 +1796,7 @@ function collectBookingData(){
     total:         result?result.total:0,
     guestName:     guestName,
     guestEmail:    guestEmail,
+    guestPhone:    guestPhone,
     bookedAt:      new Date().toISOString(),
     paymentMethod: selectedPayTab,
   };
@@ -1466,11 +1807,13 @@ function validateBookingForm(){
   const co=document.getElementById('checkout').value;
   const name=(document.getElementById('guest-name')?.value||'').trim();
   const email=(document.getElementById('guest-email')?.value||'').trim();
+  const phone=(document.getElementById('guest-phone-number')?.value||'').trim();
   if(!ci||!co)return'Please select check-in and check-out dates.';
   if(new Date(co)<=new Date(ci))return'Check-out must be after check-in.';
   if(!document.getElementById('room-type-sel').value)return'Please select a room.';
   if(!name)return'Please enter your full name.';
   if(!email||!email.includes('@'))return'Please enter a valid email address.';
+  if(!phone)return'Please enter your phone number.';
   return null;
 }
 
@@ -1482,21 +1825,27 @@ async function processPayPal() {
   console.log("🚀 PayPal flow started");
 
   try {
-    const room = document.getElementById("room-type-sel").value;
-    const checkIn = document.getElementById("checkin").value;
-    const checkOut = document.getElementById("checkout").value;
-    const guests = document.getElementById("guests-sel").value;
-    const guestName = document.getElementById("guest-name").value;
-    const guestEmail = document.getElementById("guest-email").value;
+    const room = document.getElementById("room-type-sel")?.value;
+    const checkIn = document.getElementById("checkin")?.value;
+    const checkOut = document.getElementById("checkout")?.value;
+    const guests = document.getElementById("guests-sel")?.value;
+    const guestName = document.getElementById("guest-name")?.value;
+    const guestEmail = document.getElementById("guest-email")?.value;
+    const phoneCode = document.getElementById("guest-phone-code")?.value || "+84";
+    const phoneNum = document.getElementById("guest-phone-number")?.value || "";
+    const guestPhone = phoneCode + " " + phoneNum;
 
     if (!room || !checkIn || !checkOut || !guestName || !guestEmail) {
       throw new Error("Please fill all required fields.");
     }
 
-    // 🔹 Infer property from room
-    let property = "MiaCasaHanoi";
-    if (room.toLowerCase().includes("old")) {
-      property = "MiaCasaOldQuarter";
+    // ✅ Correct property mapping
+    const property = getPropertyFromRoom(room);
+
+    console.log("Selected property:", property);
+
+    if (!property) {
+      throw new Error("Unable to determine property.");
     }
 
     if (!currentBookingId) {
@@ -1517,16 +1866,22 @@ async function processPayPal() {
       amount,
       guestName,
       guestEmail,
+      guestPhone,
       paymentMethod: "paypal",
       bookedAt: new Date().toISOString()
     };
 
     console.log("📦 Payload:", payload);
 
-    // Log to sheets in the background — don't block PayPal if it fails
-    logToSheets(payload).catch(e => console.warn("Sheet log error:", e));
+    // ✅ Save to Google Sheets FIRST
+    const res = await callSheetsAPI(payload);
+    console.log("📡 Sheets response:", res);
 
-    // 🔹 Open PayPal
+    if (res.status !== "ok") {
+      throw new Error("Failed to save booking");
+    }
+
+    // ✅ Then open PayPal
     const amountUSD = (amount / 25000).toFixed(2);
 
     const paypalLink =
@@ -1538,7 +1893,7 @@ async function processPayPal() {
 
     window.open(paypalLink, "_blank");
 
-    alert("Booking created! Please complete payment on PayPal.");
+    alert("Booking saved! Please complete payment on PayPal.");
 
   } catch (err) {
     console.error("❌ FULL ERROR:", err);
@@ -1600,8 +1955,8 @@ function showBookingConfirmation(data){
     document.getElementById('conf-details').innerHTML=
       '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Property</span><span>'+data.property+'</span></div>'+
       '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Room</span><span>'+data.room+'</span></div>'+
-      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Check-in</span><span>'+data.checkIn+'</span></div>'+
-      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Check-out</span><span>'+data.checkOut+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Check-in</span><span>'+fmtDateVN(data.checkIn)+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Check-out</span><span>'+fmtDateVN(data.checkOut)+'</span></div>'+
       '<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(122,158,126,0.3);padding:4px 0;"><span style="color:var(--ink-light);">Guests</span><span>'+data.guests+'</span></div>'+
       '<div style="display:flex;justify-content:space-between;padding:4px 0;font-weight:500;"><span>Total</span><span style="color:var(--terracotta);">'+fmtVND(data.total)+' (~'+fmtUSD(data.total)+')</span></div>';
   }
@@ -1657,40 +2012,21 @@ async function generateInvoice(){
     return;
   }
 
-  // If not found locally (guest on different device/browser), query the sheet via Apps Script
+  // Not in localStorage — look up via Apps Script
   resultBox.innerHTML = '<span style="color:var(--ink-light);">Looking up your booking…</span>';
 
   try{
-    const response = await callSheetsAPI({
-      action: "getInvoice",
-      bookingId: id,
-      email: email
-    });
+    // callSheetsAPI returns already-parsed JSON — no .ok or .json() needed
+    const response = await callSheetsAPI({ action:'getInvoice', bookingId:id, email:email });
 
-    if (response.status !== "success") {
-      resultBox.innerHTML = `<span style="color:red;">${response.message}</span>`;
-    return;
-    }
+    resultBox.innerHTML = '';
 
-    resultBox.innerHTML = `<span style="color:green;">Invoice sent to your email ✅</span>`;
-    
-    // Guard: non-OK HTTP
-    if(!response.ok){
-      throw new Error('Server error: '+response.status);
-    }
-
-    const result = await response.json();
-
-    if(result.status === 'success' && result.booking){
-      // Sheet returned the booking data — render it inline
-      renderInvoicePreview(result.booking);
-      resultBox.innerHTML = '';
-    } else if(result.status === 'success'){
-      // Sheet acknowledged but no data returned — invoice emailed
-      resultBox.innerHTML = '&#10003; Invoice has been sent to your email.';
+    if(response.status === 'success' && response.booking){
+      renderInvoicePreview(response.booking);
+    } else if(response.status === 'success'){
+      resultBox.innerHTML = '✓ Invoice has been sent to your email.';
     } else {
-      errorBox.textContent = result.message || 'Booking not found. Please check your booking ID and email.';
-      resultBox.innerHTML = '';
+      errorBox.textContent = response.message || 'Booking not found. Please check your booking ID and email.';
     }
 
   } catch(err){
@@ -1711,8 +2047,8 @@ function renderInvoicePreview(data){
   document.getElementById('inv-out-email').textContent = data.guestEmail || '—';
   document.getElementById('inv-out-prop').textContent  = data.property;
   document.getElementById('inv-out-room').textContent  = data.room;
-  document.getElementById('inv-out-ci').textContent    = data.checkIn;
-  document.getElementById('inv-out-co').textContent    = data.checkOut;
+  document.getElementById('inv-out-ci').textContent    = fmtDateVN(data.checkIn);
+  document.getElementById('inv-out-co').textContent    = fmtDateVN(data.checkOut);
   document.getElementById('inv-out-nights').textContent = data.nights;
   document.getElementById('inv-out-guests').textContent = data.guests;
   document.getElementById('inv-out-total').textContent =
@@ -1764,8 +2100,642 @@ function renderInvoicePreview(data){
   // Also update chatbot response reference
 })();
 
-window.submitBooking = submitBooking;
-window.processPayPal = processPayPal;
+document.addEventListener("DOMContentLoaded", function () {
+  updateGuestOptions();
+});
+
+
+
+/* ================================================================
+   SHEET TEST — visible only to you, remove after confirming sheets work
+   Open browser console and run:  testSheetLog()
+   Or visit the page with ?testsheet=1 in the URL to trigger it automatically.
+   ================================================================ */
+/* ================================================================
+window.testSheetLog = async function() {
+  const testPayload = {
+    bookingId:     'TEST-' + Date.now(),
+    property:      'MiaCasaHanoi',
+    room:          'Spring Room',
+    checkIn:       '2025-12-24',
+    checkOut:      '2025-12-27',
+    nights:        3,
+    guests:        2,
+    amount:        2250000,
+    guestName:     'Sheet Test',
+    guestEmail:    'test@miacasa.com',
+    paymentMethod: 'test',
+    bookedAt:      new Date().toISOString(),
+  };
+  console.log('🧪 Sending test payload to sheet:', testPayload);
+  try {
+    const res = await callSheetsAPI(testPayload);
+    if (res.status === 'ok') {
+      console.log('✅ Sheet updated successfully. Booking ID:', testPayload.bookingId);
+      alert('✅ Sheet updated! Check your Google Sheet for booking ID: ' + testPayload.bookingId);
+    } else {
+      console.error('❌ Sheet responded with error:', res);
+      alert('❌ Sheet error: ' + (res.message || JSON.stringify(res)));
+    }
+  } catch(e) {
+    console.error('❌ Fetch failed:', e);
+    alert('❌ Fetch failed: ' + e.message + '\n\nMake sure netlify/functions/log-booking.js is deployed.');
+  }
+};
+
+// Auto-trigger if URL contains ?testsheet=1
+if(new URLSearchParams(window.location.search).get('testsheet') === '1') {
+  window.addEventListener('load', () => {
+    console.log('🧪 Auto-triggering sheet test...');
+    window.testSheetLog();
+  });
+}
+
+/* ================================================================
+   BILINGUAL SUPPORT — EN / VN
+   Full coverage: every static text element has an ID.
+   setLang(lang) swaps innerHTML/textContent/placeholder for all of them.
+   ================================================================ */
+
+const T = {
+  en: {
+    // Page
+    'page-title':          'MiaCasa Homestays — Hanoi',
+    // Nav
+    'nav-stays':           'Stays',
+    'nav-book':            'Book',
+    'nav-gallery':         'Gallery',
+    'nav-amenities':       'Amenities',
+    'nav-reviews':         'Reviews',
+    'nav-invoice':         'Invoice',
+    'nav-contact':         'Contact',
+    'nav-booknow':         'Book Now',
+    // Hero
+    'hero-tag':            'Hanoi, Vietnam',
+    'hero-sub':            'Two distinct stays in Hanoi — a quiet boho retreat in a local neighbourhood, and a lively apartment in the beating heart of the Old Quarter.',
+    'hero-cta1':           'Check Availability',
+    'hero-cta2':           'Explore Stays',
+    'hero-rated':          'Rated across Airbnb & Booking.com',
+    // Properties
+    'sec-stays':           'Our Stays',
+    'props-title':         'Two stays, <em>one spirit</em>',
+    'props-sub':           "Each MiaCasa property has its own character — choose the quiet neighbourhood charm of MiaCasaHanoi, or the electric energy of MiaCasaOldQuarter right in the Old Quarter.",
+    // Booking
+    'sec-book':            'Reservations',
+    'book-title':          'Book your <em>escape</em>',
+    'book-sub':            'Reserve directly with us for the best rate — no platform fees, flexible policies, and a personal welcome.',
+    'lbl-room':            'Room / Space',
+    'lbl-checkin':         'Check-in',
+    'lbl-checkout':        'Check-out',
+    'lbl-guests':          'Guests',
+    'lbl-name':            'Full Name',
+    'lbl-email':           'Email',
+    'lbl-phone':           'Phone Number',
+    'ph-name':             'Your name',
+    'ph-email':            'your@email.com',
+    'ph-phone':            'Phone number',
+    'pay-method':          'Payment method',
+    'btn-paypal-tab':      '💳 PayPal',
+    'btn-vietqr-tab':      '🏦 VietQR Bank Transfer',
+    'btn-paypal-main':     'Pay with PayPal →',
+    'btn-transfer-done':   "I've completed the transfer →",
+    'conf-title':          'Booking Confirmed!',
+    'conf-keep':           'Please keep your Booking ID — you\'ll need it to generate an invoice after check-out.',
+    'btn-another':         'Make another booking',
+    // Availability
+    'sec-avail':           'Availability',
+    'avail-title':         'Live <em>calendars</em>',
+    'avail-sub':           'Synced in real time across Airbnb, Booking.com, Agoda, Dayladau, Trip.com and more. Select a room below to check dates.',
+    // Gallery
+    'sec-gallery':         'Gallery',
+    'gallery-title':       'A peek <em>inside</em>',
+    'gallery-sub':         'Handcrafted spaces designed to feel lived-in, layered, and effortlessly beautiful.',
+    // Amenities
+    'sec-amenities':       "What's Included",
+    'amen-title':          'Every comfort, <em>thoughtfully provided</em>',
+    'amen-sub':            "We've curated every detail so you can simply arrive and feel at home.",
+    // Rules
+    'sec-rules':           'House Rules',
+    'rules-title':         'A few things to <em>keep in mind</em>',
+    'rules-sub':           'To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.',
+    'rule-checkinout':     'Check-in / Check-out',
+    'rule-noise':          'Noise & Guests',
+    'rule-smoking':        'Smoking & Pets',
+    'rule-propcare':       'Property Care',
+    'rule-legal':          'Legal Requirement',
+    'rule-payment':        'Payments & Cancellation',
+    'rule-eco':            'Eco Guidelines',
+    // Reviews
+    'sec-reviews':         'Guest Reviews',
+    'reviews-title':       'Stories from <em>our guests</em>',
+    'reviews-sub':         "Genuine words from people who've called MiaCasa home.",
+    'reviews-loadmore':    'Load more reviews',
+    // Invoice
+    'sec-invoice':         'Post-Stay',
+    'lbl-bookingid':       'Booking ID',
+    'ph-bookingid':        'e.g. MCH-SPR-0001',
+    'lbl-inv-email':       'Email used at booking',
+    'btn-invoice':         'Request Invoice →',
+    // Contact
+    'sec-contact':         'Get in Touch',
+    'contact-title':       "We'd love to <em>hear from you</em>",
+    'contact-sub':         'Questions, special requests, or just want to say hello — reach out anytime.',
+    'contact-findus':      'Find us in Hanoi',
+    'lbl-cprop':           'Property',
+    'lbl-csubject':        'Subject',
+    'lbl-cmsg':            'Message',
+    'ph-cname':            'Your name',
+    'ph-cemail':           'your@email.com',
+    'ph-cmsg':             'Your message…',
+    'btn-whatsapp':        'Send via WhatsApp →',
+    // Chatbot
+    'chat-title':          'MiaCasa Assistant',
+    'chat-sub':            'Usually replies in minutes',
+    'chat-send':           '→',
+    'ph-chat':             'Ask me anything…',
+    'quick-0':             'Our properties?',
+    'quick-1':             'Prices?',
+    'quick-2':             'Location?',
+    'quick-3':             'Cancellation?',
+    // Footer
+    'footer-tagline':      'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+    'footer-info-title':   'Information',
+    'footer-also-title':   'Also on',
+    'footer-copy':         '© 2025 MiaCasa Homestays. All rights reserved.',
+    'footer-made':         'Made with ♡ in Hanoi',
+  },
+  vn: {
+    // Page
+    'page-title':          'MiaCasa Homestays — Hà Nội',
+    // Nav
+    'nav-stays':           'Chỗ nghỉ',
+    'nav-book':            'Đặt phòng',
+    'nav-gallery':         'Ảnh',
+    'nav-amenities':       'Tiện nghi',
+    'nav-reviews':         'Đánh giá',
+    'nav-invoice':         'Hóa đơn',
+    'nav-contact':         'Liên hệ',
+    'nav-booknow':         'Đặt ngay',
+    // Hero
+    'hero-tag':            'Hà Nội, Việt Nam',
+    'hero-sub':            'Hai lựa chọn lưu trú tại Hà Nội — không gian boho yên tĩnh trong khu phố địa phương, và căn hộ sôi động giữa lòng Phố Cổ.',
+    'hero-cta1':           'Kiểm tra lịch trống',
+    'hero-cta2':           'Khám phá chỗ nghỉ',
+    'hero-rated':          'Được đánh giá trên Airbnb & Booking.com',
+    // Properties
+    'sec-stays':           'Chỗ nghỉ của chúng tôi',
+    'props-title':         'Hai nơi, <em>một tinh thần</em>',
+    'props-sub':           'Mỗi cơ sở MiaCasa mang phong cách riêng — chọn không gian yên tĩnh của MiaCasaHanoi, hoặc không khí sôi động của MiaCasaOldQuarter giữa lòng Phố Cổ.',
+    // Booking
+    'sec-book':            'Đặt phòng',
+    'book-title':          'Đặt <em>phòng ngay</em>',
+    'book-sub':            'Đặt trực tiếp để có giá tốt nhất — không phí nền tảng, chính sách linh hoạt và được chào đón cá nhân.',
+    'lbl-room':            'Phòng / Không gian',
+    'lbl-checkin':         'Ngày đến',
+    'lbl-checkout':        'Ngày đi',
+    'lbl-guests':          'Số khách',
+    'lbl-name':            'Họ và tên',
+    'lbl-email':           'Email',
+    'lbl-phone':           'Số điện thoại',
+    'ph-name':             'Tên của bạn',
+    'ph-email':            'email@cua.ban',
+    'ph-phone':            'Số điện thoại',
+    'pay-method':          'Phương thức thanh toán',
+    'btn-paypal-tab':      '💳 PayPal',
+    'btn-vietqr-tab':      '🏦 Chuyển khoản VietQR',
+    'btn-paypal-main':     'Thanh toán qua PayPal →',
+    'btn-transfer-done':   'Tôi đã chuyển khoản xong →',
+    'conf-title':          'Đặt phòng thành công!',
+    'conf-keep':           'Hãy lưu mã đặt phòng — bạn sẽ cần dùng để lấy hóa đơn sau khi trả phòng.',
+    'btn-another':         'Đặt phòng khác',
+    // Availability
+    'sec-avail':           'Lịch trống',
+    'avail-title':         '<em>Lịch</em> theo thời gian thực',
+    'avail-sub':           'Đồng bộ theo thời gian thực từ Airbnb, Booking.com, Agoda, Dayladau, Trip.com và nhiều nơi khác. Chọn phòng để xem ngày trống.',
+    // Gallery
+    'sec-gallery':         'Thư viện ảnh',
+    'gallery-title':       'Nhìn <em>bên trong</em>',
+    'gallery-sub':         'Không gian thủ công mang cảm giác gần gũi, nhiều tầng lớp và đẹp tự nhiên.',
+    // Amenities
+    'sec-amenities':       'Tiện nghi',
+    'amen-title':          'Mọi tiện nghi, <em>được chuẩn bị chu đáo</em>',
+    'amen-sub':            'Chúng tôi đã chăm chút từng chi tiết để bạn chỉ cần đến và cảm thấy như ở nhà.',
+    // Rules
+    'sec-rules':           'Nội quy',
+    'rules-title':         'Một vài điều <em>cần lưu ý</em>',
+    'rules-sub':           'Để đảm bảo mọi người đều có kỳ lưu trú tuyệt vời, chúng tôi đề nghị khách tuân thủ những quy định đơn giản sau.',
+    'rule-checkinout':     'Nhận / Trả phòng',
+    'rule-noise':          'Tiếng ồn & Khách',
+    'rule-smoking':        'Hút thuốc & Thú cưng',
+    'rule-propcare':       'Bảo quản tài sản',
+    'rule-legal':          'Yêu cầu pháp lý',
+    'rule-payment':        'Thanh toán & Hủy phòng',
+    'rule-eco':            'Hướng dẫn sinh thái',
+    // Reviews
+    'sec-reviews':         'Đánh giá từ khách',
+    'reviews-title':       'Chia sẻ từ <em>khách của chúng tôi</em>',
+    'reviews-sub':         'Những lời chia sẻ chân thực từ khách đã lưu trú tại MiaCasa.',
+    'reviews-loadmore':    'Xem thêm đánh giá',
+    // Invoice
+    'sec-invoice':         'Sau lưu trú',
+    'lbl-bookingid':       'Mã đặt phòng',
+    'ph-bookingid':        'VD: MCH-SPR-0001',
+    'lbl-inv-email':       'Email đã dùng khi đặt phòng',
+    'btn-invoice':         'Yêu cầu hóa đơn →',
+    // Contact
+    'sec-contact':         'Liên hệ',
+    'contact-title':       'Chúng tôi rất <em>muốn nghe từ bạn</em>',
+    'contact-sub':         'Câu hỏi, yêu cầu đặc biệt, hoặc chỉ muốn chào hỏi — liên hệ bất cứ lúc nào.',
+    'contact-findus':      'Tìm chúng tôi tại Hà Nội',
+    'lbl-cprop':           'Chỗ nghỉ',
+    'lbl-csubject':        'Chủ đề',
+    'lbl-cmsg':            'Tin nhắn',
+    'ph-cname':            'Tên của bạn',
+    'ph-cemail':           'email@cua.ban',
+    'ph-cmsg':             'Tin nhắn của bạn…',
+    'btn-whatsapp':        'Gửi qua WhatsApp →',
+    // Chatbot
+    'chat-title':          'Trợ lý MiaCasa',
+    'chat-sub':            'Thường trả lời ngay',
+    'chat-send':           '→',
+    'ph-chat':             'Hỏi tôi bất cứ điều gì…',
+    'quick-0':             'Chỗ nghỉ của chúng tôi?',
+    'quick-1':             'Giá phòng?',
+    'quick-2':             'Vị trí?',
+    'quick-3':             'Hủy phòng?',
+    // Footer
+    'footer-tagline':      'Hai homestay độc đáo tại Hà Nội — được tạo ra với tình yêu cho những du khách muốn có một ngôi nhà thực sự.',
+    'footer-info-title':   'Thông tin',
+    'footer-also-title':   'Cũng có trên',
+    'footer-copy':         '© 2025 MiaCasa Homestays. Bản quyền thuộc về MiaCasa.',
+    'footer-made':         'Được tạo ra với ♡ tại Hà Nội',
+  }
+};
+
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('mia_lang', lang);
+
+  document.getElementById('lang-en').classList.toggle('active', lang==='en');
+  document.getElementById('lang-vn').classList.toggle('active', lang==='vn');
+
+  var L = T[lang];
+  if (!L) return;
+
+  // Helper: set innerHTML (for strings with <em> tags)
+  var html = (id, key) => {
+    var el = document.getElementById(id);
+    if (el && L[key] !== undefined) el.innerHTML = L[key];
+  };
+  // Helper: set textContent (for plain text)
+  var txt = (id, key) => {
+    var el = document.getElementById(id);
+    if (el && L[key] !== undefined) el.textContent = L[key];
+  };
+  // Helper: set placeholder
+  var ph = (id, key) => {
+    var el = document.getElementById(id);
+    if (el && L[key] !== undefined) el.placeholder = L[key];
+  };
+
+  // Page title
+  document.title = L['page-title'] || document.title;
+
+  // Nav
+  txt('nav-stays', 'nav-stays'); txt('nav-book', 'nav-book');
+  txt('nav-gallery', 'nav-gallery'); txt('nav-amenities', 'nav-amenities');
+  txt('nav-reviews', 'nav-reviews'); txt('nav-invoice', 'nav-invoice');
+  txt('nav-contact', 'nav-contact'); txt('nav-booknow', 'nav-booknow');
+
+  // Hero
+  txt('hero-tag', 'hero-tag'); txt('hero-sub', 'hero-sub');
+  txt('hero-cta1', 'hero-cta1'); txt('hero-cta2', 'hero-cta2');
+  txt('hero-rated', 'hero-rated');
+
+  // Properties
+  txt('sec-stays', 'sec-stays'); html('props-title', 'props-title'); txt('props-sub', 'props-sub');
+
+  // Booking
+  txt('sec-book', 'sec-book'); html('book-title', 'book-title'); txt('book-sub', 'book-sub');
+  txt('lbl-room', 'lbl-room'); txt('lbl-checkin', 'lbl-checkin'); txt('lbl-checkout', 'lbl-checkout');
+  txt('lbl-guests', 'lbl-guests'); txt('lbl-name', 'lbl-name'); txt('lbl-email', 'lbl-email');
+  txt('lbl-phone', 'lbl-phone');
+  ph('guest-name', 'ph-name'); ph('guest-email', 'ph-email'); ph('guest-phone-number', 'ph-phone');
+
+  // Payment section (dynamically injected — use querySelector)
+  var payLbl = document.querySelector('#mia-payment-section [id="pay-method-lbl"]') ||
+                 document.querySelector('#mia-payment-section div[style*="letter-spacing"]');
+  if (payLbl) payLbl.textContent = L['pay-method'];
+  var ppTab = document.getElementById('pay-tab-paypal');
+  if (ppTab) ppTab.textContent = L['btn-paypal-tab'];
+  var vqTab = document.getElementById('pay-tab-vietqr');
+  if (vqTab) vqTab.textContent = L['btn-vietqr-tab'];
+  var ppMain = document.querySelector('#paypal-panel > button');
+  if (ppMain) ppMain.textContent = L['btn-paypal-main'];
+  var vqDone = document.querySelector('#vietqr-panel > div > button');
+  if (vqDone) vqDone.textContent = L['btn-transfer-done'];
+
+  // Confirmation box
+  var confTitle = document.querySelector('#mia-confirm-box div[style*="font-size:1.5rem"]');
+  if (confTitle) confTitle.textContent = L['conf-title'];
+  var confKeep = document.querySelector('#mia-confirm-box p');
+  if (confKeep) confKeep.textContent = L['conf-keep'];
+  var anotherBtn = document.querySelector('#mia-confirm-box button');
+  if (anotherBtn) anotherBtn.textContent = L['btn-another'];
+
+  // Availability
+  txt('sec-avail', 'sec-avail'); html('avail-title', 'avail-title'); txt('avail-sub', 'avail-sub');
+
+  // Gallery
+  txt('sec-gallery', 'sec-gallery'); html('gallery-title', 'gallery-title'); txt('gallery-sub', 'gallery-sub');
+
+  // Amenities
+  txt('sec-amenities', 'sec-amenities'); html('amen-title', 'amen-title'); txt('amen-sub', 'amen-sub');
+
+  // Rules
+  txt('sec-rules', 'sec-rules'); html('rules-title', 'rules-title'); txt('rules-sub', 'rules-sub');
+  txt('rule-checkinout', 'rule-checkinout'); txt('rule-noise', 'rule-noise');
+  txt('rule-smoking', 'rule-smoking'); txt('rule-propcare', 'rule-propcare');
+  txt('rule-legal', 'rule-legal'); txt('rule-payment', 'rule-payment'); txt('rule-eco', 'rule-eco');
+
+  // Reviews
+  txt('sec-reviews', 'sec-reviews'); html('reviews-title', 'reviews-title'); txt('reviews-sub', 'reviews-sub');
+  txt('reviews-loadmore', 'reviews-loadmore');
+
+  // Invoice (dynamically injected)
+  txt('sec-invoice', 'sec-invoice');
+  txt('lbl-bookingid', 'lbl-bookingid'); ph('invoiceId', 'ph-bookingid');
+  txt('lbl-inv-email', 'lbl-inv-email');
+  var invBtn = document.querySelector('#invoice button[onclick="generateInvoice()"]');
+  if (invBtn) invBtn.textContent = L['btn-invoice'];
+  var invTitle = document.querySelector('#invoice .section-title');
+  if (invTitle) invTitle.innerHTML = lang==='vn' ? 'Yêu cầu <em>hóa đơn</em>' : 'Request an <em>invoice</em>';
+  var invSub = document.querySelector('#invoice .section-sub');
+  if (invSub) invSub.textContent = lang==='vn'
+    ? 'Sau khi trả phòng, nhập mã đặt phòng và email bạn đã dùng. Hóa đơn sẽ được gửi đến địa chỉ email đó.'
+    : 'After check-out, enter your booking ID and the email you used at booking. Your invoice will be sent to that address.';
+
+  // Contact
+  txt('sec-contact', 'sec-contact'); html('contact-title', 'contact-title'); txt('contact-sub', 'contact-sub');
+  txt('contact-findus', 'contact-findus');
+  txt('lbl-cprop', 'lbl-cprop'); txt('lbl-csubject', 'lbl-csubject'); txt('lbl-cmsg', 'lbl-cmsg');
+  ph('contact-name', 'ph-cname'); ph('contact-email', 'ph-cemail'); ph('contact-message', 'ph-cmsg');
+  txt('btn-whatsapp', 'btn-whatsapp');
+
+  // Chatbot
+  txt('chat-title', 'chat-title'); txt('chat-sub', 'chat-sub'); txt('chat-send', 'chat-send');
+  ph('chat-input', 'ph-chat');
+  var qBtns = document.querySelectorAll('.quick-btn');
+  qBtns.forEach((b, i) => { if(L['quick-'+i]) b.textContent = L['quick-'+i]; });
+
+  // Footer
+  txt('footer-tagline', 'footer-tagline'); txt('footer-info-title', 'footer-info-title');
+  txt('footer-also-title', 'footer-also-title'); txt('footer-copy', 'footer-copy');
+  txt('footer-made', 'footer-made');
+
+  // Update chatbot response language
+  if (lang === 'vn') {
+    R.price  = () => PROPERTIES.map(p=>`${p.name}: ${p.priceNote}`).join(' · ');
+    R.props  = () => `Chúng tôi có ${PROPERTIES.length} chỗ nghỉ: `+PROPERTIES.map(p=>`${p.name} (${p.badge})`).join(', ')+'.';
+    R.locs   = () => PROPERTIES.map(p=>`${p.name}: ${p.location}`).join(' · ');
+    R.cancel = () => 'Miễn phí hủy đến 48 giờ trước khi nhận phòng. Thanh toán qua chuyển khoản ngân hàng hoặc PayPal.';
+    R.checkin= () => 'Nhận phòng từ 14:00. Trả phòng trước 12:00 (MiaCasaHanoi) hoặc 11:00 (MiaCasaOldQuarter). Tự check-in bằng khóa thông minh.';
+    R.wifi   = () => 'WiFi tốc độ cao 100 Mbps tại tất cả các cơ sở. Phù hợp làm việc từ xa.';
+    R.book   = () => "Đặt trực tiếp trên trang này để có giá tốt nhất. Chúng tôi cũng có trên Airbnb, Booking.com, Agoda và Dayladau.";
+    R.def    = () => 'Cảm ơn! Liên hệ qua miacasahanoi@gmail.com hoặc biểu mẫu Liên hệ. Chúng tôi trả lời trong vòng 2 giờ! 🌿';
+  } else {
+    R.price  = () => PROPERTIES.map(p=>`${p.name}: ${p.priceNote}`).join(' · ');
+    R.props  = () => `We have ${PROPERTIES.length} ${PROPERTIES.length===1?'property':'properties'}: `+PROPERTIES.map(p=>`${p.name} (${p.badge})`).join(', ')+'.';
+    R.locs   = () => PROPERTIES.map(p=>`${p.name}: ${p.location}`).join(' · ');
+    R.cancel = () => 'Free cancellation up to 48h before check-in. Payment by bank transfer or PayPal.';
+    R.checkin= () => "Check-in from 2:00 PM, check-out by noon (MiaCasaHanoi) or 11am (MiaCasaOldQuarter). Self check-in via smart lock.";
+    R.wifi   = () => 'High-speed WiFi at all properties (100 Mbps). Great for remote work.';
+    R.book   = () => "Book directly on this page for the best rate. We're also on Airbnb, Booking.com, Agoda, and Dayladau.";
+    R.def    = () => 'Thanks! Reach us at miacasahanoi@gmail.com or use the Contact form. We reply within 2 hours! 🌿';
+
+  // ── Dynamic sections: re-render with current language ───────────────────
+
+  // Property cards — re-render using shared buildCardBody()
+  var propGrid = document.getElementById('properties-grid');
+  if (propGrid) {
+    propGrid.innerHTML = '';
+    PROPERTIES.forEach((p, i) => {
+      var card = document.createElement('div');
+      card.className = 'property-card reveal' + (i>0?' d'+Math.min(i,3):'');
+      var imgDiv = document.createElement('div');
+      imgDiv.className = 'property-img';
+      if (p.heroImg) {
+        var img = document.createElement('img');
+        img.src = p.heroImg; img.alt = p.name;
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;';
+        imgDiv.appendChild(img);
+      }
+      var badge = document.createElement('div');
+      badge.className = 'property-badge';
+      badge.textContent = getField(p, 'badge', lang);
+      imgDiv.appendChild(badge);
+      var body = document.createElement('div');
+      body.className = 'property-body';
+      body.innerHTML = buildCardBody(p, lang);
+      card.appendChild(imgDiv); card.appendChild(body);
+      propGrid.appendChild(card);
+      obs.observe(card);
+    });
+  }
+
+  // Booking prop selector tabs — update with getField
+  PROPERTIES.forEach(p => {
+    var btn = document.getElementById('bsb-'+p.id);
+    if (btn) {
+      btn.querySelector('.pbn').textContent = p.name;
+      btn.querySelector('.pbs').textContent = getField(p,'badge',lang)+' · '+p.rating+'★';
+    }
+  });
+  // Re-run selectProp to update room dropdown + priceNote with correct language
+  if (typeof activeProp !== 'undefined') {
+    selectProp(activeProp);
+  }
+
+  // Amenities tabs — re-render using shared buildAmenityPanel()
+  var amenTabs = document.getElementById('amenities-tabs');
+  var amenPanels = document.getElementById('amenities-panels');
+  if (amenTabs && amenPanels) {
+    amenTabs.innerHTML = '';
+    amenPanels.innerHTML = '';
+    PROPERTIES.forEach((p,i) => {
+      var activeClass = i===0?' active':'';
+      var tabBtn = document.createElement('button');
+      tabBtn.className = 'amenity-tab'+activeClass;
+      tabBtn.textContent = p.name;
+      tabBtn.onclick = function(){ switchAmen(p.id, this); };
+      amenTabs.appendChild(tabBtn);
+      var panel = document.createElement('div');
+      panel.className = 'amenity-panel'+activeClass;
+      panel.id = 'amen-'+p.id;
+      panel.innerHTML = buildAmenityPanel(p, lang);
+      amenPanels.appendChild(panel);
+    });
+  }
+
+  // Calendar section — update "Open Calendar" link text and sub-text
+  document.querySelectorAll('.cal-frame-wrap').forEach(wrap => {
+    var openBtn = wrap.querySelector('a[href*="calendar.google.com"] div:first-child div:first-child');
+    if (openBtn) {
+      var roomName = wrap.querySelector('.cal-frame-title');
+      if (roomName) openBtn.textContent = (lang==='vn' ? 'Xem lịch ' : 'View ') + roomName.textContent + (lang==='vn' ? '' : ' Calendar');
+    }
+    var openSub = wrap.querySelector('a[href*="calendar.google.com"] div:first-child div:last-child');
+    if (openSub) openSub.textContent = lang==='vn'
+      ? 'Mở Google Calendar trong tab mới — đồng bộ theo thời gian thực'
+      : 'Opens Google Calendar in a new tab — live availability synced in real time';
+    var openBtnLabel = wrap.querySelector('a[href*="calendar.google.com"] > div:last-child');
+    if (openBtnLabel && openBtnLabel.textContent.includes('Calendar') || openBtnLabel && openBtnLabel.textContent.includes('Lịch')) {
+      openBtnLabel.textContent = lang==='vn' ? 'Mở lịch →' : 'Open Calendar →';
+    }
+    var icalLabel = wrap.querySelector('div[style*="letter-spacing"]');
+    if (icalLabel) icalLabel.textContent = lang==='vn'
+      ? 'Đăng ký / đồng bộ với ứng dụng lịch của bạn'
+      : 'Subscribe / sync with your calendar app';
+    var frameTitle = wrap.querySelector('.cal-frame-sub');
+    if (frameTitle) {
+      var prop = frameTitle.textContent.includes('MiaCasa') ? frameTitle.textContent.split(' · ')[0] : '';
+      frameTitle.textContent = prop + (lang==='vn' ? ' · Lịch trống theo thời gian thực' : ' · Live availability');
+    }
+  });
+
+  // House rules lists
+  var rulesData = {
+    'rules-checkinout-list': {
+      en: ['Check-in from 2:00 PM (self check-in)','MiaCasaHanoi: check-out by 12:00 PM (noon)','MiaCasaOldQuarter: check-out by 11:00 AM','Early/late check-in available on request','Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge'],
+      vn: ['Nhận phòng từ 14:00 (tự check-in)','MiaCasaHanoi: trả phòng trước 12:00 (trưa)','MiaCasaOldQuarter: trả phòng trước 11:00','Nhận / trả phòng sớm / muộn theo yêu cầu','Có thể gửi hành lý tại MiaCasaHanoi — thời gian dài có thể tính thêm phí'],
+    },
+    'rules-noise-list': {
+      en: ['Quiet hours 10:00 PM – 7:00 AM','No unregistered overnight guests','Be mindful of neighbours','Groups of 4+ need prior notice'],
+      vn: ['Giờ yên tĩnh 22:00 – 7:00','Không đón khách qua đêm chưa đăng ký','Tôn trọng hàng xóm','Nhóm từ 4 người trở lên cần thông báo trước'],
+    },
+    'rules-smoking-list': {
+      en: ['No smoking indoors','Balcony/terrace smoking only','Pets welcome — additional charge applies, please inform the host in advance','Candles permitted with care'],
+      vn: ['Không hút thuốc trong phòng','Chỉ hút thuốc ở ban công / sân thượng','Chào đón thú cưng — phụ phí áp dụng, vui lòng báo chủ nhà trước','Cho phép dùng nến cẩn thận'],
+    },
+    'rules-propcare-list': {
+      en: ['Treat the space as your own home','Report damages promptly','No shoes inside — slippers provided','Use designated rubbish bins'],
+      vn: ['Đối xử với không gian như ngôi nhà của bạn','Báo cáo hư hỏng ngay lập tức','Không đi giày trong nhà — có dép','Dùng thùng rác đúng nơi quy định'],
+    },
+    'rules-legal-list': {
+      en: ['Vietnamese law requires all guests to provide a copy of their passport or national ID','Please send a photo to the host via WhatsApp or email before or upon check-in','Bookings cannot be confirmed without this document','Information is used solely for local authority registration'],
+      vn: ['Pháp luật Việt Nam yêu cầu tất cả khách phải cung cấp bản sao hộ chiếu hoặc CMND/CCCD','Vui lòng gửi ảnh cho chủ nhà qua WhatsApp hoặc email trước hoặc khi nhận phòng','Đặt phòng không thể xác nhận nếu thiếu tài liệu này','Thông tin chỉ dùng để đăng ký với cơ quan chức năng địa phương'],
+    },
+    'rules-payment-list': {
+      en: ['Free cancellation up to 48h prior','Bank transfer or PayPal accepted','Security deposit for long stays'],
+      vn: ['Miễn phí hủy trước 48 giờ','Chấp nhận chuyển khoản ngân hàng hoặc PayPal','Đặt cọc bảo đảm cho lưu trú dài ngày'],
+    },
+    'rules-eco-list': {
+      en: ['Turn off A/C when leaving','Mineral water provided (2 bottles per room per stay)','We minimise single-use plastics where possible','Towel reuse encouraged'],
+      vn: ['Tắt điều hoà khi ra ngoài','Cung cấp nước khoáng (2 chai mỗi phòng mỗi lần ở)','Chúng tôi giảm thiểu đồ nhựa dùng một lần','Khuyến khích tái sử dụng khăn tắm'],
+    },
+  };
+  Object.entries(rulesData).forEach(([id, data]) => {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = (lang==='vn'?data.vn:data.en).map(t=>'<li>'+t+'</li>').join('');
+  });
+
+  // Contact info
+  var cwaLbl = document.getElementById('contact-whatsapp-lbl');
+  if (cwaLbl) cwaLbl.textContent = lang==='vn' ? 'WhatsApp / Điện thoại' : 'WhatsApp / Phone';
+  var cemLbl = document.getElementById('contact-email-lbl');
+  if (cemLbl) cemLbl.textContent = 'Email';
+  var crespLbl = document.getElementById('contact-response-lbl');
+  if (crespLbl) crespLbl.textContent = lang==='vn' ? 'Thời gian phản hồi' : 'Response time';
+  var crespVal = document.getElementById('contact-response-val');
+  if (crespVal) crespVal.textContent = lang==='vn'
+    ? ' Trong vòng 2 giờ (7:00–22:00 giờ Việt Nam) · Trong vòng 4 giờ ngoài khung giờ đó'
+    : ' Within 2 hours · 7am – 10pm ICT';
+  var cnameLbl = document.getElementById('lbl-cname');
+  if (cnameLbl) cnameLbl.textContent = lang==='vn' ? 'Họ và tên' : 'Name';
+
+  // Contact form subject options
+  var subjectSel = document.getElementById('contact-subject');
+  if (subjectSel) {
+    var opts = lang==='vn'
+      ? ['Hỏi về đặt phòng','Yêu cầu đặc biệt','Đồng bộ lịch','Khác']
+      : ['Booking Enquiry','Special Request','Calendar Sync / Channel Manager','Other'];
+    Array.from(subjectSel.options).forEach((opt,i) => { if(opts[i]) opt.text = opts[i]; });
+  }
+
+  // Footer info links
+  var flinks = {
+    'footer-lnk-amenities': [lang==='vn'?'Tiện nghi':'Amenities'],
+    'footer-lnk-rules':     [lang==='vn'?'Nội quy':'House Rules'],
+    'footer-lnk-gallery':   [lang==='vn'?'Ảnh':'Gallery'],
+    'footer-lnk-reviews':   [lang==='vn'?'Đánh giá':'Reviews'],
+  };
+  Object.entries(flinks).forEach(([id,[text]]) => {
+    var el = document.getElementById(id); if(el) el.textContent = text;
+  });
+
+  // Footer stays list (dynamic)
+  var fstays = document.getElementById('footer-stays');
+  if (fstays) {
+    fstays.innerHTML = PROPERTIES.map(p=>'<li><a href="#properties">'+p.name+'</a></li>').join('')+
+      '<li><a href="#booking">'+(lang==='vn'?'Đặt trực tiếp':'Book Direct')+'</a></li>'+
+      '<li><a href="#availability">'+(lang==='vn'?'Lịch trống':'Availability')+'</a></li>';
+  }
+
+  // Chatbot welcome message
+  var chatWelcome = document.getElementById('chat-welcome');
+  if (chatWelcome) chatWelcome.textContent = lang==='vn'
+    ? 'Xin chào! 👋 Chào mừng đến với MiaCasa Homestays. Tôi có thể giúp bạn về phòng, lịch trống, giá cả hoặc bất kỳ điều gì về MiaCasaHanoi hay MiaCasaOldQuarter. Bạn muốn biết gì?'
+    : 'Xin chào! 👋 Welcome to MiaCasa Homestays — two unique stays in Hanoi. I can help with rooms, availability, prices, or anything about MiaCasaHanoi or MiaCasaOldQuarter. What would you like to know?';
+
+  // Price summary box labels (dynamically injected)
+  var pspr = document.querySelector('#mia-price-box span:first-child');
+  // Update price box row labels
+  document.querySelectorAll('#mia-price-box > div').forEach(row => {
+    var lbl = row.querySelector('span:first-child');
+    if (!lbl) return;
+    var t = lbl.textContent.trim();
+    if (t === 'Property / Room' || t === 'Chỗ nghỉ / Phòng') lbl.textContent = lang==='vn'?'Chỗ nghỉ / Phòng':'Property / Room';
+    if (t === 'Dates & Nights' || t === 'Ngày & Số đêm') lbl.textContent = lang==='vn'?'Ngày & Số đêm':'Dates & Nights';
+    if (t === 'Extra guests surcharge' || t === 'Phụ phí khách thêm') lbl.textContent = lang==='vn'?'Phụ phí khách thêm':'Extra guests surcharge';
+    if (t === 'Total' || t === 'Tổng cộng') lbl.textContent = lang==='vn'?'Tổng cộng':'Total';
+  });
+  var psNote = document.querySelector('#mia-price-box div[style*="0.75rem"]');
+  if (psNote) psNote.textContent = lang==='vn'
+    ? '💡 Giá trên trang web này rẻ hơn 10–15% so với các nền tảng khác.'
+    : '💡 Rates on this website are 10–15% cheaper than other booking platforms.';
+
+  // VietQR panel labels
+  var vqLabels = {
+    'Bank': 'Ngân hàng', 'Account holder': 'Chủ tài khoản',
+    'Account number': 'Số tài khoản', 'SWIFT': 'SWIFT',
+    'Amount (VND)': 'Số tiền (VND)', 'Transfer reference': 'Nội dung chuyển khoản',
+  };
+  document.querySelectorAll('#vietqr-panel td:first-child, #vietqr-panel span[style*="ink-light"]').forEach(el => {
+    var orig = el.textContent.trim();
+    if (lang==='vn' && vqLabels[orig]) el.textContent = vqLabels[orig];
+    else if (lang==='en') {
+      var enKey = Object.entries(vqLabels).find(([k,v])=>v===orig);
+      if (enKey) el.textContent = enKey[0];
+    }
+  });
+  var vqScanTxt = document.querySelector('#vietqr-panel p');
+  if (vqScanTxt) vqScanTxt.textContent = lang==='vn'
+    ? 'Quét bằng ứng dụng ngân hàng Việt Nam (MB Bank, Vietcombank, BIDV, v.v.)'
+    : 'Scan with any Vietnamese banking app (MB Bank, Vietcombank, BIDV, etc.)';
+
+  }
+}
+
+// Apply saved language on load (after DOM ready so injected sections exist)
+window.addEventListener('DOMContentLoaded', () => { setLang(currentLang); });
 </script>
 <style>
-@media print{nav,footer,.chatbot-fab,.chatbot
+.lang-toggle{display:flex;gap:4px;margin-left:1rem;}
+.lang-btn{background:none;border:1px solid var(--border);color:var(--ink-light);padding:.3rem .65rem;border-radius:3px;font-family:'Jost',sans-serif;font-size:.72rem;cursor:pointer;letter-spacing:.04em;transition:all .2s;}
+.lang-btn.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.lang-btn:hover:not(.active){border-color:var(--terracotta);color:var(--terracotta);}
+@media print{nav,footer,.chatbot-fab,.chatbot-window,#booking,#availability,#gallery,#amenities,#rules,#testimonials,#contact,#properties,.hero{display:none!important;}#invoice{display:block!important;}.section-tag,.section-sub,.section-title{display:none!important;}}
+</style>
+</body>
+</html>
