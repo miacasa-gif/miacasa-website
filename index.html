@@ -740,7 +740,7 @@ function buildCardBody(p, lang) {
     (notice ? '<div class="prop-notice">'+notice+'</div>' : '')+
     '<div class="property-meta">'+
       '<div class="meta-item"><span class="meta-num">'+rooms.length+'</span><span class="meta-lbl">'+roomsLbl+'</span></div>'+
-      '<div class="meta-item"><span class="meta-num">1–8'+p.maxGuests+'</span><span class="meta-lbl">'+guestsLbl+'</span></div>'+
+      '<div class="meta-item"><span class="meta-num">1–'+p.maxGuests+'</span><span class="meta-lbl">'+guestsLbl+'</span></div>'+
       '<div class="meta-item"><span class="meta-num">'+p.rating+'★</span><span class="meta-lbl">'+ratingLbl+'</span></div>'+
     '</div>'+
     '<a href="#booking" class="btn-primary" onclick="selectAndScroll(\''+p.id+'\')">' + bookBtn + '</a>'+
@@ -751,54 +751,91 @@ function buildCardBody(p, lang) {
 // ── buildAmenityPanel — used by initial render AND setLang re-render
 function buildAmenityPanel(p, lang) {
   const amenities = getField(p, 'amenities', lang);
-  console.log('BUILD AMENITIES LANG:', lang);
   return amenities.map(function(a) {
     return '<div class="amenity-item"><div class="amenity-icon">'+a.icon+'</div>'+
            '<div class="amenity-text">'+a.name+'<span>'+a.sub+'</span></div></div>';
   }).join('');
 }
 
-// Property cards
-const propGrid = document.getElementById('properties-grid');
-PROPERTIES.forEach((p,i) => {
-  const card = document.createElement('div');
-  card.className = 'property-card reveal' + (i>0?' d'+Math.min(i,3):'');
 
-  // Build image element separately to avoid nested template-literal issues
-  const imgDiv = document.createElement('div');
-  imgDiv.className = 'property-img';
-  if(p.heroImg){
-    const img = document.createElement('img');
-    img.src = p.heroImg;
-    img.alt = p.name;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;';
-    imgDiv.appendChild(img);
-  } else {
-    imgDiv.innerHTML = '<div class="img-ph" style="background:linear-gradient(135deg,'+p.color+','+p.color2+');height:100%;"><span>'+p.name+'</span></div>';
-  }
-  const badge = document.createElement('div');
-  badge.className = 'property-badge';
-  badge.textContent = getField(p, 'badge', currentLang);
-  imgDiv.appendChild(badge);
+// Scroll reveal observer — declared here so renderProperties() can use it
+const obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.08});
 
-  const body = document.createElement('div');
-  body.className = 'property-body';
-  body.innerHTML = buildCardBody(p, currentLang);
+// ── renderProperties — always uses currentLang ───────────────────────────────
+function renderProperties() {
+  var grid = document.getElementById('properties-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  PROPERTIES.forEach(function(p, i) {
+    var card = document.createElement('div');
+    card.className = 'property-card reveal' + (i>0?' d'+Math.min(i,3):'');
+    var imgDiv = document.createElement('div');
+    imgDiv.className = 'property-img';
+    if (p.heroImg) {
+      var img = document.createElement('img');
+      img.src = p.heroImg; img.alt = p.name;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;';
+      imgDiv.appendChild(img);
+    }
+    var bdg = document.createElement('div');
+    bdg.className = 'property-badge';
+    bdg.textContent = getField(p, 'badge', currentLang);
+    imgDiv.appendChild(bdg);
+    var body = document.createElement('div');
+    body.className = 'property-body';
+    body.innerHTML = buildCardBody(p, currentLang);
+    card.appendChild(imgDiv);
+    card.appendChild(body);
+    grid.appendChild(card);
+    if (typeof obs !== 'undefined') obs.observe(card);
+  });
+}
 
-  card.appendChild(imgDiv);
-  card.appendChild(body);
-  propGrid.appendChild(card);
-});
+// ── renderAmenities — always uses currentLang ────────────────────────────────
+function renderAmenities() {
+  var tabs = document.getElementById('amenities-tabs');
+  var panels = document.getElementById('amenities-panels');
+  if (!tabs || !panels) return;
+  tabs.innerHTML = '';
+  panels.innerHTML = '';
+  PROPERTIES.forEach(function(p, i) {
+    var active = i===0 ? ' active' : '';
+    var tb = document.createElement('button');
+    tb.className = 'amenity-tab' + active;
+    tb.textContent = p.name;
+    tb.onclick = (function(id){ return function(){ switchAmen(id, this); }; })(p.id);
+    tabs.appendChild(tb);
+    var pnl = document.createElement('div');
+    pnl.className = 'amenity-panel' + active;
+    pnl.id = 'amen-' + p.id;
+    pnl.innerHTML = buildAmenityPanel(p, currentLang);
+    panels.appendChild(pnl);
+  });
+}
+
+// ── renderBookingSelector — always uses currentLang ──────────────────────────
+function renderBookingSelector() {
+  var sel = document.getElementById('booking-prop-sel');
+  if (!sel) return;
+  sel.innerHTML = '';
+  PROPERTIES.forEach(function(p, i) {
+    var btn = document.createElement('button');
+    btn.className = 'prop-select-btn' + (i===0?' active':'');
+    btn.id = 'bsb-' + p.id;
+    btn.onclick = (function(id){ return function(){ selectProp(id); }; })(p.id);
+    btn.innerHTML = '<span class="pbn">'+p.name+'</span><span class="pbs">'+getField(p,'badge',currentLang)+' · '+p.rating+'★</span>';
+    sel.appendChild(btn);
+  });
+}
+
+// Property cards — rendered via renderProperties()
+renderProperties();
 
 // Booking selector
 let activeProp = PROPERTIES[0].id;
-const bookSel = document.getElementById('booking-prop-sel');
-PROPERTIES.forEach((p,i) => {
-  const badge0 = getField(p, 'badge', currentLang);
-  bookSel.innerHTML += `<button class="prop-select-btn ${i===0?'active':''}" id="bsb-${p.id}" onclick="selectProp('${p.id}')">
-    <span class="pbn">${p.name}</span><span class="pbs">${badge0} · ${p.rating}★</span>
-  </button>`;
-});
+renderBookingSelector();
 function selectProp(id) {
   activeProp = id;
   document.querySelectorAll('.prop-select-btn').forEach(b=>b.classList.remove('active'));
@@ -1207,20 +1244,8 @@ PROPERTIES.forEach(p=>{
 });
 function filterGal(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.gallery-item').forEach(el=>{el.style.display=(cat==='all'||el.dataset.prop===cat)?'':' none';});}
 
-// Amenities
-const at=document.getElementById('amenities-tabs'),ap=document.getElementById('amenities-panels');
-PROPERTIES.forEach((p,i)=>{
-  const tabBtn = document.createElement('button');
-  tabBtn.className = 'amenity-tab' + (i===0?' active':'');
-  tabBtn.textContent = p.name;
-  tabBtn.onclick = function(){ switchAmen(p.id, this); };
-  at.appendChild(tabBtn);
-  const panel = document.createElement('div');
-  panel.className = 'amenity-panel' + (i===0?' active':'');
-  panel.id = 'amen-'+p.id;
-  panel.innerHTML = buildAmenityPanel(p, currentLang);
-  ap.appendChild(panel);
-});
+// Amenities — rendered via renderAmenities()
+renderAmenities();
 function switchAmen(id,btn){document.querySelectorAll('.amenity-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.amenity-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('amen-'+id).classList.add('active');}
 
 // Contact & Footer
@@ -1421,8 +1446,7 @@ platforms.forEach(p => {
   rf.appendChild(btn);
 });
 
-// Scroll reveal — must be defined BEFORE renderReviews() calls obs.observe()
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+// Scroll reveal — obs defined earlier, applied here
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 renderReviews();
@@ -2514,97 +2538,39 @@ function setLang(lang) {
     R.book   = () => "Book directly on this page for the best rate. We're also on Airbnb, Booking.com, Agoda, and Dayladau.";
     R.def    = () => 'Thanks! Reach us at miacasahanoi@gmail.com or use the Contact form. We reply within 2 hours! 🌿';
 
-  // ── Dynamic sections: re-render with current language ───────────────────
+  // ── Re-render dynamic sections using current language ─────────────────────
+  renderProperties();
+  renderAmenities();
+  renderBookingSelector();
+  // Update selectProp for correct room names and pricing note
+  if (typeof activeProp !== 'undefined') selectProp(activeProp);
 
-  // Property cards — re-render using shared buildCardBody()
-  var propGrid = document.getElementById('properties-grid');
-  if (propGrid) {
-    propGrid.innerHTML = '';
-    PROPERTIES.forEach((p, i) => {
-      var card = document.createElement('div');
-      card.className = 'property-card reveal' + (i>0?' d'+Math.min(i,3):'');
-      var imgDiv = document.createElement('div');
-      imgDiv.className = 'property-img';
-      if (p.heroImg) {
-        var img = document.createElement('img');
-        img.src = p.heroImg; img.alt = p.name;
-        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;';
-        imgDiv.appendChild(img);
-      }
-      var badge = document.createElement('div');
-      badge.className = 'property-badge';
-      badge.textContent = getField(p, 'badge', lang);
-      imgDiv.appendChild(badge);
-      var body = document.createElement('div');
-      body.className = 'property-body';
-      body.innerHTML = buildCardBody(p, lang);
-      card.appendChild(imgDiv); card.appendChild(body);
-      propGrid.appendChild(card);
-      obs.observe(card);
-    });
-  }
-
-  // Booking prop selector tabs — update with getField
-  PROPERTIES.forEach(p => {
-    var btn = document.getElementById('bsb-'+p.id);
-    if (btn) {
-      btn.querySelector('.pbn').textContent = p.name;
-      btn.querySelector('.pbs').textContent = getField(p,'badge',lang)+' · '+p.rating+'★';
-    }
-  });
-  // Re-run selectProp to update room dropdown + priceNote with correct language
-  if (typeof activeProp !== 'undefined') {
-    selectProp(activeProp);
-  }
-
-  // Amenities tabs — re-render using shared buildAmenityPanel()
-  var amenTabs = document.getElementById('amenities-tabs');
-  var amenPanels = document.getElementById('amenities-panels');
-  if (amenTabs && amenPanels) {
-    amenTabs.innerHTML = '';
-    amenPanels.innerHTML = '';
-    PROPERTIES.forEach((p,i) => {
-      var activeClass = i===0?' active':'';
-      var tabBtn = document.createElement('button');
-      tabBtn.className = 'amenity-tab'+activeClass;
-      tabBtn.textContent = p.name;
-      tabBtn.onclick = function(){ switchAmen(p.id, this); };
-      amenTabs.appendChild(tabBtn);
-      var panel = document.createElement('div');
-      panel.className = 'amenity-panel'+activeClass;
-      panel.id = 'amen-'+p.id;
-      panel.innerHTML = buildAmenityPanel(p, lang);
-      amenPanels.appendChild(panel);
-    });
-  }
-
-  // Calendar section — update "Open Calendar" link text and sub-text
-  document.querySelectorAll('.cal-frame-wrap').forEach(wrap => {
-    var openBtn = wrap.querySelector('a[href*="calendar.google.com"] div:first-child div:first-child');
+  // Calendar section — update link text
+  document.querySelectorAll('.cal-frame-wrap').forEach(function(wrap) {
+    var openBtn = wrap.querySelector('a[href*="calendar.google.com"] > div:first-child > div:first-child');
     if (openBtn) {
       var roomName = wrap.querySelector('.cal-frame-title');
-      if (roomName) openBtn.textContent = (lang==='vn' ? 'Xem lịch ' : 'View ') + roomName.textContent + (lang==='vn' ? '' : ' Calendar');
+      var rn = roomName ? roomName.textContent : '';
+      openBtn.textContent = lang==='vn' ? 'Xem lịch ' + rn : 'View ' + rn + ' Calendar';
     }
-    var openSub = wrap.querySelector('a[href*="calendar.google.com"] div:first-child div:last-child');
+    var openSub = wrap.querySelector('a[href*="calendar.google.com"] > div:first-child > div:last-child');
     if (openSub) openSub.textContent = lang==='vn'
       ? 'Mở Google Calendar trong tab mới — đồng bộ theo thời gian thực'
       : 'Opens Google Calendar in a new tab — live availability synced in real time';
     var openBtnLabel = wrap.querySelector('a[href*="calendar.google.com"] > div:last-child');
-    if (openBtnLabel && openBtnLabel.textContent.includes('Calendar') || openBtnLabel && openBtnLabel.textContent.includes('Lịch')) {
-      openBtnLabel.textContent = lang==='vn' ? 'Mở lịch →' : 'Open Calendar →';
-    }
-    var icalLabel = wrap.querySelector('div[style*="letter-spacing"]');
+    if (openBtnLabel) openBtnLabel.textContent = lang==='vn' ? 'Mở lịch →' : 'Open Calendar →';
+    var icalLabel = wrap.querySelector('div > div[style*="letter-spacing"]');
     if (icalLabel) icalLabel.textContent = lang==='vn'
       ? 'Đăng ký / đồng bộ với ứng dụng lịch của bạn'
       : 'Subscribe / sync with your calendar app';
-    var frameTitle = wrap.querySelector('.cal-frame-sub');
-    if (frameTitle) {
-      var prop = frameTitle.textContent.includes('MiaCasa') ? frameTitle.textContent.split(' · ')[0] : '';
-      frameTitle.textContent = prop + (lang==='vn' ? ' · Lịch trống theo thời gian thực' : ' · Live availability');
+    var frameSub = wrap.querySelector('.cal-frame-sub');
+    if (frameSub) {
+      var propName = frameSub.textContent.split(' · ')[0];
+      frameSub.textContent = propName + (lang==='vn' ? ' · Lịch trống theo thời gian thực' : ' · Live availability');
     }
   });
 
-  // House rules lists
+    // House rules lists
   var rulesData = {
     'rules-checkinout-list': {
       en: ['Check-in from 2:00 PM (self check-in)','MiaCasaHanoi: check-out by 12:00 PM (noon)','MiaCasaOldQuarter: check-out by 11:00 AM','Early/late check-in available on request','Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge'],
