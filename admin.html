@@ -365,9 +365,11 @@ async function toggleMaintenance() {
     if (newValue === 'on') {
       el.textContent = 'ON';
       el.className = 'status-on';
+      updateMaintenanceButton('on');
     } else {
       el.textContent = 'OFF';
       el.className = 'status-off';
+      updateMaintenanceButton('off');
     }
   } else {
     alert('Failed to update maintenance mode');
@@ -393,9 +395,11 @@ async function loadMaintenanceStatus() {
   if (json.value === 'on') {
     el.textContent = 'ON';
     el.className = 'status-on';
+    updateMaintenanceButton('on');
   } else {
     el.textContent = 'OFF';
     el.className = 'status-off';
+    updateMaintenanceButton('off'); 
   }
 }
 
@@ -837,6 +841,16 @@ function setAdminLang(lang) {
   renderOverrides();
 }
 
+function updateMaintenanceButton(status) {
+  const btn = document.getElementById('maintenance-btn');
+  if (!btn) return;
+
+  if (status === 'on') {
+    btn.textContent = 'Turn Maintenance Off';
+  } else {
+    btn.textContent = 'Turn Maintenance On';
+  }
+}
 window.addEventListener('DOMContentLoaded', () => setAdminLang(adminLang));
 </script>
 </body>
