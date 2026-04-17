@@ -145,8 +145,11 @@ Recommended: **Netlify**
 
 This website is designed to:
 
-* Give guests a **simpler, more personal booking experience**
-* Help the host **avoid platform fees**
-* Build a **direct relationship** with travelers
+* Make our homestay **affordable and accessible for all travelers**
+* Offer a **simple and transparent booking experience**
+* Build a **direct and personal connection** with our guests
+* Provide thoughtful stays that feel **warm, local, and genuine**
+
+---
 
 ---
