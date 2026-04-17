@@ -2125,24 +2125,12 @@ function renderInvoicePreview(data){
 /* ================================================================
    UPDATE PRICING-NOTE to reflect direct booking savings
    ================================================================ */
-(function(){
-  const pn=document.getElementById('pricing-note');
-  if(pn)pn.innerHTML='💡 <strong>Book direct &amp; save 10–15%</strong> — Rates on this website are cheaper than Airbnb, Booking.com, Agoda and other platforms. Prices are calculated automatically when you select your dates.';
-})();
+// pricing-note is set by selectProp() using currentLang — IIFE removed
 
 /* ================================================================
    UPDATE CONTACT RESPONSE TIME
    ================================================================ */
-(function(){
-  document.querySelectorAll('.contact-item-text').forEach(el=>{
-    if(el.textContent.includes('Response time')||el.textContent.includes('Within 2 hours')){
-      const strong=el.querySelector('strong');
-      if(strong)strong.textContent='Response time';
-      el.innerHTML=(strong?strong.outerHTML:'<strong>Response time</strong>')+'Within 2 hours (7am–10pm Vietnam time) · Within 4 hours outside that window';
-    }
-  });
-  // Also update chatbot response reference
-})();
+// contact-item-text is set by applyTranslations() — IIFE removed
 
 document.addEventListener("DOMContentLoaded", function () {
   updateGuestOptions();
@@ -2566,32 +2554,51 @@ function setLang(lang) {
   if (typeof activeProp !== 'undefined') selectProp(activeProp);
 
   // Calendar section — update link text
-  document.querySelectorAll('.cal-frame-wrap').forEach(function(wrap) {
-    var openBtn = wrap.querySelector('a[href*="calendar.google.com"] > div:first-child > div:first-child');
-    if (openBtn) {
-      var roomName = wrap.querySelector('.cal-frame-title');
-      var rn = roomName ? roomName.textContent : '';
-      openBtn.textContent = lang==='vn' ? 'Xem lịch ' + rn : 'View ' + rn + ' Calendar';
-    }
-    var openSub = wrap.querySelector('a[href*="calendar.google.com"] > div:first-child > div:last-child');
-    if (openSub) openSub.textContent = lang==='vn'
-      ? 'Mở Google Calendar trong tab mới — đồng bộ theo thời gian thực'
-      : 'Opens Google Calendar in a new tab — live availability synced in real time';
-    var openBtnLabel = wrap.querySelector('a[href*="calendar.google.com"] > div:last-child');
-    if (openBtnLabel) openBtnLabel.textContent = lang==='vn' ? 'Mở lịch →' : 'Open Calendar →';
-    var icalLabel = wrap.querySelector('div > div[style*="letter-spacing"]');
-    if (icalLabel) icalLabel.textContent = lang==='vn'
-      ? 'Đăng ký / đồng bộ với ứng dụng lịch của bạn'
-      : 'Subscribe / sync with your calendar app';
-    var frameSub = wrap.querySelector('.cal-frame-sub');
-    if (frameSub) {
-      var propName = frameSub.textContent.split(' · ')[0];
-      frameSub.textContent = propName + (lang==='vn' ? ' · Lịch trống theo thời gian thực' : ' · Live availability');
-    }
-  });
+  try {
+    document.querySelectorAll('.cal-frame-wrap').forEach(function(wrap) {
+      // Translate all text nodes by walking all elements in the wrap
+      // and matching by current content (robust to DOM structure changes)
+      wrap.querySelectorAll('div, span').forEach(function(el) {
+        if (el.children.length > 0) return; // skip non-leaf nodes
+        var t = el.textContent.trim();
+        if (t === 'Opens Google Calendar in a new tab — live availability synced in real time' ||
+            t === 'Mở Google Calendar trong tab mới — đồng bộ theo thời gian thực') {
+          el.textContent = lang==='vn'
+            ? 'Mở Google Calendar trong tab mới — đồng bộ theo thời gian thực'
+            : 'Opens Google Calendar in a new tab — live availability synced in real time';
+        } else if (t === 'Open Calendar →' || t === 'Mở lịch →') {
+          el.textContent = lang==='vn' ? 'Mở lịch →' : 'Open Calendar →';
+        } else if (t === 'Subscribe / sync with your calendar app' ||
+                   t === 'Đăng ký / đồng bộ với ứng dụng lịch của bạn') {
+          el.textContent = lang==='vn'
+            ? 'Đăng ký / đồng bộ với ứng dụng lịch của bạn'
+            : 'Subscribe / sync with your calendar app';
+        }
+      });
+      // Also handle the "View X Calendar" div which has sibling content
+      wrap.querySelectorAll('div[style*="font-family"]').forEach(function(el) {
+        var t = el.textContent.trim();
+        if (t.startsWith('View ') && t.endsWith(' Calendar')) {
+          var roomName = wrap.querySelector('.cal-frame-title');
+          var rn = roomName ? roomName.textContent : '';
+          el.textContent = lang==='vn' ? 'Xem lịch ' + rn : 'View ' + rn + ' Calendar';
+        } else if (t.startsWith('Xem lịch ')) {
+          var roomName = wrap.querySelector('.cal-frame-title');
+          var rn = roomName ? roomName.textContent : '';
+          el.textContent = lang==='vn' ? 'Xem lịch ' + rn : 'View ' + rn + ' Calendar';
+        }
+      });
+      // cal-frame-sub
+      var frameSub = wrap.querySelector('.cal-frame-sub');
+      if (frameSub) {
+        var propName = frameSub.textContent.split(' · ')[0];
+        frameSub.textContent = propName + (lang==='vn' ? ' · Lịch trống theo thời gian thực' : ' · Live availability');
+      }
+    });
+  } catch(e) { console.warn('Calendar translate error:', e.message); }
 
     // House rules lists
-  var rulesData = {
+  try { var rulesData = {
     'rules-checkinout-list': {
       en: ['Check-in from 2:00 PM (self check-in)','MiaCasaHanoi: check-out by 12:00 PM (noon)','MiaCasaOldQuarter: check-out by 11:00 AM','Early/late check-in available on request','Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge'],
       vn: ['Nhận phòng từ 14:00 (tự check-in)','MiaCasaHanoi: trả phòng trước 12:00 (trưa)','MiaCasaOldQuarter: trả phòng trước 11:00','Nhận / trả phòng sớm / muộn theo yêu cầu','Có thể gửi hành lý tại MiaCasaHanoi — thời gian dài có thể tính thêm phí'],
@@ -2621,12 +2628,15 @@ function setLang(lang) {
       vn: ['Tắt điều hoà khi ra ngoài','Cung cấp nước khoáng (2 chai mỗi phòng mỗi lần ở)','Chúng tôi giảm thiểu đồ nhựa dùng một lần','Khuyến khích tái sử dụng khăn tắm'],
     },
   };
-  Object.entries(rulesData).forEach(([id, data]) => {
+  Object.entries(rulesData).forEach(function(entry) {
+    var id = entry[0], data = entry[1];
     var el = document.getElementById(id);
-    if (el) el.innerHTML = (lang==='vn'?data.vn:data.en).map(t=>'<li>'+t+'</li>').join('');
+    if (el) el.innerHTML = (lang==='vn'?data.vn:data.en).map(function(t){return '<li>'+t+'</li>';}).join('');
   });
+  } catch(e) { console.warn('Rules translate error:', e.message); }
 
   // Contact info
+  try {
   var cwaLbl = document.getElementById('contact-whatsapp-lbl');
   if (cwaLbl) cwaLbl.textContent = lang==='vn' ? 'WhatsApp / Điện thoại' : 'WhatsApp / Phone';
   var cemLbl = document.getElementById('contact-email-lbl');
@@ -2648,6 +2658,8 @@ function setLang(lang) {
       : ['Booking Enquiry','Special Request','Calendar Sync / Channel Manager','Other'];
     Array.from(subjectSel.options).forEach((opt,i) => { if(opts[i]) opt.text = opts[i]; });
   }
+
+  } catch(e) { console.warn('Contact translate error:', e.message); }
 
   // Footer info links
   var flinks = {
@@ -2711,10 +2723,151 @@ function setLang(lang) {
     : 'Scan with any Vietnamese banking app (MB Bank, Vietcombank, BIDV, etc.)';
 
   }
+
+  // Always run centralised fixes last — prevents any IIFE from overwriting
+  applyTranslations();
+}
+
+// ================================================================
+// applyTranslations — centralised, always runs LAST
+// Fixes anything that hardcoded English or overwrote translations
+// ================================================================
+function applyTranslations() {
+  var lang = currentLang;
+
+  // Pricing note (overwritten by legacy IIFE - now set here)
+  var pn = document.getElementById('pricing-note');
+  if (pn) {
+    pn.innerHTML = lang === 'vn'
+      ? '💡 <strong>Đặt trực tiếp &amp; tiết kiệm 10–15%</strong> — Giá trên trang web này rẻ hơn Airbnb, Booking.com, Agoda và các nền tảng khác. Giá được tính tự động khi bạn chọn ngày.'
+      : '💡 <strong>Book direct &amp; save 10–15%</strong> — Rates on this website are cheaper than Airbnb, Booking.com, Agoda and other platforms. Prices are calculated automatically when you select your dates.';
+  }
+
+  // Response time (overwritten by legacy IIFE - now set here)
+  var crespLbl = document.getElementById('contact-response-lbl');
+  if (crespLbl) crespLbl.textContent = lang === 'vn' ? 'Thời gian phản hồi' : 'Response time';
+  var crespVal = document.getElementById('contact-response-val');
+  if (crespVal) crespVal.textContent = lang === 'vn'
+    ? ' Trong vòng 2 giờ (7:00–22:00 giờ Việt Nam) · Trong vòng 4 giờ ngoài khung giờ đó'
+    : ' Within 2 hours (7am–10pm Vietnam time) · Within 4 hours outside that window';
+
+  // Rules lists
+  var rulesData = {
+    'rules-checkinout-list': {
+      en: ['Check-in from 2:00 PM (self check-in)','MiaCasaHanoi: check-out by 12:00 PM (noon)','MiaCasaOldQuarter: check-out by 11:00 AM','Early/late check-in available on request','Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge'],
+      vn: ['Nhận phòng từ 14:00 (tự check-in)','MiaCasaHanoi: trả phòng trước 12:00 (trưa)','MiaCasaOldQuarter: trả phòng trước 11:00','Nhận / trả phòng sớm / muộn theo yêu cầu','Có thể gửi hành lý tại MiaCasaHanoi — thời gian dài có thể tính thêm phí'],
+    },
+    'rules-noise-list': {
+      en: ['Quiet hours 10:00 PM – 7:00 AM','No unregistered overnight guests','Be mindful of neighbours','Groups of 4+ need prior notice'],
+      vn: ['Giờ yên tĩnh 22:00 – 7:00','Không đón khách qua đêm chưa đăng ký','Tôn trọng hàng xóm','Nhóm từ 4 người trở lên cần thông báo trước'],
+    },
+    'rules-smoking-list': {
+      en: ['No smoking indoors','Balcony/terrace smoking only','Pets welcome — additional charge applies, please inform the host in advance','Candles permitted with care'],
+      vn: ['Không hút thuốc trong phòng','Chỉ hút thuốc ở ban công / sân thượng','Chào đón thú cưng — phụ phí áp dụng, vui lòng báo chủ nhà trước','Cho phép dùng nến cẩn thận'],
+    },
+    'rules-propcare-list': {
+      en: ['Treat the space as your own home','Report damages promptly','No shoes inside — slippers provided','Use designated rubbish bins'],
+      vn: ['Đối xử với không gian như ngôi nhà của bạn','Báo cáo hư hỏng ngay lập tức','Không đi giày trong nhà — có dép','Dùng thùng rác đúng nơi quy định'],
+    },
+    'rules-legal-list': {
+      en: ['Vietnamese law requires all guests to provide a copy of their passport or national ID','Please send a photo to the host via WhatsApp or email before or upon check-in','Bookings cannot be confirmed without this document','Information is used solely for local authority registration'],
+      vn: ['Pháp luật Việt Nam yêu cầu tất cả khách phải cung cấp bản sao hộ chiếu hoặc CMND/CCCD','Vui lòng gửi ảnh cho chủ nhà qua WhatsApp hoặc email trước hoặc khi nhận phòng','Đặt phòng không thể xác nhận nếu thiếu tài liệu này','Thông tin chỉ dùng để đăng ký với cơ quan chức năng địa phương'],
+    },
+    'rules-payment-list': {
+      en: ['Free cancellation up to 48h prior','Bank transfer or PayPal accepted','Security deposit for long stays'],
+      vn: ['Miễn phí hủy trước 48 giờ','Chấp nhận chuyển khoản ngân hàng hoặc PayPal','Đặt cọc bảo đảm cho lưu trú dài ngày'],
+    },
+    'rules-eco-list': {
+      en: ['Turn off A/C when leaving','Mineral water provided (2 bottles per room per stay)','We minimise single-use plastics where possible','Towel reuse encouraged'],
+      vn: ['Tắt điều hoà khi ra ngoài','Cung cấp nước khoáng (2 chai mỗi phòng mỗi lần ở)','Chúng tôi giảm thiểu đồ nhựa dùng một lần','Khuyến khích tái sử dụng khăn tắm'],
+    },
+  };
+  Object.keys(rulesData).forEach(function(id) {
+    var data = rulesData[id];
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = (lang === 'vn' ? data.vn : data.en)
+      .map(function(t) { return '<li>' + t + '</li>'; }).join('');
+  });
+
+  // Contact form subject options
+  var subjectSel = document.getElementById('contact-subject');
+  if (subjectSel) {
+    var opts = lang === 'vn'
+      ? ['Hỏi về đặt phòng','Yêu cầu đặc biệt','Đồng bộ lịch','Khác']
+      : ['Booking Enquiry','Special Request','Calendar Sync / Channel Manager','Other'];
+    Array.from(subjectSel.options).forEach(function(opt, i) { if (opts[i]) opt.text = opts[i]; });
+  }
+
+  // Footer stays list
+  var fstays = document.getElementById('footer-stays');
+  if (fstays) {
+    fstays.innerHTML = PROPERTIES.map(function(p) {
+      return '<li><a href="#properties">' + p.name + '</a></li>';
+    }).join('') +
+    '<li><a href="#booking">' + (lang === 'vn' ? 'Đặt trực tiếp' : 'Book Direct') + '</a></li>' +
+    '<li><a href="#availability">' + (lang === 'vn' ? 'Lịch trống' : 'Availability') + '</a></li>';
+  }
+
+  // Footer info links
+  var flinks = {
+    'footer-lnk-amenities': lang === 'vn' ? 'Tiện nghi' : 'Amenities',
+    'footer-lnk-rules':     lang === 'vn' ? 'Nội quy'   : 'House Rules',
+    'footer-lnk-gallery':   lang === 'vn' ? 'Ảnh'       : 'Gallery',
+    'footer-lnk-reviews':   lang === 'vn' ? 'Đánh giá'  : 'Reviews',
+  };
+  Object.keys(flinks).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = flinks[id];
+  });
+
+  // Chatbot welcome message
+  var chatWelcome = document.getElementById('chat-welcome');
+  if (chatWelcome) chatWelcome.textContent = lang === 'vn'
+    ? 'Xin chào! 👋 Chào mừng đến với MiaCasa Homestays. Tôi có thể giúp bạn về phòng, lịch trống, giá cả. Bạn muốn biết gì?'
+    : 'Xin chào! 👋 Welcome to MiaCasa Homestays — two unique stays in Hanoi. What would you like to know?';
+
+  // Price summary box row labels (dynamically injected)
+  document.querySelectorAll('#mia-price-box > div').forEach(function(row) {
+    var lbl = row.querySelector('span:first-child');
+    if (!lbl) return;
+    var t = lbl.textContent.trim();
+    if (t === 'Property / Room' || t === 'Chỗ nghỉ / Phòng')
+      lbl.textContent = lang === 'vn' ? 'Chỗ nghỉ / Phòng' : 'Property / Room';
+    else if (t === 'Dates & Nights' || t === 'Ngày & Số đêm')
+      lbl.textContent = lang === 'vn' ? 'Ngày & Số đêm' : 'Dates & Nights';
+    else if (t === 'Extra guests surcharge' || t === 'Phụ phí khách thêm')
+      lbl.textContent = lang === 'vn' ? 'Phụ phí khách thêm' : 'Extra guests surcharge';
+    else if (t === 'Total' || t === 'Tổng cộng')
+      lbl.textContent = lang === 'vn' ? 'Tổng cộng' : 'Total';
+  });
+  var psNote = document.querySelector('#mia-price-box div[style*="0.75rem"]');
+  if (psNote) psNote.textContent = lang === 'vn'
+    ? '💡 Giá trên trang web này rẻ hơn 10–15% so với các nền tảng khác.'
+    : '💡 Rates on this website are 10–15% cheaper than other booking platforms.';
+
+  // VietQR panel labels
+  var vqMap = { 'Bank':'Ngân hàng','Account holder':'Chủ tài khoản','Account number':'Số tài khoản',
+                'SWIFT':'SWIFT','Amount (VND)':'Số tiền (VND)','Transfer reference':'Nội dung chuyển khoản' };
+  var vqMapRev = {};
+  Object.keys(vqMap).forEach(function(k) { vqMapRev[vqMap[k]] = k; });
+  document.querySelectorAll('#vietqr-panel td:first-child, #vietqr-panel span[style*="ink-light"]').forEach(function(el) {
+    var t = el.textContent.trim();
+    if (lang === 'vn' && vqMap[t]) el.textContent = vqMap[t];
+    else if (lang === 'en' && vqMapRev[t]) el.textContent = vqMapRev[t];
+  });
+  var vqScan = document.querySelector('#vietqr-panel p');
+  if (vqScan) vqScan.textContent = lang === 'vn'
+    ? 'Quét bằng ứng dụng ngân hàng Việt Nam (MB Bank, Vietcombank, BIDV, v.v.)'
+    : 'Scan with any Vietnamese banking app (MB Bank, Vietcombank, BIDV, etc.)';
 }
 
 // Apply saved language on load (after DOM ready so injected sections exist)
-window.addEventListener('DOMContentLoaded', () => { setLang(currentLang); });
+window.addEventListener('DOMContentLoaded', function() {
+  setLang(currentLang);
+  // applyTranslations is called inside setLang, but call explicitly too
+  // in case DOMContentLoaded fires before dynamic sections are injected
+  setTimeout(applyTranslations, 50);
+});
 </script>
 <style>
 .lang-toggle{display:flex;gap:4px;margin-left:1rem;}
