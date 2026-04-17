@@ -706,6 +706,26 @@ const PROPERTIES = [
   ─────────────────────────────────────────────────────────────── */
 ];
 
+
+(async function checkMaintenance() {
+  try {
+    const res = await fetch('/api/log-booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'getMaintenanceMode' })
+    });
+
+    const json = await res.json();
+
+    if (json.value === 'on') {
+      window.location.href = '/maintenance.html';
+    }
+
+  } catch (e) {
+    console.log('Maintenance check failed');
+  }
+})();
+
 /* ================================================================
    LANGUAGE HELPER — reads VN version if available, falls back to EN
    ================================================================ */

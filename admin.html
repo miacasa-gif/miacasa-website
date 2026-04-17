@@ -86,9 +86,35 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
 /* STATUS BAR */
 .save-bar{background:rgba(122,158,126,0.12);border:1px solid rgba(122,158,126,0.3);color:#065F46;padding:0.75rem 1.25rem;border-radius:6px;font-size:0.84rem;margin-top:1rem;display:none;}
 .error-bar{background:rgba(139,32,32,0.08);border:1px solid rgba(139,32,32,0.2);color:var(--red);padding:0.75rem 1.25rem;border-radius:6px;font-size:0.84rem;margin-top:1rem;display:none;}
+
+/* MAINTENANCE */
+#maintenance-status {
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.status-on {
+  color: var(--red);
+}
+
+.status-off {
+  color: var(--sage);
+}
 </style>
 </head>
 <body>
+
+<!-- MAINTENANCE MODE -->
+<div class="price-section">
+  <div class="price-section-title">
+    Maintenance Mode: 
+    <span id="maintenance-status" class="status-off">OFF</span>
+  </div>
+
+  <button onclick="toggleMaintenance()" id="maintenance-btn">
+    Toggle Maintenance
+  </button>
+</div>
 
 <!-- LOGIN SCREEN -->
 <div class="login-wrap" id="login-screen">
@@ -301,7 +327,78 @@ async function showAdmin() {
   'Welcome, ' + (sessionStorage.getItem('mia_user') || 'Admin');
   await renderRooms();
   await renderOverrides();
+  await loadMaintenanceStatus();
 }
+
+async function getMaintenance() {
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'getMaintenanceMode'
+    })
+  });
+
+  const json = await res.json();
+  return json.value;
+}
+
+async function toggleMaintenance() {
+  const el = document.getElementById('maintenance-status');
+  const current = el.textContent.toLowerCase(); // 'on' or 'off'
+
+  const newValue = current === 'on' ? 'off' : 'on';
+
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'setMaintenanceMode',
+      value: newValue,
+      token: getToken()
+    })
+  });
+
+  const json = await res.json();
+
+  if (json.status === 'ok') {
+    if (newValue === 'on') {
+      el.textContent = 'ON';
+      el.className = 'status-on';
+    } else {
+      el.textContent = 'OFF';
+      el.className = 'status-off';
+    }
+  } else {
+    alert('Failed to update maintenance mode');
+  }
+}
+
+
+
+async function loadMaintenanceStatus() {
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'getMaintenanceMode',
+      token: getToken()
+    })
+  });
+
+  const json = await res.json();
+
+  const el = document.getElementById('maintenance-status');
+
+  if (json.value === 'on') {
+    el.textContent = 'ON';
+    el.className = 'status-on';
+  } else {
+    el.textContent = 'OFF';
+    el.className = 'status-off';
+  }
+}
+
 
 // Check if already logged in (page refresh)
 if (sessionStorage.getItem('mia_token')) showAdmin();
