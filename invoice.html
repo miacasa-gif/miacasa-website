@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Request Invoice — MiaCasa Homestays</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="lang.js"></script>
+<style>
+
+:root{--sand:#f5efe6;--sand-dark:#e8ddd0;--terracotta:#c17a5a;--terracotta-dark:#9e5f3f;--sage:#7a9e7e;--sage-light:#b5cdb8;--cream:#faf6f0;--ink:#2c2416;--ink-light:#6b5c47;--warm-white:#fffdf9;--border:rgba(193,122,90,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);font-weight:300;line-height:1.7;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,240,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--terracotta);letter-spacing:0.02em;text-decoration:none;}
+.nav-logo span{color:var(--ink);font-weight:300;font-style:italic;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--terracotta);}
+.nav-book{background:var(--terracotta)!important;color:white!important;padding:0.5rem 1.2rem;border-radius:2px;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;overflow:hidden;}
+.hero-left{background:var(--sand);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5rem;position:relative;}
+.hero-left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--terracotta),transparent);}
+.hero-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
+.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--terracotta);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:1.5rem;}
+.hero h1 em{color:var(--terracotta);font-style:italic;}
+.hero-sub{font-size:1rem;color:var(--ink-light);max-width:360px;margin-bottom:2.5rem;line-height:1.8;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--terracotta);color:white;padding:0.85rem 2rem;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--terracotta-dark);}
+.btn-outline{background:transparent;color:var(--ink);padding:0.85rem 2rem;border:1px solid var(--ink-light);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.hero-right{position:relative;overflow:hidden;}
+.hero-mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;gap:3px;}
+.mosaic-cell{overflow:hidden;position:relative;}
+.mosaic-cell.tall{grid-row:span 2;}
+.img-ph{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:0.72rem;letter-spacing:0.05em;color:rgba(255,255,255,0.65);}
+.hero-badge{position:absolute;bottom:2rem;left:2rem;background:rgba(250,246,240,0.93);backdrop-filter:blur(8px);padding:1rem 1.5rem;border-radius:2px;border-left:3px solid var(--terracotta);}
+.hero-badge p{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
+.hero-badge strong{font-size:1.05rem;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--ink);}
+section{padding:6rem 0;}
+.container{max-width:1200px;margin:0 auto;padding:0 2rem;}
+.section-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.8rem;}
+.section-tag::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--terracotta);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--ink);margin-bottom:1rem;}
+.section-title em{font-style:italic;color:var(--terracotta);}
+.section-sub{color:var(--ink-light);max-width:520px;line-height:1.8;margin-bottom:3rem;}
+#properties{background:var(--warm-white);}
+.properties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:1rem;}
+.property-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;background:white;display:flex;flex-direction:column;}
+.property-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(44,36,22,0.1);}
+.property-img{height:240px;overflow:hidden;position:relative;flex-shrink:0;}
+.property-badge{position:absolute;top:1rem;left:1rem;background:var(--terracotta);color:white;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:2px;}
+.property-body{padding:1.5rem;display:flex;flex-direction:column;flex:1;}
+.property-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:0.2rem;}
+.property-loc{font-size:0.75rem;color:var(--terracotta);letter-spacing:0.05em;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.35rem;}
+.property-desc{font-size:0.88rem;color:var(--ink-light);line-height:1.8;margin-bottom:1.25rem;flex:1;}
+.property-meta{display:flex;gap:1.2rem;margin-bottom:1.25rem;padding-top:1rem;border-top:1px solid var(--border);}
+.meta-item{text-align:center;}
+.meta-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terracotta);display:block;}
+.meta-lbl{font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);}
+#booking{background:var(--sand);}
+.property-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:2rem;}
+.prop-select-btn{padding:0.75rem 1rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--ink-light);transition:all 0.2s;text-align:left;}
+.prop-select-btn.active{border-color:var(--terracotta);background:var(--terracotta);color:white;}
+.prop-select-btn .pbn{font-weight:500;display:block;margin-bottom:2px;}
+.prop-select-btn .pbs{font-size:0.72rem;opacity:0.75;}
+.booking-form-wrap{background:white;border:1px solid var(--border);border-radius:4px;padding:2.5rem;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-group label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);}
+.form-group input,.form-group select{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--terracotta);}
+.pricing-note{margin-top:1.5rem;padding:1rem 1.25rem;background:var(--sand);border-left:3px solid var(--terracotta);border-radius:0 2px 2px 0;font-size:0.84rem;color:var(--ink-light);font-size: 0.84rem;grid-column: 1 / -1;}
+.sync-platforms{margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);}
+.sync-title{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1rem;}
+.platform-badges{display:flex;flex-wrap:wrap;gap:0.75rem;}
+.platform-badge{padding:0.45rem 1rem;border:1px solid var(--border);border-radius:2px;font-size:0.76rem;color:var(--ink-light);display:flex;align-items:center;gap:0.5rem;}
+.platform-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.sync-info{margin-top:1.25rem;font-size:0.82rem;color:var(--ink-light);line-height:1.7;}
+.sync-info a{color:var(--terracotta);text-decoration:none;}
+.confirm-msg{display:none;margin-top:1rem;color:var(--sage);font-size:0.88rem;padding:0.85rem 1rem;background:rgba(122,158,126,0.1);border-radius:2px;border-left:3px solid var(--sage);}
+#availability{background:var(--warm-white);}
+.cal-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.5rem;}
+.cal-tab{padding:0.55rem 1.25rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);transition:all 0.2s;}
+.cal-tab.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.cal-frame-wrap{display:none;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:white;}
+.cal-frame-wrap.active{display:block;}
+.cal-frame-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+.cal-frame-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);}
+.cal-frame-sub{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
+.cal-frame-wrap iframe{display:block;width:100%;border:none;}
+
+#gallery{background:var(--sand);}
+.gallery-filter{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.75rem;}
+.filter-btn{padding:0.42rem 1.1rem;border:1px solid var(--border);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:6px;}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer;border-radius:2px;}
+.gallery-item.wide{grid-column:span 2;}
+.gallery-item.tall{grid-row:span 2;}
+.gal-overlay{position:absolute;inset:0;background:rgba(44,36,22,0.38);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;}
+.gallery-item:hover .gal-overlay{opacity:1;}
+.gal-overlay span{color:white;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.55);padding:0.35rem 0.9rem;border-radius:2px;}
+#amenities{background:var(--warm-white);}
+.amenities-tabs{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content;flex-wrap:wrap;}
+.amenity-tab{padding:0.65rem 1.5rem;background:transparent;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
+.amenity-tab:last-child{border-right:none;}
+.amenity-tab.active{background:var(--terracotta);color:white;}
+.amenity-panel{display:none;}
+.amenity-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75rem;}
+.amenity-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.85rem;border-radius:2px;transition:background 0.2s;border:1px solid transparent;}
+.amenity-item:hover{background:var(--sand);border-color:var(--border);}
+.amenity-icon{width:34px;height:34px;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
+.amenity-text{font-size:0.86rem;color:var(--ink);line-height:1.5;}
+.amenity-text span{display:block;font-size:0.73rem;color:var(--ink-light);}
+#rules{background:var(--sand);}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
+.rule-card{background:white;border:1px solid var(--border);border-radius:4px;padding:1.5rem;}
+.rule-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:0.9rem;}
+.rule-icon.g{background:rgba(122,158,126,0.12);}
+.rule-icon.r{background:rgba(193,122,90,0.12);}
+.rule-title{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.7rem;}
+.rule-list{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.rule-list li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.84rem;color:var(--ink);line-height:1.5;}
+.rule-list li::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--terracotta);flex-shrink:0;margin-top:0.55em;}
+#testimonials{background:var(--ink);color:white;}
+#testimonials .section-title{color:white;}
+#testimonials .section-sub{color:rgba(255,255,255,0.55);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.testimonial-card{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:1.75rem;}
+.stars{color:var(--terracotta);font-size:0.82rem;margin-bottom:0.9rem;letter-spacing:2px;}
+.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.75;color:rgba(255,255,255,0.82);margin-bottom:1.4rem;}
+.reviewer{display:flex;align-items:center;gap:0.75rem;}
+.reviewer-avatar{width:34px;height:34px;border-radius:50%;background:var(--terracotta);display:flex;align-items:center;justify-content:center;font-size:0.76rem;font-weight:500;color:white;flex-shrink:0;}
+.reviewer-name{font-size:0.84rem;font-weight:500;color:white;}
+.reviewer-meta{font-size:0.72rem;color:rgba(255,255,255,0.45);}
+#contact{background:var(--cream);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;}
+.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:1.75rem;}
+.contact-items{display:flex;flex-direction:column;gap:1.25rem;}
+.contact-item{display:flex;gap:1rem;align-items:flex-start;}
+.contact-item-icon{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
+.contact-item-text{font-size:0.84rem;color:var(--ink-light);line-height:1.7;}
+.contact-item-text strong{display:block;color:var(--ink);font-weight:500;margin-bottom:0.1rem;}
+.contact-form-box{background:white;border:1px solid var(--border);border-radius:4px;padding:2.25rem;}
+.form-full{grid-column:1/-1;}
+textarea{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;resize:vertical;min-height:110px;width:100%;}
+textarea:focus{border-color:var(--terracotta);}
+.form-submit-row{display:flex;justify-content:flex-end;margin-top:1.25rem;}
+.chatbot-fab{position:fixed;bottom:2rem;right:2rem;z-index:200;width:54px;height:54px;border-radius:50%;background:var(--terracotta);color:white;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(193,122,90,0.38);transition:transform 0.2s;}
+.chatbot-fab:hover{transform:scale(1.08);}
+.chatbot-window{position:fixed;bottom:5.5rem;right:2rem;z-index:200;width:330px;border-radius:8px;background:white;border:1px solid var(--border);box-shadow:0 20px 60px rgba(44,36,22,0.14);display:none;flex-direction:column;overflow:hidden;max-height:460px;}
+.chatbot-window.open{display:flex;}
+.chatbot-header{background:var(--terracotta);color:white;padding:0.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;}
+.chatbot-header-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;}
+.chatbot-header-sub{font-size:0.68rem;opacity:0.78;margin-top:1px;}
+.chatbot-close{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;opacity:0.75;}
+.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.65rem;}
+.msg{max-width:85%;padding:0.55rem 0.85rem;border-radius:2px;font-size:0.83rem;line-height:1.5;}
+.msg.bot{background:var(--sand);color:var(--ink);align-self:flex-start;}
+.msg.user{background:var(--terracotta);color:white;align-self:flex-end;}
+.chat-quick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0 1rem 0.65rem;}
+.quick-btn{font-size:0.7rem;padding:0.28rem 0.65rem;border:1px solid var(--border);background:transparent;cursor:pointer;border-radius:2px;color:var(--ink-light);font-family:'Jost',sans-serif;transition:all 0.15s;}
+.quick-btn:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.chatbot-input-area{padding:0.65rem 0.9rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+.chatbot-input{flex:1;padding:0.45rem 0.7rem;border:1px solid var(--border);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.83rem;outline:none;color:var(--ink);}
+.chatbot-input:focus{border-color:var(--terracotta);}
+.chatbot-send{background:var(--terracotta);color:white;border:none;padding:0.45rem 0.85rem;border-radius:2px;cursor:pointer;font-size:0.83rem;}
+footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;}
+.footer-brand p{font-size:0.84rem;line-height:1.8;margin-top:0.9rem;}
+.footer-brand .nav-logo span{color:rgba(255,255,255,0.75);}
+.footer-col h4{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:white;margin-bottom:1.1rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.48);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--terracotta);}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;font-size:0.76rem;}
+
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;right:0;background:var(--cream);border:1px solid var(--border);border-radius:4px;min-width:220px;box-shadow:0 8px 24px rgba(44,36,22,.1);z-index:200;padding:0.5rem 0;}
+.nav-dropdown:hover .nav-dropdown-menu{display:block;}
+.nav-dropdown-menu a{display:block;padding:0.55rem 1.1rem;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
+.nav-dropdown-menu a:hover{color:var(--terracotta);}
+.nav-dropdown>a{display:flex;align-items:center;gap:0.3rem;}
+.nav-dropdown>a::after{content:'▾';font-size:0.6rem;opacity:0.6;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{height:320px;}.hero-left{padding:3rem 2rem;}.contact-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.hamburger{display:flex;}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-item.wide{grid-column:span 1;}.footer-grid{grid-template-columns:1fr;}}
+
+.reviews-filter{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.75rem;}
+.review-filter-btn{padding:0.42rem 1.1rem;border:1px solid rgba(255,255,255,0.2);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:all 0.2s;}
+.review-filter-btn.active,.review-filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.platform-tag{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;}
+.platform-tag.airbnb{background:rgba(255,90,95,0.2);color:#ff5a5f;}
+.platform-tag.booking{background:rgba(0,99,196,0.2);color:#6ab0f5;}
+.platform-tag.agoda{background:rgba(239,68,68,0.15);color:#fca5a5;}
+.platform-tag.google{background:rgba(66,133,244,0.15);color:#93c5fd;}
+.platform-tag.tripadvisor{background:rgba(52,183,110,0.2);color:#6ee7b7;}
+.prop-highlights{list-style:none;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.35rem;}
+.prop-highlights li{font-size:0.82rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5;}
+.prop-highlights li::before{content:'✦';color:var(--terracotta);flex-shrink:0;font-size:0.65rem;margin-top:0.2em;}
+.prop-notice{font-size:0.78rem;color:var(--ink-light);background:var(--sand);border-left:3px solid var(--terracotta);padding:0.6rem 0.85rem;border-radius:0 2px 2px 0;margin-bottom:1rem;line-height:1.6;}
+.reviews-load-more{text-align:center;margin-top:2.5rem;}
+.hidden-review{display:none;}
+
+.inv-hero{background:var(--ink);color:white;padding:5rem 0 3.5rem;margin-top:64px;}
+.inv-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.2rem);font-weight:300;color:white;margin-bottom:0.75rem;}
+.inv-hero h1 em{font-style:italic;color:var(--terracotta);}
+.inv-hero p{font-size:0.9rem;color:rgba(255,255,255,0.6);max-width:480px;line-height:1.8;}
+.inv-hero .section-tag{color:rgba(255,255,255,0.4);}
+.inv-hero .section-tag::before{background:rgba(255,255,255,0.2);}
+.inv-body{background:var(--cream);padding:4rem 0 5rem;}
+.inv-card{background:white;border:1px solid var(--border);border-radius:6px;padding:2.5rem;max-width:520px;}
+.inv-card .form-group{margin-bottom:1.25rem;}
+.inv-card label{display:block;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.4rem;}
+.inv-card input{width:100%;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:3px;font-family:'Jost',sans-serif;font-size:0.88rem;color:var(--ink);background:var(--warm-white);box-sizing:border-box;transition:border-color 0.2s;}
+.inv-card input:focus{outline:none;border-color:var(--terracotta);}
+.inv-card input.error{border-color:#e53e3e;}
+.inv-error{color:#c53030;font-size:0.82rem;margin-top:0.35rem;display:none;}
+.inv-status{margin-top:1.5rem;padding:1rem 1.25rem;border-radius:4px;font-size:0.85rem;display:none;}
+.inv-status.loading{background:var(--sand);color:var(--ink-light);}
+.inv-status.success{background:#f0fff4;border:1px solid #9ae6b4;color:#276749;}
+.inv-status.fail{background:#fff5f5;border:1px solid #feb2b2;color:#c53030;}
+/* PDF preview */
+.pdf-preview{display:none;margin-top:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.pdf-preview iframe{width:100%;height:680px;border:none;display:block;}
+.pdf-dl{display:none;margin-top:1rem;}
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;right:0;background:var(--cream);border:1px solid var(--border);border-radius:4px;min-width:220px;box-shadow:0 8px 24px rgba(44,36,22,.1);z-index:200;padding:0.5rem 0;}
+.nav-dropdown:hover .nav-dropdown-menu{display:block;}
+.nav-dropdown-menu a{display:block;padding:0.55rem 1.1rem;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);text-decoration:none;}
+.nav-dropdown-menu a:hover{color:var(--terracotta);}
+.nav-dropdown>a::after{content:'▾';font-size:0.6rem;opacity:0.6;margin-left:0.3rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-t="nav-home">Home</a></li>
+    <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+    <li><a href="miacasa-oldquarter.html" data-t="nav-oq">MiaCasa Old Quarter</a></li>
+    <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
+    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
+    <li class="nav-dropdown">
+      <a href="miacasa-hanoi.html#hanoi-booking" class="nav-book">Check Availability</a>
+      <div class="nav-dropdown-menu">
+        <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
+        <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>
+      </div>
+    </li>
+  </ul>
+  <div class="lang-toggle">
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">VN</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="inv-hero">
+  <div class="container">
+    <div class="section-tag">Post-Stay</div>
+    <h1>Request an <em>Invoice</em></h1>
+    <p>Enter your Booking ID and the email address used at booking. We'll generate your invoice instantly.</p>
+  </div>
+</section>
+
+<section class="inv-body">
+  <div class="container">
+    <div class="inv-card">
+
+      <div class="form-group">
+        <label for="inv-booking-id">Booking ID</label>
+        <input type="text" id="inv-booking-id" placeholder="e.g. MCH-SPR-0001 or MCOQ-OLQ-0001"
+               autocomplete="off" spellcheck="false">
+        <div class="inv-error" id="err-booking-id">Please enter your Booking ID.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="inv-email">Email Address</label>
+        <input type="email" id="inv-email" placeholder="Email you used when booking"
+               autocomplete="email">
+        <div class="inv-error" id="err-email">Please enter the email address used at booking.</div>
+      </div>
+
+      <button class="btn-primary" style="width:100%;margin-top:0.5rem;" onclick="requestInvoice()">
+        Generate Invoice →
+      </button>
+
+      <div class="inv-status loading" id="inv-loading">⏳ Looking up your booking…</div>
+      <div class="inv-status success" id="inv-success"></div>
+      <div class="inv-status fail" id="inv-fail"></div>
+
+      <div class="pdf-preview" id="pdf-preview">
+        <iframe id="pdf-frame" title="Invoice preview"></iframe>
+      </div>
+      <div class="pdf-dl" id="pdf-dl">
+        <a id="pdf-download" class="btn-outline" style="display:inline-flex;align-items:center;gap:0.5rem;" download>
+          ⬇ Download Invoice PDF
+        </a>
+      </div>
+
+      <p style="font-size:0.76rem;color:var(--ink-light);margin-top:1.75rem;line-height:1.7;">
+        Your Booking ID was included in your confirmation message. If you can't find it,
+        <a href="https://wa.me/84869922261" target="_blank" rel="noopener"
+           style="color:var(--terracotta);">contact us on WhatsApp</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.5);padding:2rem 0;">
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;align-items:center;font-size:0.78rem;">
+    <div style="font-family:'Cormorant Garamond',serif;color:var(--sand);font-size:1rem;">MiaCasa Homestays</div>
+    <div>© 2025 MiaCasa Homestays</div>
+  </div>
+</footer>
+
+<script>
+const PROXY = '/api/log-booking';
+
+function toggleMenu(){
+  var ul=document.querySelector('.nav-links');
+  if(!ul)return;
+  ul.style.cssText=ul.style.display==='flex'?'':'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--cream);padding:1.5rem 2rem;gap:1rem;border-bottom:1px solid var(--border);z-index:99;';
+}
+
+function showStatus(id, msg) {
+  ['inv-loading','inv-success','inv-fail'].forEach(function(x){
+    var el=document.getElementById(x);
+    el.style.display='none'; el.textContent='';
+  });
+  var el=document.getElementById(id);
+  el.textContent=msg; el.style.display='block';
+}
+
+async function requestInvoice() {
+  var bookingId = document.getElementById('inv-booking-id').value.trim().toUpperCase();
+  var email     = document.getElementById('inv-email').value.trim().toLowerCase();
+  var errBid    = document.getElementById('err-booking-id');
+  var errEm     = document.getElementById('err-email');
+
+  // Reset
+  errBid.style.display='none'; errEm.style.display='none';
+  document.getElementById('inv-booking-id').classList.remove('error');
+  document.getElementById('inv-email').classList.remove('error');
+  document.getElementById('pdf-preview').style.display='none';
+  document.getElementById('pdf-dl').style.display='none';
+
+  var valid = true;
+  if (!bookingId) {
+    errBid.style.display='block';
+    document.getElementById('inv-booking-id').classList.add('error');
+    valid=false;
+  }
+  if (!email || !email.includes('@')) {
+    errEm.style.display='block';
+    document.getElementById('inv-email').classList.add('error');
+    valid=false;
+  }
+  if (!valid) return;
+
+  showStatus('inv-loading', '⏳ Looking up your booking…');
+
+  try {
+    var resp = await fetch(PROXY, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({action:'getInvoice', bookingId: bookingId, email: email})
+    });
+    var data = await resp.json();
+
+    if (data.status !== 'ok' || !data.booking) {
+      showStatus('inv-fail', '❌ ' + (data.message || 'No booking found with that ID and email. Please check and try again.'));
+      return;
+    }
+
+    var b = data.booking;
+    showStatus('inv-success', '✓ Booking found! Generating your invoice…');
+
+    // Build PDF in-browser using canvas-free approach (HTML → print)
+    var pdfHtml = buildInvoiceHTML(b);
+    var blob = new Blob([pdfHtml], {type:'text/html'});
+    var url  = URL.createObjectURL(blob);
+
+    // Show in iframe for preview
+    var frame = document.getElementById('pdf-frame');
+    frame.src = url;
+    document.getElementById('pdf-preview').style.display='block';
+
+    // Download link
+    var dl = document.getElementById('pdf-download');
+    dl.href = url;
+    dl.download = 'MiaCasa-Invoice-' + bookingId + '.html';
+    document.getElementById('pdf-dl').style.display='block';
+
+    showStatus('inv-success', '✓ Invoice ready! You can preview it below or download.');
+
+  } catch(e) {
+    showStatus('inv-fail', '❌ Something went wrong. Please try again or contact us on WhatsApp.');
+    console.error(e);
+  }
+}
+
+function buildInvoiceHTML(b) {
+  var isHanoi = (b.property || '').toLowerCase().includes('hanoi') || (b.bookingId||'').startsWith('MCH');
+  var logoColor = '#7C5C3E';
+  var accentColor = isHanoi ? '#C4713A' : '#6B8C6B';
+
+  function row(label, value) {
+    return '<tr><td style="padding:9px 16px;font-size:12px;color:#888;width:45%;border-bottom:1px solid #f0ebe5;">'+label+'</td>'+
+           '<td style="padding:9px 16px;font-size:13px;color:#2C2416;font-weight:500;border-bottom:1px solid #f0ebe5;">'+value+'</td></tr>';
+  }
+
+  var invoiceNum = 'INV-' + (b.bookingId || '—');
+  var issuedDate = new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'long',year:'numeric'});
+
+  var roomLine = '';
+  if (isHanoi && b.room) {
+    roomLine = row('Room', b.room);
+  }
+
+  return '<!DOCTYPE html><html><head><meta charset="UTF-8">'+
+    '<title>Invoice '+invoiceNum+'</title>'+
+    '<style>@page{size:A4;margin:0}body{margin:0;font-family:"Helvetica Neue",Arial,sans-serif;background:#fff;color:#2C2416;}'+
+    '@media print{.no-print{display:none}}</style></head><body>'+
+    '<div style="max-width:700px;margin:0 auto;padding:0;">'+
+
+    // Header
+    '<div style="background:'+accentColor+';padding:40px 48px 32px;">'+
+    '  <div style="font-family:Georgia,serif;font-size:26px;font-weight:300;color:white;letter-spacing:0.04em;">MiaCasa Homestays</div>'+
+    '  <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;letter-spacing:0.1em;text-transform:uppercase;">'+b.property+'</div>'+
+    '  <div style="font-size:32px;font-weight:300;color:white;margin-top:20px;letter-spacing:-0.01em;">Invoice</div>'+
+    '</div>'+
+
+    // Invoice meta
+    '<div style="background:#FAF7F3;padding:20px 48px;display:flex;justify-content:space-between;border-bottom:2px solid '+accentColor+';">'+
+    '  <div><div style="font-size:10px;color:#888;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">Invoice Number</div>'+
+    '       <div style="font-size:14px;font-weight:600;">'+invoiceNum+'</div></div>'+
+    '  <div style="text-align:right"><div style="font-size:10px;color:#888;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;">Issued</div>'+
+    '       <div style="font-size:14px;">'+issuedDate+'</div></div>'+
+    '</div>'+
+
+    // Guest + stay details table
+    '<table style="width:100%;border-collapse:collapse;margin-top:0;">'+
+    row('Guest Name',     b.guestName  || '—')+
+    row('Email',          b.guestEmail || '—')+
+    row('Phone',          b.guestPhone || '—')+
+    row('Property',       b.property   || '—')+
+    roomLine +
+    row('Booking ID',     b.bookingId  || '—')+
+    row('Check-in',       b.checkin    || '—')+
+    row('Check-out',      b.checkout   || '—')+
+    row('Number of nights', b.nights + (b.nights==1?' night':' nights'))+
+    row('Number of guests',  b.guests + (b.guests==1?' guest':' guests'))+
+    '</table>'+
+
+    // Amount box
+    '<div style="margin:32px 48px;padding:20px 24px;background:'+accentColor+';border-radius:4px;display:flex;justify-content:space-between;align-items:center;">'+
+    '  <div style="font-size:12px;color:rgba(255,255,255,0.8);letter-spacing:0.08em;text-transform:uppercase;">Total Amount Paid</div>'+
+    '  <div style="font-size:24px;font-weight:600;color:white;">'+formatVND(b.amount)+'</div>'+
+    '</div>'+
+
+    // Payment status badge
+    '<div style="margin:0 48px 20px;display:flex;gap:12px;">'+
+    '  <div style="padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:'+
+          (b.paymentStatus==='paid'?'#E6F4EA':'#FFF3E0')+';color:'+
+          (b.paymentStatus==='paid'?'#2D6A4F':'#92400E')+'">'+
+    '    '+((b.paymentStatus||'pending').toUpperCase())+'</div>'+
+    '  <div style="padding:5px 14px;border-radius:20px;font-size:11px;background:#F0EBE5;color:#7C5C3E;">'+
+    '    '+((b.paymentMethod||'')||'—')+'</div>'+
+    '</div>'+
+
+    // Footer
+    '<div style="margin:0 48px;padding:24px 0;border-top:1px solid #e8e0d8;">'+
+    '  <div style="font-size:11px;color:#aaa;line-height:1.8;">'+
+    '    MiaCasa Homestays · Hanoi, Vietnam · miacasahanoi@gmail.com · +84 869 922 261<br>'+
+    '    This invoice was automatically generated. For questions, contact us via WhatsApp.'+
+    '  </div>'+
+    '</div>'+
+
+    // Print button
+    '<div class="no-print" style="padding:16px 48px 40px;text-align:right;">'+
+    '  <button onclick="window.print()" style="background:'+accentColor+';color:white;border:none;padding:10px 24px;font-size:13px;border-radius:3px;cursor:pointer;">🖨 Print / Save as PDF</button>'+
+    '</div>'+
+
+    '</div></body></html>';
+}
+
+function formatVND(amount) {
+  if (!amount) return '—';
+  var n = parseInt(amount.toString().replace(/[^0-9]/g,''));
+  if (isNaN(n)) return amount;
+  return n.toLocaleString('vi-VN') + ' ₫';
+}
+
+// Pre-fill from URL params (e.g. if linked from booking confirmation)
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('bid')) document.getElementById('inv-booking-id').value = params.get('bid');
+  if (params.get('email')) document.getElementById('inv-email').value = params.get('email');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Our Story | MiaCasa Homestay Hanoi</title>
+<meta name="description" content="Learn the story behind MiaCasa, a women-owned homestay in Hanoi focused on warm hospitality, local experiences, and thoughtful stays.">
+<link rel="canonical" href="https://miacasa.netlify.app/our-story">
+<script src="lang.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{--sand:#f5efe6;--sand-dark:#e8ddd0;--terracotta:#c17a5a;--terracotta-dark:#9e5f3f;--sage:#7a9e7e;--sage-light:#b5cdb8;--cream:#faf6f0;--ink:#2c2416;--ink-light:#6b5c47;--warm-white:#fffdf9;--border:rgba(193,122,90,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);font-weight:300;line-height:1.7;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,240,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--terracotta);letter-spacing:0.02em;text-decoration:none;}
+.nav-logo span{color:var(--ink);font-weight:300;font-style:italic;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--terracotta);}
+.nav-book{background:var(--terracotta)!important;color:white!important;padding:0.5rem 1.2rem;border-radius:2px;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;overflow:hidden;}
+.hero-left{background:var(--sand);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5rem;position:relative;}
+.hero-left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--terracotta),transparent);}
+.hero-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
+.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--terracotta);}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:1.5rem;}
+.hero h1 em{color:var(--terracotta);font-style:italic;}
+.hero-sub{font-size:1rem;color:var(--ink-light);max-width:360px;margin-bottom:2.5rem;line-height:1.8;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{background:var(--terracotta);color:white;padding:0.85rem 2rem;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--terracotta-dark);}
+.btn-outline{background:transparent;color:var(--ink);padding:0.85rem 2rem;border:1px solid var(--ink-light);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-outline:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.hero-right{position:relative;overflow:hidden;}
+.hero-mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;gap:3px;}
+.mosaic-cell{overflow:hidden;position:relative;}
+.mosaic-cell.tall{grid-row:span 2;}
+.img-ph{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:0.72rem;letter-spacing:0.05em;color:rgba(255,255,255,0.65);}
+.hero-badge{position:absolute;bottom:2rem;left:2rem;background:rgba(250,246,240,0.93);backdrop-filter:blur(8px);padding:1rem 1.5rem;border-radius:2px;border-left:3px solid var(--terracotta);}
+.hero-badge p{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
+.hero-badge strong{font-size:1.05rem;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--ink);}
+section{padding:6rem 0;}
+.container{max-width:1200px;margin:0 auto;padding:0 2rem;}
+.section-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.8rem;}
+.section-tag::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--terracotta);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--ink);margin-bottom:1rem;}
+.section-title em{font-style:italic;color:var(--terracotta);}
+.section-sub{color:var(--ink-light);max-width:520px;line-height:1.8;margin-bottom:3rem;}
+#properties{background:var(--warm-white);}
+.properties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:1rem;}
+.property-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;background:white;display:flex;flex-direction:column;}
+.property-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(44,36,22,0.1);}
+.property-img{height:240px;overflow:hidden;position:relative;flex-shrink:0;}
+.property-badge{position:absolute;top:1rem;left:1rem;background:var(--terracotta);color:white;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:2px;}
+.property-body{padding:1.5rem;display:flex;flex-direction:column;flex:1;}
+.property-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:0.2rem;}
+.property-loc{font-size:0.75rem;color:var(--terracotta);letter-spacing:0.05em;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.35rem;}
+.property-desc{font-size:0.88rem;color:var(--ink-light);line-height:1.8;margin-bottom:1.25rem;flex:1;}
+.property-meta{display:flex;gap:1.2rem;margin-bottom:1.25rem;padding-top:1rem;border-top:1px solid var(--border);}
+.meta-item{text-align:center;}
+.meta-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terracotta);display:block;}
+.meta-lbl{font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);}
+#booking{background:var(--sand);}
+.property-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:2rem;}
+.prop-select-btn{padding:0.75rem 1rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--ink-light);transition:all 0.2s;text-align:left;}
+.prop-select-btn.active{border-color:var(--terracotta);background:var(--terracotta);color:white;}
+.prop-select-btn .pbn{font-weight:500;display:block;margin-bottom:2px;}
+.prop-select-btn .pbs{font-size:0.72rem;opacity:0.75;}
+.booking-form-wrap{background:white;border:1px solid var(--border);border-radius:4px;padding:2.5rem;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
+.form-group{display:flex;flex-direction:column;gap:0.4rem;}
+.form-group label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);}
+.form-group input,.form-group select{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--terracotta);}
+.pricing-note{margin-top:1.5rem;padding:1rem 1.25rem;background:var(--sand);border-left:3px solid var(--terracotta);border-radius:0 2px 2px 0;font-size:0.84rem;color:var(--ink-light);}
+.sync-platforms{margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);}
+.sync-title{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1rem;}
+.platform-badges{display:flex;flex-wrap:wrap;gap:0.75rem;}
+.platform-badge{padding:0.45rem 1rem;border:1px solid var(--border);border-radius:2px;font-size:0.76rem;color:var(--ink-light);display:flex;align-items:center;gap:0.5rem;}
+.platform-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
+.sync-info{margin-top:1.25rem;font-size:0.82rem;color:var(--ink-light);line-height:1.7;}
+.sync-info a{color:var(--terracotta);text-decoration:none;}
+.confirm-msg{display:none;margin-top:1rem;color:var(--sage);font-size:0.88rem;padding:0.85rem 1rem;background:rgba(122,158,126,0.1);border-radius:2px;border-left:3px solid var(--sage);}
+#availability{background:var(--warm-white);}
+.cal-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.5rem;}
+.cal-tab{padding:0.55rem 1.25rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);transition:all 0.2s;}
+.cal-tab.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.cal-frame-wrap{display:none;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:white;}
+.cal-frame-wrap.active{display:block;}
+.cal-frame-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
+.cal-frame-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);}
+.cal-frame-sub{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
+.cal-frame-wrap iframe{display:block;width:100%;border:none;}
+
+#gallery{background:var(--sand);}
+.gallery-filter{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.75rem;}
+.filter-btn{padding:0.42rem 1.1rem;border:1px solid var(--border);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
+.filter-btn.active,.filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:6px;}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer;border-radius:2px;}
+.gallery-item.wide{grid-column:span 2;}
+.gallery-item.tall{grid-row:span 2;}
+.gal-overlay{position:absolute;inset:0;background:rgba(44,36,22,0.38);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;}
+.gallery-item:hover .gal-overlay{opacity:1;}
+.gal-overlay span{color:white;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.55);padding:0.35rem 0.9rem;border-radius:2px;}
+#amenities{background:var(--warm-white);}
+.amenities-tabs{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content;flex-wrap:wrap;}
+.amenity-tab{padding:0.65rem 1.5rem;background:transparent;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
+.amenity-tab:last-child{border-right:none;}
+.amenity-tab.active{background:var(--terracotta);color:white;}
+.amenity-panel{display:none;}
+.amenity-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75rem;}
+.amenity-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.85rem;border-radius:2px;transition:background 0.2s;border:1px solid transparent;}
+.amenity-item:hover{background:var(--sand);border-color:var(--border);}
+.amenity-icon{width:34px;height:34px;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
+.amenity-text{font-size:0.86rem;color:var(--ink);line-height:1.5;}
+.amenity-text span{display:block;font-size:0.73rem;color:var(--ink-light);}
+#rules{background:var(--sand);}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
+.rule-card{background:white;border:1px solid var(--border);border-radius:4px;padding:1.5rem;}
+.rule-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:0.9rem;}
+.rule-icon.g{background:rgba(122,158,126,0.12);}
+.rule-icon.r{background:rgba(193,122,90,0.12);}
+.rule-title{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.7rem;}
+.rule-list{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.rule-list li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.84rem;color:var(--ink);line-height:1.5;}
+.rule-list li::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--terracotta);flex-shrink:0;margin-top:0.55em;}
+#testimonials{background:var(--ink);color:white;}
+#testimonials .section-title{color:white;}
+#testimonials .section-sub{color:rgba(255,255,255,0.55);}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+.testimonial-card{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:1.75rem;}
+.stars{color:var(--terracotta);font-size:0.82rem;margin-bottom:0.9rem;letter-spacing:2px;}
+.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.75;color:rgba(255,255,255,0.82);margin-bottom:1.4rem;}
+.reviewer{display:flex;align-items:center;gap:0.75rem;}
+.reviewer-avatar{width:34px;height:34px;border-radius:50%;background:var(--terracotta);display:flex;align-items:center;justify-content:center;font-size:0.76rem;font-weight:500;color:white;flex-shrink:0;}
+.reviewer-name{font-size:0.84rem;font-weight:500;color:white;}
+.reviewer-meta{font-size:0.72rem;color:rgba(255,255,255,0.45);}
+#contact{background:var(--cream);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;}
+.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:1.75rem;}
+.contact-items{display:flex;flex-direction:column;gap:1.25rem;}
+.contact-item{display:flex;gap:1rem;align-items:flex-start;}
+.contact-item-icon{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
+.contact-item-text{font-size:0.84rem;color:var(--ink-light);line-height:1.7;}
+.contact-item-text strong{display:block;color:var(--ink);font-weight:500;margin-bottom:0.1rem;}
+.contact-form-box{background:white;border:1px solid var(--border);border-radius:4px;padding:2.25rem;}
+.form-full{grid-column:1/-1;}
+textarea{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;resize:vertical;min-height:110px;width:100%;}
+textarea:focus{border-color:var(--terracotta);}
+.form-submit-row{display:flex;justify-content:flex-end;margin-top:1.25rem;}
+.chatbot-fab{position:fixed;bottom:2rem;right:2rem;z-index:200;width:54px;height:54px;border-radius:50%;background:var(--terracotta);color:white;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(193,122,90,0.38);transition:transform 0.2s;}
+.chatbot-fab:hover{transform:scale(1.08);}
+.chatbot-window{position:fixed;bottom:5.5rem;right:2rem;z-index:200;width:330px;border-radius:8px;background:white;border:1px solid var(--border);box-shadow:0 20px 60px rgba(44,36,22,0.14);display:none;flex-direction:column;overflow:hidden;max-height:460px;}
+.chatbot-window.open{display:flex;}
+.chatbot-header{background:var(--terracotta);color:white;padding:0.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;}
+.chatbot-header-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;}
+.chatbot-header-sub{font-size:0.68rem;opacity:0.78;margin-top:1px;}
+.chatbot-close{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;opacity:0.75;}
+.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.65rem;}
+.msg{max-width:85%;padding:0.55rem 0.85rem;border-radius:2px;font-size:0.83rem;line-height:1.5;}
+.msg.bot{background:var(--sand);color:var(--ink);align-self:flex-start;}
+.msg.user{background:var(--terracotta);color:white;align-self:flex-end;}
+.chat-quick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0 1rem 0.65rem;}
+.quick-btn{font-size:0.7rem;padding:0.28rem 0.65rem;border:1px solid var(--border);background:transparent;cursor:pointer;border-radius:2px;color:var(--ink-light);font-family:'Jost',sans-serif;transition:all 0.15s;}
+.quick-btn:hover{border-color:var(--terracotta);color:var(--terracotta);}
+.chatbot-input-area{padding:0.65rem 0.9rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
+.chatbot-input{flex:1;padding:0.45rem 0.7rem;border:1px solid var(--border);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.83rem;outline:none;color:var(--ink);}
+.chatbot-input:focus{border-color:var(--terracotta);}
+.chatbot-send{background:var(--terracotta);color:white;border:none;padding:0.45rem 0.85rem;border-radius:2px;cursor:pointer;font-size:0.83rem;}
+footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;}
+.footer-brand p{font-size:0.84rem;line-height:1.8;margin-top:0.9rem;}
+.footer-brand .nav-logo span{color:rgba(255,255,255,0.75);}
+.footer-col h4{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:white;margin-bottom:1.1rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.48);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--terracotta);}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;font-size:0.76rem;}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.reveal.visible{opacity:1;transform:none;}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+@media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{height:320px;}.hero-left{padding:3rem 2rem;}.contact-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.hamburger{display:flex;}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-item.wide{grid-column:span 1;}.footer-grid{grid-template-columns:1fr;}}
+
+.reviews-filter{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.75rem;}
+.review-filter-btn{padding:0.42rem 1.1rem;border:1px solid rgba(255,255,255,0.2);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:all 0.2s;}
+.review-filter-btn.active,.review-filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.platform-tag{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;}
+.platform-tag.airbnb{background:rgba(255,90,95,0.2);color:#ff5a5f;}
+.platform-tag.booking{background:rgba(0,99,196,0.2);color:#6ab0f5;}
+.platform-tag.agoda{background:rgba(239,68,68,0.15);color:#fca5a5;}
+.platform-tag.google{background:rgba(66,133,244,0.15);color:#93c5fd;}
+.platform-tag.tripadvisor{background:rgba(52,183,110,0.2);color:#6ee7b7;}
+.prop-highlights{list-style:none;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.35rem;}
+.prop-highlights li{font-size:0.82rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5;}
+.prop-highlights li::before{content:'✦';color:var(--terracotta);flex-shrink:0;font-size:0.65rem;margin-top:0.2em;}
+.prop-notice{font-size:0.78rem;color:var(--ink-light);background:var(--sand);border-left:3px solid var(--terracotta);padding:0.6rem 0.85rem;border-radius:0 2px 2px 0;margin-bottom:1rem;line-height:1.6;}
+.reviews-load-more{text-align:center;margin-top:2.5rem;}
+.hidden-review{display:none;}
+
+.lang-toggle{display:flex;gap:4px;margin-left:0.5rem;}
+.lang-btn{background:none;border:1px solid var(--border);color:var(--ink-light);padding:.28rem .6rem;border-radius:3px;font-family:'Jost',sans-serif;font-size:.72rem;cursor:pointer;transition:all .2s;}
+.lang-btn.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
+.nav-dropdown{position:relative;}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;right:0;background:var(--cream);border:1px solid var(--border);border-radius:4px;min-width:220px;box-shadow:0 8px 24px rgba(44,36,22,.1);z-index:200;padding:0.5rem 0;}
+.nav-dropdown:hover .nav-dropdown-menu{display:block;}
+.nav-dropdown-menu a{display:block;padding:0.55rem 1.1rem;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
+.nav-dropdown-menu a:hover{color:var(--terracotta);}
+.nav-dropdown>a{display:flex;align-items:center;gap:0.3rem;}
+.nav-dropdown>a::after{content:'▾';font-size:0.6rem;opacity:0.6;}
+.story-hero{background:var(--ink);color:white;padding:6rem 0 4rem;}
+.story-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:300;line-height:1.15;color:white;margin-bottom:1rem;}
+.story-hero h1 em{font-style:italic;color:var(--terracotta);}
+.story-hero .section-tag{color:rgba(255,255,255,0.45);}
+.story-hero .section-tag::before{background:rgba(255,255,255,0.25);}
+.story-hero p{font-size:1rem;color:rgba(255,255,255,0.65);max-width:560px;line-height:1.85;margin-top:1rem;}
+.story-body{background:var(--cream);padding:5rem 0;}
+.story-body p{font-size:0.96rem;color:var(--ink-light);line-height:1.9;margin-bottom:1.2rem;max-width:680px;}
+.story-sign{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
+.story-sign p{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;color:var(--terracotta);}
+.story-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--ink-light);font-size:0.75rem;letter-spacing:0.08em;text-decoration:none;margin-bottom:2rem;text-transform:uppercase;transition:color 0.2s;}
+.story-back:hover{color:var(--terracotta);}
+@media(max-width:900px){.nav-links{display:none;}.hamburger{display:flex;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-t="nav-home">Home</a></li>
+    <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+    <li><a href="miacasa-oldquarter.html" data-t="nav-oq">MiaCasa Old Quarter</a></li>
+    <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
+    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
+    <li class="nav-dropdown">
+      <a href="miacasa-hanoi.html#hanoi-booking" class="nav-book">Check Availability</a>
+      <div class="nav-dropdown-menu">
+        <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
+        <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>
+      </div>
+    </li>
+  </ul>
+  <div class="lang-toggle">
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">VN</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="story-hero">
+  <div class="container">
+    <div class="section-tag" data-t="story-tag">MiaCasa Homestays</div>
+    <h1 data-th="story-h1">Our <em>Story</em></h1>
+    <p data-t="story-lead">MiaCasa is a women-owned small business built with a simple idea — to create a place where guests feel genuinely welcome.</p>
+  </div>
+</section>
+
+<section class="story-body">
+  <div class="container">
+    <a href="index.html" class="story-back" data-t="story-back">← Back to MiaCasa Homestays</a>
+    <p data-t="st-p1">What started as a personal project has grown into a small collection of homes in Hanoi, each designed with care, warmth, and attention to detail.</p>
+    <p data-t="st-p2">We focus on what matters most: clean, comfortable spaces, honest and transparent communication, and a stay that feels easy and relaxed.</p>
+    <p data-t="st-p3">Every guest matters to us. We are not a large hotel chain — and that is intentional.</p>
+    <p data-t="st-p4">We believe in thoughtful hospitality, where small details make a big difference.</p>
+    <div class="story-sign">
+      <p data-t="st-sign">We look forward to hosting you in Hanoi.</p>
+    </div>
+    <div style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="miacasa-hanoi.html" class="btn-primary">MiaCasa Hanoi →</a>
+      <a href="miacasa-oldquarter.html" class="btn-outline">MiaCasa Old Quarter →</a>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.5);padding:2.5rem 0;">
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;align-items:center;">
+    <div style="font-family:'Cormorant Garamond',serif;color:var(--sand);font-size:1.1rem;">MiaCasa Homestays · Hanoi, Vietnam</div>
+    <div style="font-size:0.78rem;">
+      <a href="https://wa.me/84869922261" style="color:rgba(255,255,255,.5);text-decoration:none;margin-right:1.5rem;">+84 869 922 261</a>
+      <a href="mailto:miacasahanoi@gmail.com" style="color:rgba(255,255,255,.5);text-decoration:none;">miacasahanoi@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  var ul=document.querySelector('.nav-links');
+  if(!ul) return;
+  ul.style.cssText = ul.style.display==='flex' ? '' :
+    'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--cream);padding:1.5rem 2rem;gap:1rem;border-bottom:1px solid var(--border);z-index:99;';
+}
+</script>
+</body>
+</html>
