@@ -227,6 +227,118 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .story-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--ink-light);font-size:0.75rem;letter-spacing:0.08em;text-decoration:none;margin-bottom:2rem;text-transform:uppercase;transition:color 0.2s;}
 .story-back:hover{color:var(--terracotta);}
 @media(max-width:900px){.nav-links{display:none;}.hamburger{display:flex;}}
+/* ============================================
+   UNIVERSAL MOBILE IMPROVEMENTS
+   ============================================ */
+
+/* Prevent horizontal scroll on all devices */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better touch targets for all interactive elements */
+button, 
+.btn-primary, 
+.btn-outline, 
+.prop-select-btn, 
+.cal-tab, 
+.amenity-tab,
+.quick-btn,
+.nav-links a,
+.nav-dropdown-menu a,
+.chatbot-send,
+.chatbot-fab,
+.gallery-item,
+.faq-q {
+    cursor: pointer;
+}
+
+/* Ensure all buttons have minimum touch target size */
+button, .btn-primary, .btn-outline {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Improved spacing between sections on mobile */
+@media (max-width: 768px) {
+    @media (max-width: 768px) {
+    .story-hero {
+        padding: 4rem 0 2.5rem;
+        margin-top: 64px;
+    }
+    
+    .story-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .story-hero p {
+        font-size: 0.9rem;
+        margin-top: 0.75rem;
+    }
+    
+    .story-body {
+        padding: 3rem 0;
+    }
+    
+    .story-body p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .story-sign p {
+        font-size: 1rem;
+    }
+    
+    .story-body .btn-primary,
+    .story-body .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .story-hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .story-hero .section-tag {
+        font-size: 0.6rem;
+    }
+    
+    .story-body .container {
+        padding: 0 1.25rem;
+    }
+}
+    section {
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Better font sizing for mobile */
+    body {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3, .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .section-sub {
+        font-size: 0.9rem;
+    }
+}
 </style>
 </head>
 <body>
@@ -240,7 +352,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
     <li class="nav-dropdown">
-      <a href="miacasa-hanoi.html#hanoi-booking" class="nav-book">Check Availability</a>
+      <a href="miacasa-hanoi.html#hanoi-booking" class="nav-book" data-t="nav-avail-btn">Check Availability</a>
       <div class="nav-dropdown-menu">
         <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
         <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>

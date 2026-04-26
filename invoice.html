@@ -239,6 +239,120 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .nav-dropdown-menu a{display:block;padding:0.55rem 1.1rem;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);text-decoration:none;}
 .nav-dropdown-menu a:hover{color:var(--terracotta);}
 .nav-dropdown>a::after{content:'▾';font-size:0.6rem;opacity:0.6;margin-left:0.3rem;}
+/* ============================================
+   UNIVERSAL MOBILE IMPROVEMENTS
+   ============================================ */
+
+/* Prevent horizontal scroll on all devices */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better touch targets for all interactive elements */
+button, 
+.btn-primary, 
+.btn-outline, 
+.prop-select-btn, 
+.cal-tab, 
+.amenity-tab,
+.quick-btn,
+.nav-links a,
+.nav-dropdown-menu a,
+.chatbot-send,
+.chatbot-fab,
+.gallery-item,
+.faq-q {
+    cursor: pointer;
+}
+
+/* Ensure all buttons have minimum touch target size */
+button, .btn-primary, .btn-outline {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Improved spacing between sections on mobile */
+@media (max-width: 768px) {
+    section {
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Better font sizing for mobile */
+    body {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3, .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .section-sub {
+        font-size: 0.9rem;
+    }
+}
+@media (max-width: 768px) {
+    .inv-hero {
+        padding: 3rem 0 2rem;
+        margin-top: 64px;
+    }
+    
+    .inv-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .inv-hero p {
+        font-size: 0.85rem;
+    }
+    
+    .inv-body {
+        padding: 2rem 0 3rem;
+    }
+    
+    .inv-card {
+        padding: 1.5rem;
+    }
+    
+    .inv-card input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.7rem;
+    }
+    
+    .inv-card .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .pdf-preview iframe {
+        height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .inv-hero h1 {
+        font-size: 1.4rem;
+    }
+    
+    .inv-card {
+        padding: 1.25rem;
+    }
+    
+    .pdf-preview iframe {
+        height: 400px;
+    }
+}
 </style>
 </head>
 <body>

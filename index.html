@@ -227,6 +227,79 @@ section{padding:6rem 0;}
 .contact-item-text{font-size:0.84rem;color:var(--ink-light);line-height:1.7;}
 .contact-item-text strong{display:block;color:var(--ink);font-weight:500;margin-bottom:0.1rem;}
 .contact-form-box{background:white;border:1px solid var(--border);border-radius:4px;padding:2.25rem;}
+@media (max-width: 768px) {
+  /* Add these inside the existing @media (max-width: 768px) { ... } */
+
+/* Hero section */
+.hero-left {
+    padding: 2rem 1.5rem !important;
+}
+
+.hero h1 {
+    font-size: 2rem;
+}
+
+.hero-btns {
+    flex-direction: column;
+}
+
+.hero-btns .btn-primary,
+.hero-btns .btn-outline {
+    width: 100%;
+    text-align: center;
+}
+
+/* Property cards - make buttons stack */
+.property-body > div[style*="display:flex"] {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+}
+
+.property-body .btn-outline,
+.property-body .btn-primary {
+    width: 100%;
+    text-align: center;
+}
+
+/* Booking payment buttons */
+#pay-tab-paypal, 
+#pay-tab-vietqr {
+    width: 100%;
+    justify-content: center;
+}
+
+#paypal-panel button,
+#vietqr-panel button {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Calendar tabs - make 2-column on mobile */
+.cal-tab {
+    flex: 1;
+    min-width: calc(50% - 0.5rem);
+    text-align: center;
+}
+
+/* Footer */
+.footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+}
+  .form-submit-row .btn-primary,
+  .contact-form-box .btn-primary {
+    width: 100% !important;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .contact-form-box {
+    padding: 1.5rem;
+  }
+}
 .form-full{grid-column:1/-1;}
 textarea{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;resize:vertical;min-height:110px;width:100%;}
 textarea:focus{border-color:var(--terracotta);}
@@ -271,7 +344,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .reveal.visible{opacity:1;transform:none;}
 .d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
 @media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{height:320px;}.hero-left{padding:3rem 2rem;}.contact-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.hamburger{display:flex;}}
-@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-item.wide{grid-column:span 1;}.footer-grid{grid-template-columns:1fr;}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-item.wide{grid-column:span 1;}.footer-grid{grid-template-columns:1fr;}#gallery .container > div { grid-template-columns: 1fr !important; gap: 2rem; }}
 
 .reviews-filter{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.75rem;}
 .review-filter-btn{padding:0.42rem 1.1rem;border:1px solid rgba(255,255,255,0.2);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:all 0.2s;}
@@ -288,6 +361,70 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .prop-notice{font-size:0.78rem;color:var(--ink-light);background:var(--sand);border-left:3px solid var(--terracotta);padding:0.6rem 0.85rem;border-radius:0 2px 2px 0;margin-bottom:1rem;line-height:1.6;}
 .reviews-load-more{text-align:center;margin-top:2.5rem;}
 .hidden-review{display:none;}
+/* ============================================
+   UNIVERSAL MOBILE IMPROVEMENTS
+   ============================================ */
+
+/* Prevent horizontal scroll on all devices */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better touch targets for all interactive elements */
+button, 
+.btn-primary, 
+.btn-outline, 
+.prop-select-btn, 
+.cal-tab, 
+.amenity-tab,
+.quick-btn,
+.nav-links a,
+.nav-dropdown-menu a,
+.chatbot-send,
+.chatbot-fab,
+.gallery-item,
+.faq-q {
+    cursor: pointer;
+}
+
+/* Ensure all buttons have minimum touch target size */
+button, .btn-primary, .btn-outline {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Improved spacing between sections on mobile */
+@media (max-width: 768px) {
+    section {
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Better font sizing for mobile */
+    body {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3, .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .section-sub {
+        font-size: 0.9rem;
+    }
+}
 </style>
 <script src="lang.js"></script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -303,7 +440,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
     <li><a href="#contact" data-t="nav-contact">Contact Us</a></li>
     <li class="nav-dropdown">
-      <a href="miacasa-hanoi.html#hanoi-booking" class="nav-book">Check Availability</a>
+      <a href="miacasa-hanoi.html#hanoi-booking" class="nav-book" data-t="nav-avail-btn">Check Availability</a>
       <div class="nav-dropdown-menu">
         <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
         <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>
@@ -627,22 +764,53 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
       </div>
     </div>
     <div class="contact-form-box">
-      <div class="form-grid">
-        <div class="form-group"><label id="lbl-cname">Name</label><input type="text" id="contact-name" placeholder="Your name"></div>
-        <div class="form-group"><label>Email</label><input type="email" id="contact-email" placeholder="your@email.com"></div>
-        <div class="form-group"><label id="lbl-cprop">Property</label><select id="contact-prop-sel"></select></div>
-        <div class="form-group"><label id="lbl-csubject">Subject</label><select id="contact-subject"><option>Booking Enquiry</option><option>Special Request</option><option>Calendar Sync / Channel Manager</option><option>Other</option></select></div>
-        <div class="form-group form-full"><label id="lbl-cmsg">Message</label><textarea id="contact-message" placeholder="Tell us how we can help..."></textarea></div>
-      </div>
-      <div class="form-submit-row"><button class="btn-primary" id="btn-whatsapp" onclick="sendWhatsApp()">Send via WhatsApp →</button>
-      <p style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:0.8rem;color:var(--ink-light);text-align:center;">
-        Need an invoice for your stay?
-        <a href="invoice.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">
-          Click here →
-        </a>
-      </p></div>
-      <div class="confirm-msg" id="contact-confirm">✓ Message sent! We'll be in touch soon.</div>
+  <div class="form-grid">
+    <div class="form-group">
+      <label id="lbl-cname">Name</label>
+      <input type="text" id="contact-name" placeholder="Your name">
     </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="contact-email" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label id="lbl-cprop">Property</label>
+      <select id="contact-prop-sel"></select>
+    </div>
+    <div class="form-group">
+      <label id="lbl-csubject">Subject</label>
+      <select id="contact-subject">
+        <option>Booking Enquiry</option>
+        <option>Special Request</option>
+        <option>Calendar Sync / Channel Manager</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group form-full">
+      <label id="lbl-cmsg">Message</label>
+      <textarea id="contact-message" placeholder="Tell us how we can help..."></textarea>
+    </div>
+  </div>
+  
+  <!-- WhatsApp button -->
+  <div style="margin-top: 1.5rem;">
+    <button class="btn-primary" id="btn-whatsapp" onclick="sendWhatsApp()" style="width: auto; min-width: 200px; padding: 0.85rem 2rem;" data-t="btn-whatsapp">
+      Send via WhatsApp →
+    </button>
+  </div>
+  
+  <!-- Invoice link with translation -->
+  <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+    <p style="font-size: 0.8rem; color: var(--ink-light); text-align: center; margin: 0;">
+      <span data-t="invoice-text">Need an invoice for your stay?</span>
+      <a href="invoice.html" style="color: var(--terracotta); text-decoration: none; font-weight: 500;" data-t="invoice-link">
+        Click here →
+      </a>
+    </p>
+  </div>
+  
+  <div class="confirm-msg" id="contact-confirm">✓ Message sent! We'll be in touch soon.</div>
+</div>
   </div>
 </div></section>
 
@@ -696,7 +864,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
       <a class="nav-logo" href="#home" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
       <p id="footer-tagline">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
     </div>
-    <div class="footer-col"><h4>Our Stays</h4><ul id="footer-stays"></ul></div>
+    <div class="footer-col"><h4 id="footer-stays-title">Our Stays</h4><ul id="footer-stays"></ul></div>
     <div class="footer-col"><h4 id="footer-info-title">Information</h4><ul><li><a href="#amenities" id="footer-lnk-amenities">Amenities</a></li><li><a href="#rules" id="footer-lnk-rules">House Rules</a></li><li><a href="#gallery" id="footer-lnk-gallery">Gallery</a></li><li><a href="#testimonials" id="footer-lnk-reviews">Reviews</a></li></ul></div>
     <div class="footer-col"><h4 id="footer-also-title">Also on</h4><ul><li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li><li><a href="https://www.airbnb.co.in/rooms/1444661721704448383" target="_blank">Airbnb – MiaCasaOldQuarter</a></li><li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li><li><a href="https://www.booking.com/hotel/vn/miacasaoldquarter.html" target="_blank">Booking.com – MiaCasaOldQuarter</a></li><li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li><li><a href="https://www.agoda.com/en-in/miacasaoldquarter/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaOldQuarter</a></li><li><a href="https://dayladau.com/listings/lsbkvoicpe" target="_blank">Dayladau – MiaCasaHanoi</a></li></ul></div>
   </div>
@@ -969,13 +1137,14 @@ const obs = new IntersectionObserver(function(entries){
 }, {threshold:0.08});
 
 // ── renderProperties — always uses currentLang ───────────────────────────────
-function renderProperties() {
+function renderProperties(animated) {
   var grid = document.getElementById('properties-grid');
   if (!grid) return;
   grid.innerHTML = '';
   PROPERTIES.forEach(function(p, i) {
     var card = document.createElement('div');
-    card.className = 'property-card reveal' + (i>0?' d'+Math.min(i,3):'');
+    // Skip animation classes when re-rendering on language toggle — cards already visible
+    card.className = animated === false ? 'property-card' : ('property-card reveal' + (i>0?' d'+Math.min(i,3):''));
     var imgDiv = document.createElement('div');
     imgDiv.className = 'property-img';
     if (p.heroImg) {
@@ -2337,6 +2506,7 @@ const T = {
     'nav-reviews':         'Reviews',
     'nav-story':           'Our Story',
     'nav-contact':         'Contact',
+    'nav-avail-btn':       'Check Availability',
     'nav-booknow':         'Book Now',
     // Hero
     'hero-tag':            'Hanoi, Vietnam',
@@ -2439,6 +2609,7 @@ const T = {
     // Footer
     'footer-tagline':      'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
     'footer-info-title':   'Information',
+    'footer-stays-title': 'Our Stays',
     'footer-also-title':   'Also on',
     'footer-copy':         '© 2025 MiaCasa Homestays. All rights reserved.',
     'footer-made':         'Made with ♡ in Hanoi',
@@ -2454,6 +2625,7 @@ const T = {
     'nav-reviews':         'Đánh giá',
     'nav-story':           'Câu chuyện',
     'nav-contact':         'Liên hệ',
+    'nav-avail-btn':       'Kiểm tra lịch trống',
     'nav-booknow':         'Đặt ngay',
     // Hero
     'hero-tag':            'Hà Nội, Việt Nam',
@@ -2556,6 +2728,7 @@ const T = {
     // Footer
     'footer-tagline':      'Hai homestay độc đáo tại Hà Nội — được tạo ra với tình yêu cho những du khách muốn có một ngôi nhà thực sự.',
     'footer-info-title':   'Thông tin',
+    'footer-stays-title': 'Chỗ nghỉ của chúng tôi',
     'footer-also-title':   'Cũng có trên',
     'footer-copy':         '© 2025 MiaCasa Homestays. Bản quyền thuộc về MiaCasa.',
     'footer-made':         'Được tạo ra với ♡ tại Hà Nội',
@@ -2685,6 +2858,7 @@ function setLang(lang) {
 
   // Footer
   txt('footer-tagline', 'footer-tagline'); txt('footer-info-title', 'footer-info-title');
+  txt('footer-stays-title', 'footer-stays-title');
   txt('footer-also-title', 'footer-also-title'); txt('footer-copy', 'footer-copy');
   txt('footer-made', 'footer-made');
 
@@ -2709,7 +2883,7 @@ function setLang(lang) {
     R.def    = () => 'Thanks! Reach us at miacasahanoi@gmail.com or use the Contact form. We reply within 2 hours! 🌿';
 
   // ── Re-render dynamic sections using current language ─────────────────────
-  renderProperties();
+  renderProperties(false);  // false = skip reveal animation on language switch
   renderAmenities();
   renderBookingSelector();
   // Update selectProp for correct room names and pricing note
@@ -2888,6 +3062,8 @@ function setLang(lang) {
 
   // Always run centralised fixes last — prevents any IIFE from overwriting
   applyTranslations();
+  if (typeof renderProperties === 'function') renderProperties();
+
 }
 
 // ================================================================

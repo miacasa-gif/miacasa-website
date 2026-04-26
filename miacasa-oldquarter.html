@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://miacasa.netlify.app/miacasa-oldquarter">
 <meta property="og:title" content="MiaCasa Old Quarter | Homestay in Hoàn Kiếm, Hanoi">
 <meta property="og:description" content="Stay in the heart of Hanoi Old Quarter. Spacious homestay with terrace, perfect for families and groups.">
-<meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
 {
@@ -17,7 +17,7 @@
     {
       "@type": "LodgingBusiness",
       "name": "MiaCasa Old Quarter",
-      "description": "Entire 3-bedroom apartment in Hanoi Old Quarter, Hoan Kiem. Open terrace, 3 king beds, sleeps up to 6. Steps from Hoàn Kiếm Lake and street food. Women-owned.",
+      "description": "Entire 3-bedroom apartment in Hanoi Old Quarter, Hoan Kiem. Open terrace, 3 queen beds, sleeps up to 6. Steps from Hoàn Kiếm Lake and street food. Women-owned.",
       "url": "https://miacasa.netlify.app/miacasa-oldquarter",
       "telephone": "+84869922261",
       "email": "miacasahanoi@gmail.com",
@@ -350,11 +350,11 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .nav-dropdown-menu a:hover{color:var(--terracotta);}
 .nav-dropdown>a{display:flex;align-items:center;gap:0.3rem;}
 .nav-dropdown>a::after{content:'▾';font-size:0.6rem;opacity:0.6;}
-.prop-hero{min-height:80vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;}
+.prop-hero{height:65vh;max-height:580px;min-height:480px;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;overflow:hidden;}
 .prop-hero-left{background:var(--sand);display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 4rem;position:relative;}
 .prop-hero-left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--terracotta),transparent);}
-.prop-hero-img{overflow:hidden;position:relative;}
-.prop-hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.prop-hero-img{overflow:hidden;position:relative;height:100%;}
+.prop-hero-img img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
 .prop-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:1rem;}
 .prop-hero h1 em{color:var(--terracotta);font-style:italic;}
 .prop-sub{font-size:0.94rem;color:var(--ink-light);max-width:400px;line-height:1.8;margin-bottom:2rem;}
@@ -392,7 +392,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .faq-helper ul li{font-size:0.86rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.6;}
 .faq-helper ul li::before{content:'›';color:var(--terracotta);font-size:1rem;flex-shrink:0;margin-top:-1px;}
 
-@media(max-width:900px){.prop-hero{grid-template-columns:1fr;}.prop-hero-img{height:260px;}.nav-links{display:none;}.hamburger{display:flex;}.prop-hero-left{padding:2.5rem 1.5rem;}}
+@media(max-width:900px){.prop-hero{height:auto;max-height:none;}.prop-hero-img{height:260px;}.nav-links{display:none;}.hamburger{display:flex;}.prop-hero-left{padding:2.5rem 1.5rem;}}
 
 .faq-list{display:flex;flex-direction:column;gap:0;margin-top:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
 .faq-item{border-bottom:1px solid var(--border);}
@@ -409,7 +409,267 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .faq-choose ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
 .faq-choose li{font-size:0.85rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.55rem;line-height:1.6;}
 .faq-choose li::before{content:'→';color:var(--terracotta);flex-shrink:0;}
+/* ============================================
+   UNIVERSAL MOBILE IMPROVEMENTS
+   ============================================ */
 
+/* Prevent horizontal scroll on all devices */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better touch targets for all interactive elements */
+button, 
+.btn-primary, 
+.btn-outline, 
+.prop-select-btn, 
+.cal-tab, 
+.amenity-tab,
+.quick-btn,
+.nav-links a,
+.nav-dropdown-menu a,
+.chatbot-send,
+.chatbot-fab,
+.gallery-item,
+.faq-q {
+    cursor: pointer;
+}
+
+/* Ensure all buttons have minimum touch target size */
+button, .btn-primary, .btn-outline {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Improved spacing between sections on mobile */
+@media (max-width: 768px) {
+    /* Hero section */
+    .prop-hero {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+    
+    .prop-hero-left {
+        padding: 2rem 1.5rem !important;
+        order: 2;
+    }
+    
+    .prop-hero-img {
+        height: 250px;
+        order: 1;
+    }
+    
+    .prop-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .prop-sub {
+        font-size: 0.9rem;
+        max-width: 100%;
+    }
+    
+    .hero-btns {
+        flex-direction: column;
+    }
+    
+    .hero-btns .btn-primary,
+    .hero-btns .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .prop-back {
+        font-size: 0.7rem;
+    }
+    
+    /* Section spacing */
+    .prop-section {
+        padding: 3rem 0;
+    }
+    
+    /* Rooms grid */
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .room-card {
+        padding: 1.25rem;
+    }
+    
+    .room-card p {
+        font-size: 0.85rem;
+    }
+    
+    /* Amenities grid */
+    .amen-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .amenity-item {
+        padding: 0.75rem;
+    }
+    
+    /* Gallery on property pages */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 1/1;
+    }
+    
+    .gallery-item.wide {
+        grid-column: span 2 !important;
+    }
+    
+    .gallery-item.tall {
+        grid-row: span 1 !important;
+    }
+    
+    /* Location section */
+    .location-list {
+        margin: 0.5rem 0;
+    }
+    
+    .location-list li {
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+    }
+    
+    .location-list li span:first-child {
+        width: 60px;
+    }
+    
+    /* Booking section on property pages */
+    .booking-card {
+        padding: 1.5rem;
+    }
+    
+    .booking-card .hero-btns {
+        flex-direction: column;
+    }
+    
+    .cross-link {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 1.25rem;
+    }
+    
+    .cl-name {
+        font-size: 1rem;
+    }
+    
+    .cl-sub {
+        font-size: 0.7rem;
+    }
+    
+    /* FAQ on property pages */
+    .faq-section {
+        padding: 3rem 0;
+    }
+    
+    .faq-list {
+        border-radius: 4px;
+    }
+    
+    .faq-q {
+        padding: 0.9rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .faq-helper {
+        padding: 1.25rem;
+    }
+    
+    .faq-helper h4 {
+        font-size: 1rem;
+    }
+    
+    .faq-helper ul li {
+        font-size: 0.8rem;
+    }
+    
+    /* Rules grid */
+    .rules-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .rule-card {
+        padding: 1.25rem;
+    }
+    
+    .rule-title {
+        font-size: 0.65rem;
+    }
+    
+    .rule-list li {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .prop-hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-tag {
+        font-size: 0.6rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .section-sub {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .who-list li {
+        font-size: 0.85rem;
+    }
+    
+    .gallery-grid {
+        grid-auto-rows: 120px;
+    }
+}
+    section {
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Better font sizing for mobile */
+    body {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3, .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .section-sub {
+        font-size: 0.9rem;
+    }
+}
 </style>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
@@ -424,7 +684,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
     <li class="nav-dropdown">
-      <a href="#oq-booking" class="nav-book">Check Availability</a>
+      <a href="#hanoi-booking" class="nav-book" data-t="nav-avail-btn">Check Availability</a>
       <div class="nav-dropdown-menu">
         <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
         <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>
@@ -451,7 +711,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     </div>
   </div>
   <div class="prop-hero-img">
-    <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg" alt="entire apartment homestay in Hanoi Old Quarter Hoan Kiem with open terrace" loading="eager">
+    <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg" alt="entire apartment homestay in Hanoi Old Quarter Hoan Kiem with open terrace" loading="eager">
   </div>
 </section>
 
@@ -462,7 +722,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <h2 class="section-title" data-th="oq-about-title">In the vibrant<br><em>Old Quarter</em></h2>
     <div style="max-width:660px;">
       <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;" data-t="oq-about-p1">Located in the vibrant Old Quarter, MiaCasa Old Quarter places you right in the center of Hanoi's culture, food, and nightlife.</p>
-      <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;margin-top:0.75rem;" data-t="oq-about-p2">The apartment features three king beds, making it ideal for families or small groups who want to stay together in one comfortable space.</p>
+      <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;margin-top:0.75rem;" data-t="oq-about-p2">The apartment features three Queen beds, making it ideal for families or small groups who want to stay together in one comfortable space.</p>
       <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;margin-top:0.75rem;" data-t="oq-about-p3">Step outside and you are instantly surrounded by local cafés, street food, and historic streets. If you'd prefer a quieter stay away from the buzz, take a look at our <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Văn Miếu</a>.</p>
     </div>
   </div>
@@ -488,7 +748,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <h2 class="section-title" data-th="oq-apt-title">Entire apartment,<br><em>yours alone</em></h2>
     <p class="section-sub" data-t="oq-apt-sub">Complete privacy for your group — across two levels with an open terrace above the Old Quarter.</p>
     <div class="rooms-grid">
-      <div class="room-card"><div class="amenity-icon" style="margin-bottom:0.75rem;">🛏️</div><strong data-t="oq-feat1">3 King Beds</strong><p data-t="oq-feat1s">2 on main level + 1 attic bed — sleeps up to 6</p></div>
+      <div class="room-card"><div class="amenity-icon" style="margin-bottom:0.75rem;">🛏️</div><strong data-t="oq-feat1">3 Queen Beds</strong><p data-t="oq-feat1s">2 on main level + 1 attic bed — sleeps up to 6</p></div>
       <div class="room-card"><div class="amenity-icon" style="margin-bottom:0.75rem;">🌿</div><strong data-t="oq-feat2">Open Terrace</strong><p data-t="oq-feat2s">Your quiet corner above the Old Quarter</p></div>
       <div class="room-card"><div class="amenity-icon" style="margin-bottom:0.75rem;">🔒</div><strong data-t="oq-feat3">Smart Lock</strong><p data-t="oq-feat3s">Keypad entry — arrive any time, no key needed</p></div>
     </div>
@@ -788,7 +1048,7 @@ const REVIEWS = [
     platform: 'airbnb',
     property: 'MiaCasaHanoi',
     rating: 5,
-    text: "Stayed in the Spring Room for 4 nights — the Boho design is exactly as shown in the photos. King bed, Netflix projector, private kitchenette and bathroom, all very clean. The host Linh is super responsive and gave great tips for food spots nearby. Loved the rooftop area for evening hangs. Will be back!",
+    text: "Stayed in the Spring Room for 4 nights — the Boho design is exactly as shown in the photos. Queen bed, Netflix projector, private kitchenette and bathroom, all very clean. The host Linh is super responsive and gave great tips for food spots nearby. Loved the rooftop area for evening hangs. Will be back!",
     name: "Sarah M.",
     origin: "London, UK",
     initials: "SM",

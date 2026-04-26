@@ -411,7 +411,267 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
 .faq-choose ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
 .faq-choose li{font-size:0.85rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.55rem;line-height:1.6;}
 .faq-choose li::before{content:'→';color:var(--terracotta);flex-shrink:0;}
+/* ============================================
+   UNIVERSAL MOBILE IMPROVEMENTS
+   ============================================ */
 
+/* Prevent horizontal scroll on all devices */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Better touch targets for all interactive elements */
+button, 
+.btn-primary, 
+.btn-outline, 
+.prop-select-btn, 
+.cal-tab, 
+.amenity-tab,
+.quick-btn,
+.nav-links a,
+.nav-dropdown-menu a,
+.chatbot-send,
+.chatbot-fab,
+.gallery-item,
+.faq-q {
+    cursor: pointer;
+}
+
+/* Ensure all buttons have minimum touch target size */
+button, .btn-primary, .btn-outline {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Improved spacing between sections on mobile */
+@media (max-width: 768px) {
+    /* Hero section */
+    .prop-hero {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+    
+    .prop-hero-left {
+        padding: 2rem 1.5rem !important;
+        order: 2;
+    }
+    
+    .prop-hero-img {
+        height: 250px;
+        order: 1;
+    }
+    
+    .prop-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .prop-sub {
+        font-size: 0.9rem;
+        max-width: 100%;
+    }
+    
+    .hero-btns {
+        flex-direction: column;
+    }
+    
+    .hero-btns .btn-primary,
+    .hero-btns .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .prop-back {
+        font-size: 0.7rem;
+    }
+    
+    /* Section spacing */
+    .prop-section {
+        padding: 3rem 0;
+    }
+    
+    /* Rooms grid */
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .room-card {
+        padding: 1.25rem;
+    }
+    
+    .room-card p {
+        font-size: 0.85rem;
+    }
+    
+    /* Amenities grid */
+    .amen-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .amenity-item {
+        padding: 0.75rem;
+    }
+    
+    /* Gallery on property pages */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 1/1;
+    }
+    
+    .gallery-item.wide {
+        grid-column: span 2 !important;
+    }
+    
+    .gallery-item.tall {
+        grid-row: span 1 !important;
+    }
+    
+    /* Location section */
+    .location-list {
+        margin: 0.5rem 0;
+    }
+    
+    .location-list li {
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+    }
+    
+    .location-list li span:first-child {
+        width: 60px;
+    }
+    
+    /* Booking section on property pages */
+    .booking-card {
+        padding: 1.5rem;
+    }
+    
+    .booking-card .hero-btns {
+        flex-direction: column;
+    }
+    
+    .cross-link {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 1.25rem;
+    }
+    
+    .cl-name {
+        font-size: 1rem;
+    }
+    
+    .cl-sub {
+        font-size: 0.7rem;
+    }
+    
+    /* FAQ on property pages */
+    .faq-section {
+        padding: 3rem 0;
+    }
+    
+    .faq-list {
+        border-radius: 4px;
+    }
+    
+    .faq-q {
+        padding: 0.9rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .faq-helper {
+        padding: 1.25rem;
+    }
+    
+    .faq-helper h4 {
+        font-size: 1rem;
+    }
+    
+    .faq-helper ul li {
+        font-size: 0.8rem;
+    }
+    
+    /* Rules grid */
+    .rules-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .rule-card {
+        padding: 1.25rem;
+    }
+    
+    .rule-title {
+        font-size: 0.65rem;
+    }
+    
+    .rule-list li {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .prop-hero h1 {
+        font-size: 1.5rem;
+    }
+    
+    .section-tag {
+        font-size: 0.6rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .section-sub {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .who-list li {
+        font-size: 0.85rem;
+    }
+    
+    .gallery-grid {
+        grid-auto-rows: 120px;
+    }
+}
+    section {
+        padding: 3rem 0;
+    }
+    
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Better font sizing for mobile */
+    body {
+        font-size: 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3, .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .section-sub {
+        font-size: 0.9rem;
+    }
+}
 </style>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
@@ -426,7 +686,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
     <li class="nav-dropdown">
-      <a href="#hanoi-booking" class="nav-book">Check Availability</a>
+      <a href="#hanoi-booking" class="nav-book" data-t="nav-avail-btn">Check Availability</a>
       <div class="nav-dropdown-menu">
         <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
         <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>
