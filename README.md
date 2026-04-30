@@ -1,132 +1,153 @@
-# MiaCasa Website 🌿
+# MiaCasa Website
 
-Official website for **MiaCasa Homestays in Hanoi, Vietnam**
-Built to support **direct bookings**, reduce OTA dependency, and showcase a warm, boutique stay experience.
+Official website for **MiaCasa Homestay** — a boutique, boho-style stay experience in Hanoi, Vietnam.
 
----
-
-## 🌍 Live Website
-
-👉 https://miacasa.netlify.app/
+Built to prioritize **direct bookings**, reduce dependency on OTAs (Airbnb, Booking.com), and create a **story-driven, high-conversion guest journey**.
 
 ---
 
-## 🏡 About the Project
+## 🌿 Overview
 
-MiaCasa is a small, women-led homestay brand in Hanoi offering:
+MiaCasa operates two unique properties:
 
-* **MiaCasaHanoi** – Calm stay near Văn Miếu & Train Street
-* **MiaCasa Old Quarter** – 3-bedroom apartment in Hoàn Kiếm
+* **MiaCasaHanoi**
+  Cozy, design-led private rooms for solo travelers, couples, and digital nomads.
 
-This website is designed to:
+* **MiaCasaOldQuarter**
+  Spacious, traditional-style home with terrace — ideal for families and groups.
 
-* Encourage **direct bookings**
-* Provide a **clean, modern UX**
-* Support **English + Vietnamese** audiences
-* Integrate **WhatsApp-first communication**
+This website serves as a **primary booking channel**, offering a more personal and cost-effective experience than third-party platforms.
 
 ---
 
-## ✨ Features
+## 🎯 Goals
 
-* 🌐 **Bilingual (EN / VI)** with dynamic translation (`lang.js`)
-* 📱 **Responsive design** (mobile-first improvements ongoing)
-* 🛏️ **Property-specific pages**
-* 📅 **Booking inquiry form**
-* 💬 **WhatsApp integration**
-* 📊 **SEO optimized**
-
-  * Structured data (Schema.org)
-  * Sitemap
-  * Meta tags
-* 🧾 **Invoice request page**
-* ⚙️ Lightweight, no framework (pure HTML/CSS/JS)
+* Drive **direct bookings**
+* Tell a **compelling brand story**
+* Showcase properties through **emotion + visuals**
+* Provide **frictionless booking flow**
+* Build **trust through reviews, transparency, and design**
 
 ---
 
-## 📁 Project Structure
+## 🚀 Key Features
 
-```id="f7n2a1"
-/
-├── index.html
-├── miacasa-hanoi.html
-├── miacasa-oldquarter.html
-├── our-story.html
-├── invoice.html
-├── admin.html
-├── lang.js
-├── styles (inline in HTML)
-└── assets (images via Cloudinary)
-```
+### 🏡 Conversion-Focused Homepage
 
----
+* Clear positioning and visual storytelling
+* Property comparison for decision clarity
+* Embedded booking intent triggers
+* Sticky and floating CTAs (mobile-first)
 
-## 🌐 Language System
+### 🛏 Property Pages
 
-Language switching is handled via `lang.js`.
+* Detailed descriptions with emotional hooks
+* Amenities and comparison blocks
+* Integrated availability calendars
+* Smooth scroll navigation
 
+### 📖 Story Page (High-Conversion Content)
 
+* Narrative-driven structure
+* Emotional triggers and trust-building
+* Mid-scroll and end-of-page CTAs
+* Designed to convert curiosity into bookings
 
-Translations are applied dynamically using `data-t` attributes.
+### 📝 Blog
 
+* SEO-driven content strategy
+* Travel guides and local insights
+* Internal linking to drive conversions
 
+### 📅 Booking System
 
----
+* Date selection with availability check
+* Property selection UI
+* Multi-payment support:
 
-## 🔧 Development Notes
+  * Credit card
+  * PayPal
+  * VietQR
+  * Cash on arrival
 
-* No frameworks used (intentionally lightweight)
-* Inline CSS for fast load + simplicity
-* Focus on **conversion over complexity**
+### 💬 UX Enhancements
 
----
-
-## 📈 SEO Strategy
-
-* Targeting:
-
-  * “MiaCasa Hanoi”
-  * “Homestay near Văn Miếu”
-  * “Old Quarter apartment Hanoi”
-* Structured data:
-
-  * `LodgingBusiness`
-  * `FAQPage`
-* Direct booking positioning vs OTAs
+* Chat-style quick help assistant
+* Floating WhatsApp contact (mobile)
+* Sticky booking button
+* Section navigation (desktop + mobile FAB)
 
 ---
 
-## ⚠️ Current Improvements in Progress
+## 🧠 Design Philosophy
 
-* Mobile optimization
-* Full translation coverage
-* Booking flow testing
-* Google Business Profile integration
-* Performance tuning
+* Minimal, warm, and human
+* Inspired by **boho + Vietnamese heritage aesthetics**
+* Focus on **clarity over clutter**
+* Designed for **scroll behavior and attention flow**
+
+---
+
+## 🛠 Tech Stack
+
+* HTML5
+* CSS3 (custom design system with variables)
+* Vanilla JavaScript (no heavy frameworks)
+* Netlify (hosting & deployment)
+
+---
+
+## 📈 Conversion Strategy
+
+This website is intentionally designed around:
+
+* **Emotional storytelling → trust**
+* **Clarity → reduced decision fatigue**
+* **Multiple CTAs → capture intent at any scroll depth**
+* **Mobile-first behavior → higher booking likelihood**
+
+---
+
+## ⚙️ Performance Considerations
+
+* Lightweight (no frameworks)
+* Optimized images and layout
+* Minimal dependencies
+* Fast load times for global travelers
+
+---
+
+## 🔮 Future Improvements
+
+* Dynamic availability sync
+* SEO expansion (blog + location pages)
+* Guest testimonials automation
+* Analytics-driven A/B testing
+* Localization (multi-language support)
 
 ---
 
 ## 🤝 Contributing
 
-This is a private project, but suggestions are welcome.
+This is a private project for MiaCasa.
+Suggestions and improvements are always welcome.
 
 ---
 
-## 📞 Contact
+## 📬 Contact
 
 For bookings or inquiries:
 
-* WhatsApp: +84 869 922 261
-* Email: [miacasahanoi@gmail.com](mailto:miacasahanoi@gmail.com)
+* Website: https://miacasa.netlify.app/
+* WhatsApp: Available on mobile site
+* Email: (add your contact email here)
 
 ---
 
-## 💡 Vision
+## ❤️ Final Note
 
-Build a strong **direct booking ecosystem** for MiaCasa
-→ reduce dependency on platforms like Booking.com
-→ create a more personal guest experience
+This isn’t just a website — it’s a **digital front door to a real home**.
 
----
+Every section is designed to make a guest feel:
 
-Made with care for slow travel, warm stays, and meaningful connections 🌿
+> *“This is where I want to stay.”*
