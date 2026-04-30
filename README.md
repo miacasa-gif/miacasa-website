@@ -140,7 +140,7 @@ For bookings or inquiries:
 
 * Website: https://miacasa.netlify.app/
 * WhatsApp: Available on mobile site
-* Email: (add your contact email here)
+* Email: miacasahanoi@gmail.com
 
 ---
 
