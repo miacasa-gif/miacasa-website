@@ -6,21 +6,46 @@
 <title>Homestay Near Hanoi Railway Station | MiaCasa Hanoi</title>
 <meta name="description" content="Boutique homestay near Hanoi Railway Station, Train Street & Văn Miếu. Quiet private rooms with en-suite bathrooms. 10 min from Old Quarter. Book direct & save 10–15%.">
 <link rel="canonical" href="https://miacasa.netlify.app/miacasa-hanoi">
+
+<!-- Preconnect for faster loading -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
+
 <meta property="og:title" content="MiaCasaHanoi | Homestay Near Văn Miếu & Train Street">
 <meta property="og:description" content="Charming homestay near Văn Miếu and Hanoi Train Street. Quiet, cozy rooms with local charm.">
-<meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6634_pwmg8r.jpg">
+<meta property="og:image" content="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638632/DSC_6634_pwmg8r.jpg">
 <meta name="twitter:card" content="summary_large_image">
+
+<!-- Google Fonts - Non-blocking -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=block" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=block" rel="stylesheet"></noscript>
+
+<link rel="stylesheet" href="/css/style.css">
+
+<!-- GLightbox CSS - Non-blocking -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"></noscript>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@context": "https://schema.org",
       "@type": "LodgingBusiness",
       "name": "MiaCasa Hanoi",
-      "description": "Boutique homestay near Hanoi Railway Station, Train Street and Văn Miếu. Three private rooms with en-suite bathrooms, kitchenette, and 24h self check-in. Women-owned, locally run.",
+      "alternateName": "MiaCasa Homestay Hanoi",
+      "description": "Boutique homestay near Hanoi Railway Station, Train Street and Văn Miếu. Three private rooms with en-suite bathrooms, kitchenette, and 24h self check-in.",
       "url": "https://miacasa.netlify.app/miacasa-hanoi",
+      "sameAs": [
+        "https://www.booking.com/hotel/vn/miacasahanoi.html",
+        "https://www.airbnb.vn/rooms/1141810113903225826",
+        "https://www.agoda.com/miacasahanoi"
+      ],
       "telephone": "+84869922261",
       "email": "miacasahanoi@gmail.com",
+      "priceRange": "$$ (750,000₫ - 900,000₫ per night)",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "92 Ngh. 51 Ng. Linh Quang, Văn Chương",
@@ -29,56 +54,36 @@
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 21.0238,
-        "longitude": 105.8392
+        "latitude": 21.02384,
+        "longitude": 105.83919
       },
-      "priceRange": "$$",
       "checkinTime": "14:00",
       "checkoutTime": "12:00",
       "numberOfRooms": 3,
-      "petsAllowed": true,
       "amenityFeature": [
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Free WiFi",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Air conditioning",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Private bathroom",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Self check-in",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Kitchenette",
-          "value": true
-        }
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi"},
+        {"@type": "LocationFeatureSpecification", "name": "Air conditioning"},
+        {"@type": "LocationFeatureSpecification", "name": "Private bathroom"},
+        {"@type": "LocationFeatureSpecification", "name": "Kitchenette"},
+        {"@type": "LocationFeatureSpecification", "name": "Self check-in"}
       ],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
         "reviewCount": "50"
       },
-      "nearbyAttractions": [
-        "Hanoi Railway Station",
-        "Train Street",
-        "Văn Miếu – Quốc Tử Giám",
-        "Old Quarter"
-      ],
-      "sameAs": [
-        "https://www.airbnb.com",
-        "https://www.booking.com"
-      ]
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://miacasa.netlify.app/#booking",
+          "inLanguage": "en",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      }
     },
     {
       "@type": "FAQPage",
@@ -88,7 +93,7 @@
           "name": "How far is MiaCasaHanoi from the Old Quarter?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "MiaCasaHanoi is about 10–15 minutes by Grab or taxi from the Old Quarter and Hoàn Kiếm Lake. It's close enough to explore easily, while staying in a quieter, more local neighborhood."
+            "text": "About 10–15 minutes by Grab or taxi from the Old Quarter and Hoàn Kiếm Lake. Close enough to explore easily, while staying in a quieter, more local neighborhood."
           }
         },
         {
@@ -96,7 +101,7 @@
           "name": "Is the area quiet?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. The homestay is located in a peaceful residential area, away from the busy tourist streets. It's ideal if you prefer a calm and restful environment after a day of exploring Hanoi."
+            "text": "Yes. A peaceful residential area away from busy tourist streets — ideal if you prefer a calm environment."
           }
         },
         {
@@ -104,15 +109,15 @@
           "name": "Is it near Railway Street?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, it's within walking distance or a very short ride to Hanoi Railway Street, making it convenient if you want to visit but not stay in the crowded area."
+            "text": "Yes, within walking distance or a very short ride to Hanoi Railway Street."
           }
         },
         {
           "@type": "Question",
-          "name": "Is MiaCasaHanoi suitable for long stays or remote work?",
+          "name": "Is it suitable for long stays or remote work?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. Many guests choose this property for longer stays because of the quiet surroundings, comfortable rooms, and reliable WiFi."
+            "text": "Absolutely. Quiet surroundings, comfortable rooms, and reliable high-speed WiFi make it popular for longer stays."
           }
         },
         {
@@ -120,7 +125,7 @@
           "name": "Are there local food options nearby?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, there are plenty of authentic local eateries, cafes, and small shops within walking distance. It's a great area to experience everyday Hanoi life."
+            "text": "Yes — authentic local eateries, cafés, and small shops all within walking distance."
           }
         },
         {
@@ -128,7 +133,7 @@
           "name": "How do I check in?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We offer self check-in with clear instructions sent before your arrival. It's simple and flexible, especially for late arrivals."
+            "text": "Self check-in with clear instructions sent before arrival. Simple and flexible for any arrival time."
           }
         },
         {
@@ -136,7 +141,7 @@
           "name": "Can I book directly through the website?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Booking directly through our website gives you better rates compared to platforms like Airbnb or Booking.com."
+            "text": "Yes. Direct bookings give you better rates than Airbnb, Booking.com, or other platforms."
           }
         }
       ]
@@ -144,563 +149,33 @@
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="lang.js"></script>
-<style>
 
-:root{--sand:#f5efe6;--sand-dark:#e8ddd0;--terracotta:#c17a5a;--terracotta-dark:#9e5f3f;--sage:#7a9e7e;--sage-light:#b5cdb8;--cream:#faf6f0;--ink:#2c2416;--ink-light:#6b5c47;--warm-white:#fffdf9;--border:rgba(193,122,90,0.2);}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);font-weight:300;line-height:1.7;overflow-x:hidden;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,246,240,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--terracotta);letter-spacing:0.02em;text-decoration:none;}
-.nav-logo span{color:var(--ink);font-weight:300;font-style:italic;}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
-.nav-links a:hover{color:var(--terracotta);}
-.nav-book{background:var(--terracotta)!important;color:white!important;padding:0.5rem 1.2rem;border-radius:2px;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
-.hamburger span{display:block;width:24px;height:1.5px;background:var(--ink);}
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;overflow:hidden;}
-.hero-left{background:var(--sand);display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 5rem;position:relative;}
-.hero-left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--terracotta),transparent);}
-.hero-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
-.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--terracotta);}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,5vw,5rem);font-weight:300;line-height:1.1;color:var(--ink);margin-bottom:1.5rem;}
-.hero h1 em{color:var(--terracotta);font-style:italic;}
-.hero-sub{font-size:1rem;color:var(--ink-light);max-width:360px;margin-bottom:2.5rem;line-height:1.8;}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-.btn-primary{background:var(--terracotta);color:white;padding:0.85rem 2rem;border:none;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:background 0.2s;text-decoration:none;display:inline-block;}
-.btn-primary:hover{background:var(--terracotta-dark);}
-.btn-outline{background:transparent;color:var(--ink);padding:0.85rem 2rem;border:1px solid var(--ink-light);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;transition:all 0.2s;text-decoration:none;display:inline-block;}
-.btn-outline:hover{border-color:var(--terracotta);color:var(--terracotta);}
-.hero-right{position:relative;overflow:hidden;}
-.hero-mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:100%;gap:3px;}
-.mosaic-cell{overflow:hidden;position:relative;}
-.mosaic-cell.tall{grid-row:span 2;}
-.img-ph{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:0.72rem;letter-spacing:0.05em;color:rgba(255,255,255,0.65);}
-.hero-badge{position:absolute;bottom:2rem;left:2rem;background:rgba(250,246,240,0.93);backdrop-filter:blur(8px);padding:1rem 1.5rem;border-radius:2px;border-left:3px solid var(--terracotta);}
-.hero-badge p{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
-.hero-badge strong{font-size:1.05rem;font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--ink);}
-section{padding:6rem 0;}
-.container{max-width:1200px;margin:0 auto;padding:0 2rem;}
-.section-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.8rem;}
-.section-tag::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--terracotta);}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.2;color:var(--ink);margin-bottom:1rem;}
-.section-title em{font-style:italic;color:var(--terracotta);}
-.section-sub{color:var(--ink-light);max-width:520px;line-height:1.8;margin-bottom:3rem;}
-#properties{background:var(--warm-white);}
-.properties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:1rem;}
-.property-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;background:white;display:flex;flex-direction:column;}
-.property-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(44,36,22,0.1);}
-.property-img{height:240px;overflow:hidden;position:relative;flex-shrink:0;}
-.property-badge{position:absolute;top:1rem;left:1rem;background:var(--terracotta);color:white;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:2px;}
-.property-body{padding:1.5rem;display:flex;flex-direction:column;flex:1;}
-.property-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:0.2rem;}
-.property-loc{font-size:0.75rem;color:var(--terracotta);letter-spacing:0.05em;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.35rem;}
-.property-desc{font-size:0.88rem;color:var(--ink-light);line-height:1.8;margin-bottom:1.25rem;flex:1;}
-.property-meta{display:flex;gap:1.2rem;margin-bottom:1.25rem;padding-top:1rem;border-top:1px solid var(--border);}
-.meta-item{text-align:center;}
-.meta-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terracotta);display:block;}
-.meta-lbl{font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);}
-#booking{background:var(--sand);}
-.property-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:2rem;}
-.prop-select-btn{padding:0.75rem 1rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.82rem;color:var(--ink-light);transition:all 0.2s;text-align:left;}
-.prop-select-btn.active{border-color:var(--terracotta);background:var(--terracotta);color:white;}
-.prop-select-btn .pbn{font-weight:500;display:block;margin-bottom:2px;}
-.prop-select-btn .pbs{font-size:0.72rem;opacity:0.75;}
-.booking-form-wrap{background:white;border:1px solid var(--border);border-radius:4px;padding:2.5rem;}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
-.form-group{display:flex;flex-direction:column;gap:0.4rem;}
-.form-group label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);}
-.form-group input,.form-group select{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;}
-.form-group input:focus,.form-group select:focus{border-color:var(--terracotta);}
-.pricing-note{margin-top:1.5rem;padding:1rem 1.25rem;background:var(--sand);border-left:3px solid var(--terracotta);border-radius:0 2px 2px 0;font-size:0.84rem;color:var(--ink-light);}
-.sync-platforms{margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);}
-.sync-title{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:1rem;}
-.platform-badges{display:flex;flex-wrap:wrap;gap:0.75rem;}
-.platform-badge{padding:0.45rem 1rem;border:1px solid var(--border);border-radius:2px;font-size:0.76rem;color:var(--ink-light);display:flex;align-items:center;gap:0.5rem;}
-.platform-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--sage);}
-.sync-info{margin-top:1.25rem;font-size:0.82rem;color:var(--ink-light);line-height:1.7;}
-.sync-info a{color:var(--terracotta);text-decoration:none;}
-.confirm-msg{display:none;margin-top:1rem;color:var(--sage);font-size:0.88rem;padding:0.85rem 1rem;background:rgba(122,158,126,0.1);border-radius:2px;border-left:3px solid var(--sage);}
-#availability{background:var(--warm-white);}
-.cal-tabs{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.5rem;}
-.cal-tab{padding:0.55rem 1.25rem;border:1px solid var(--border);background:white;border-radius:4px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);transition:all 0.2s;}
-.cal-tab.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
-.cal-frame-wrap{display:none;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:white;}
-.cal-frame-wrap.active{display:block;}
-.cal-frame-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;}
-.cal-frame-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink);}
-.cal-frame-sub{font-size:0.72rem;color:var(--ink-light);letter-spacing:0.04em;}
-.cal-frame-wrap iframe{display:block;width:100%;border:none;}
-
-#gallery{background:var(--sand);}
-.gallery-filter{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.75rem;}
-.filter-btn{padding:0.42rem 1.1rem;border:1px solid var(--border);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
-.filter-btn.active,.filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:6px;}
-.gallery-item{overflow:hidden;position:relative;cursor:pointer;border-radius:2px;}
-.gallery-item.wide{grid-column:span 2;}
-.gallery-item.tall{grid-row:span 2;}
-.gal-overlay{position:absolute;inset:0;background:rgba(44,36,22,0.38);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;}
-.gallery-item:hover .gal-overlay{opacity:1;}
-.gal-overlay span{color:white;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.55);padding:0.35rem 0.9rem;border-radius:2px;}
-#amenities{background:var(--warm-white);}
-.amenities-tabs{display:flex;gap:0;margin-bottom:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content;flex-wrap:wrap;}
-.amenity-tab{padding:0.65rem 1.5rem;background:transparent;border:none;border-right:1px solid var(--border);cursor:pointer;font-family:'Jost',sans-serif;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-light);transition:all 0.2s;}
-.amenity-tab:last-child{border-right:none;}
-.amenity-tab.active{background:var(--terracotta);color:white;}
-.amenity-panel{display:none;}
-.amenity-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75rem;}
-.amenity-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.85rem;border-radius:2px;transition:background 0.2s;border:1px solid transparent;}
-.amenity-item:hover{background:var(--sand);border-color:var(--border);}
-.amenity-icon{width:34px;height:34px;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem;}
-.amenity-text{font-size:0.86rem;color:var(--ink);line-height:1.5;}
-.amenity-text span{display:block;font-size:0.73rem;color:var(--ink-light);}
-#rules{background:var(--sand);}
-.rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
-.rule-card{background:white;border:1px solid var(--border);border-radius:4px;padding:1.5rem;}
-.rule-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:0.9rem;}
-.rule-icon.g{background:rgba(122,158,126,0.12);}
-.rule-icon.r{background:rgba(193,122,90,0.12);}
-.rule-title{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-light);margin-bottom:0.7rem;}
-.rule-list{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
-.rule-list li{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.84rem;color:var(--ink);line-height:1.5;}
-.rule-list li::before{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--terracotta);flex-shrink:0;margin-top:0.55em;}
-#testimonials{background:var(--ink);color:white;}
-#testimonials .section-title{color:white;}
-#testimonials .section-sub{color:rgba(255,255,255,0.55);}
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
-.testimonial-card{background:rgba(255,255,255,0.055);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:1.75rem;}
-.stars{color:var(--terracotta);font-size:0.82rem;margin-bottom:0.9rem;letter-spacing:2px;}
-.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.75;color:rgba(255,255,255,0.82);margin-bottom:1.4rem;}
-.reviewer{display:flex;align-items:center;gap:0.75rem;}
-.reviewer-avatar{width:34px;height:34px;border-radius:50%;background:var(--terracotta);display:flex;align-items:center;justify-content:center;font-size:0.76rem;font-weight:500;color:white;flex-shrink:0;}
-.reviewer-name{font-size:0.84rem;font-weight:500;color:white;}
-.reviewer-meta{font-size:0.72rem;color:rgba(255,255,255,0.45);}
-#contact{background:var(--cream);}
-.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;}
-.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink);margin-bottom:1.75rem;}
-.contact-items{display:flex;flex-direction:column;gap:1.25rem;}
-.contact-item{display:flex;gap:1rem;align-items:flex-start;}
-.contact-item-icon{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--sand);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;}
-.contact-item-text{font-size:0.84rem;color:var(--ink-light);line-height:1.7;}
-.contact-item-text strong{display:block;color:var(--ink);font-weight:500;margin-bottom:0.1rem;}
-.contact-form-box{background:white;border:1px solid var(--border);border-radius:4px;padding:2.25rem;}
-.form-full{grid-column:1/-1;}
-textarea{padding:0.75rem 1rem;border:1px solid var(--border);background:var(--cream);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;transition:border-color 0.2s;resize:vertical;min-height:110px;width:100%;}
-textarea:focus{border-color:var(--terracotta);}
-.form-submit-row{display:flex;justify-content:flex-end;margin-top:1.25rem;}
-.chatbot-fab{position:fixed;bottom:2rem;right:2rem;z-index:200;width:54px;height:54px;border-radius:50%;background:var(--terracotta);color:white;border:none;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(193,122,90,0.38);transition:transform 0.2s;}
-.chatbot-fab:hover{transform:scale(1.08);}
-.chatbot-window{position:fixed;bottom:5.5rem;right:2rem;z-index:200;width:330px;border-radius:8px;background:white;border:1px solid var(--border);box-shadow:0 20px 60px rgba(44,36,22,0.14);display:none;flex-direction:column;overflow:hidden;max-height:460px;}
-.chatbot-window.open{display:flex;}
-.chatbot-header{background:var(--terracotta);color:white;padding:0.9rem 1.2rem;display:flex;justify-content:space-between;align-items:center;}
-.chatbot-header-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;}
-.chatbot-header-sub{font-size:0.68rem;opacity:0.78;margin-top:1px;}
-.chatbot-close{background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;opacity:0.75;}
-.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.65rem;}
-.msg{max-width:85%;padding:0.55rem 0.85rem;border-radius:2px;font-size:0.83rem;line-height:1.5;}
-.msg.bot{background:var(--sand);color:var(--ink);align-self:flex-start;}
-.msg.user{background:var(--terracotta);color:white;align-self:flex-end;}
-.chat-quick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0 1rem 0.65rem;}
-.quick-btn{font-size:0.7rem;padding:0.28rem 0.65rem;border:1px solid var(--border);background:transparent;cursor:pointer;border-radius:2px;color:var(--ink-light);font-family:'Jost',sans-serif;transition:all 0.15s;}
-.quick-btn:hover{border-color:var(--terracotta);color:var(--terracotta);}
-.chatbot-input-area{padding:0.65rem 0.9rem;border-top:1px solid var(--border);display:flex;gap:0.5rem;}
-.chatbot-input{flex:1;padding:0.45rem 0.7rem;border:1px solid var(--border);border-radius:2px;font-family:'Jost',sans-serif;font-size:0.83rem;outline:none;color:var(--ink);}
-.chatbot-input:focus{border-color:var(--terracotta);}
-.chatbot-send{background:var(--terracotta);color:white;border:none;padding:0.45rem 0.85rem;border-radius:2px;cursor:pointer;font-size:0.83rem;}
-footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:4rem 0 2rem;}
-.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem;}
-.footer-brand p{font-size:0.84rem;line-height:1.8;margin-top:0.9rem;}
-.footer-brand .nav-logo span{color:rgba(255,255,255,0.75);}
-.footer-col h4{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:white;margin-bottom:1.1rem;}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
-.footer-col ul li a{font-size:0.84rem;color:rgba(255,255,255,0.48);text-decoration:none;transition:color 0.2s;}
-.footer-col ul li a:hover{color:var(--terracotta);}
-.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;font-size:0.76rem;}
-.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
-.reveal.visible{opacity:1;transform:none;}
-.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
-@media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{height:320px;}.hero-left{padding:3rem 2rem;}.contact-grid{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.hamburger{display:flex;}}
-@media(max-width:600px){.gallery-grid{grid-template-columns:repeat(2,1fr);}.gallery-item.wide{grid-column:span 1;}.footer-grid{grid-template-columns:1fr;}}
-
-.reviews-filter{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.75rem;}
-.review-filter-btn{padding:0.42rem 1.1rem;border:1px solid rgba(255,255,255,0.2);background:transparent;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:all 0.2s;}
-.review-filter-btn.active,.review-filter-btn:hover{background:var(--terracotta);color:white;border-color:var(--terracotta);}
-.platform-tag{display:inline-flex;align-items:center;gap:0.35rem;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;}
-.platform-tag.airbnb{background:rgba(255,90,95,0.2);color:#ff5a5f;}
-.platform-tag.booking{background:rgba(0,99,196,0.2);color:#6ab0f5;}
-.platform-tag.agoda{background:rgba(239,68,68,0.15);color:#fca5a5;}
-.platform-tag.google{background:rgba(66,133,244,0.15);color:#93c5fd;}
-.platform-tag.tripadvisor{background:rgba(52,183,110,0.2);color:#6ee7b7;}
-.prop-highlights{list-style:none;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.35rem;}
-.prop-highlights li{font-size:0.82rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.5;}
-.prop-highlights li::before{content:'✦';color:var(--terracotta);flex-shrink:0;font-size:0.65rem;margin-top:0.2em;}
-.prop-notice{font-size:0.78rem;color:var(--ink-light);background:var(--sand);border-left:3px solid var(--terracotta);padding:0.6rem 0.85rem;border-radius:0 2px 2px 0;margin-bottom:1rem;line-height:1.6;}
-.reviews-load-more{text-align:center;margin-top:2.5rem;}
-.hidden-review{display:none;}
-
-.lang-toggle{display:flex;gap:4px;margin-left:0.5rem;}
-.lang-btn{background:none;border:1px solid var(--border);color:var(--ink-light);padding:.28rem .6rem;border-radius:3px;font-family:'Jost',sans-serif;font-size:.72rem;cursor:pointer;transition:all .2s;}
-.lang-btn.active{background:var(--terracotta);color:white;border-color:var(--terracotta);}
-.nav-dropdown{position:relative;}
-.nav-dropdown-menu{display:none;position:absolute;top:100%;right:0;background:var(--cream);border:1px solid var(--border);border-radius:4px;min-width:220px;box-shadow:0 8px 24px rgba(44,36,22,.1);z-index:200;padding:0.5rem 0;}
-.nav-dropdown:hover .nav-dropdown-menu{display:block;}
-.nav-dropdown-menu a{display:block;padding:0.55rem 1.1rem;font-size:0.78rem;letter-spacing:0.06em;color:var(--ink-light);text-decoration:none;transition:color 0.2s;}
-.nav-dropdown-menu a:hover{color:var(--terracotta);}
-.nav-dropdown>a{display:flex;align-items:center;gap:0.3rem;}
-.nav-dropdown>a::after{content:'▾';font-size:0.6rem;opacity:0.6;}
-.prop-hero{min-height:80vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px;}
-.prop-hero-left{background:var(--sand);display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 4rem;position:relative;}
-.prop-hero-left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(to bottom,transparent,var(--terracotta),transparent);}
-.prop-hero-img{overflow:hidden;position:relative;}
-.prop-hero-img img{width:100%;height:100%;object-fit:cover;display:block;}
-.prop-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;line-height:1.15;color:var(--ink);margin-bottom:1rem;}
-.prop-hero h1 em{color:var(--terracotta);font-style:italic;}
-.prop-sub{font-size:0.94rem;color:var(--ink-light);max-width:400px;line-height:1.8;margin-bottom:2rem;}
-.prop-back{display:inline-flex;align-items:center;gap:0.4rem;color:var(--ink-light);font-size:0.75rem;letter-spacing:0.08em;text-decoration:none;margin-bottom:1rem;text-transform:uppercase;transition:color 0.2s;}
-.prop-back:hover{color:var(--terracotta);}
-.prop-section{padding:5rem 0;}
-.prop-section:nth-child(even){background:var(--warm-white);}
-.who-list{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:0.6rem;}
-.who-list li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.9rem;color:var(--ink-light);}
-.who-list li::before{content:'✦';color:var(--terracotta);flex-shrink:0;font-size:0.65rem;margin-top:0.25em;}
-.rooms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;margin-top:2rem;}
-.room-card{background:white;border:1px solid var(--border);border-radius:4px;padding:1.5rem;}
-.room-card p{font-size:0.88rem;color:var(--ink-light);line-height:1.7;margin-top:0.3rem;}
-.amen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:2rem;}
-.cross-link{display:flex;align-items:center;justify-content:space-between;background:var(--sand);border:1px solid var(--border);border-radius:4px;padding:1.5rem 2rem;text-decoration:none;margin-top:3rem;transition:box-shadow 0.2s;}
-.cross-link:hover{box-shadow:0 8px 32px rgba(44,36,22,.1);}
-.cl-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--ink);}
-.cl-sub{font-size:0.78rem;color:var(--ink-light);margin-top:2px;}
-.cl-arrow{color:var(--terracotta);font-size:1.2rem;}
-
-/* FAQ */
-.faq-section{padding:5rem 0;}
-.faq-list{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;max-width:740px;}
-.faq-item{border-top:1px solid var(--border);}
-.faq-item:last-of-type{border-bottom:1px solid var(--border);}
-.faq-q{width:100%;text-align:left;background:none;border:none;padding:1.25rem 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Jost',sans-serif;font-size:0.9rem;font-weight:500;color:var(--ink);gap:1rem;}
-.faq-q::after{content:'+';font-size:1.2rem;color:var(--terracotta);flex-shrink:0;transition:transform 0.25s;}
-.faq-item.open .faq-q::after{transform:rotate(45deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
-.faq-item.open .faq-a{max-height:400px;}
-.faq-a p{padding:0 0 1.25rem;font-size:0.88rem;color:var(--ink-light);line-height:1.85;}
-.faq-helper{margin-top:3rem;background:var(--sand);border:1px solid var(--border);border-left:3px solid var(--terracotta);border-radius:0 4px 4px 0;padding:1.5rem 1.75rem;max-width:740px;}
-.faq-helper h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ink);margin-bottom:1rem;}
-.faq-helper ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
-.faq-helper ul li{font-size:0.86rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.5rem;line-height:1.6;}
-.faq-helper ul li::before{content:'›';color:var(--terracotta);font-size:1rem;flex-shrink:0;margin-top:-1px;}
-
-@media(max-width:900px){.prop-hero{grid-template-columns:1fr;}.prop-hero-img{height:260px;}.nav-links{display:none;}.hamburger{display:flex;}.prop-hero-left{padding:2.5rem 1.5rem;}}
-
-.faq-list{display:flex;flex-direction:column;gap:0;margin-top:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
-.faq-item{border-bottom:1px solid var(--border);}
-.faq-item:last-child{border-bottom:none;}
-.faq-q{width:100%;background:none;border:none;padding:1.1rem 1.4rem;text-align:left;font-family:'Jost',sans-serif;font-size:0.88rem;font-weight:500;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.2s;}
-.faq-q:hover{background:var(--sand);}
-.faq-q .faq-icon{flex-shrink:0;font-size:1rem;color:var(--terracotta);transition:transform 0.25s;}
-.faq-item.open .faq-q{background:var(--sand);}
-.faq-item.open .faq-icon{transform:rotate(45deg);}
-.faq-a{display:none;padding:0 1.4rem 1.1rem;font-size:0.85rem;color:var(--ink-light);line-height:1.85;}
-.faq-item.open .faq-a{display:block;}
-.faq-choose{margin-top:2.5rem;background:var(--warm-white);border:1px solid var(--border);border-radius:4px;padding:1.5rem 1.75rem;}
-.faq-choose h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--ink);margin-bottom:0.9rem;}
-.faq-choose ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
-.faq-choose li{font-size:0.85rem;color:var(--ink-light);display:flex;align-items:flex-start;gap:0.55rem;line-height:1.6;}
-.faq-choose li::before{content:'→';color:var(--terracotta);flex-shrink:0;}
-/* ============================================
-   UNIVERSAL MOBILE IMPROVEMENTS
-   ============================================ */
-
-/* Prevent horizontal scroll on all devices */
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-}
-
-/* Better touch targets for all interactive elements */
-button, 
-.btn-primary, 
-.btn-outline, 
-.prop-select-btn, 
-.cal-tab, 
-.amenity-tab,
-.quick-btn,
-.nav-links a,
-.nav-dropdown-menu a,
-.chatbot-send,
-.chatbot-fab,
-.gallery-item,
-.faq-q {
-    cursor: pointer;
-}
-
-/* Ensure all buttons have minimum touch target size */
-button, .btn-primary, .btn-outline {
-    min-height: 44px;
-    min-width: 44px;
-}
-
-/* Improved spacing between sections on mobile */
-@media (max-width: 768px) {
-    /* Hero section */
-    .prop-hero {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        min-height: auto;
-    }
-    
-    .prop-hero-left {
-        padding: 2rem 1.5rem !important;
-        order: 2;
-    }
-    
-    .prop-hero-img {
-        height: 250px;
-        order: 1;
-    }
-    
-    .prop-hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .prop-sub {
-        font-size: 0.9rem;
-        max-width: 100%;
-    }
-    
-    .hero-btns {
-        flex-direction: column;
-    }
-    
-    .hero-btns .btn-primary,
-    .hero-btns .btn-outline {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .prop-back {
-        font-size: 0.7rem;
-    }
-    
-    /* Section spacing */
-    .prop-section {
-        padding: 3rem 0;
-    }
-    
-    /* Rooms grid */
-    .rooms-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .room-card {
-        padding: 1.25rem;
-    }
-    
-    .room-card p {
-        font-size: 0.85rem;
-    }
-    
-    /* Amenities grid */
-    .amen-grid {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-    
-    .amenity-item {
-        padding: 0.75rem;
-    }
-    
-    /* Gallery on property pages */
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.5rem;
-    }
-    
-    .gallery-item {
-        aspect-ratio: 1/1;
-    }
-    
-    .gallery-item.wide {
-        grid-column: span 2 !important;
-    }
-    
-    .gallery-item.tall {
-        grid-row: span 1 !important;
-    }
-    
-    /* Location section */
-    .location-list {
-        margin: 0.5rem 0;
-    }
-    
-    .location-list li {
-        font-size: 0.85rem;
-        flex-wrap: wrap;
-    }
-    
-    .location-list li span:first-child {
-        width: 60px;
-    }
-    
-    /* Booking section on property pages */
-    .booking-card {
-        padding: 1.5rem;
-    }
-    
-    .booking-card .hero-btns {
-        flex-direction: column;
-    }
-    
-    .cross-link {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-        padding: 1.25rem;
-    }
-    
-    .cl-name {
-        font-size: 1rem;
-    }
-    
-    .cl-sub {
-        font-size: 0.7rem;
-    }
-    
-    /* FAQ on property pages */
-    .faq-section {
-        padding: 3rem 0;
-    }
-    
-    .faq-list {
-        border-radius: 4px;
-    }
-    
-    .faq-q {
-        padding: 0.9rem 1rem;
-        font-size: 0.85rem;
-    }
-    
-    .faq-helper {
-        padding: 1.25rem;
-    }
-    
-    .faq-helper h4 {
-        font-size: 1rem;
-    }
-    
-    .faq-helper ul li {
-        font-size: 0.8rem;
-    }
-    
-    /* Rules grid */
-    .rules-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    
-    .rule-card {
-        padding: 1.25rem;
-    }
-    
-    .rule-title {
-        font-size: 0.65rem;
-    }
-    
-    .rule-list li {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .prop-hero h1 {
-        font-size: 1.5rem;
-    }
-    
-    .section-tag {
-        font-size: 0.6rem;
-    }
-    
-    .section-title {
-        font-size: 1.3rem;
-    }
-    
-    .section-sub {
-        font-size: 0.85rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .who-list li {
-        font-size: 0.85rem;
-    }
-    
-    .gallery-grid {
-        grid-auto-rows: 120px;
-    }
-}
-    section {
-        padding: 3rem 0;
-    }
-    
-    .container {
-        padding: 0 1.25rem;
-    }
-    
-    /* Better font sizing for mobile */
-    body {
-        font-size: 16px;
-    }
-    
-    h1 {
-        font-size: 2rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
-    
-    h3, .section-title {
-        font-size: 1.35rem;
-    }
-    
-    .section-sub {
-        font-size: 0.9rem;
-    }
-}
-</style>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
 <body>
+<a href="#booking" class="sticky-book-btn" data-t="sticky-book">📅 Book Now</a>
 
+<!-- Navigation -->
 <nav>
   <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
   <ul class="nav-links">
     <li><a href="index.html" data-t="nav-home">Home</a></li>
-    <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+    <li><a href="miacasa-hanoi.html" class="active" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
     <li><a href="miacasa-oldquarter.html" data-t="nav-oq">MiaCasa Old Quarter</a></li>
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
+    <li><a href="blog.html" data-t="nav-blog">Blog</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
-    <li class="nav-dropdown">
-      <a href="#hanoi-booking" class="nav-book" data-t="nav-avail-btn">Check Availability</a>
-      <div class="nav-dropdown-menu">
-        <a href="miacasa-hanoi.html#hanoi-booking" data-t="nav-avail-h">Check Availability — Hanoi</a>
-        <a href="miacasa-oldquarter.html#oq-booking" data-t="nav-avail-oq">Check Availability — Old Quarter</a>
-      </div>
-    </li>
+    <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
     <button id="lang-en" class="lang-btn active" onclick="setLang('en')">EN</button>
     <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">VN</button>
-  </div>
+</div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
+<main id="main-content">
+<!-- Hero Section -->
 <section class="prop-hero">
   <div class="prop-hero-left">
     <a href="index.html" class="prop-back" data-t="story-back">← MiaCasa Homestays</a>
@@ -708,17 +183,71 @@ button, .btn-primary, .btn-outline {
     <h1 data-th="h-h1">A Calm Stay Near<br><em>Hanoi Railway Station</em></h1>
     <p class="prop-sub" data-t="h-sub">Located near Văn Miếu and the Train Street area — a peaceful base to explore Hanoi.</p>
     <div class="hero-btns">
-      <a href="#hanoi-booking" class="btn-primary" data-t="h-cta1">Check Availability</a>
+      <a href="index.html#booking" class="btn-primary" data-t="book-now-home">Book Now →</a>
       <a href="https://wa.me/84869922261" target="_blank" rel="noopener" class="btn-outline" data-t="h-cta2">Book via WhatsApp</a>
     </div>
+    <p style="font-size: 0.75rem; color: var(--terracotta); margin-top: 1rem;" data-t="social-proof">⭐ Loved by guests visiting Hanoi · 4.8★ from recent stays</p>
   </div>
   <div class="prop-hero-img">
-    <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6634_pwmg8r.jpg" alt="cozy boho homestay room in Hanoi near Train Street and Văn Miếu" loading="eager">
+    <img 
+      src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638632/DSC_6634_pwmg8r.jpg"
+      srcset="
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_35/v1775638632/DSC_6634_pwmg8r.jpg 300w,
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_40/v1775638632/DSC_6634_pwmg8r.jpg 600w,
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638632/DSC_6634_pwmg8r.jpg 800w,
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775638632/DSC_6634_pwmg8r.jpg 1200w
+      "
+      sizes="(max-width: 640px) 300px, (max-width: 1000px) 600px, 800px"
+      alt="MiaCasa Hanoi exterior" 
+      loading="eager" 
+      fetchpriority="high"
+      width="800"
+      height="600">
   </div>
 </section>
+</main>
 
-<!-- ABOUT -->
-<section class="prop-section" style="background:var(--cream);">
+<!-- Emotional Banner -->
+<div style="background: var(--sand); border-radius: 12px; padding: 0.75rem 1rem; margin: 1rem 0 1.5rem 0; text-align: center;">
+  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; justify-content: center; align-items: center;">
+    <span style="font-size: 0.75rem; color: var(--ink-light);">☕ Quiet mornings away from traffic</span>
+    <span style="color: var(--terracotta);">•</span>
+    <span style="font-size: 0.75rem; color: var(--ink-light);">🏡 Live like a local in a real neighborhood</span>
+    <span style="color: var(--terracotta);">•</span>
+    <span style="font-size: 0.75rem; color: var(--ink-light);">🌿 Slower, more personal Hanoi experience</span>
+  </div>
+</div>
+
+<!-- Desktop Navigation -->
+<div class="section-nav">
+  <a href="#h-about-section" data-t="nav-about">About</a>
+  <a href="#h-rooms-section" data-t="nav-rooms">Rooms</a>
+  <a href="#h-amenities-section" data-t="nav-amenities">Amenities</a>
+  <a href="#h-gallery-section" data-t="nav-gallery">Gallery</a>
+  <a href="#h-location-section" data-t="nav-location">Location</a>
+  <a href="#h-rules-section" data-t="nav-rules">Rules</a>
+  <a href="#h-faq-section" data-t="nav-faq">FAQ</a>
+  <a href="#h-testimonials-section" data-t="nav-reviews">Reviews</a>
+</div>
+
+<!-- Mobile Floating Navigation -->
+<div class="fab-nav">
+  <button class="fab-nav-toggle" onclick="toggleMobileNav()">☰</button>
+  <div class="fab-nav-menu" id="mobileNavMenu">
+    <a href="#h-about-section" data-t="nav-about">About</a>
+    <a href="#h-rooms-section" data-t="nav-rooms">Rooms</a>
+    <a href="#h-amenities-section" data-t="nav-amenities">Amenities</a>
+    <a href="#h-gallery-section" data-t="nav-gallery">Gallery</a>
+    <a href="#h-location-section" data-t="nav-location">Location</a>
+    <a href="#h-rules-section" data-t="nav-rules">Rules</a>
+    <a href="#h-faq-section" data-t="nav-faq">FAQ</a>
+    <a href="#h-testimonials-section" data-t="nav-reviews">Reviews</a>
+  </div>
+</div>
+
+<!-- About Section -->
+<span id="h-about-section" class="nav-anchor"></span>
+<section class="prop-section" style="background:var(--cream);" id="about">
   <div class="container">
     <div class="section-tag" data-t="h-about-tag">About the Stay</div>
     <h2 class="section-title" data-th="h-about-title">A quiet, local<br><em>stay in Hanoi</em></h2>
@@ -730,8 +259,8 @@ button, .btn-primary, .btn-outline {
   </div>
 </section>
 
-<!-- WHO IT'S FOR -->
-<section class="prop-section">
+<!-- Perfect For Section -->
+<section class="prop-section" id="h-who-stays">
   <div class="container">
     <div class="section-tag" data-t="h-who-tag">Perfect For</div>
     <h2 class="section-title" data-th="h-who-title">Who <em>stays here</em></h2>
@@ -743,7 +272,8 @@ button, .btn-primary, .btn-outline {
   </div>
 </section>
 
-<!-- ROOMS -->
+<!-- Rooms Section -->
+<span id="h-rooms-section" class="nav-anchor"></span>
 <section class="prop-section" style="background:var(--warm-white);">
   <div class="container">
     <div class="section-tag" data-t="h-rooms-tag">Rooms</div>
@@ -757,96 +287,165 @@ button, .btn-primary, .btn-outline {
   </div>
 </section>
 
-<!-- AMENITIES -->
+<!-- Amenities Section -->
+<span id="h-amenities-section" class="nav-anchor"></span>
 <section class="prop-section" style="background:var(--cream);">
-  <div class="container">
-    <div class="section-tag" data-t="h-amen-tag">What's Included</div>
-    <h2 class="section-title" data-th="h-amen-title">Every comfort,<br><em>thoughtfully provided</em></h2>
-    <div class="amen-grid">
-      <div class="amenity-item"><div class="amenity-icon">📶</div><div class="amenity-text"><span data-t="h-am1">High-speed WiFi</span><span data-t="h-am1s">100 Mbps — great for remote work</span></div></div>
-      <div class="amenity-item"><div class="amenity-icon">❄️</div><div class="amenity-text"><span data-t="h-am2">Air conditioning &amp; fan</span><span data-t="h-am2s">Climate control in every room</span></div></div>
-      <div class="amenity-item"><div class="amenity-icon">🛁</div><div class="amenity-text"><span data-t="h-am3">Ensuite private bathroom</span><span data-t="h-am3s">Premium toiletries &amp; fluffy towels</span></div></div>
-      <div class="amenity-item"><div class="amenity-icon">🍳</div><div class="amenity-text"><span data-t="h-am4">In-room kitchenette</span><span data-t="h-am4s">Mini fridge, kettle &amp; cooking basics</span></div></div>
-      <div class="amenity-item"><div class="amenity-icon">🔑</div><div class="amenity-text"><span data-t="h-am5">Self check-in 24h</span><span data-t="h-am5s">Code lockbox — arrive any time</span></div></div>
-      <div class="amenity-item"><div class="amenity-icon">☕</div><div class="amenity-text"><span data-t="h-am6">Café downstairs</span><span data-t="h-am6s">Your daily coffee ritual sorted</span></div></div>
-      <div class="amenity-item"><div class="amenity-icon">🗺️</div><div class="amenity-text"><span data-t="h-am7">Local guide &amp; curated map</span><span data-t="h-am7s">Hidden gems, cafés &amp; tips from the host</span></div></div>
+    <div class="container">
+        <div class="section-tag" data-t="h-amen-tag">What's Included</div>
+        <h2 class="section-title" data-th="h-amen-title">Every comfort,<br><em>thoughtfully provided</em></h2>
+        <div class="amen-grid">
+            <div class="amenity-item">
+                <div class="amenity-icon">📶</div>
+                <div class="amenity-title" data-t="h-am1">High-speed WiFi</div>
+                <div class="amenity-desc" data-t="h-am1s">100 Mbps — great for remote work</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">❄️</div>
+                <div class="amenity-title" data-t="h-am2">Air conditioning & fan</div>
+                <div class="amenity-desc" data-t="h-am2s">Climate control in every room</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">🛁</div>
+                <div class="amenity-title" data-t="h-am3">Ensuite private bathroom</div>
+                <div class="amenity-desc" data-t="h-am3s">Premium toiletries & fluffy towels</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">🍳</div>
+                <div class="amenity-title" data-t="h-am4">In-room kitchenette</div>
+                <div class="amenity-desc" data-t="h-am4s">Induction stove, microwave, fridge & cookware</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">🔑</div>
+                <div class="amenity-title" data-t="h-am5">Self check-in 24/7</div>
+                <div class="amenity-desc" data-t="h-am5s">Smart lock — arrive any time</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">☕</div>
+                <div class="amenity-title" data-t="h-am6">Café downstairs</div>
+                <div class="amenity-desc" data-t="h-am6s">Your daily coffee ritual sorted</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">🗺️</div>
+                <div class="amenity-title" data-t="h-am7">Local guide & curated map</div>
+                <div class="amenity-desc" data-t="h-am7s">Hidden gems, cafés & tips from the host</div>
+            </div>
+            <div class="amenity-item">
+                <div class="amenity-icon">🧺</div>
+                <div class="amenity-title" data-t="h-am8">Free laundry</div>
+                <div class="amenity-desc" data-t="h-am8s">Washing machine & dryer with detergent</div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<!-- GALLERY -->
+<!-- Gallery Section with Optimized Images -->
+<span id="h-gallery-section" class="nav-anchor"></span>
 <section style="background:var(--sand);padding:5rem 0;" id="gallery">
   <div class="container">
     <div class="section-tag" data-t="h-gal-tag">Gallery</div>
     <h2 class="section-title" data-th="h-gal-title">A look<br><em>inside</em></h2>
     <div class="gallery-grid" style="margin-top:2rem;">
+      
       <div class="gallery-item wide">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasaHanoi near Train Street Hanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Spring Room</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638559/DSC_6544-2_o4zadk.jpg" alt="Spring Room at MiaCasaHanoi near Train Street Hanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Spring Room</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item tall">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638388/DSC_7094_pgqf9u.jpg" alt="Rooftop terrace at MiaCasaHanoi homestay Hanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Rooftop Terrace</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638388/DSC_7094_pgqf9u.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638388/DSC_7094_pgqf9u.jpg" alt="Rooftop terrace at MiaCasaHanoi homestay Hanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Rooftop Terrace</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638632/DSC_6640_a9lvq8.jpg" alt="Summer Room cozy homestay room Hanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Summer Room</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638632/DSC_6640_a9lvq8.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638632/DSC_6640_a9lvq8.jpg" alt="Summer Room cozy homestay room Hanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Summer Room</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638541/DSC_6891_tdrw6z.jpg" alt="Autumn Room warm interiors MiaCasaHanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Autumn Room</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638541/DSC_6891_tdrw6z.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638541/DSC_6891_tdrw6z.jpg" alt="Autumn Room warm interiors MiaCasaHanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Autumn Room</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638546/DSC_6843_yayzw9.jpg" alt="In-room kitchenette at MiaCasaHanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Kitchenette</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638546/DSC_6843_yayzw9.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638546/DSC_6843_yayzw9.jpg" alt="In-room kitchenette at MiaCasaHanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Kitchenette</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638634/DSC_6622_qk8kxo.jpg" alt="Private bathroom MiaCasaHanoi homestay" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Bathroom</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638634/DSC_6622_qk8kxo.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638634/DSC_6622_qk8kxo.jpg" alt="Private bathroom MiaCasaHanoi homestay" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Bathroom</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item wide">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638623/DSC_6867_jsctq7.jpg" alt="Netflix projector room at MiaCasaHanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Netflix Projector</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638623/DSC_6867_jsctq7.jpg" alt="Netflix projector room at MiaCasaHanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Netflix Projector</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638620/DSC_6897_ijol0i.jpg" alt="Boho decor details MiaCasaHanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Decor</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638620/DSC_6897_ijol0i.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638620/DSC_6897_ijol0i.jpg" alt="Boho decor details MiaCasaHanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Decor</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638635/DSC_6616_nr6tfl.jpg" alt="Game room MiaCasaHanoi Hanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Game Room</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638635/DSC_6616_nr6tfl.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638635/DSC_6616_nr6tfl.jpg" alt="Game room MiaCasaHanoi Hanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Game Room</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item wide">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638556/DSC_6574_uaicqa.jpg" alt="Dining area MiaCasaHanoi homestay" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Dining Table</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638556/DSC_6574_uaicqa.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638556/DSC_6574_uaicqa.jpg" alt="Dining area MiaCasaHanoi homestay" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Dining Table</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775638643/DSC_6450_iqmfyn.jpg" alt="Laundry facilities MiaCasaHanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Laundry</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775638643/DSC_6450_iqmfyn.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775638643/DSC_6450_iqmfyn.jpg" alt="Laundry facilities MiaCasaHanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Laundry</span></div>
+        </a>
       </div>
+      
       <div class="gallery-item">
-        <img src="https://res.cloudinary.com/dczfocztf/image/upload/v1775735170/DSC_6909_m7zy5d.jpg" alt="Entrance to MiaCasaHanoi Văn Miếu Hanoi" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="gal-overlay"><span>Entrance</span></div>
+        <a href="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1600,f_auto,q_40/v1775735170/DSC_6909_m7zy5d.jpg" class="glightbox" data-gallery="hanoi-gallery">
+          <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775735170/DSC_6909_m7zy5d.jpg" alt="Entrance to MiaCasaHanoi Văn Miếu Hanoi" loading="lazy" width="800" height="600">
+          <div class="gal-overlay"><span>Entrance</span></div>
+        </a>
       </div>
+      
     </div>
   </div>
 </section>
 
-
-<!-- FULL GALLERY -->
-
-
-<!-- LOCATION -->
+<!-- Location Section -->
+<span id="h-location-section" class="nav-anchor"></span>
 <section class="prop-section">
   <div class="container">
     <div class="section-tag" data-t="h-loc-tag">Location</div>
     <h2 class="section-title" data-th="h-loc-title">Near Train Street<br><em>&amp; Old Quarter</em></h2>
     <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;max-width:600px;margin-bottom:0.75rem;" data-t="h-loc-addr">📍 92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi</p>
-    <ul style="list-style:none;margin:0.75rem 0 1rem;padding:0;display:flex;flex-direction:column;gap:0.4rem;max-width:580px;">
-      <li style="font-size:0.88rem;color:var(--ink-light);display:flex;gap:0.6rem;"><span style="color:var(--terracotta);">~5 min</span> walk to Hanoi Train Street (Railway Street)</li>
-      <li style="font-size:0.88rem;color:var(--ink-light);display:flex;gap:0.6rem;"><span style="color:var(--terracotta);">~8 min</span> walk to Văn Miếu – Quốc Tử Giám (Temple of Literature)</li>
-      <li style="font-size:0.88rem;color:var(--ink-light);display:flex;gap:0.6rem;"><span style="color:var(--terracotta);">~10 min</span> by Grab to the Old Quarter and Hoàn Kiếm Lake</li>
-      <li style="font-size:0.88rem;color:var(--ink-light);display:flex;gap:0.6rem;"><span style="color:var(--terracotta);">~3 min</span> walk to Hanoi Railway Station (trains to Sapa, Hội An)</li>
+    <ul class="location-list" style="list-style:none;margin:0.75rem 0 1rem;padding:0;display:flex;flex-direction:column;gap:0.4rem;max-width:580px;">
+      <li><span style="color:var(--terracotta);">~5 min</span> walk to Hanoi Train Street (Railway Street)</li>
+      <li><span style="color:var(--terracotta);">~8 min</span> walk to Văn Miếu – Quốc Tử Giám (Temple of Literature)</li>
+      <li><span style="color:var(--terracotta);">~10 min</span> by Grab to the Old Quarter and Hoàn Kiếm Lake</li>
+      <li><span style="color:var(--terracotta);">~3 min</span> walk to Hanoi Railway Station (trains to Sapa, Hội An)</li>
     </ul>
     <p style="font-size:0.88rem;color:var(--ink-light);line-height:1.8;max-width:600px;margin-bottom:2rem;" data-t="h-loc-seo">Staying near Hanoi Railway Station means you are 5–10 minutes from the Old Quarter, close to Văn Miếu (Temple of Literature), and well connected for trains and day trips. The neighbourhood of Văn Chương is quiet and residential — a welcome contrast to the buzzing streets of the Old Quarter. If you prefer to be right in the centre of Hàng Buồm and Hoàn Kiếm, our <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Old Quarter apartment</a> may suit you better.</p>
     <div style="border-radius:4px;overflow:hidden;border:1px solid var(--border);">
@@ -855,352 +454,442 @@ button, .btn-primary, .btn-outline {
   </div>
 </section>
 
-<section id="rules" style="background:var(--warm-white);">
-  <div class="container">
-    <div class="section-tag" data-t="sec-rules">House Rules</div>
-    <h2 class="section-title" data-th="rules-title">A few things to keep in <em>mind</em></h2>
-    <p class="section-sub" data-t="rules-sub">To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.</p>
-    <div class="rules-grid">
-      <div class="rule-card"><div class="rule-icon g">🕐</div>
-        <div class="rule-title" data-t="rule-checkinout">Check-in / Check-out</div>
-        <ul class="rule-list">
-          <li data-t="rule-cio-1">Check-in from 2:00 PM (self check-in)</li>
-          <li data-t="rule-cio-2">MiaCasaHanoi: check-out by 12:00 PM (noon)</li>
-          <li data-t="rule-cio-3">MiaCasaOldQuarter: check-out by 11:00 AM</li>
-          <li data-t="rule-cio-4">Early/late check-in available on request</li>
-          <li data-t="rule-cio-5">Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge</li>
-        </ul>
-      </div>
-      <div class="rule-card"><div class="rule-icon g">🤫</div>
-        <div class="rule-title" data-t="rule-noise">Noise &amp; Guests</div>
-        <ul class="rule-list">
-          <li data-t="rule-noise-1">Quiet hours 10:00 PM – 7:00 AM</li>
-          <li data-t="rule-noise-2">No unregistered overnight guests</li>
-          <li data-t="rule-noise-3">Be mindful of neighbours</li>
-          <li data-t="rule-noise-4">Groups of 4+ need prior notice</li>
-        </ul>
-      </div>
-      <div class="rule-card"><div class="rule-icon g">🐾</div>
-        <div class="rule-title" data-t="rule-smoking">Smoking &amp; Pets</div>
-        <ul class="rule-list">
-          <li data-t="rule-smoke-1">No smoking indoors</li>
-          <li data-t="rule-smoke-2">Balcony/terrace smoking only</li>
-          <li data-t="rule-smoke-3">Pets welcome — additional charge applies, please inform the host in advance</li>
-          <li data-t="rule-smoke-4">Candles permitted with care</li>
-        </ul>
-      </div>
-      <div class="rule-card"><div class="rule-icon g">🏠</div>
-        <div class="rule-title" data-t="rule-propcare">Property Care</div>
-        <ul class="rule-list">
-          <li data-t="rule-prop-1">Treat the space as your own home</li>
-          <li data-t="rule-prop-2">Report damages promptly</li>
-          <li data-t="rule-prop-3">No shoes inside — slippers provided</li>
-          <li data-t="rule-prop-4">Use designated rubbish bins</li>
-        </ul>
-      </div>
-      <div class="rule-card"><div class="rule-icon g">🛂</div>
-        <div class="rule-title" data-t="rule-legal">Legal Requirement</div>
-        <ul class="rule-list">
-          <li data-t="rule-legal-1">Vietnamese law requires all guests to provide a copy of their passport or national ID</li>
-          <li data-t="rule-legal-2">Please send a photo to the host via WhatsApp or email before or upon check-in</li>
-          <li data-t="rule-legal-3">Bookings cannot be confirmed without this document</li>
-          <li data-t="rule-legal-4">Information is used solely for local authority registration</li>
-        </ul>
-      </div>
-      <div class="rule-card"><div class="rule-icon g">💳</div>
-        <div class="rule-title" data-t="rule-payment">Payments &amp; Cancellation</div>
-        <ul class="rule-list">
-          <li data-t="rule-pay-1">Free cancellation up to 48h prior</li>
-          <li data-t="rule-pay-2">Bank transfer or PayPal accepted</li>
-          <li data-t="rule-pay-3">Security deposit for long stays</li>
-        </ul>
-      </div>
-      <div class="rule-card"><div class="rule-icon g">🌿</div>
-        <div class="rule-title" data-t="rule-eco">Eco Guidelines</div>
-        <ul class="rule-list">
-          <li data-t="rule-eco-1">Turn off A/C when leaving</li>
-          <li data-t="rule-eco-2">Mineral water provided (2 bottles per room per stay)</li>
-          <li data-t="rule-eco-3">We minimise single-use plastics where possible</li>
-          <li data-t="rule-eco-4">Towel reuse encouraged</li>
-        </ul>
-      </div>
+<!-- House Rules Section -->
+<span id="h-rules-section" class="nav-anchor"></span>
+<section style="background:var(--warm-white); padding: 5rem 0;">
+    <div class="container">
+        <div class="section-tag" data-t="sec-rules">House Rules</div>
+        <h2 class="section-title" data-th="rules-title">A few things to keep in <em>mind</em></h2>
+        <p class="section-sub" data-t="rules-sub">To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.</p>
+        
+        <div class="rules-grid">
+            <div class="rule-card">
+                <div class="rule-icon">🕐</div>
+                <div class="rule-title" data-t="rule-checkinout">Check-in / Check-out</div>
+                <ul class="rule-list">
+                    <li data-t="rule-cio-1">Check-in from 2:00 PM (self check-in)</li>
+                    <li data-t="rule-cio-2">MiaCasaHanoi: check-out by 12:00 PM (noon)</li>
+                    <li data-t="rule-cio-3">MiaCasaOldQuarter: check-out by 11:00 AM</li>
+                    <li data-t="rule-cio-4">Early/late check-in available on request</li>
+                    <li data-t="rule-cio-5">Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge</li>
+                </ul>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon">🤫</div>
+                <div class="rule-title" data-t="rule-noise">Noise &amp; Guests</div>
+                <ul class="rule-list">
+                    <li data-t="rule-noise-1">Quiet hours 10:00 PM – 7:00 AM</li>
+                    <li data-t="rule-noise-2">No unregistered overnight guests</li>
+                    <li data-t="rule-noise-3">Be mindful of neighbours</li>
+                    <li data-t="rule-noise-4">Groups of 4+ need prior notice</li>
+                </ul>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon">🐾</div>
+                <div class="rule-title" data-t="rule-smoking">Smoking &amp; Pets</div>
+                <ul class="rule-list">
+                    <li data-t="rule-smoke-1">No smoking indoors</li>
+                    <li data-t="rule-smoke-2">Balcony/terrace smoking only</li>
+                    <li data-t="rule-smoke-3">Pets welcome — additional charge applies, please inform the host in advance</li>
+                    <li data-t="rule-smoke-4">Candles permitted with care</li>
+                </ul>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon">🏠</div>
+                <div class="rule-title" data-t="rule-propcare">Property Care</div>
+                <ul class="rule-list">
+                    <li data-t="rule-prop-1">Treat the space as your own home</li>
+                    <li data-t="rule-prop-2">Report damages promptly</li>
+                    <li data-t="rule-prop-3">No shoes inside — slippers provided</li>
+                    <li data-t="rule-prop-4">Use designated rubbish bins</li>
+                </ul>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon">🛂</div>
+                <div class="rule-title" data-t="rule-legal">Legal Requirement</div>
+                <ul class="rule-list">
+                    <li data-t="rule-legal-1">Vietnamese law requires all guests to provide a copy of their passport or national ID</li>
+                    <li data-t="rule-legal-2">Please send a photo to the host via WhatsApp or email before or upon check-in</li>
+                    <li data-t="rule-legal-3">Bookings cannot be confirmed without this document</li>
+                    <li data-t="rule-legal-4">Information is used solely for local authority registration</li>
+                </ul>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon">💳</div>
+                <div class="rule-title" data-t="rule-payment">Payments &amp; Cancellation</div>
+                <ul class="rule-list">
+                    <li data-t="rule-pay-1">Free cancellation up to 48h prior</li>
+                    <li data-t="rule-pay-2">Bank transfer or PayPal accepted</li>
+                    <li data-t="rule-pay-3">Security deposit for long stays</li>
+                </ul>
+            </div>
+            <div class="rule-card">
+                <div class="rule-icon">🌿</div>
+                <div class="rule-title" data-t="rule-eco">Eco Guidelines</div>
+                <ul class="rule-list">
+                    <li data-t="rule-eco-1">Turn off A/C when leaving</li>
+                    <li data-t="rule-eco-2">Mineral water provided (2 bottles per room per stay)</li>
+                    <li data-t="rule-eco-3">We minimise single-use plastics where possible</li>
+                    <li data-t="rule-eco-4">Towel reuse encouraged</li>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq-section" style="background:var(--cream);">
-  <div class="container">
-    <div class="section-tag" data-t="faq-tag">FAQ</div>
-    <h2 class="section-title" data-th="faq-title">Frequently Asked<br><em>Questions</em></h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q1" onclick="toggleFaq(this)">Question 1</button>
-        <div class="faq-a"><p data-t="h-faq-a1">Answer 1</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q2" onclick="toggleFaq(this)">Question 2</button>
-        <div class="faq-a"><p data-t="h-faq-a2">Answer 2</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q3" onclick="toggleFaq(this)">Question 3</button>
-        <div class="faq-a"><p data-t="h-faq-a3">Answer 3</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q4" onclick="toggleFaq(this)">Question 4</button>
-        <div class="faq-a"><p data-t="h-faq-a4">Answer 4</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q5" onclick="toggleFaq(this)">Question 5</button>
-        <div class="faq-a"><p data-t="h-faq-a5">Answer 5</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q6" onclick="toggleFaq(this)">Question 6</button>
-        <div class="faq-a"><p data-t="h-faq-a6">Answer 6</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" data-t="h-faq-q7" onclick="toggleFaq(this)">Question 7</button>
-        <div class="faq-a"><p data-t="h-faq-a7">Answer 7</p></div>
-      </div>
+<!-- FAQ Section -->
+<span id="h-faq-section" class="nav-anchor"></span>
+<section class="faq-section" style="background:var(--sand);" id="h-faq">
+    <div class="container">
+        <div class="section-tag" data-t="h-faq-tag">FAQ</div>
+        <h2 class="section-title" data-th="h-faq-title">Frequently Asked<br><em>Questions</em></h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q1">❓ How far is Train Street?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a1">Just a 3-minute walk! We're located in the Train Street neighbourhood.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q2">❓ Is there WiFi?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a2">Yes, free high-speed WiFi (100 Mbps) is available throughout the property.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q3">❓ Do you have air conditioning?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a3">Yes, every room has its own AC unit plus a ceiling fan.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q4">❓ Is there a kitchen?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a4">Each room has a kitchenette with induction stove, microwave, fridge, and basic cookware.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q5">❓ Do you provide toiletries?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a5">Yes, we provide shampoo, shower gel, body lotion, and fresh towels.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q6">❓ Can I check in early?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a6">Early check-in depends on availability. Please message us in advance.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q7">❓ How do I get from the airport?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a7">We can arrange an airport pickup for 350,000₫ (~$14 USD). Or take a Grab taxi for about 250,000-300,000₫.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">
+                    <span data-t="h-faq-q8">❓ Is there a laundry?</span>
+                    <span class="plus-icon">+</span>
+                </button>
+                <div class="faq-a">
+                    <p data-t="h-faq-a8">Yes, free washing machine and dryer with detergent provided.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Helper section to help guests choose between properties -->
+        <div class="faq-helper" style="margin-bottom: 2rem; margin-top: 2rem;">
+            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem;" data-t="faq-help-title">Not sure which property to choose?</h4>
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+                <div style="flex: 1; padding: 1rem; background: var(--warm-white); border-radius: 8px;">
+                    <strong style="font-size: 1rem; color: var(--terracotta);">🌿 MiaCasa Hanoi</strong>
+                    <p style="font-size: 0.85rem; color: var(--ink-light); margin-top: 0.5rem;" data-t="faq-help-h">Prefer a quieter, more local experience near Train Street</p>
+                </div>
+                <div style="flex: 1; padding: 1rem; background: var(--warm-white); border-radius: 8px;">
+                    <strong style="font-size: 1rem; color: var(--terracotta);">🏙️ MiaCasa Old Quarter</strong>
+                    <p style="font-size: 0.85rem; color: var(--ink-light); margin-top: 0.5rem;" data-t="faq-help-oq">Stay in the center, close to attractions and nightlife</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="faq-helper">
-      <h4 data-t="faq-help-title">Not sure which property to choose?</h4>
-      <ul>
-        <li data-t="faq-help-oq">Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife</li>
-        <li data-t="faq-help-h">Choose MiaCasaHanoi if you prefer a quieter, more local experience</li>
-      </ul>
-    </div>
-  </div>
 </section>
 
-
-
-
-
-<!-- REVIEWS -->
-<section id="testimonials" style="background:var(--ink);color:white;">
-  <div class="container">
-    <div class="section-tag" style="color:rgba(255,255,255,0.5);" id="sec-reviews">Guest Reviews</div>
-    <h2 class="section-title" style="color:white;" id="reviews-title">Stories from <em>our guests</em></h2>
-    <p class="section-sub" style="color:rgba(255,255,255,0.55);" id="reviews-sub">Genuine words from people who've called MiaCasa home.</p>
-    <div class="reviews-filter" id="reviews-filter"></div>
-    <div class="testimonials-grid" id="reviews-grid"></div>
-    <div class="reviews-load-more" id="reviews-load-more">
-      <button class="btn-outline" style="color:white;border-color:rgba(255,255,255,0.3);" id="reviews-loadmore" onclick="loadMoreReviews()">Load more reviews</button>
+<!-- Reviews Section -->
+<span id="h-testimonials-section" class="nav-anchor"></span>
+<section id="testimonials" class="prop-section" style="background: var(--ink); padding: 5rem 0;">
+    <div class="container">
+        <div class="section-tag" data-t="h-reviews-tag">Guest Reviews</div>
+        <h2 class="section-title" data-th="h-reviews-title">What Guests <em>Say</em></h2>
+        <p class="section-sub" data-t="h-reviews-sub">Rated 4.9★ — Loved by guests from around the world.</p>
+        
+        <div id="reviews-filter" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; justify-content: center;"></div>
+        
+        <div id="reviews-grid" class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;"></div>
+        
+        <div id="reviews-load-more" style="text-align: center; margin-top: 2.5rem;">
+            <button onclick="loadMoreReviews()" class="btn-outline">Load more reviews →</button>
+        </div>
     </div>
-  </div>
 </section>
 
-<!-- BOOKING -->
-<section class="prop-section" style="background:var(--sand);" id="hanoi-booking">
-  <div class="container">
-    <div class="section-tag" data-t="h-book-tag">Reservations</div>
-    <h2 class="section-title" data-th="h-book-title">Book your <em>stay</em></h2>
-    <p class="section-sub" data-t="h-book-sub">Select your dates or reach us directly via WhatsApp for a fast, personal response.</p>
-    <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:2rem;max-width:560px;">
-      <p style="font-size:0.84rem;color:var(--ink-light);margin-bottom:1.5rem;" data-t="h-book-note">From 750,000₫/night · Best rate guaranteed when booking direct</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-        <a href="https://wa.me/84869922261?text=Hi%20MiaCasa!%20I%27d%20like%20to%20book%20at%20MiaCasaHanoi." target="_blank" rel="noopener" class="btn-primary" data-t="h-cta-wa" style="flex:1;text-align:center;">📱 Book via WhatsApp</a>
-        <a href="index.html#booking" class="btn-outline" data-t="h-cta-av" style="flex:1;text-align:center;">Check Availability</a>
-      </div>
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left;">
+            <div>
+                <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;">MiaCasa Hanoi</strong>
+                <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
+                    92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi, Vietnam
+                </p>
+            </div>
+            <div>
+                <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;">MiaCasa Old Quarter</strong>
+                <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
+                    38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi, Vietnam
+                </p>
+            </div>
+            <div>
+                <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;">Contact Us</strong>
+                <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.8;">
+                    ✉️ <a href="mailto:miacasahanoi@gmail.com" style="color:var(--ink-light); text-decoration:none;">miacasahanoi@gmail.com</a><br>
+                    💬 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" style="color:var(--ink-light); text-decoration:none;">WhatsApp +84 869 922 261</a><br>
+                    📞 <a href="tel:+84869922261" style="color:var(--ink-light); text-decoration:none;">Call +84 869 922 261</a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Our Stays</h4>
+                <ul>
+                    <li><a href="miacasa-hanoi.html">MiaCasa Hanoi</a></li>
+                    <li><a href="miacasa-oldquarter.html">MiaCasa Old Quarter</a></li>
+                    <li><a href="index.html#booking">Book Direct</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="#h-amenities-section">Amenities</a></li>
+                    <li><a href="#h-rules-section">House Rules</a></li>
+                    <li><a href="#h-gallery-section">Gallery</a></li>
+                    <li><a href="#h-testimonials-section">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Also on</h4>
+                <ul>
+                    <li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li>
+                    <li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li>
+                    <li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span>© 2025 MiaCasa Homestays. All rights reserved.</span>
+            <span>Made with ♡ in Hanoi</span>
+        </div>
     </div>
-    <a href="miacasa-oldquarter.html" class="cross-link">
-      <div>
-        <div class="cl-name" data-t="h-cross-name">Also explore: MiaCasa Old Quarter</div>
-        <div class="cl-sub" data-t="h-cross-sub">Old Quarter · Hoan Kiem · Entire apartment for groups</div>
-      </div>
-      <div class="cl-arrow">→</div>
-    </a>
-  </div>
 </section>
 
-<footer style="background:var(--ink);color:rgba(255,255,255,.5);padding:2.5rem 0;">
-  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;align-items:center;">
-    <div style="font-family:'Cormorant Garamond',serif;color:var(--sand);font-size:1.1rem;">MiaCasa Homestays · Hanoi, Vietnam</div>
-    <div style="font-size:0.78rem;">
-      <a href="https://wa.me/84869922261" style="color:rgba(255,255,255,.5);text-decoration:none;margin-right:1.5rem;">+84 869 922 261</a>
-      <a href="mailto:miacasahanoi@gmail.com" style="color:rgba(255,255,255,.5);text-decoration:none;">miacasahanoi@gmail.com</a>
-    </div>
-  </div>
-</footer>
+<style>
+/* Responsive rules grid for mobile */
+@media (max-width: 768px) {
+    .rules-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .rules-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Reviews styling */
+.hidden-review {
+    display: none;
+}
+
+.platform-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    background: var(--sand);
+    color: var(--ink-light);
+}
+
+.platform-tag.airbnb {
+    background: #FF5A5F;
+    color: white;
+}
+
+.platform-tag.booking {
+    background: #003580;
+    color: white;
+}
+
+.platform-tag.agoda {
+    background: #D73236;
+    color: white;
+}
+</style>
 
 <script>
-function toggleMenu(){
-  var ul=document.querySelector('.nav-links');
-  if(!ul) return;
-  ul.style.cssText = ul.style.display==='flex' ? '' :
-    'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--cream);padding:1.5rem 2rem;gap:1rem;border-bottom:1px solid var(--border);z-index:99;';
-}
-function toggleFaq(btn){
-  var item = btn.parentElement;
-  var wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(function(el){ el.classList.remove('open'); });
-  if(!wasOpen) item.classList.add('open');
-}
-
-</script>
-<script>
-
+// Toggle FAQ items
 function toggleFaq(btn) {
-  var item = btn.parentElement;
-  var wasOpen = item.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.faq-item.open').forEach(function(el){ el.classList.remove('open'); });
-  if (!wasOpen) item.classList.add('open');
+    const item = btn.closest('.faq-item');
+    if (item) {
+        item.classList.toggle('open');
+    }
 }
 
-</script>
-<script>
-
-// ── Reviews ────────────────────────────────────────────────────────────────
-const REVIEWS = [
-  {
-    platform: 'airbnb',
-    property: 'MiaCasaHanoi',
-    rating: 5,
-    text: "Stayed in the Spring Room for 4 nights — the Boho design is exactly as shown in the photos. King bed, Netflix projector, private kitchenette and bathroom, all very clean. The host Linh is super responsive and gave great tips for food spots nearby. Loved the rooftop area for evening hangs. Will be back!",
-    name: "Sarah M.",
-    origin: "London, UK",
-    initials: "SM",
-    date: "March 2025"
-  },
-  {
-    platform: 'booking',
-    property: 'MiaCasaHanoi',
-    rating: 5,
-    text: "Charming townhouse with genuine Boho character. Each room has complete privacy — your own bathroom, kitchenette, and AC. 6-minute drive to Hoan Kiem Lake and very close to Train Street cafés. Smart lock made check-in completely seamless. Exactly what you want from a Hanoi base.",
-    name: "Thomas B.",
-    origin: "Amsterdam, Netherlands",
-    initials: "TB",
-    date: "February 2025"
-  },
-  {
-    platform: 'airbnb',
-    property: 'MiaCasaOldQuarter',
-    rating: 5,
-    text: "This apartment is an absolute gem right in the Old Quarter! We were 5 friends and the three queen beds fit everyone perfectly. The 17m² balcony with BBQ was our favourite spot every evening. Steps from Tạ Hiện Street — you can walk to literally everything. The Netflix projector and white noise machine were brilliant touches.",
-    name: "Julia & Marc",
-    origin: "Paris, France",
-    initials: "JM",
-    date: "March 2025"
-  },
-  {
-    platform: 'agoda',
-    property: 'MiaCasaHanoi',
-    rating: 5,
-    text: "Stayed in the Summer Room for 5 nights and it felt like home from day one. Induction stove and full cooking equipment meant we could cook our own meals. The 24/7 laundry with free detergent was a huge plus for a longer stay. Fast WiFi, great AC, and a peaceful quiet alley despite being close to the city centre.",
-    name: "Kevin L.",
-    origin: "Sydney, Australia",
-    initials: "KL",
-    date: "February 2025"
-  },
-  {
-    platform: 'booking',
-    property: 'MiaCasaOldQuarter',
-    rating: 5,
-    text: "Perfect location for exploring Hanoi's Old Quarter. The apartment has a lovely loft bedroom upstairs and a spacious main room — great layout for our group. Big balcony is perfect for morning coffee. The keypad entry made midnight arrival stress-free. Host was helpful with restaurant recommendations in the area.",
-    name: "Anna R.",
-    origin: "Berlin, Germany",
-    initials: "AR",
-    date: "January 2025"
-  },
-  {
-    platform: 'airbnb',
-    property: 'MiaCasaHanoi',
-    rating: 5,
-    text: "The Autumn Room has such a warm, considered design — you can tell real thought went into every detail. Big windows with a green view, projector for Netflix, snacks in the mini fridge, and a rooftop terrace with darts and plants. Only 6 minutes to Hoan Kiem Lake by motorbike. Highly recommend for couples or solo travellers.",
-    name: "Mei L.",
-    origin: "Singapore",
-    initials: "ML",
-    date: "March 2025"
-  },
-  {
-    platform: 'agoda',
-    property: 'MiaCasaOldQuarter',
-    rating: 5,
-    text: "Stayed here while working remotely for 2 weeks. Fast WiFi, dedicated workspace, and the Old Quarter atmosphere makes it surprisingly productive. The fully equipped kitchen saved us money on meals. Linh was always quick to respond and genuinely helpful. Fair warning: there is some noise from Ta Hien Street at night — part of the charm!",
-    name: "James T.",
-    origin: "Toronto, Canada",
-    initials: "JT",
-    date: "February 2025"
-  },
-  {
-    platform: 'booking',
-    property: 'MiaCasaHanoi',
-    rating: 5,
-    text: "We took the whole house for a family trip — Spring, Summer and Autumn rooms all together. It worked beautifully. The rooftop is the highlight: BBQ, darts, plants, and a view of Hanoi's rooftops. Free motorbike parking on the ground floor and a shared kitchen. Pets are welcome too which was great for us!",
-    name: "Nguyen Family",
-    origin: "Ho Chi Minh City, Vietnam",
-    initials: "NF",
-    date: "December 2024"
-  },
+// Reviews data
+const HANOI_REVIEWS = [
+    { platform: 'airbnb', rating: 5, text: "Stayed in the Spring Room for 4 nights — the Boho design is exactly as shown in the photos. King bed, Netflix projector, private kitchenette and bathroom, all very clean. The host Linh is super responsive and gave great tips for food spots nearby. Loved the rooftop area for evening hangs. Will be back!", name: "Sarah M.", origin: "London, UK", initials: "SM", date: "March 2025" },
+    { platform: 'booking', rating: 5, text: "Charming townhouse with genuine Boho character. Each room has complete privacy — your own bathroom, kitchenette, and AC. 6-minute drive to Hoan Kiem Lake and very close to Train Street cafés. Smart lock made check-in completely seamless. Exactly what you want from a Hanoi base.", name: "Thomas B.", origin: "Amsterdam, Netherlands", initials: "TB", date: "February 2025" },
+    { platform: 'agoda', rating: 5, text: "Stayed in the Summer Room for 5 nights and it felt like home from day one. Induction stove and full cooking equipment meant we could cook our own meals. The 24/7 laundry with free detergent was a huge plus for a longer stay. Fast WiFi, great AC, and a peaceful quiet alley despite being close to the city centre.", name: "Kevin L.", origin: "Sydney, Australia", initials: "KL", date: "February 2025" },
+    { platform: 'airbnb', rating: 5, text: "The Autumn Room has such a warm, considered design — you can tell real thought went into every detail. Big windows with a green view, projector for Netflix, snacks in the mini fridge, and a rooftop terrace with darts and plants. Only 6 minutes to Hoan Kiem Lake by motorbike. Highly recommend for couples or solo travellers.", name: "Mei L.", origin: "Singapore", initials: "ML", date: "March 2025" },
+    { platform: 'booking', rating: 5, text: "We took the whole house for a family trip — Spring, Summer and Autumn rooms all together. It worked beautifully. The rooftop is the highlight: BBQ, darts, plants, and a view of Hanoi's rooftops. Free motorbike parking on the ground floor and a shared kitchen. Pets are welcome too which was great for us!", name: "Nguyen Family", origin: "Ho Chi Minh City, Vietnam", initials: "NF", date: "December 2024" }
 ];
-const PLATFORM_LABELS = {
-  airbnb: 'Airbnb',
-  booking: 'Booking.com',
-  agoda: 'Agoda',
-  google: 'Google',
-  tripadvisor: 'Tripadvisor',
-};
-var reviewsShown = 6;
-var activeReviewFilter = 'all';
 
+const PLATFORM_LABELS = { airbnb: 'Airbnb', booking: 'Booking.com', agoda: 'Agoda' };
 
-
-// Filter to this property only
-const PROP_REVIEWS = REVIEWS.filter(r => r.property === 'MiaCasaHanoi');
-const _origReviews = REVIEWS;
-// Override for this page
-var reviewsShown = 6;
-var activeReviewFilter = 'all';
+let reviewsShown = 3;
+let activeReviewFilter = 'all';
 
 function renderReviews() {
-  const base = PROP_REVIEWS;
-  const filtered = activeReviewFilter === 'all'
-    ? base : base.filter(r => r.platform === activeReviewFilter);
-  const grid = document.getElementById('reviews-grid');
-  if (!grid) return;
-  grid.innerHTML = filtered.map((r, i) => {
-    const hidden = i >= reviewsShown ? ' hidden-review' : '';
-    return `<div class="testimonial-card${hidden}">
-      <div class="stars">${'★'.repeat(r.rating)}</div>
-      <div class="testimonial-text">"${r.text}"</div>
-      <div class="reviewer">
-        <div class="reviewer-avatar">${r.initials}</div>
-        <div><div class="reviewer-name">${r.name}</div>
-        <div class="reviewer-meta">${r.origin} · ${r.date}</div></div>
-      </div>
-    </div>`;
-  }).join('');
-  const lm = document.getElementById('reviews-load-more');
-  if (lm) lm.style.display = filtered.length > reviewsShown ? 'block' : 'none';
+    const filtered = activeReviewFilter === 'all' ? HANOI_REVIEWS : HANOI_REVIEWS.filter(r => r.platform === activeReviewFilter);
+    const grid = document.getElementById('reviews-grid');
+    
+    if (!grid) {
+        // If grid not found, try again after a short delay
+        setTimeout(renderReviews, 100);
+        return;
+    }
+    
+    const toShow = filtered.slice(0, reviewsShown);
+    
+    // Build HTML string
+    let html = '';
+    for (let i = 0; i < toShow.length; i++) {
+        const r = toShow[i];
+        html += `
+            <div class="testimonial-card">
+                <div class="platform-tag ${r.platform}">${PLATFORM_LABELS[r.platform]}</div>
+                <div class="stars">${'★'.repeat(r.rating)}</div>
+                <div class="testimonial-text">"${r.text}"</div>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">${r.initials}</div>
+                    <div><div class="reviewer-name">${r.name}</div><div class="reviewer-meta">${r.origin} · ${r.date}</div></div>
+                </div>
+            </div>
+        `;
+    }
+    
+    grid.innerHTML = html;
+    
+    const lm = document.getElementById('reviews-load-more');
+    if (lm) {
+        lm.style.display = filtered.length > reviewsShown ? 'block' : 'none';
+    }
 }
 
-function loadMoreReviews() { reviewsShown += 3; renderReviews(); }
+function loadMoreReviews() { 
+    reviewsShown += 3; 
+    renderReviews(); 
+}
 
-// Build filter buttons
-(function() {
-  const rf = document.getElementById('reviews-filter');
-  if (!rf) return;
-  const platforms = ['all', ...new Set(PROP_REVIEWS.map(r => r.platform))];
-  platforms.forEach(p => {
-    const btn = document.createElement('button');
-    btn.className = 'review-filter-btn' + (p === 'all' ? ' active' : '');
-    btn.textContent = p === 'all' ? 'All platforms' : (PLATFORM_LABELS[p] || p);
-    btn.onclick = () => {
-      document.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeReviewFilter = p;
-      reviewsShown = 6;
-      renderReviews();
-    };
-    rf.appendChild(btn);
-  });
-  renderReviews();
-})();
+window.loadMoreReviews = loadMoreReviews;
 
+// Set up filter buttons
+function setupFilters() {
+    const rf = document.getElementById('reviews-filter');
+    if (!rf) return;
+    
+    const platforms = ['all', ...new Set(HANOI_REVIEWS.map(r => r.platform))];
+    platforms.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = 'review-filter-btn' + (p === 'all' ? ' active' : '');
+        btn.textContent = p === 'all' ? 'All platforms' : (PLATFORM_LABELS[p] || p);
+        btn.onclick = () => {
+            document.querySelectorAll('.review-filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeReviewFilter = p;
+            reviewsShown = 3;
+            renderReviews();
+        };
+        rf.appendChild(btn);
+    });
+}
+
+// Run everything with multiple attempts
+function initReviews() {
+    setupFilters();
+    renderReviews();
+}
+
+// Try immediately
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReviews);
+} else {
+    // Try multiple times to ensure DOM is ready
+    setTimeout(initReviews, 0);
+    setTimeout(initReviews, 100);
+    setTimeout(initReviews, 500);
+}
 </script>
-</body>
-</html</script>
+<!-- External JavaScript Files -->
+<script src="/js/main.js" defer></script>
+<script src="/js/calendar.js" defer></script>
+<script src="/js/booking.js" defer></script>
+<script src="/js/lang.js"></script>
+
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof GLightbox !== 'undefined') {
+      GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        autoplayVideos: false,
+        moreLength: 0
+      });
+    }
+  });
+</script>
 </body>
 </html>
