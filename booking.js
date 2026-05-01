@@ -557,19 +557,28 @@ async function updateAvailabilityAndUI() {
     }
     
     // Check if user details are filled
-    if (areUserDetailsFilled()) {
-        if (continueBtn) {
-            continueBtn.style.display = 'block';
-            console.log('Continue button should be visible now');
-            continueBtn.textContent = window.currentLang === 'vn' ? 'Continue to Payment →' : 'Continue to Payment →';
-        }
-        if (ci) {
-            showCancellationMessage(ci);
-        }
-    } else {
-        if (continueBtn) continueBtn.style.display = 'none';
-        if (cancellationMsgDiv) cancellationMsgDiv.style.display = 'none';
+    // Check if user details are filled
+if (areUserDetailsFilled()) {
+    if (continueBtn) {
+        continueBtn.style.display = 'block';
+        console.log('Continue button should be visible now');
+        continueBtn.textContent = window.currentLang === 'vn' ? 'Tiếp tục thanh toán →' : 'Continue to Payment →';
+        
+        // Attach event listener to the continue button
+        const newContinueBtn = continueBtn.cloneNode(true);
+        continueBtn.parentNode.replaceChild(newContinueBtn, continueBtn);
+        newContinueBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleContinueToPayment();
+        });
     }
+    if (ci) {
+        showCancellationMessage(ci);
+    }
+} else {
+    if (continueBtn) continueBtn.style.display = 'none';
+    if (cancellationMsgDiv) cancellationMsgDiv.style.display = 'none';
+}
 }
 
 function resetBookingForm() {
@@ -904,6 +913,378 @@ function confirmVietQR() {
     saveBookingToLocal(data);
     showBookingConfirmation(data);
 }
+
+// ================================================================
+// EVENT LISTENERS - Connect buttons to functions
+// ================================================================
+
+function setupPaymentEventListeners() {
+    console.log('Setting up payment event listeners...');
+    
+    // Continue button handler
+    const continueBtn = document.getElementById('booking-action-btn');
+    if (continueBtn) {
+        // Clone and replace to remove any existing listeners
+        const newContinueBtn = continueBtn.cloneNode(true);
+        continueBtn.parentNode.replaceChild(newContinueBtn, continueBtn);
+        
+        newContinueBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Continue button clicked');
+            handleContinueToPayment();
+        });
+        console.log('Continue button listener attached');
+    } else {
+        console.log('Continue button not found yet');
+    }
+    
+    // Payment tab handlers
+    const paypalTab = document.getElementById('pay-tab-paypal');
+    const vietqrTab = document.getElementById('pay-tab-vietqr');
+    const paypalPayBtn = document.getElementById('paypal-pay-btn');
+    const vietqrConfirmBtn = document.getElementById('vietqr-confirm-btn');
+    
+    if (paypalTab) {
+        paypalTab.onclick = function() { 
+            console.log('PayPal tab clicked');
+            selectPayTab('paypal'); 
+        };
+    }
+    if (vietqrTab) {
+        vietqrTab.onclick = function() { 
+            console.log('VietQR tab clicked');
+            selectPayTab('vietqr'); 
+        };
+    }
+    if (paypalPayBtn) {
+        paypalPayBtn.onclick = function() { 
+            console.log('PayPal pay button clicked');
+            processPayPal(); 
+        };
+    }
+    if (vietqrConfirmBtn) {
+        vietqrConfirmBtn.onclick = function() { 
+            console.log('VietQR confirm button clicked');
+            confirmVietQR(); 
+        };
+    }
+}
+
+// Also update the continue button visibility check in updateAvailabilityAndUI
+// Add this to ensure the continue button gets the event listener when it becomes visible
+const originalUpdateUI = updateAvailabilityAndUI;
+window.updateAvailabilityAndUI = async function() {
+    await originalUpdateUI();
+    // After UI updates, attach event listeners if the button is visible
+    const continueBtn = document.getElementById('booking-action-btn');
+    if (continueBtn && continueBtn.style.display !== 'none') {
+        setupPaymentEventListeners();
+    }
+};
+
+// Run setup when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupPaymentEventListeners);
+} else {
+    setupPaymentEventListeners();
+}
+
+// Also run after a short delay to catch dynamically created buttons
+setTimeout(setupPaymentEventListeners, 1000);
+setTimeout(setupPaymentEventListeners, 3000);
+
+// ================================================================
+// FIX: Make Continue to Payment button work
+// ================================================================
+
+// Function to show payment section
+function showPaymentSection() {
+    const paymentSection = document.getElementById('mia-payment-section');
+    const continueBtn = document.getElementById('booking-action-btn');
+    const priceBox = document.getElementById('mia-price-box');
+    
+    console.log('showPaymentSection called');
+    console.log('paymentSection element:', paymentSection);
+    console.log('continueBtn element:', continueBtn);
+    
+    if (paymentSection) {
+        paymentSection.style.display = 'block';
+        console.log('Payment section displayed');
+        
+        // Generate QR code if VietQR is selected
+        if (typeof generateQRCode === 'function') {
+            generateQRCode();
+        }
+    }
+    
+    if (continueBtn) {
+        continueBtn.style.display = 'none';
+    }
+    
+    // Scroll to payment section
+    if (paymentSection) {
+        paymentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+// Override the handleContinueToPayment function
+window.handleContinueToPayment = function() {
+    console.log('handleContinueToPayment called - DIRECT');
+    showPaymentSection();
+};
+
+// Also override the global function
+handleContinueToPayment = function() {
+    console.log('handleContinueToPayment called - GLOBAL');
+    showPaymentSection();
+};
+
+// Directly attach click handler to continue button
+function attachContinueButtonHandler() {
+    const continueBtn = document.getElementById('booking-action-btn');
+    if (continueBtn) {
+        console.log('Found continue button, attaching handler');
+        
+        // Remove any existing listeners by cloning
+        const newBtn = continueBtn.cloneNode(true);
+        continueBtn.parentNode.replaceChild(newBtn, continueBtn);
+        
+        // Add click handler
+        newBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Continue button CLICKED!');
+            showPaymentSection();
+            return false;
+        };
+        
+        return true;
+    }
+    return false;
+}
+
+// Try to attach immediately
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(attachContinueButtonHandler, 500);
+        setTimeout(attachContinueButtonHandler, 1000);
+        setTimeout(attachContinueButtonHandler, 2000);
+    });
+} else {
+    setTimeout(attachContinueButtonHandler, 500);
+    setTimeout(attachContinueButtonHandler, 1000);
+    setTimeout(attachContinueButtonHandler, 2000);
+}
+
+// Also add a mutation observer to watch for the button appearing
+const observer = new MutationObserver(function(mutations) {
+    const btn = document.getElementById('booking-action-btn');
+    if (btn && btn.style.display !== 'none') {
+        attachContinueButtonHandler();
+        observer.disconnect(); // Stop observing once attached
+    }
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+
+console.log('Payment button fix loaded - waiting for continue button');
+
+// ================================================================
+// FIX: Override areUserDetailsFilled to ensure it returns boolean
+// ================================================================
+
+// Save the original function if it exists
+const originalAreUserDetailsFilled = window.areUserDetailsFilled;
+
+// Override with a robust version
+window.areUserDetailsFilled = function() {
+    const name = document.getElementById('guest-name')?.value?.trim();
+    const email = document.getElementById('guest-email')?.value?.trim();
+    const phone = document.getElementById('guest-phone-number')?.value?.trim();
+    
+    const result = !!(name && email && phone);
+    console.log('areUserDetailsFilled - name:', name, 'email:', email, 'phone:', phone, 'result:', result);
+    return result;
+};
+
+// Also override the global variable
+areUserDetailsFilled = window.areUserDetailsFilled;
+
+console.log('areUserDetailsFilled function has been fixed');
+
+// ================================================================
+// FIX: Auto-detect when guest details are filled
+// ================================================================
+
+function initGuestDetailListeners() {
+    const nameInput = document.getElementById('guest-name');
+    const emailInput = document.getElementById('guest-email');
+    const phoneInput = document.getElementById('guest-phone-number');
+    
+    if (!nameInput || !emailInput || !phoneInput) {
+        console.log('Guest detail inputs not found yet');
+        return;
+    }
+    
+    function onGuestDetailChange() {
+        console.log('Guest details changed - checking if button should show');
+        
+        // Force re-check availability and update UI
+        if (typeof updateAvailabilityAndUI === 'function') {
+            updateAvailabilityAndUI();
+        }
+    }
+    
+    nameInput.addEventListener('input', onGuestDetailChange);
+    emailInput.addEventListener('input', onGuestDetailChange);
+    phoneInput.addEventListener('input', onGuestDetailChange);
+    
+    console.log('Guest detail listeners attached');
+}
+
+// Also ensure the continue button click handler works
+function initContinueButtonHandler() {
+    const continueBtn = document.getElementById('booking-action-btn');
+    if (!continueBtn) return;
+    
+    // Remove any existing listeners
+    const newBtn = continueBtn.cloneNode(true);
+    continueBtn.parentNode.replaceChild(newBtn, continueBtn);
+    
+    newBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Continue button clicked - showing payment section');
+        
+        const paymentSection = document.getElementById('mia-payment-section');
+        if (paymentSection) {
+            paymentSection.style.display = 'block';
+            console.log('Payment section displayed');
+            
+            // Generate QR code if needed
+            if (typeof generateQRCode === 'function') {
+                generateQRCode();
+            }
+            
+            // Scroll to payment section
+            paymentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        // Hide continue button
+        this.style.display = 'none';
+    });
+    
+    console.log('Continue button handler attached');
+}
+
+// Initialize everything
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initGuestDetailListeners, 500);
+        setTimeout(initContinueButtonHandler, 500);
+    });
+} else {
+    setTimeout(initGuestDetailListeners, 500);
+    setTimeout(initContinueButtonHandler, 500);
+}
+
+// Also try after a delay
+setTimeout(initGuestDetailListeners, 1500);
+setTimeout(initContinueButtonHandler, 1500);
+
+console.log('Guest detail and continue button handlers initialized');
+
+// ================================================================
+// FINAL FIX: Make Continue Button Appear Automatically
+// ================================================================
+
+// Force check and show continue button
+function checkAndShowContinueButton() {
+    const name = document.getElementById('guest-name')?.value?.trim();
+    const email = document.getElementById('guest-email')?.value?.trim();
+    const phone = document.getElementById('guest-phone-number')?.value?.trim();
+    const continueBtn = document.getElementById('booking-action-btn');
+    
+    // Check if all conditions are met
+    const hasDetails = !!(name && email && phone);
+    const isAvailable = currentAvailabilityStatus && currentAvailabilityStatus.available === true;
+    const hasDates = document.getElementById('checkin')?.value && document.getElementById('checkout')?.value;
+    const hasRoom = document.getElementById('room-type-sel')?.value;
+    
+    console.log('Check continue button - hasDetails:', hasDetails, 'isAvailable:', isAvailable, 'hasDates:', hasDates, 'hasRoom:', hasRoom);
+    
+    if (hasDetails && isAvailable && hasDates && hasRoom) {
+        if (continueBtn) {
+            continueBtn.style.display = 'block';
+            console.log('✅ Continue button is now VISIBLE');
+            
+            // Also attach click handler
+            const newBtn = continueBtn.cloneNode(true);
+            continueBtn.parentNode.replaceChild(newBtn, continueBtn);
+            newBtn.onclick = function(e) {
+                e.preventDefault();
+                console.log('Continue button clicked - showing payment');
+                const paymentSection = document.getElementById('mia-payment-section');
+                if (paymentSection) {
+                    paymentSection.style.display = 'block';
+                    if (typeof generateQRCode === 'function') generateQRCode();
+                    paymentSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                this.style.display = 'none';
+            };
+        }
+    } else {
+        if (continueBtn) {
+            continueBtn.style.display = 'none';
+        }
+    }
+}
+
+// Add event listeners to all relevant inputs
+function setupAutoShowButton() {
+    const inputs = [
+        'guest-name',
+        'guest-email', 
+        'guest-phone-number',
+        'checkin',
+        'checkout',
+        'room-type-sel',
+        'guests-sel'
+    ];
+    
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('change', checkAndShowContinueButton);
+            el.addEventListener('input', checkAndShowContinueButton);
+            el.addEventListener('keyup', checkAndShowContinueButton);
+        }
+    });
+    
+    // Also watch for availability status changes
+    const originalUpdateUI = window.updateAvailabilityAndUI;
+    window.updateAvailabilityAndUI = async function() {
+        await originalUpdateUI();
+        setTimeout(checkAndShowContinueButton, 100);
+    };
+    
+    console.log('Auto-show button setup complete');
+}
+
+// Run setup when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(setupAutoShowButton, 500);
+        setTimeout(checkAndShowContinueButton, 1000);
+    });
+} else {
+    setTimeout(setupAutoShowButton, 500);
+    setTimeout(checkAndShowContinueButton, 1000);
+}
+
+// Also run check whenever availability might change
+setInterval(checkAndShowContinueButton, 2000);
+
+console.log('Continue button auto-show fix loaded');
 
 // Make additional functions available globally
 window.handleContinueToPayment = handleContinueToPayment;

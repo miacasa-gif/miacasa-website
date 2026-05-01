@@ -56,9 +56,13 @@
     <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
-    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">EN</button>
-    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">VN</button>
-  </div>
+  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
+    <span class="flag-icon">🇬🇧</span> EN
+  </button>
+  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
+    <span class="flag-icon">🇻🇳</span> VN
+  </button>
+</div>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -547,12 +551,16 @@
         <div style="margin-top:1.5rem;">
           <button class="btn-primary" id="btn-whatsapp" data-t="btn-whatsapp">Send via WhatsApp →</button>
         </div>
-        <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
-          <p style="font-size:0.8rem;color:var(--ink-light);text-align:center;margin:0;">
-            <span data-t="invoice-text">Need an invoice for your stay?</span>
-            <a href="invoice.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;" data-t="invoice-link">Click here →</a>
-          </p>
-        </div>
+       <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+  <p style="font-size:0.8rem;color:var(--ink-light);text-align:center;margin:0;">
+    <span data-t="invoice-text">Need an invoice for your stay?</span>
+    <a href="invoice.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;" data-t="invoice-link">Click here →</a>
+  </p>
+  <p style="font-size:0.8rem;color:var(--ink-light);text-align:center;margin:0.5rem 0 0;">
+    <span data-t="cancel-text">✈️ Need to cancel your booking?</span>
+    <a href="/cancel-booking.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;" data-t="cancel-link">Request cancellation →</a>
+  </p>
+</div>
         <div class="confirm-msg" id="contact-confirm" data-t="contact-confirm">✓ Message sent! We'll be in touch soon.</div>
       </div>
     </div>
@@ -567,76 +575,63 @@
 </section>
 </main>
 <!-- Footer -->
-<footer>
+<footer style="background:var(--ink);color:rgba(255,255,255,.5);padding:2.5rem 0;">
   <div class="container">
-    
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left;">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: left;">
       <div>
-        <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-hanoi-title">MiaCasa Hanoi</strong>
+        <strong style="color: var(--sand); font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-hanoi-title">MiaCasa Hanoi</strong>
         <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
           <span data-t="footer-hanoi-address">92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi, Vietnam</span>
         </p>
-      </div>
-      <div>
-        <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-oq-title">MiaCasa Old Quarter</strong>
-        <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
-          <span data-t="footer-oq-address">38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi, Vietnam</span>
+        <p style="font-size: 0.78rem; margin-top: 0.5rem;">
+          📞 <a href="tel:+84869922261" style="color:rgba(255,255,255,.5); text-decoration:none;">+84 869 922 261</a>
         </p>
       </div>
       <div>
-        <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-contact-title">Contact Us</strong>
+        <strong style="color: var(--sand); font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-oq-title">MiaCasa Old Quarter</strong>
+        <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
+          <span data-t="footer-oq-address">38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi, Vietnam</span>
+        </p>
+        <p style="font-size: 0.78rem; margin-top: 0.5rem;">
+          📞 <a href="tel:+84869922261" style="color:rgba(255,255,255,.5); text-decoration:none;">+84 869 922 261</a>
+        </p>
+      </div>
+      <div>
+        <strong style="color: var(--sand); font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-contact-title">Contact Us</strong>
         <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.8;">
-          ✉️ <a href="mailto:miacasahanoi@gmail.com" style="color:var(--ink-light); text-decoration:none;">miacasahanoi@gmail.com</a><br>
-          💬 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" style="color:var(--ink-light); text-decoration:none;" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a><br>
-          📞 <a href="tel:+84869922261" style="color:var(--ink-light); text-decoration:none;" data-t="footer-call">Call +84 869 922 261</a><br>
+          ✉️ <a href="mailto:miacasahanoi@gmail.com" style="color:rgba(255,255,255,.5); text-decoration:none;">miacasahanoi@gmail.com</a><br>
+          💬 <a href="https://wa.me/84869922261" target="_blank" style="color:rgba(255,255,255,.5); text-decoration:none;" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a><br>
+          📞 <a href="tel:+84869922261" style="color:rgba(255,255,255,.5); text-decoration:none;" data-t="footer-call">Call +84 869 922 261</a><br>
           <span data-t="footer-response">⏱️ Responses within 2 hours (7am - 10pm ICT)</span>
         </p>
       </div>
     </div>
     
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="nav-logo" href="#home" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
-        <p id="footer-tagline" data-t="footer-tagline">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
-      </div>
-      <div class="footer-col">
-        <h4 data-t="footer-stays-title">Our Stays</h4>
-        <ul>
-          <li><a href="miacasa-hanoi.html" data-t="footer-hanoi">MiaCasa Hanoi</a></li>
-          <li><a href="miacasa-oldquarter.html" data-t="footer-oq">MiaCasa Old Quarter</a></li>
-          <li><a href="#booking" data-t="footer-book">Book Direct</a></li>
-          <li><a href="#availability" data-t="footer-avail">Availability</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 data-t="footer-info-title">Information</h4>
-        <ul>
-          <li><a href="miacasa-hanoi.html#amenities" data-t="footer-amenities">Amenities</a></li>
-          <li><a href="miacasa-hanoi.html#rules" data-t="footer-rules">House Rules</a></li>
-          <li><a href="#gallery" data-t="footer-gallery">Gallery</a></li>
-          <li><a href="#testimonials" data-t="footer-reviews">Reviews</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 data-t="footer-also-title">Also on</h4>
-        <ul>
-          <li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank" data-t="footer-airbnb-h">Airbnb – MiaCasaHanoi</a></li>
-          <li><a href="https://www.airbnb.co.in/rooms/1444661721704448383" target="_blank" data-t="footer-airbnb-oq">Airbnb – MiaCasaOldQuarter</a></li>
-          <li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank" data-t="footer-booking-h">Booking.com – MiaCasaHanoi</a></li>
-          <li><a href="https://www.booking.com/hotel/vn/miacasaoldquarter.html" target="_blank" data-t="footer-booking-oq">Booking.com – MiaCasaOldQuarter</a></li>
-          <li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank" data-t="footer-agoda-h">Agoda – MiaCasaHanoi</a></li>
-        </ul>
+    <!-- Social Media Links -->
+    <div style="text-align: center; margin: 2rem 0 1.5rem;">
+      <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem;">Follow us on social media</p>
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
+          📘 Facebook
+        </a>
+        <span style="color: rgba(255,255,255,0.3);">|</span>
+        <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
+          📷 Instagram
+        </a>
+        <span style="color: rgba(255,255,255,0.3);">|</span>
+        <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
+          🎵 TikTok
+        </a>
       </div>
     </div>
     
-    <div class="footer-bottom">
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center; font-size: 0.7rem;">
       <p style="font-size: 0.65rem; text-align: center; margin-bottom: 1rem; color: rgba(255,255,255,0.3);">
         MiaCasa Hanoi is a boutique homestay brand in Hanoi, Vietnam.
       </p>
       <span data-t="footer-copy">© 2025 MiaCasa Homestays. All rights reserved.</span>
-      <span data-t="footer-made">Made with ♡ in Hanoi</span>
+      <span style="margin-left: 1rem;" data-t="footer-made">Made with ♡ in Hanoi</span>
     </div>
-    
   </div>
 </footer>
 

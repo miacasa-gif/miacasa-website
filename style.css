@@ -1,5 +1,5 @@
 /* ============================================
-   ROOT VARIABLES (Keep once at top)
+   ROOT VARIABLES
    ============================================ */
 :root {
     --sand: #f5efe6;
@@ -41,7 +41,7 @@ body {
     font-display: swap;
 }
 
-/* Headings - Consistent font families */
+/* Headings */
 h1, h2, h3, .hero h1, .section-title, .blog-title, .blog-header h1,
 .prop-hero-left h1, .story-section h2 {
     font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
@@ -125,6 +125,7 @@ nav {
     border-bottom: none !important;
 }
 
+/* Mobile Navigation */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -132,32 +133,38 @@ nav {
     cursor: pointer;
     background: none;
     border: none;
+    z-index: 100;
 }
 
 .hamburger span {
     display: block;
     width: 24px;
-    height: 1.5px;
+    height: 2px;
     background: var(--ink);
+    transition: all 0.3s ease;
 }
 
+/* Language Toggle with Flags */
 .lang-toggle {
     display: flex;
-    gap: 4px;
+    gap: 0.5rem;
+    align-items: center;
     margin-left: 1rem;
 }
 
 .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
     background: none;
     border: 1px solid var(--border);
     color: var(--ink-light);
-    padding: .3rem .65rem;
-    border-radius: 3px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
     font-family: 'Jost', sans-serif;
-    font-size: .72rem;
+    font-size: 0.72rem;
     cursor: pointer;
-    letter-spacing: .04em;
-    transition: all .2s;
+    transition: all 0.2s;
 }
 
 .lang-btn.active {
@@ -169,6 +176,69 @@ nav {
 .lang-btn:hover:not(.active) {
     border-color: var(--terracotta);
     color: var(--terracotta);
+}
+
+.flag-icon {
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 64px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 64px);
+        background: rgba(250, 246, 240, 0.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2rem;
+        gap: 1.5rem;
+        transition: left 0.3s ease;
+        z-index: 99;
+        overflow-y: auto;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}
+
+@media (min-width: 769px) {
+    .hamburger {
+        display: none;
+    }
 }
 
 /* ============================================
@@ -349,9 +419,7 @@ nav {
     color: var(--ink);
 }
 
-/* ============================================
-   RESPONSIVE HERO
-   ============================================ */
+/* Responsive Hero */
 @media (max-width: 900px) {
     .hero {
         grid-template-columns: 1fr;
@@ -384,7 +452,7 @@ nav {
 }
 
 /* ============================================
-   CLS PREVENTION - Reserve space for images
+   CLS PREVENTION
    ============================================ */
 img {
     display: block;
@@ -586,6 +654,40 @@ section {
     text-transform: uppercase;
     color: var(--ink-light);
     display: block;
+}
+
+/* Mobile Property Cards */
+@media (max-width: 768px) {
+    #properties {
+        display: block !important;
+        width: 100% !important;
+        overflow: visible !important;
+    }
+    
+    .properties-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        width: 100% !important;
+        min-height: auto !important;
+        padding: 0 1rem !important;
+    }
+    
+    .property-card {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .property-img {
+        height: 200px !important;
+        display: block !important;
+    }
+    
+    .property-body {
+        padding: 1rem !important;
+    }
 }
 
 /* ============================================
@@ -1233,39 +1335,68 @@ footer {
 }
 
 /* ============================================
-   FLOATING NAVIGATION
+   FLOATING NAVIGATION & SECTION NAV
    ============================================ */
 .section-nav {
     position: sticky;
     top: 70px;
     z-index: 90;
-    background: rgba(250, 246, 240, 0.95);
+    background: rgba(250, 246, 240, 0.98);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
+    gap: 0.5rem;
     justify-content: center;
     margin: 0 0 1rem 0;
 }
 
 .section-nav a {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink-light);
     text-decoration: none;
-    padding: 0.35rem 0.9rem;
-    border-radius: 30px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
     transition: all 0.2s ease;
     white-space: nowrap;
+    background: white;
+    border: 1px solid var(--border);
 }
 
 .section-nav a:hover,
 .section-nav a.active {
     background: var(--terracotta);
     color: white;
+    border-color: var(--terracotta);
+}
+
+@media (max-width: 768px) {
+    .section-nav {
+        padding: 0.5rem;
+        gap: 0.3rem;
+        top: 64px;
+    }
+    .section-nav a {
+        font-size: 0.65rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .section-nav::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .fab-nav {
@@ -1398,7 +1529,339 @@ footer {
 }
 
 /* ============================================
-   OUR STORY PAGE SPECIFIC
+   PROPERTY PAGES (MiaCasa Hanoi & Old Quarter)
+   ============================================ */
+.prop-hero {
+    min-height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+    background: var(--sand);
+}
+
+.prop-hero-left {
+    background: var(--sand);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 4rem 3rem 4rem;
+    position: relative;
+}
+
+.prop-hero-left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
+}
+
+.prop-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ink-light) !important;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    font-family: 'Jost', sans-serif;
+}
+
+.prop-back:hover {
+    color: var(--terracotta) !important;
+}
+
+.prop-hero-left .section-tag {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+}
+
+.prop-hero-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+}
+
+.prop-hero-left h1 em {
+    color: var(--terracotta);
+    font-style: italic;
+}
+
+.prop-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.94rem;
+    color: var(--ink-light);
+    max-width: 400px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.prop-hero-img {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+}
+
+.prop-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.prop-hero-left .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.prop-hero-left .btn-primary,
+.prop-hero-left .btn-outline {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .prop-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+    .prop-hero-left {
+        padding: 2rem 1.5rem;
+    }
+    .prop-hero-left::after {
+        display: none;
+    }
+    .prop-hero-img {
+        height: 260px;
+        min-height: auto;
+    }
+    .prop-hero-left h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .prop-hero-left h1 {
+        font-size: 1.6rem;
+    }
+    .prop-hero-left .hero-btns .btn-primary,
+    .prop-hero-left .hero-btns .btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ============================================
+   AMENITIES & RULES
+   ============================================ */
+.amen-grid,
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.amenity-item,
+.rule-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.amenity-item:hover,
+.rule-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.amenity-icon,
+.rule-icon {
+    font-size: 1.75rem;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.amenity-title,
+.rule-title {
+    font-weight: 600;
+    color: var(--terracotta);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+}
+
+.amenity-desc,
+.rule-desc {
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .amen-grid,
+    .amenities-grid,
+    .rules-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .amen-grid,
+    .amenities-grid,
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Rules Card Specific (for Old Quarter page) */
+.rule-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.rule-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.rule-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rule-list li {
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.rule-list li::before {
+    content: "•";
+    color: var(--terracotta);
+    position: absolute;
+    left: 0;
+}
+
+/* ============================================
+   FAQ SECTION
+   ============================================ */
+.faq-section {
+    padding: 5rem 0;
+}
+
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.faq-q {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    background: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: left;
+    transition: background 0.2s;
+}
+
+.faq-q:hover {
+    background: var(--cream);
+}
+
+.plus-icon {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--terracotta);
+    transition: transform 0.2s;
+}
+
+.faq-item.open .plus-icon {
+    transform: rotate(45deg);
+}
+
+.faq-a {
+    max-height: 0;
+    padding: 0 1.25rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.open .faq-a {
+    max-height: 200px;
+    padding: 0 1.25rem 1.25rem 1.25rem;
+}
+
+.faq-a p {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.faq-helper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .faq-helper div {
+        flex-direction: column;
+    }
+}
+
+/* ============================================
+   OUR STORY PAGE
    ============================================ */
 .host-photo {
     width: 140px;
@@ -1631,6 +2094,9 @@ footer {
     height: 0;
 }
 
+/* ============================================
+   ANIMATIONS
+   ============================================ */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -1680,482 +2146,3 @@ footer {
 .d1 { transition-delay: 0.1s; }
 .d2 { transition-delay: 0.2s; }
 .d3 { transition-delay: 0.3s; }
-
-/* ============================================
-   PROPERTY PAGES (MiaCasa Hanoi & Old Quarter)
-   ============================================ */
-
-/* Hero section for property pages */
-.prop-hero {
-    min-height: 80vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 64px;
-    background: var(--sand);
-}
-
-.prop-hero-left {
-    background: var(--sand);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 3rem 4rem 3rem 4rem;
-    position: relative;
-}
-
-.prop-hero-left::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
-}
-
-/* Back link styling */
-.prop-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--ink-light) !important;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    background: none;
-    border: none;
-    font-family: 'Jost', sans-serif;
-}
-
-.prop-back:hover {
-    color: var(--terracotta) !important;
-}
-
-.prop-hero-left .section-tag {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-}
-
-.prop-hero-left h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.2rem, 4vw, 3.5rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--ink);
-    margin-bottom: 1rem;
-}
-
-.prop-hero-left h1 em {
-    color: var(--terracotta);
-    font-style: italic;
-}
-
-.prop-sub {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.94rem;
-    color: var(--ink-light);
-    max-width: 400px;
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    font-weight: 300;
-}
-
-.prop-hero-img {
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-    min-height: 400px;
-}
-
-.prop-hero-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Hero buttons on property pages */
-.prop-hero-left .hero-btns {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.prop-hero-left .btn-primary,
-.prop-hero-left .btn-outline {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-/* Responsive property hero */
-@media (max-width: 900px) {
-    .prop-hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-    }
-    .prop-hero-left {
-        padding: 2rem 1.5rem;
-    }
-    .prop-hero-left::after {
-        display: none;
-    }
-    .prop-hero-img {
-        height: 260px;
-        min-height: auto;
-    }
-    .prop-hero-left h1 {
-        font-size: 1.8rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .prop-hero-left h1 {
-        font-size: 1.6rem;
-    }
-    .prop-hero-left .hero-btns .btn-primary,
-    .prop-hero-left .hero-btns .btn-outline {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* ============================================
-   AMENITIES & RULES - Matching Card Styling (FINAL)
-   ============================================ */
-
-/* Amenities Grid */
-.amen-grid,
-.amenities-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-/* Rules Grid */
-.rules-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-/* Consistent Card Style for Both */
-.amenity-item,
-.rule-item {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.amenity-item:hover,
-.rule-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-/* Icons - Same size for both */
-.amenity-icon,
-.rule-icon {
-    font-size: 1.75rem;
-    display: block;
-    margin-bottom: 0.75rem;
-}
-
-/* Amenities Title & Description - Matching Rules */
-.amenity-title,
-.rule-title {
-    font-weight: 600;
-    color: var(--terracotta);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.02em;
-}
-
-.amenity-desc,
-.rule-desc {
-    font-size: 0.8rem;
-    color: var(--ink-light);
-    line-height: 1.5;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-    .amen-grid,
-    .amenities-grid,
-    .rules-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .amen-grid,
-    .amenities-grid,
-    .rules-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ============================================
-   FAQ SECTION - Accordion Style
-   ============================================ */
-.faq-section {
-    padding: 5rem 0;
-}
-
-.faq-list {
-    max-width: 800px;
-    margin: 0 auto 2rem auto;
-}
-
-.faq-item {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-}
-
-.faq-q {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem;
-    background: white;
-    border: none;
-    cursor: pointer;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--ink);
-    text-align: left;
-    transition: background 0.2s;
-}
-
-.faq-q:hover {
-    background: var(--cream);
-}
-
-.plus-icon {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--terracotta);
-    transition: transform 0.2s;
-}
-
-.faq-item.open .plus-icon {
-    transform: rotate(45deg);
-}
-
-.faq-a {
-    max-height: 0;
-    padding: 0 1.25rem;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-}
-
-.faq-item.open .faq-a {
-    max-height: 200px;
-    padding: 0 1.25rem 1.25rem 1.25rem;
-}
-
-.faq-a p {
-    font-size: 0.85rem;
-    color: var(--ink-light);
-    line-height: 1.6;
-    margin: 0;
-}
-
-.faq-helper {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Responsive FAQ */
-@media (max-width: 768px) {
-    .faq-helper div {
-        flex-direction: column;
-    }
-}
-/* Updated Section Navigation */
-.section-nav {
-    position: sticky;
-    top: 70px;
-    z-index: 90;
-    background: rgba(250, 246, 240, 0.98);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    border-top: 1px solid var(--border);
-    padding: 0.75rem 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin: 0 0 1rem 0;
-}
-
-.section-nav a {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-light);
-    text-decoration: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 40px;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    background: white;
-    border: 1px solid var(--border);
-}
-
-.section-nav a:hover,
-.section-nav a.active {
-    background: var(--terracotta);
-    color: white;
-    border-color: var(--terracotta);
-}
-
-/* For mobile */
-@media (max-width: 768px) {
-    .section-nav {
-        padding: 0.5rem;
-        gap: 0.3rem;
-        top: 64px;
-    }
-    
-    .section-nav a {
-        font-size: 0.65rem;
-        padding: 0.4rem 0.8rem;
-    }
-}
-
-/* For very small screens, allow horizontal scroll */
-@media (max-width: 600px) {
-    .section-nav {
-        overflow-x: auto;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-    
-    .section-nav::-webkit-scrollbar {
-        display: none;
-    }
-}
-/* ============================================
-   FORCE PROPERTY CARDS VISIBLE ON MOBILE
-   ============================================ */
-@media (max-width: 768px) {
-    #properties {
-        display: block !important;
-        width: 100% !important;
-        overflow: visible !important;
-    }
-    
-    .properties-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
-        width: 100% !important;
-        min-height: auto !important;
-        padding: 0 1rem !important;
-    }
-    
-    .property-card {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        margin: 0 !important;
-    }
-    
-    .property-img {
-        height: 200px !important;
-        display: block !important;
-    }
-    
-    .property-body {
-        padding: 1rem !important;
-    }
-}
-/* Rules section styling */
-.rules-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.rule-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.rule-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.rule-icon {
-    font-size: 1.75rem;
-    display: block;
-    margin-bottom: 0.75rem;
-}
-
-.rule-title {
-    font-weight: 600;
-    color: var(--terracotta);
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.02em;
-}
-
-.rule-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.rule-list li {
-    font-size: 0.75rem;
-    color: var(--ink-light);
-    line-height: 1.5;
-    margin-bottom: 0.5rem;
-    padding-left: 1rem;
-    position: relative;
-}
-
-.rule-list li::before {
-    content: "•";
-    color: var(--terracotta);
-    position: absolute;
-    left: 0;
-}
-
-@media (max-width: 768px) {
-    .rules-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .rules-grid {
-        grid-template-columns: 1fr;
-    }
-}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancel Booking | MiaCasa Homestays</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .cancel-container { max-width: 550px; margin: 100px auto; padding: 2rem; }
+  .cancel-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid var(--border); }
+  .cancel-result { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; }
+  .cancel-result.pending { background: #fef3c7; border: 1px solid #d97706; color: #92400e; }
+  .cancel-result.error { background: #fee2e2; border: 1px solid #991b1b; color: #991b1b; }
+  .cancel-result.success { background: #d1fae5; border: 1px solid #065f46; color: #065f46; }
+  .info-box { background: #f5efe6; padding: 1rem; border-radius: 8px; margin: 1.5rem 0; font-size: 0.85rem; }
+  .btn-back { display: inline-block; margin-top: 1rem; color: var(--terracotta); text-decoration: none; }
+  .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #f3f3f3; border-top: 2px solid #c17a5a; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .field-error { border-color: #dc2626 !important; background-color: #fee2e2 !important; }
+  .error-text { color: #dc2626; font-size: 0.7rem; margin-top: 0.25rem; display: none; }
+  .lang-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+  }
+  .lang-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--ink-light);
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--terracotta);
+    color: white;
+    border-color: var(--terracotta);
+  }
+</style>
+</head>
+<body>
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
+    <span class="flag-icon">🇬🇧</span> EN
+  </button>
+  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
+    <span class="flag-icon">🇻🇳</span> VN
+  </button>
+</div>
+
+<div class="cancel-container">
+  <div class="cancel-card">
+    <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;" id="cancelTitle">Cancel Booking</h1>
+    <p style="color: var(--ink-light); margin-bottom: 1.5rem;" id="cancelSubtitle">Enter your booking details to submit a cancellation request.</p>
+    
+    <div class="info-box" id="policyBox">
+      <strong id="policyTitle">📌 Cancellation Policy</strong><br>
+      <span id="policy1">• ✅ Free cancellation up to 48 hours before check-in</span><br>
+      <span id="policy2">• ⚠️ Cancellations within 48 hours may incur a fee</span><br>
+      <span id="policy3">• ❌ No refunds after check-in date</span>
+    </div>
+    
+    <form id="cancelForm">
+      <div class="form-group">
+        <label id="labelBid">Booking ID *</label>
+        <input type="text" id="bookingId" required placeholder="e.g., MCH-SPR-0001">
+        <div class="error-text" id="error-bookingId">Please enter your Booking ID</div>
+      </div>
+      <div class="form-group" style="margin-top: 1rem;">
+        <label id="labelEmail">Email Address *</label>
+        <input type="email" id="email" required placeholder="your@email.com">
+        <div class="error-text" id="error-email">Please enter a valid email address</div>
+      </div>
+      <div class="form-group" style="margin-top: 1rem;">
+        <label id="labelName">Full Name *</label>
+        <input type="text" id="name" required placeholder="Your full name">
+        <div class="error-text" id="error-name">Please enter your full name</div>
+      </div>
+      <div class="form-group" style="margin-top: 1rem;">
+        <label id="labelReason">Reason (optional)</label>
+        <textarea id="reason" rows="2" placeholder="Tell us why (optional)"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;" id="submitBtn">
+        Submit Cancellation Request →
+      </button>
+    </form>
+    
+    <div id="result" class="cancel-result"></div>
+    <a href="/" class="btn-back" id="backLink">← Back to Home</a>
+  </div>
+</div>
+
+<script>
+let currentCancelLang = localStorage.getItem('mia_lang') || 'en';
+
+// Complete translations for the cancel page
+const CANCEL_TRANSLATIONS = {
+  en: {
+    title: 'Cancel Booking',
+    subtitle: 'Enter your booking details to submit a cancellation request.',
+    policyTitle: '📌 Cancellation Policy',
+    policy1: '• ✅ Free cancellation up to 48 hours before check-in',
+    policy2: '• ⚠️ Cancellations within 48 hours may incur a fee',
+    policy3: '• ❌ No refunds after check-in date',
+    labelBid: 'Booking ID *',
+    labelEmail: 'Email Address *',
+    labelName: 'Full Name *',
+    labelReason: 'Reason (optional)',
+    submitBtn: 'Submit Cancellation Request →',
+    backLink: '← Back to Home',
+    placeholderBid: 'e.g., MCH-SPR-0001',
+    placeholderEmail: 'your@email.com',
+    placeholderName: 'Your full name',
+    placeholderReason: 'Tell us why (optional)',
+    loading: 'Submitting cancellation request...',
+    // Result messages
+    pendingTitle: '📋 Cancellation Request Submitted',
+    pendingMessage: 'Your cancellation request has been submitted. The host will review and contact you within 24 hours.',
+    emailSent: '📧 A confirmation email has been sent to you.',
+    questions: '💬 Questions?',
+    whatsapp: 'WhatsApp us',
+    errorTitle: '❌ Error',
+    connectionError: 'Connection Error',
+    connectionMsg: 'Unable to connect to the server. Please check your internet connection.',
+    contactWhatsapp: 'Contact us on WhatsApp: +84 869 922 261'
+  },
+  vn: {
+    title: 'Hủy Đặt Phòng',
+    subtitle: 'Nhập thông tin đặt phòng của bạn để gửi yêu cầu hủy.',
+    policyTitle: '📌 Chính Sách Hủy',
+    policy1: '• ✅ Hủy miễn phí đến 48 giờ trước khi nhận phòng',
+    policy2: '• ⚠️ Hủy trong vòng 48 giờ có thể mất phí',
+    policy3: '• ❌ Không hoàn tiền sau ngày nhận phòng',
+    labelBid: 'Mã đặt phòng *',
+    labelEmail: 'Địa chỉ Email *',
+    labelName: 'Họ và tên *',
+    labelReason: 'Lý do (tùy chọn)',
+    submitBtn: 'Gửi yêu cầu hủy →',
+    backLink: '← Quay lại Trang chủ',
+    placeholderBid: 'VD: MCH-SPR-0001',
+    placeholderEmail: 'email@cua.ban',
+    placeholderName: 'Họ và tên của bạn',
+    placeholderReason: 'Cho chúng tôi biết lý do (tùy chọn)',
+    loading: 'Đang gửi yêu cầu hủy...',
+    // Result messages in Vietnamese
+    pendingTitle: '📋 Đã Gửi Yêu Cầu Hủy',
+    pendingMessage: 'Yêu cầu hủy của bạn đã được gửi. Chủ nhà sẽ xem xét và liên hệ trong vòng 24 giờ.',
+    emailSent: '📧 Email xác nhận đã được gửi đến bạn.',
+    questions: '💬 Có câu hỏi?',
+    whatsapp: 'WhatsApp cho chúng tôi',
+    errorTitle: '❌ Lỗi',
+    connectionError: 'Lỗi kết nối',
+    connectionMsg: 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet của bạn.',
+    contactWhatsapp: 'Liên hệ qua WhatsApp: +84 869 922 261'
+  }
+};
+
+function setCancelLang(lang) {
+  currentCancelLang = lang;
+  localStorage.setItem('mia_lang', lang);
+  
+  // Update button active states
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-vn').classList.toggle('active', lang === 'vn');
+  
+  const t = CANCEL_TRANSLATIONS[lang];
+  
+  // Update all labels and text
+  document.getElementById('cancelTitle').textContent = t.title;
+  document.getElementById('cancelSubtitle').textContent = t.subtitle;
+  document.getElementById('policyTitle').innerHTML = t.policyTitle;
+  document.getElementById('policy1').innerHTML = t.policy1;
+  document.getElementById('policy2').innerHTML = t.policy2;
+  document.getElementById('policy3').innerHTML = t.policy3;
+  document.getElementById('labelBid').innerHTML = t.labelBid;
+  document.getElementById('labelEmail').innerHTML = t.labelEmail;
+  document.getElementById('labelName').innerHTML = t.labelName;
+  document.getElementById('labelReason').innerHTML = t.labelReason;
+  document.getElementById('submitBtn').innerHTML = t.submitBtn;
+  document.getElementById('backLink').innerHTML = t.backLink;
+  
+  // Update placeholders
+  document.getElementById('bookingId').placeholder = t.placeholderBid;
+  document.getElementById('email').placeholder = t.placeholderEmail;
+  document.getElementById('name').placeholder = t.placeholderName;
+  document.getElementById('reason').placeholder = t.placeholderReason;
+}
+
+// Apply saved language on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('mia_lang') || 'en';
+  setCancelLang(savedLang);
+});
+
+const API_URL = '/api/log-booking';
+const form = document.getElementById('cancelForm');
+const resultDiv = document.getElementById('result');
+const submitBtn = document.getElementById('submitBtn');
+
+function showResult(type, errorMessage) {
+  const t = CANCEL_TRANSLATIONS[currentCancelLang];
+  resultDiv.style.display = 'block';
+  
+  if (type === 'loading') {
+    resultDiv.className = 'cancel-result';
+    resultDiv.innerHTML = `<span class="loading-spinner"></span> ${t.loading}`;
+  } else if (type === 'pending') {
+    resultDiv.className = 'cancel-result pending';
+    resultDiv.innerHTML = `
+      <strong>${t.pendingTitle}</strong><br><br>
+      ${t.pendingMessage}<br><br>
+      ${t.emailSent}<br><br>
+      ${t.questions} <a href="https://wa.me/84869922261" style="color: #d97706;">${t.whatsapp}</a>
+    `;
+  } else if (type === 'error') {
+    resultDiv.className = 'cancel-result error';
+    resultDiv.innerHTML = `
+      <strong>${t.errorTitle}</strong><br><br>
+      ${errorMessage || 'Unknown error'}<br><br>
+      ${t.contactWhatsapp}
+    `;
+  } else if (type === 'connection_error') {
+    resultDiv.className = 'cancel-result error';
+    resultDiv.innerHTML = `
+      <strong>${t.connectionError}</strong><br><br>
+      ${t.connectionMsg}<br><br>
+      ${t.contactWhatsapp}
+    `;
+  }
+}
+
+// Form validation
+function validateForm() {
+  let isValid = true;
+  
+  const bookingId = document.getElementById('bookingId').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const name = document.getElementById('name').value.trim();
+  
+  document.getElementById('bookingId').classList.remove('field-error');
+  document.getElementById('email').classList.remove('field-error');
+  document.getElementById('name').classList.remove('field-error');
+  document.getElementById('error-bookingId').style.display = 'none';
+  document.getElementById('error-email').style.display = 'none';
+  document.getElementById('error-name').style.display = 'none';
+  
+  if (!bookingId) {
+    document.getElementById('bookingId').classList.add('field-error');
+    document.getElementById('error-bookingId').style.display = 'block';
+    isValid = false;
+  }
+  
+  if (!email || !email.includes('@')) {
+    document.getElementById('email').classList.add('field-error');
+    document.getElementById('error-email').style.display = 'block';
+    isValid = false;
+  }
+  
+  if (!name) {
+    document.getElementById('name').classList.add('field-error');
+    document.getElementById('error-name').style.display = 'block';
+    isValid = false;
+  }
+  
+  return isValid;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  if (!validateForm()) return;
+  
+  const bookingId = document.getElementById('bookingId').value.trim().toUpperCase();
+  const email = document.getElementById('email').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const reason = document.getElementById('reason').value;
+  
+  showResult('loading');
+  submitBtn.disabled = true;
+  
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        action: 'requestCancellation',
+        bookingId: bookingId,
+        guestEmail: email,
+        guestName: name,
+        reason: reason
+      })
+    });
+    
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    
+    if (data.status === 'pending') {
+      showResult('pending');
+      form.reset();
+    } else if (data.status === 'error') {
+      showResult('error', data.message);
+    } else {
+      showResult('error', 'Unexpected response from server');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    showResult('connection_error');
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

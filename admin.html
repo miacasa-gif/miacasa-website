@@ -56,9 +56,10 @@
     </div>
 
     <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchTab('rooms',this)">Room Status</button>
-      <button class="admin-tab" onclick="switchTab('prices',this)">Price Overrides</button>
-    </div>
+  <button class="admin-tab active" onclick="switchTab('rooms',this)">Room Status</button>
+  <button class="admin-tab" onclick="switchTab('prices',this)">Price Overrides</button>
+  <button class="admin-tab" onclick="switchTab('cancellations',this)">⚠️ Cancellations</button>
+</div>
 
     <!-- ROOMS TAB -->
     <div class="admin-panel active" id="panel-rooms">
@@ -151,7 +152,16 @@
       </div>
     </div>
   </div>
+<!-- CANCELLATIONS TAB -->
+<div class="admin-panel" id="panel-cancellations">
+  <div class="price-section">
+    <div class="price-section-title">⚠️ Pending Cancellation Requests <span id="pending-count"></span></div>
+    <div id="cancellations-list" style="margin-top: 1rem;"></div>
+  </div>
 </div>
+</div>
+
+
 
 <!-- External JavaScript -->
 <script src="/js/config.js"></script>

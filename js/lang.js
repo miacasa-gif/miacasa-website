@@ -134,6 +134,8 @@ const TRANSLATIONS = {
   /* ── CONTACT FORM ─────────────────────────────────────────────── */
   'invoice-text':    {en:'Need an invoice for your stay?', vn:'Cần hóa đơn cho kỳ lưu trú của bạn?'},
   'invoice-link':    {en:'Click here →', vn:'Bấm vào đây →'},
+  'cancel-text': { en: '✈️ Need to cancel your booking?', vn: '✈️ Cần hủy đặt phòng?' },
+'cancel-link': { en: 'Request cancellation →', vn: 'Yêu cầu hủy →' },
   'sec-contact':     {en:'Get in Touch', vn:'Liên hệ'},
   'contact-title':   {en:"We'd love to <em>hear from you</em>", vn:'Chúng tôi rất <em>muốn nghe từ bạn</em>'},
   'contact-sub':     {en:'Questions, special requests, or just want to say hello — reach out anytime.', vn:'Câu hỏi, yêu cầu đặc biệt, hoặc chỉ muốn chào hỏi — liên hệ bất cứ lúc nào.'},

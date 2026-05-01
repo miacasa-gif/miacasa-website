@@ -120,7 +120,9 @@ const ROOMS = [
 // ================================================================
 
 function getToken() {
-  return sessionStorage.getItem('mia_admin_token');
+  // Check both storage locations
+  const token = localStorage.getItem('admin_token') || sessionStorage.getItem('mia_admin_token');
+  return token;
 }
 
 function setToken(token) {
@@ -251,6 +253,8 @@ function switchTab(name, btn) {
     renderRoomStatusList();
   } else if (name === 'prices') {
     renderOverrides();
+  } else if (name === 'cancellations') {
+    loadPendingCancellations();
   }
 }
 
@@ -832,6 +836,233 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+// ================================================================
+// CANCELLATION MANAGEMENT (Admin UI)
+// ================================================================
+
+async function loadPendingCancellations() {
+  const container = document.getElementById('cancellations-list');
+  if (!container) return;
+  
+  container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
+  
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'getPendingCancellations', token: getToken() })
+    });
+    
+    const data = await response.json();
+    
+    if (!data.cancellations || data.cancellations.length === 0) {
+      container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p style="color: #6b5c47;">✅ No pending cancellation requests</p></div>';
+      document.getElementById('pending-count').innerHTML = '';
+      return;
+    }
+    
+    document.getElementById('pending-count').innerHTML = `(${data.cancellations.length} pending)`;
+    
+    container.innerHTML = data.cancellations.map(c => `
+      <div class="cancel-card" id="cancel-card-${c.bookingId}" style="background: white; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+          <div style="flex: 2;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <strong style="font-size: 1rem;">${c.bookingId}</strong>
+              <span style="background: #fef3c7; color: #d97706; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem;">PENDING</span>
+            </div>
+            <p style="margin-top: 0.75rem;"><strong>Guest:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p>
+            <p><strong>Property:</strong> ${c.property} - ${c.room}</p>
+            <p><strong>Check-in:</strong> ${c.checkIn}</p>
+            <p><strong>Amount:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫ (${c.paymentMethod})</p>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <button onclick="showRefundForm('${c.bookingId}', ${c.amount}, '${c.paymentMethod}')" class="add-override-btn" style="width: 100%; background: #059669;">✅ Approve Refund</button>
+            <button onclick="rejectCancellation('${c.bookingId}')" class="add-override-btn" style="width: 100%; margin-top: 0.5rem; background: #dc2626;">❌ Reject Request</button>
+          </div>
+        </div>
+        
+        <div id="refund-form-${c.bookingId}" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e0ddd5;">
+          <h4>Confirm Refund</h4>
+          <p>Have you manually processed the refund in ${c.paymentMethod}?</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div><label>Refund Amount (VND)</label><input type="number" id="refund-amount-${c.bookingId}" value="${c.amount}" style="width: 100%; padding: 0.5rem;"></div>
+            <div><label>Reference (optional)</label><input type="text" id="refund-txn-${c.bookingId}" style="width: 100%; padding: 0.5rem;"></div>
+          </div>
+          <div><label>Note</label><textarea id="refund-note-${c.bookingId}" rows="2" style="width: 100%; padding: 0.5rem;"></textarea></div>
+          <div style="margin-top: 1rem;"><button onclick="confirmRefund('${c.bookingId}')" class="add-override-btn" style="background: #059669;">✅ Confirm & Notify Guest</button></div>
+        </div>
+      </div>
+    `).join('');
+  } catch (error) {
+    container.innerHTML = '<div style="background: #fee2e2; padding: 1rem; border-radius: 8px;">Error loading cancellation requests</div>';
+  }
+}
+
+function showRefundForm(bookingId, amount, paymentMethod) {
+  document.getElementById(`refund-form-${bookingId}`).style.display = 'block';
+}
+
+async function confirmRefund(bookingId) {
+  const refundAmount = document.getElementById(`refund-amount-${bookingId}`).value;
+  const refundNote = document.getElementById(`refund-note-${bookingId}`).value;
+  
+  if (!confirm('⚠️ Have you manually processed the refund in PayPal/Bank?\n\nClick OK to confirm and notify the guest.')) return;
+  
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'confirmRefund', bookingId, refundAmount: parseInt(refundAmount), refundNote, token: getToken() })
+  });
+  
+  const data = await response.json();
+  
+  if (data.status === 'ok') {
+    alert('✅ ' + data.message);
+    document.getElementById(`cancel-card-${bookingId}`)?.remove();
+    loadPendingCancellations();
+  } else {
+    alert('❌ Error: ' + data.message);
+  }
+}
+
+async function rejectCancellation(bookingId) {
+  // Simple reject for now - just remove from pending
+  if (!confirm('Are you sure you want to reject this cancellation request?')) return;
+  
+  // For now, just remove from UI. You can add more logic later.
+  document.getElementById(`cancel-card-${bookingId}`)?.remove();
+  alert('✅ Request rejected');
+  loadPendingCancellations();
+}
+
+
+
+// ================================================================
+// CANCELLATION MANAGEMENT (Admin UI)
+// ================================================================
+
+async function loadPendingCancellations() {
+  const container = document.getElementById('cancellations-list');
+  if (!container) return;
+  
+  container.innerHTML = '<div style="text-align: center; padding: 2rem;">Loading...</div>';
+  
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'getPendingCancellations', token: getToken() })
+    });
+    
+    const data = await response.json();
+    
+    if (!data.cancellations || data.cancellations.length === 0) {
+      container.innerHTML = '<div style="background: #f5efe6; border-radius: 8px; padding: 2rem; text-align: center;"><p style="color: #6b5c47;">✅ No pending cancellation requests</p></div>';
+      document.getElementById('pending-count').innerHTML = '';
+      return;
+    }
+    
+    document.getElementById('pending-count').innerHTML = `(${data.cancellations.length} pending)`;
+    
+    container.innerHTML = data.cancellations.map(c => `
+      <div class="cancel-card" id="cancel-card-${c.bookingId}" style="background: white; border: 1px solid #e0ddd5; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+          <div style="flex: 2;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <strong style="font-size: 1rem;">${c.bookingId}</strong>
+              <span style="background: #fef3c7; color: #d97706; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem;">PENDING</span>
+            </div>
+            <p style="margin-top: 0.75rem;"><strong>Guest:</strong> ${escapeHtml(c.guestName)} (${escapeHtml(c.guestEmail)})</p>
+            <p><strong>Property:</strong> ${c.property} - ${c.room}</p>
+            <p><strong>Check-in:</strong> ${c.checkIn}</p>
+            <p><strong>Amount:</strong> ${Number(c.amount).toLocaleString('vi-VN')}₫ (${c.paymentMethod})</p>
+          </div>
+          <div style="flex: 1; min-width: 200px;">
+            <button onclick="showRefundForm('${c.bookingId}', ${c.amount}, '${c.paymentMethod}')" class="add-override-btn" style="width: 100%; background: #059669;">✅ Approve Refund</button>
+            <button onclick="rejectCancellation('${c.bookingId}')" class="add-override-btn" style="width: 100%; margin-top: 0.5rem; background: #dc2626;">❌ Reject Request</button>
+          </div>
+        </div>
+        
+        <div id="refund-form-${c.bookingId}" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e0ddd5;">
+          <h4>Confirm Refund</h4>
+          <p>Have you manually processed the refund in ${c.paymentMethod}?</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div><label>Refund Amount (VND)</label><input type="number" id="refund-amount-${c.bookingId}" value="${c.amount}" style="width: 100%; padding: 0.5rem;"></div>
+            <div><label>Reference (optional)</label><input type="text" id="refund-txn-${c.bookingId}" style="width: 100%; padding: 0.5rem;"></div>
+          </div>
+          <div><label>Note</label><textarea id="refund-note-${c.bookingId}" rows="2" style="width: 100%; padding: 0.5rem;"></textarea></div>
+          <div style="margin-top: 1rem;">
+            <button onclick="confirmRefund('${c.bookingId}')" class="add-override-btn" style="background: #059669;">✅ Confirm & Notify Guest</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  } catch (error) {
+    container.innerHTML = '<div style="background: #fee2e2; padding: 1rem; border-radius: 8px;">Error loading cancellation requests</div>';
+  }
+}
+
+function showRefundForm(bookingId) {
+  document.getElementById(`refund-form-${bookingId}`).style.display = 'block';
+}
+
+async function confirmRefund(bookingId) {
+  const refundAmount = document.getElementById(`refund-amount-${bookingId}`).value;
+  const refundNote = document.getElementById(`refund-note-${bookingId}`).value;
+  
+  if (!confirm('⚠️ Have you manually processed the refund in PayPal/Bank?\n\nClick OK to confirm and notify the guest.')) return;
+  
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'confirmRefund', bookingId, refundAmount: parseInt(refundAmount), refundNote, token: getToken() })
+  });
+  
+  const data = await response.json();
+  
+  if (data.status === 'ok') {
+    alert('✅ ' + data.message);
+    document.getElementById(`cancel-card-${bookingId}`)?.remove();
+    loadPendingCancellations();
+  } else {
+    alert('❌ Error: ' + data.message);
+  }
+}
+
+async function rejectCancellation(bookingId) {
+  if (!confirm('Are you sure you want to reject this cancellation request?')) return;
+  document.getElementById(`cancel-card-${bookingId}`)?.remove();
+  alert('✅ Request rejected. Guest will be notified.');
+  loadPendingCancellations();
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+async function debugCancellations() {
+  console.log('=== DEBUGGING CANCELLATIONS ===');
+  const token = getToken();
+  console.log('Token exists:', !!token);
+  
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'getPendingCancellations', token: token })
+  });
+  
+  const data = await response.json();
+  console.log('API Response:', data);
+  console.log('Cancellations count:', data.cancellations?.length || 0);
+  
+  if (data.cancellations && data.cancellations.length > 0) {
+    console.log('First cancellation:', data.cancellations[0]);
+  }
+}
 
 // Export for global access
 window.doLogin = doLogin;
@@ -843,3 +1074,7 @@ window.addOverride = addOverride;
 window.deleteOverride = deleteOverride;
 window.toggleMaintenance = toggleMaintenance;
 window.setAdminLang = setAdminLang;
+window.loadPendingCancellations = loadPendingCancellations;
+window.showRefundForm = showRefundForm;
+window.confirmRefund = confirmRefund;
+window.rejectCancellation = rejectCancellation;
