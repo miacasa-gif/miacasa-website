@@ -1,71 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <!-- HOMEPAGE -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://miacasa.netlify.app/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://miacasa.netlify.app/"/>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://miacasa.netlify.app/?lang=vn"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://miacasa.netlify.app/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-05-01</lastmod> <!-- Update with today's date -->
+    <lastmod>2026-05-01</lastmod>
   </url>
-  
-  <!-- MIACASA HANOI (English) -->
+
   <url>
     <loc>https://miacasa.netlify.app/miacasa-hanoi</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://miacasa.netlify.app/miacasa-hanoi"/>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://miacasa.netlify.app/miacasa-hanoi?lang=vn"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://miacasa.netlify.app/miacasa-hanoi"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <lastmod>2026-05-01</lastmod>
   </url>
-  
-  <!-- MIACASA OLD QUARTER (English) -->
+
   <url>
     <loc>https://miacasa.netlify.app/miacasa-oldquarter</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://miacasa.netlify.app/miacasa-oldquarter"/>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://miacasa.netlify.app/miacasa-oldquarter?lang=vn"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://miacasa.netlify.app/miacasa-oldquarter"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <lastmod>2026-05-01</lastmod>
   </url>
-  
-  <!-- OUR STORY -->
+
   <url>
     <loc>https://miacasa.netlify.app/our-story</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://miacasa.netlify.app/our-story"/>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://miacasa.netlify.app/our-story?lang=vn"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://miacasa.netlify.app/our-story"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2026-05-01</lastmod>
   </url>
-  
-  <!-- BLOG POSTS (NEW) -->
+
+  <url>
+    <loc>https://miacasa.netlify.app/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-01</lastmod>
+  </url>
+
   <url>
     <loc>https://miacasa.netlify.app/blog-hanoi-3-days</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <lastmod>2026-05-01</lastmod>
   </url>
+
   <url>
     <loc>https://miacasa.netlify.app/blog-train-street</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <lastmod>2026-05-01</lastmod>
   </url>
-  
-  <!-- INVOICE PAGE (Low priority, utility page) -->
-  <url>
-    <loc>https://miacasa.netlify.app/invoice</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.2</priority>
-    <lastmod>2026-05-01</lastmod>
-  </url>
-  
+
 </urlset>

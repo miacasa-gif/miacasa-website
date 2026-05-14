@@ -2,9 +2,27 @@
   publish = "."
   functions = "netlify/functions"
 
+# API routes
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
+  status = 200
+
+# IMPORTANT: preserve sitemap and robots explicitly
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+# SPA fallback (if you are using frontend routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 [[headers]]
@@ -12,3 +30,9 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+
+# IMPORTANT: correct MIME type for sitemap
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"

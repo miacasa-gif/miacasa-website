@@ -153,7 +153,12 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
 <body>
-<a href="#booking" class="sticky-book-btn" data-t="sticky-book">📅 Book Now</a>
+<a href="#booking" class="sticky-book-btn" data-t="sticky-book">
+  <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+    <span>📅</span> 
+    <span>Book Now</span>
+  </span>
+</a>
 
 <!-- Navigation -->
 <nav>
@@ -165,16 +170,16 @@
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
     <li><a href="blog.html" data-t="nav-blog">Blog</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
-    <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
+    <li><a href="index.html?property=oldquarter#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
-  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-    <span class="flag-icon">🇬🇧</span> EN
-  </button>
-  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-    <span class="flag-icon">🇻🇳</span> VN
-  </button>
-</div>
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+  </div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -193,25 +198,24 @@
     <p style="font-size: 0.75rem; color: var(--terracotta); margin-top: 1rem;" data-t="social-proof">⭐ Loved by guests visiting Hanoi · 4.8★ from recent stays</p>
   </div>
   <div class="prop-hero-img">
-  <img 
-    src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg"
-    srcset="
-      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_35/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 300w,
-      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 600w,
-      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 800w,
-      https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 1200w
-    "
-    sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, (max-width: 1200px) 800px, 1200px"
-    alt="entire apartment homestay in Hanoi Old Quarter Hoan Kiem with open terrace" 
-    loading="eager" 
-    fetchpriority="high"
-    width="800"
-    height="600">
-</div>
+    <img 
+      src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg"
+      srcset="
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_300,f_auto,q_35/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 300w,
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 600w,
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_800,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 800w,
+        https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_40/v1775735586/att.YPNVfzqrzgkJEmkdvKKiEJ5pxQOnPKTCChnk7cTDwrg_xzut5n.jpg 1200w
+      "
+      sizes="(max-width: 480px) 300px, (max-width: 768px) 600px, (max-width: 1200px) 800px, 1200px"
+      alt="entire apartment homestay in Hanoi Old Quarter Hoan Kiem with open terrace" 
+      loading="eager" 
+      fetchpriority="high"
+      width="800"
+      height="600">
+  </div>
 </section>
-</main>
 
-<!-- Quick Summary Block -->
+<!-- Quick Summary Block - using inline styles only for this unique element -->
 <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin: 1.5rem 0; padding: 1rem; background: var(--sand); border-radius: 12px;">
   <span style="font-size: 0.75rem;">✔ <span data-t="oq-summary-1">In the heart of Old Quarter</span></span>
   <span style="color: var(--terracotta);">•</span>
@@ -221,35 +225,37 @@
   <span style="color: var(--terracotta);">•</span>
   <span style="font-size: 0.75rem;">✔ <span data-t="oq-summary-4">Best for groups & social travelers</span></span>
 </div>
+</main>
 
 <!-- Desktop Navigation -->
 <div class="section-nav">
-  <a href="#oq-about" data-t="nav-about">About</a>
-  <a href="#oq-apartment" data-t="nav-apartment">Apartment</a>
-  <a href="#oq-amenities" data-t="nav-amenities">Amenities</a>
-  <a href="#oq-gallery" data-t="nav-gallery">Gallery</a>
-  <a href="#oq-location" data-t="nav-location">Location</a>
-  <a href="#oq-rules" data-t="nav-rules">Rules</a>
-  <a href="#oq-faq" data-t="nav-faq">FAQ</a>
-  <a href="#oq-testimonials" data-t="nav-reviews">Reviews</a>
+  <a href="#oq-about">About</a>
+  <a href="#oq-apartment">Apartment</a>
+  <a href="#oq-amenities">Amenities</a>
+  <a href="#oq-gallery">Gallery</a>
+  <a href="#oq-location">Location</a>
+  <a href="#oq-rules">Rules</a>
+  <a href="#oq-faq">FAQ</a>
+  <a href="#oq-testimonials">Reviews</a>
 </div>
 
 <!-- Mobile Floating Navigation -->
 <div class="fab-nav">
   <button class="fab-nav-toggle" onclick="toggleMobileNav()">☰</button>
   <div class="fab-nav-menu" id="mobileNavMenu">
-    <a href="#oq-about" data-t="nav-about">About</a>
-    <a href="#oq-apartment" data-t="nav-apartment">Apartment</a>
-    <a href="#oq-amenities" data-t="nav-amenities">Amenities</a>
-    <a href="#oq-gallery" data-t="nav-gallery">Gallery</a>
-    <a href="#oq-location" data-t="nav-location">Location</a>
-    <a href="#oq-rules" data-t="nav-rules">Rules</a>
-    <a href="#oq-faq" data-t="nav-faq">FAQ</a>
-    <a href="#oq-testimonials" data-t="nav-reviews">Reviews</a>
+    <a href="#oq-about">About</a>
+    <a href="#oq-apartment">Apartment</a>
+    <a href="#oq-amenities">Amenities</a>
+    <a href="#oq-gallery">Gallery</a>
+    <a href="#oq-location">Location</a>
+    <a href="#oq-rules">Rules</a>
+    <a href="#oq-faq">FAQ</a>
+    <a href="#oq-testimonials">Reviews</a>
   </div>
 </div>
 
 <!-- About Section -->
+<span id="oq-about" class="nav-anchor"></span>
 <section class="prop-section" style="background:var(--cream);">
   <div class="container">
     <div class="section-tag" data-t="oq-about-tag">About the Stay</div>
@@ -267,17 +273,16 @@
         ⚠ Heads up: The neighbourhood is lively and can be noisy at night. Access is via steep stairs — not ideal for young children, elderly guests, or anyone with mobility concerns.
       </p>
     </div>
-    
   </div>
 </section>
 
 <!-- Perfect For Section -->
-<span id="oq-who-stays-section" class="nav-anchor"></span>
-<section class="prop-section" id="oq-who-stays">
+<span id="oq-who-stays" class="nav-anchor"></span>
+<section class="prop-section">
   <div class="container">
     <div class="section-tag" data-t="oq-who-tag">Perfect For</div>
     <h2 class="section-title" data-th="oq-who-title">Who <em>stays here</em></h2>
-    <ul class="who-list" style="max-width:500px;">
+    <ul class="who-list">
       <li data-t="oq-who-1">Families</li>
       <li data-t="oq-who-2">Groups of friends</li>
       <li data-t="oq-who-3">Travelers who want to stay in the center of everything</li>
@@ -286,8 +291,8 @@
 </section>
 
 <!-- Apartment Details Section -->
-<span id="oq-apartment-section" class="nav-anchor"></span>
-<section class="prop-section" style="background:var(--warm-white);" id="oq-apartment">
+<span id="oq-apartment" class="nav-anchor"></span>
+<section class="prop-section" style="background:var(--warm-white);">
   <div class="container">
     <div class="section-tag" data-t="oq-apt-tag">The Apartment</div>
     <h2 class="section-title" data-th="oq-apt-title">Entire apartment,<br><em>yours alone</em></h2>
@@ -303,58 +308,59 @@
 <!-- Amenities Section -->
 <span id="oq-amenities" class="nav-anchor"></span>
 <section class="prop-section" style="background:var(--cream);">
-    <div class="container">
-        <div class="section-tag" data-t="oq-amen-tag">Amenities</div>
-        <h2 class="section-title" data-th="oq-amen-title">What's <em>Included</em></h2>
-        <p class="section-sub" data-t="oq-amen-sub">Everything you need for a comfortable stay in the heart of the Old Quarter.</p>
-        
-        <div class="amen-grid">
-            <div class="amenity-item">
-                <div class="amenity-icon">📶</div>
-                <div class="amenity-title" data-t="oq-am1">High-speed WiFi</div>
-                <div class="amenity-desc" data-t="oq-am1s">100 Mbps — great for remote work</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">❄️</div>
-                <div class="amenity-title" data-t="oq-am2">Air conditioning</div>
-                <div class="amenity-desc" data-t="oq-am2s">AC units in every room</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">🛁</div>
-                <div class="amenity-title" data-t="oq-am3">Private bathroom</div>
-                <div class="amenity-desc" data-t="oq-am3s">Hot water & premium toiletries</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">🍳</div>
-                <div class="amenity-title" data-t="oq-am4">Full kitchen</div>
-                <div class="amenity-desc" data-t="oq-am4s">Stove, microwave, fridge & cookware</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">🔑</div>
-                <div class="amenity-title" data-t="oq-am5">Smart lock</div>
-                <div class="amenity-desc" data-t="oq-am5s">Self check-in anytime after 2pm</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">🧺</div>
-                <div class="amenity-title" data-t="oq-am6">Washing machine</div>
-                <div class="amenity-desc" data-t="oq-am6s">Free laundry with detergent</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">🪑</div>
-                <div class="amenity-title" data-t="oq-am7">Open terrace</div>
-                <div class="amenity-desc" data-t="oq-am7s">Outdoor space with seating</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">📺</div>
-                <div class="amenity-title" data-t="oq-am8">Smart TV</div>
-                <div class="amenity-desc" data-t="oq-am8s">Netflix & YouTube ready</div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="section-tag" data-t="oq-amen-tag">Amenities</div>
+    <h2 class="section-title" data-th="oq-amen-title">What's <em>Included</em></h2>
+    <p class="section-sub" data-t="oq-amen-sub">Everything you need for a comfortable stay in the heart of the Old Quarter.</p>
+    
+    <div class="amen-grid">
+      <div class="amenity-item">
+        <div class="amenity-icon">📶</div>
+        <div class="amenity-title" data-t="oq-am1">High-speed WiFi</div>
+        <div class="amenity-desc" data-t="oq-am1s">100 Mbps — great for remote work</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">❄️</div>
+        <div class="amenity-title" data-t="oq-am2">Air conditioning</div>
+        <div class="amenity-desc" data-t="oq-am2s">AC units in every room</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">🛁</div>
+        <div class="amenity-title" data-t="oq-am3">Private bathroom</div>
+        <div class="amenity-desc" data-t="oq-am3s">Hot water & premium toiletries</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">🍳</div>
+        <div class="amenity-title" data-t="oq-am4">Full kitchen</div>
+        <div class="amenity-desc" data-t="oq-am4s">Stove, microwave, fridge & cookware</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">🔑</div>
+        <div class="amenity-title" data-t="oq-am5">Smart lock</div>
+        <div class="amenity-desc" data-t="oq-am5s">Self check-in anytime after 2pm</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">🧺</div>
+        <div class="amenity-title" data-t="oq-am6">Washing machine</div>
+        <div class="amenity-desc" data-t="oq-am6s">Free laundry with detergent</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">🪑</div>
+        <div class="amenity-title" data-t="oq-am7">Open terrace</div>
+        <div class="amenity-desc" data-t="oq-am7s">Outdoor space with seating</div>
+      </div>
+      <div class="amenity-item">
+        <div class="amenity-icon">📺</div>
+        <div class="amenity-title" data-t="oq-am8">Smart TV</div>
+        <div class="amenity-desc" data-t="oq-am8s">Netflix & YouTube ready</div>
+      </div>
     </div>
+  </div>
 </section>
+
 <!-- House Rules -->
 <span id="oq-rules" class="nav-anchor"></span>
-<section id="oq-rules" style="background:var(--warm-white); padding: 5rem 0;">
+<section class="prop-section" style="background:var(--warm-white);">
   <div class="container">
     <div class="section-tag" data-t="sec-rules">House Rules</div>
     <h2 class="section-title" data-th="rules-title">A few things to keep in <em>mind</em></h2>
@@ -434,9 +440,9 @@
   </div>
 </section>
 
-<!-- Gallery Section with Optimized Images -->
-<span id="oq-gallery-section" class="nav-anchor"></span>
-<section style="background:var(--sand);padding:5rem 0;" id="oq-gallery">
+<!-- Gallery Section -->
+<span id="oq-gallery" class="nav-anchor"></span>
+<section class="prop-section" style="background:var(--sand);">
   <div class="container">
     <div class="section-tag" data-t="oq-gal-tag">Gallery</div>
     <h2 class="section-title" data-th="oq-gal-title">A look<br><em>inside</em></h2>
@@ -517,40 +523,46 @@
 </section>
 
 <!-- Location Section -->
-<span id="oq-location-section" class="nav-anchor"></span>
-<section class="prop-section" id="oq-location">
+<span id="oq-location" class="nav-anchor"></span>
+<section class="prop-section">
   <div class="container">
-    <div class="section-tag" data-t="oq-loc-tag">oq-Location</div>
+    <div class="section-tag" data-t="oq-loc-tag">Location</div>
     <h2 class="section-title" data-th="oq-loc-title">Heart of<br><em>Hoan Kiem &amp; Old Quarter</em></h2>
-    <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;max-width:600px;margin-bottom:0.75rem;" data-t="oq-loc-addr">📍 38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi</p>
-    <ul class="location-list" style="list-style:none;margin:0.75rem 0 1rem;padding:0;display:flex;flex-direction:column;gap:0.4rem;max-width:580px;">
+    <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;max-width:600px;margin-bottom:0.75rem;" data-t="oq-loc-addr">
+  📍 <a href="https://maps.google.com/?q=38+P.+Lương+Ngọc+Quyến,+Hàng+Buồm,+Hoàn+Kiếm,+Hanoi" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        style="color:var(--ink-light); text-decoration:underline; text-decoration-color:var(--border);">
+    38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi
+  </a>
+</p>
+    <ul class="who-list" style="list-style:none;margin:0.75rem 0 1rem;padding:0;max-width:580px;">
       <li><span style="color:var(--terracotta);">~5 min</span> walk to Hoàn Kiếm Lake</li>
       <li><span style="color:var(--terracotta);">~2 min</span> walk to Lương Văn Can Street (Old Quarter's busiest)</li>
       <li><span style="color:var(--terracotta);">~10 min</span> walk to Đồng Xuân Market</li>
       <li><span style="color:var(--terracotta);">~15 min</span> by Grab to Hanoi Railway Station</li>
     </ul>
-    <p style="font-size:0.88rem;color:var(--ink-light);line-height:1.8;max-width:600px;margin-bottom:2rem;" data-t="oq-loc-seo">Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience. Hàng Buồm Street — one of Hanoi's oldest trading streets — is right outside your door. If you prefer a quieter, residential base away from the tourist crowds, our <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Train Street</a> are a great alternative.</p>
+    <p style="font-size:0.88rem;color:var(--ink-light);line-height:1.8;max-width:600px;margin-bottom:2rem;" data-t="oq-loc-seo">Staying in Hoàn Kiếm means walking distance to Hoàn Kiếm Lake, easy access to night markets and street food, and a fully immersive Old Quarter experience. If you prefer a quieter, residential base away from the tourist crowds, our <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;font-weight:500;">MiaCasa Hanoi rooms near Train Street</a> are a great alternative.</p>
     <div style="border-radius:4px;overflow:hidden;border:1px solid var(--border);">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.9409657948354!2d105.84924097558715!3d21.03504798061591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab6cdd87ff3b%3A0x13d24d129dfc21e1!2sMiaCasaOldQuarter!5e0!3m2!1sen!2svn!4v1776085220321!5m2!1sen!2svn" width="100%" height="300" style="border:0;display:block;" allowfullscreen="" loading="lazy" title="Map of MiaCasaOldQuarter in Hanoi Old Quarter Hoan Kiem"></iframe>
     </div>
   </div>
 </section>
 
-
 <!-- FAQ Section -->
-<span id="oq-faq-section" class="nav-anchor"></span>
-<section class="faq-section" style="background:var(--cream);" id="oq-faq">
+<span id="oq-faq" class="nav-anchor"></span>
+<section class="faq-section" style="background:var(--cream);">
   <div class="container">
     <div class="section-tag" data-t="faq-tag">FAQ</div>
     <h2 class="section-title" data-th="faq-title">Frequently Asked<br><em>Questions</em></h2>
     <div class="faq-list">
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q1" onclick="toggleFaq(this)"><span>Is MiaCasaOldQuarter in the center of Hanoi?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a1">Yes. Heart of the Old Quarter — walking distance to Hoàn Kiếm Lake, night markets, and major attractions.</p></div></div>
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q2" onclick="toggleFaq(this)"><span>Is it noisy at night?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a2">The Old Quarter is lively, especially evenings and weekends. If you prefer quiet, MiaCasaHanoi may suit you better.</p></div></div>
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q3" onclick="toggleFaq(this)"><span>Is it suitable for families or groups?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a3">Yes. Multiple beds and a spacious layout make it ideal for families or small groups traveling together.</p></div></div>
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q4" onclick="toggleFaq(this)"><span>How far is Hoàn Kiếm Lake?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a4">A short 5–10 minute walk depending on your pace.</p></div></div>
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q5" onclick="toggleFaq(this)"><span>Are restaurants and cafés nearby?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a5">Surrounded by Hanoi's best food, cafés, and street eats — all within walking distance.</p></div></div>
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q6" onclick="toggleFaq(this)"><span>How do I check in?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a6">Simple self check-in instructions provided before arrival — arrive at any time.</p></div></div>
-      <div class="faq-item"><button class="faq-q" data-t="oq-faq-q7" onclick="toggleFaq(this)"><span>Can I book directly for better prices?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a7">Yes. Direct bookings avoid third-party platform fees, so you get a better rate.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q1">Is MiaCasaOldQuarter in the center of Hanoi?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a1">Yes. Heart of the Old Quarter — walking distance to Hoàn Kiếm Lake, night markets, and major attractions.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q2">Is it noisy at night?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a2">The Old Quarter is lively, especially evenings and weekends. If you prefer quiet, MiaCasaHanoi may suit you better.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q3">Is it suitable for families or groups?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a3">Yes. Multiple beds and a spacious layout make it ideal for families or small groups traveling together.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q4">How far is Hoàn Kiếm Lake?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a4">A short 5–10 minute walk depending on your pace.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q5">Are restaurants and cafés nearby?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a5">Surrounded by Hanoi's best food, cafés, and street eats — all within walking distance.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q6">How do I check in?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a6">Simple self check-in instructions provided before arrival — arrive at any time.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-t="oq-faq-q7">Can I book directly for better prices?</span><span class="plus-icon">+</span></button><div class="faq-a"><p data-t="oq-faq-a7">Yes. Direct bookings avoid third-party platform fees, so you get a better rate.</p></div></div>
     </div>
     <div class="faq-helper" style="margin-bottom: 2rem;">
       <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem;" data-t="faq-help-title">Not sure which property to choose?</h4>
@@ -569,8 +581,8 @@
 </section>
 
 <!-- Reviews Section -->
-<span id="oq-testimonials-section" class="nav-anchor"></span>
-<section id="oq-testimonials" style="background:var(--ink);color:white;">
+<span id="oq-testimonials" class="nav-anchor"></span>
+<section style="background:var(--ink);color:white; padding: 5rem 0;">
   <div class="container">
     <div class="section-tag" style="color:rgba(255,255,255,0.5);" data-t="sec-reviews">Guest Reviews</div>
     <h2 class="section-title" style="color:white;" data-th="reviews-title">Stories from <em>our guests</em></h2>
@@ -584,62 +596,73 @@
 </section>
 
 <!-- Footer -->
-<footer style="background:var(--ink);color:rgba(255,255,255,.5);padding:2.5rem 0;">
-  <div class="container">
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: left;">
-      <div>
-        <strong style="color: var(--sand); font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-hanoi-title">MiaCasa Hanoi</strong>
-        <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
-          <span data-t="footer-hanoi-address">92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi, Vietnam</span><br>
-        </p>
-        <p style="font-size: 0.78rem; margin-top: 0.5rem;">
-          📞 <a href="tel:+84869922261" style="color:rgba(255,255,255,.5); text-decoration:none;">+84 869 922 261</a>
-        </p>
-      </div>
-      <div>
-        <strong style="color: var(--sand); font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-oq-title">MiaCasa Old Quarter</strong>
-        <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
-          <span data-t="footer-oq-address">38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi, Vietnam</span><br>
-        </p>
-        <p style="font-size: 0.78rem; margin-top: 0.5rem;">
-          📞 <a href="tel:+84869922261" style="color:rgba(255,255,255,.5); text-decoration:none;">+84 869 922 261</a>
-        </p>
-      </div>
-      <div>
-        <strong style="color: var(--sand); font-family: 'Cormorant Garamond', serif; font-size: 1rem;" data-t="footer-contact-title">Contact Us</strong>
-        <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.8;">
-          ✉️ <a href="mailto:miacasahanoi@gmail.com" style="color:rgba(255,255,255,.5); text-decoration:none;">miacasahanoi@gmail.com</a><br>
-          💬 <a href="https://wa.me/84869922261" target="_blank" style="color:rgba(255,255,255,.5); text-decoration:none;" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a><br>
-          📞 <a href="tel:+84869922261" style="color:rgba(255,255,255,.5); text-decoration:none;" data-t="footer-call">Call +84 869 922 261</a><br>
-          <span data-t="footer-response">⏱️ Responses within 2 hours (7am - 10pm ICT)</span>
-        </p>
-      </div>
+<footer>
+    <div class="container">
+        <!-- Main Footer Content - Clean 4 Column Layout -->
+        <div class="footer-grid">
+            <!-- Brand Column -->
+            <div class="footer-brand">
+                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+                <div style="margin-top: 1rem;">
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);">⭐ 4.9★ · 200+ happy guests</p>
+                </div>
+            </div>
+            
+            <!-- Our Stays Column -->
+            <div class="footer-col">
+                <h4>Our Stays</h4>
+                <ul>
+                    <li><a href="miacasa-hanoi.html">MiaCasa Hanoi</a></li>
+                    <li><a href="miacasa-oldquarter.html">MiaCasa Old Quarter</a></li>
+                    <li><a href="index.html#booking">Book Direct</a></li>
+                </ul>
+            </div>
+            
+            <!-- Information Column -->
+            <div class="footer-col">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact Column -->
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261">Call +84 869 922 261</a></li>
+                    <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;">⏱️ Response within 2 hours</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Social Media Links - Subtle divider -->
+        <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s;">
+                    Facebook
+                </a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s;">
+                    Instagram
+                </a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s;">
+                    TikTok
+                </a>
+            </div>
+        </div>
+        
+        <!-- Bottom Bar - Clean and minimal -->
+        <div class="footer-bottom">
+            <span>© 2025 MiaCasa Homestays</span>
+            <span>Made with ♡ in Hanoi</span>
+        </div>
     </div>
-    <!-- Social Media Links -->
-<div style="text-align: center; margin: 2rem 0 1.5rem;">
-    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem;">Follow us on social media</p>
-    <div style="display: flex; gap: 1rem; justify-content: center;">
-        <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
-            📘 Facebook
-        </a>
-        <span style="color: rgba(255,255,255,0.3);">|</span>
-        <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
-            📷 Instagram
-        </a>
-        <span style="color: rgba(255,255,255,0.3);">|</span>
-        <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
-            🎵 TikTok
-        </a>
-    </div>
-</div>
-    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 1.5rem; text-align: center; font-size: 0.7rem;">
-      <p style="font-size: 0.65rem; text-align: center; margin-bottom: 1rem; color: rgba(255,255,255,0.3);">
-        MiaCasa Hanoi is a boutique homestay brand in Hanoi, Vietnam.
-      </p>
-      <span data-t="footer-copy">© 2025 MiaCasa Homestays. All rights reserved.</span>
-      <span style="margin-left: 1rem;" data-t="footer-made">Made with ♡ in Hanoi</span>
-    </div>
-  </div>
 </footer>
 
 <!-- External JavaScript Files -->
@@ -648,54 +671,11 @@
 <script src="/js/booking.js" defer></script>
 <script src="/js/lang.js" defer></script>
 
-<style>
-/* Property page specific styles */
-.prop-hero { min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 64px; }
-.prop-hero-left { background: var(--sand); display: flex; flex-direction: column; justify-content: center; padding: 4rem 3rem 4rem 4rem; position: relative; }
-.prop-hero-left::after { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, var(--terracotta), transparent); }
-.prop-hero-img { overflow: hidden; position: relative; height: 100%; }
-.prop-hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.prop-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.15; color: var(--ink); margin-bottom: 1rem; }
-.prop-hero h1 em { color: var(--terracotta); font-style: italic; }
-.prop-sub { font-size: 0.94rem; color: var(--ink-light); max-width: 400px; line-height: 1.8; margin-bottom: 2rem; }
-.prop-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ink-light); font-size: 0.75rem; letter-spacing: 0.08em; text-decoration: none; margin-bottom: 1rem; text-transform: uppercase; transition: color 0.2s; }
-.prop-back:hover { color: var(--terracotta); }
-.prop-section { padding: 5rem 0; }
-.prop-section:nth-child(even) { background: var(--warm-white); }
-.who-list { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
-.who-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; color: var(--ink-light); }
-.who-list li::before { content: '✦'; color: var(--terracotta); flex-shrink: 0; font-size: 0.65rem; margin-top: 0.25em; }
-.rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
-.room-card { background: white; border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; }
-.room-card p { font-size: 0.88rem; color: var(--ink-light); line-height: 1.7; margin-top: 0.3rem; }
-.amen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 2rem; }
-.location-list li { font-size: 0.88rem; color: var(--ink-light); display: flex; gap: 0.6rem; }
-.amenity-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--sand); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.9rem; }
-.amenity-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem; border-radius: 2px; transition: background 0.2s; border: 1px solid transparent; }
-.amenity-item:hover { background: var(--sand); border-color: var(--border); }
-.amenity-text { font-size: 0.86rem; color: var(--ink); line-height: 1.5; }
-.amenity-text span { display: block; font-size: 0.73rem; color: var(--ink-light); }
-.faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 740px; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-item:last-child { border-bottom: none; }
-.faq-q { width: 100%; background: none; border: none; padding: 1.1rem 1.4rem; text-align: left; font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; transition: background 0.2s; }
-.faq-q:hover { background: var(--sand); }
-.faq-q .plus-icon { color: var(--terracotta); font-size: 1.2rem; font-weight: 400; transition: transform 0.2s ease; }
-.faq-item.open .plus-icon { transform: rotate(45deg); }
-.faq-a { display: none; padding: 0 1.4rem 1.1rem; font-size: 0.85rem; color: var(--ink-light); line-height: 1.85; }
-.faq-item.open .faq-a { display: block; }
-@media (max-width: 900px) { .prop-hero { grid-template-columns: 1fr; min-height: auto; } .prop-hero-img { height: 260px; } .prop-hero-left { padding: 2.5rem 1.5rem; } }
-@media (max-width: 768px) { .prop-section { padding: 3rem 0; } .rooms-grid { grid-template-columns: 1fr; } .amen-grid { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; } .gallery-item.wide { grid-column: span 2; } }
-</style>
+<!-- GLightbox JS -->
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
 
+<!-- Reviews Data and Functions -->
 <script>
-function toggleFaq(btn) {
-    const item = btn.parentElement;
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-    if (!wasOpen) item.classList.add('open');
-}
-
 // Reviews for Old Quarter
 const OLDQUARTER_REVIEWS = [
     { platform: 'airbnb', rating: 5, text: "This apartment is an absolute gem right in the Old Quarter! We were 5 friends and the three queen beds fit everyone perfectly. The 17m² balcony with BBQ was our favourite spot every evening. Steps from Tạ Hiện Street — you can walk to literally everything. The Netflix projector and white noise machine were brilliant touches.", name: "Julia & Marc", origin: "Paris, France", initials: "JM", date: "March 2025" },
@@ -713,8 +693,8 @@ function renderReviews() {
     const grid = document.getElementById('reviews-grid');
     if (!grid) return;
     
-    grid.innerHTML = filtered.map((r, i) => `
-        <div class="testimonial-card ${i >= reviewsShown ? 'hidden-review' : ''}">
+    grid.innerHTML = filtered.slice(0, reviewsShown).map((r, i) => `
+        <div class="testimonial-card">
             <div class="platform-tag ${r.platform}">${PLATFORM_LABELS[r.platform]}</div>
             <div class="stars">${'★'.repeat(r.rating)}</div>
             <div class="testimonial-text">"${r.text}"</div>
@@ -726,7 +706,7 @@ function renderReviews() {
     `).join('');
     
     const lm = document.getElementById('reviews-load-more');
-    if (lm) lm.style.display = filtered.length > reviewsShown ? 'block' : 'none';
+    if (lm) lm.style.display = filtered.length > reviewsShown ? 'flex' : 'none';
 }
 
 function loadMoreReviews() { reviewsShown += 3; renderReviews(); }
@@ -750,27 +730,25 @@ function loadMoreReviews() { reviewsShown += 3; renderReviews(); }
     });
     renderReviews();
 })();
+
+// Toggle FAQ items
+function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    if (item) item.classList.toggle('open');
+}
+window.toggleFaq = toggleFaq;
+window.loadMoreReviews = loadMoreReviews;
+
+// Initialize GLightbox
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof GLightbox !== 'undefined') {
+        GLightbox({ selector: '.glightbox', touchNavigation: true, loop: true, zoomable: true });
+    }
+});
 </script>
 
 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">💬</a>
-<a href="index.html?property=hanoi#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
+<a href="index.html?property=oldquarter#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
 
-<!-- GLightbox JS for image lightbox - Deferred -->
-<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof GLightbox !== 'undefined') {
-      const lightbox = GLightbox({
-        selector: '.glightbox',
-        touchNavigation: true,
-        loop: true,
-        zoomable: true,
-        draggable: true,
-        autoplayVideos: false,
-        moreLength: 0
-      });
-    }
-  });
-</script>
 </body>
 </html>

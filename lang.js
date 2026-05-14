@@ -131,22 +131,65 @@ const TRANSLATIONS = {
   'seo-block':       {en:'Looking for a homestay or apartment in Hanoi? Book direct at MiaCasa — <a href="miacasa-hanoi.html" style="color:var(--terracotta);text-decoration:none;">private rooms near Hanoi Railway Station</a> and a <a href="miacasa-oldquarter.html" style="color:var(--terracotta);text-decoration:none;">3-bedroom apartment in the Old Quarter, Hoàn Kiếm</a>. No platform fees. Best rate guaranteed.',
                       vn:'Tìm homestay hoặc căn hộ tại Hà Nội? Đặt trực tiếp tại MiaCasa — chỗ nghỉ boutique gần Ga Hà Nội và trong Phố Cổ Hoàn Kiếm. Không phí nền tảng. Giá tốt nhất được đảm bảo.'},
 
+  
+  /* ── HOUSE RULES ──────────────────────────────────────────────── */
+  'sec-rules':       {en:'House Rules', vn:'Nội quy'},
+  'rules-title':     {en:'A few things to keep in <em>mind</em>', vn:'Một vài điều cần <em>lưu ý</em>'},
+  'rules-sub':       {en:'To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.', vn:'Để đảm bảo mọi người có kỳ lưu trú tuyệt vời, chúng tôi đề nghị khách tuân thủ các quy định đơn giản sau.'},
+  'rule-checkinout': {en:'Check-in / Check-out', vn:'Nhận / Trả phòng'},
+  'rule-cio-1':      {en:'Check-in from 2:00 PM (self check-in)', vn:'Nhận phòng từ 14:00 (tự check-in)'},
+  'rule-cio-2':      {en:'MiaCasaHanoi: check-out by 12:00 PM (noon)', vn:'MiaCasaHanoi: trả phòng trước 12:00 (trưa)'},
+  'rule-cio-3':      {en:'MiaCasaOldQuarter: check-out by 11:00 AM', vn:'MiaCasaOldQuarter: trả phòng trước 11:00'},
+  'rule-cio-4':      {en:'Early/late check-in available on request', vn:'Nhận / trả phòng sớm / muộn theo yêu cầu'},
+  'rule-cio-5':      {en:'Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge', vn:'Có thể gửi hành lý tại MiaCasaHanoi — thời gian dài có thể tính thêm phí'},
+  'rule-noise':      {en:'Noise & Guests', vn:'Tiếng ồn & Khách'},
+  'rule-noise-1':    {en:'Quiet hours 10:00 PM – 7:00 AM', vn:'Giờ yên tĩnh 22:00 – 7:00'},
+  'rule-noise-2':    {en:'No unregistered overnight guests', vn:'Không đón khách qua đêm chưa đăng ký'},
+  'rule-noise-3':    {en:'Be mindful of neighbours', vn:'Tôn trọng hàng xóm'},
+  'rule-noise-4':    {en:'Groups of 4+ need prior notice', vn:'Nhóm từ 4 người trở lên cần thông báo trước'},
+  'rule-smoking':    {en:'Smoking & Pets', vn:'Hút thuốc & Thú cưng'},
+  'rule-smoke-1':    {en:'No smoking indoors', vn:'Không hút thuốc trong nhà'},
+  'rule-smoke-2':    {en:'Balcony/terrace smoking only', vn:'Chỉ hút thuốc ở ban công / sân thượng'},
+  'rule-smoke-3':    {en:'Pets welcome — additional charge applies, please inform the host in advance', vn:'Chào đón thú cưng — phụ phí áp dụng, vui lòng báo chủ nhà trước'},
+  'rule-smoke-4':    {en:'Candles permitted with care', vn:'Cho phép dùng nến cẩn thận'},
+  'rule-propcare':   {en:'Property Care', vn:'Bảo quản tài sản'},
+  'rule-prop-1':     {en:'Treat the space as your own home', vn:'Đối xử với không gian như ngôi nhà của bạn'},
+  'rule-prop-2':     {en:'Report damages promptly', vn:'Báo cáo hư hỏng ngay lập tức'},
+  'rule-prop-3':     {en:'No shoes inside — slippers provided', vn:'Không đi giày trong nhà — có dép'},
+  'rule-prop-4':     {en:'Use designated rubbish bins', vn:'Dùng thùng rác đúng nơi quy định'},
+  'rule-legal':      {en:'Legal Requirement', vn:'Yêu cầu pháp lý'},
+  'rule-legal-1':    {en:'Vietnamese law requires all guests to provide a copy of their passport or national ID', vn:'Pháp luật Việt Nam yêu cầu tất cả khách phải cung cấp bản sao hộ chiếu hoặc CMND/CCCD'},
+  'rule-legal-2':    {en:'Please send a photo to the host via WhatsApp or email before or upon check-in', vn:'Vui lòng gửi ảnh cho chủ nhà qua WhatsApp hoặc email trước hoặc khi nhận phòng'},
+  'rule-legal-3':    {en:'Bookings cannot be confirmed without this document', vn:'Đặt phòng không thể xác nhận nếu thiếu tài liệu này'},
+  'rule-legal-4':    {en:'Information is used solely for local authority registration', vn:'Thông tin chỉ dùng để đăng ký với cơ quan chức năng địa phương'},
+  'rule-payment':    {en:'Payments & Cancellation', vn:'Thanh toán & Hủy phòng'},
+  'rule-pay-1':      {en:'Free cancellation up to 48h prior', vn:'Miễn phí hủy trước 48 giờ'},
+  'rule-pay-2':      {en:'Bank transfer or PayPal accepted', vn:'Chấp nhận chuyển khoản ngân hàng hoặc PayPal'},
+  'rule-pay-3':      {en:'Security deposit for long stays', vn:'Đặt cọc bảo đảm cho lưu trú dài ngày'},
+  'rule-eco':        {en:'Eco Guidelines', vn:'Hướng dẫn sinh thái'},
+  'rule-eco-1':      {en:'Turn off A/C when leaving', vn:'Tắt điều hoà khi ra ngoài'},
+  'rule-eco-2':      {en:'Mineral water provided (2 bottles per room per stay)', vn:'Cung cấp nước khoáng (2 chai mỗi phòng mỗi lần ở)'},
+  'rule-eco-3':      {en:'We minimise single-use plastics where possible', vn:'Chúng tôi giảm thiểu đồ nhựa dùng một lần'},
+  'rule-eco-4':      {en:'Towel reuse encouraged', vn:'Khuyến khích tái sử dụng khăn tắm'},
+
+
+
   /* ── CONTACT FORM ─────────────────────────────────────────────── */
   'invoice-text':    {en:'Need an invoice for your stay?', vn:'Cần hóa đơn cho kỳ lưu trú của bạn?'},
   'invoice-link':    {en:'Click here →', vn:'Bấm vào đây →'},
   'cancel-text':     {en:'✈️ Need to cancel your booking?', vn:'✈️ Cần hủy đặt phòng?'},
   'cancel-link':     {en:'Request cancellation →', vn:'Yêu cầu hủy →'},
   'sec-contact':     {en:'Get in Touch', vn:'Liên hệ'},
-  'contact-title':   {en:"We'd love to <em>hear from you</em>", vn:'Chúng tôi rất <em>muốn nghe từ bạn</em>'},
-  'contact-sub':     {en:'Questions, special requests, or just want to say hello — reach out anytime.', vn:'Câu hỏi, yêu cầu đặc biệt, hoặc chỉ muốn chào hỏi — liên hệ bất cứ lúc nào.'},
+  'contact-title':   {en:"We'd love to <em>hear from you</em>", vn:'Chúng tôi rất mong <em>được nghe từ bạn</em>'},
+  'contact-sub':     {en:'Questions, special requests, or just want to say hello — reach out anytime.', vn:'Câu hỏi, yêu cầu đặc biệt, hoặc chỉ muốn chào hỏi — hãy liên hệ bất cứ lúc nào.'},
   'contact-findus':  {en:'Find us in Hanoi', vn:'Tìm chúng tôi tại Hà Nội'},
   'contact-whatsapp-lbl': {en:'WhatsApp / Phone', vn:'WhatsApp / Điện thoại'},
   'contact-email-lbl': {en:'Email', vn:'Email'},
   'contact-response-lbl': {en:'Response time', vn:'Thời gian phản hồi'},
-  'contact-response-val': {en:' Within 2 hours · 7am – 10pm ICT', vn:' Trong vòng 2 giờ (7:00–22:00 giờ Việt Nam)'},
-  'lbl-cname':       {en:'Name', vn:'Họ và tên'},
+  'contact-response-val': {en:'Within 2 hours · 7am – 10pm ICT', vn:'Trong vòng 2 giờ · 7h – 22h hàng ngày'},
+  'lbl-cname':       {en:'Name', vn:'Họ tên'},
   'lbl-cemail':      {en:'Email', vn:'Email'},
-  'lbl-cprop':       {en:'Property', vn:'Chỗ nghỉ'},
+  'lbl-cprop':       {en:'Property', vn:'Chỗ ở'},
   'lbl-csubject':    {en:'Subject', vn:'Chủ đề'},
   'lbl-cmsg':        {en:'Message', vn:'Tin nhắn'},
   'ph-cname':        {en:'Your name', vn:'Tên của bạn'},
@@ -155,9 +198,16 @@ const TRANSLATIONS = {
   'btn-whatsapp':    {en:'Send via WhatsApp →', vn:'Gửi qua WhatsApp →'},
   'subject-booking': {en:'Booking Enquiry', vn:'Hỏi về đặt phòng'},
   'subject-special': {en:'Special Request', vn:'Yêu cầu đặc biệt'},
-  'subject-calendar': {en:'Calendar Sync / Channel Manager', vn:'Đồng bộ lịch'},
+  'subject-calendar': {en:'Calendar Sync / Channel Manager', vn:'Đồng bộ lịch / Quản lý kênh'},
   'subject-other':   {en:'Other', vn:'Khác'},
   'contact-confirm': {en:'✓ Message sent! We\'ll be in touch soon.', vn:'✓ Tin nhắn đã gửi! Chúng tôi sẽ liên hệ lại sớm.'},
+  'prop-hanoi':      {en:'MiaCasa Hanoi', vn:'MiaCasa Hà Nội'},
+  'prop-oldquarter': {en:'MiaCasa Old Quarter', vn:'MiaCasa Phố Cổ'},
+  'captcha-label':   {en:'Security Check: What is {num1} + {num2}?', vn:'Kiểm tra bảo mật: {num1} + {num2} bằng bao nhiêu?'},
+  'captcha-placeholder': {en:'Enter answer', vn:'Nhập câu trả lời'},
+  'captcha-refresh': {en:'⟳ Refresh', vn:'⟳ Làm mới'},
+  'whatsapp-link':   {en:'💬 WhatsApp', vn:'💬 WhatsApp'},
+  'call-link':       {en:'📞 Call +84 869 922 261', vn:'📞 Gọi +84 869 922 261'},
 
   /* ── FOOTER TRANSLATIONS ─────────────────────────────────────── */
   'footer-stays-title': {en:'Our Stays', vn:'Chỗ nghỉ'},
@@ -188,6 +238,23 @@ const TRANSLATIONS = {
   'footer-whatsapp': {en:'WhatsApp +84 869 922 261', vn:'WhatsApp +84 869 922 261'},
   'footer-call':     {en:'Call +84 869 922 261', vn:'Gọi +84 869 922 261'},
   'footer-response': {en:'⏱️ Responses within 2 hours (7am - 10pm ICT)', vn:'⏱️ Phản hồi trong 2 giờ (7h - 22h giờ Việt Nam)'},
+
+  /* ── ADDITIONAL FOOTER TRANSLATIONS ───────────────────────────── */
+  'footer-brand-p':  {en:'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+                      vn:'Hai homestay độc đáo tại Hà Nội — được tạo ra với tình yêu cho những du khách muốn có một ngôi nhà thực sự, không chỉ là một chỗ ngủ.'},
+  'footer-rating':   {en:'⭐ 4.9★ · 200+ happy guests', vn:'⭐ 4.9★ · Hơn 200 khách hài lòng'},
+  'footer-our-stays': {en:'Our Stays', vn:'Chỗ ở của chúng tôi'},
+  'footer-hanoi-link': {en:'MiaCasa Hanoi', vn:'MiaCasa Hà Nội'},
+  'footer-oq-link':  {en:'MiaCasa Old Quarter', vn:'MiaCasa Phố Cổ'},
+  'footer-book-direct': {en:'Book Direct', vn:'Đặt trực tiếp'},
+  'footer-info':     {en:'Information', vn:'Thông tin'},
+  'footer-story':    {en:'Our Story', vn:'Câu chuyện của chúng tôi'},
+  'footer-blog':     {en:'Blog', vn:'Blog'},
+  'footer-contact':  {en:'Contact', vn:'Liên hệ'},
+  'social-facebook': {en:'Facebook', vn:'Facebook'},
+  'social-instagram': {en:'Instagram', vn:'Instagram'},
+  'social-tiktok':   {en:'TikTok', vn:'TikTok'},
+  'footer-copyright': {en:'© 2025 MiaCasa Homestays', vn:'© 2025 MiaCasa Homestays'},
 
   /* ── MIACASA HANOI PAGE ───────────────────────────────────────── */
   'h-tag':           {en:'MiaCasa Hanoi · Văn Miếu, Hanoi', vn:'MiaCasa Hà Nội · Văn Miếu, Hà Nội'},
@@ -337,7 +404,30 @@ const TRANSLATIONS = {
   'oldquarter-notice': {en:'⚠ Heads up: The neighbourhood is lively and can be noisy at night. Access is via steep stairs — not ideal for young children, elderly guests, or anyone with mobility concerns.', vn:'⚠ Lưu ý: Khu phố sôi động và có thể ồn ào vào ban đêm. Lối lên là cầu thang dốc — không phù hợp cho trẻ nhỏ, người lớn tuổi hoặc người có vấn đề về đi lại.'},
 
   /* ── OUR STORY PAGE ────────────────────────────────────────────── */
-  'story-hero-title': {en:'How MiaCasa Began', vn:'Hành trình bắt đầu của MiaCasa'},
+    /* ── ADDITIONAL CONTACT FORM & FOOTER TRANSLATIONS ─────────────── */
+  'prop-hanoi':        {en:'MiaCasa Hanoi', vn:'MiaCasa Hà Nội'},
+  'prop-oldquarter':   {en:'MiaCasa Old Quarter', vn:'MiaCasa Phố Cổ'},
+  'captcha-label':     {en:'Security Check: What is {num1} + {num2}?', vn:'Kiểm tra bảo mật: {num1} + {num2} bằng bao nhiêu?'},
+  'captcha-placeholder': {en:'Enter answer', vn:'Nhập câu trả lời'},
+  'captcha-refresh':   {en:'⟳ Refresh', vn:'⟳ Làm mới'},
+  'whatsapp-link':     {en:'💬 WhatsApp', vn:'💬 WhatsApp'},
+  'call-link':         {en:'📞 Call +84 869 922 261', vn:'📞 Gọi +84 869 922 261'},
+  'footer-brand-p':    {en:'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+                        vn:'Hai homestay độc đáo tại Hà Nội — được tạo ra với tình yêu cho những du khách muốn có một ngôi nhà thực sự, không chỉ là một chỗ ngủ.'},
+  'footer-rating':     {en:'⭐ 4.9★ · 200+ happy guests', vn:'⭐ 4.9★ · Hơn 200 khách hài lòng'},
+  'footer-our-stays':  {en:'Our Stays', vn:'Chỗ ở của chúng tôi'},
+  'footer-hanoi-link': {en:'MiaCasa Hanoi', vn:'MiaCasa Hà Nội'},
+  'footer-oq-link':    {en:'MiaCasa Old Quarter', vn:'MiaCasa Phố Cổ'},
+  'footer-book-direct': {en:'Book Direct', vn:'Đặt trực tiếp'},
+  'footer-info':       {en:'Information', vn:'Thông tin'},
+  'footer-story':      {en:'Our Story', vn:'Câu chuyện của chúng tôi'},
+  'footer-blog':       {en:'Blog', vn:'Blog'},
+  'footer-contact':    {en:'Contact', vn:'Liên hệ'},
+  'social-facebook':   {en:'Facebook', vn:'Facebook'},
+  'social-instagram':  {en:'Instagram', vn:'Instagram'},
+  'social-tiktok':     {en:'TikTok', vn:'TikTok'},
+  'footer-copyright':  {en:'© 2025 MiaCasa Homestays', vn:'© 2025 MiaCasa Homestays'},
+   'story-hero-title': {en:'How MiaCasa Began', vn:'Hành trình bắt đầu của MiaCasa'},
   'story-hero-subtitle': {en:'A small idea, built with care in Hanoi', vn:'Một ý tưởng nhỏ, được xây dựng với sự chăm chút tại Hà Nội'},
   'story-tag':       {en:'MiaCasa Homestays', vn:'MiaCasa Homestays'},
   'story-h1':        {en:'Our <em>Story</em>', vn:'Câu Chuyện<br><em>Của Chúng Tôi</em>'},
@@ -472,6 +562,16 @@ const TRANSLATIONS = {
   'faq-help-title':  {en:"Not sure which property to choose?", vn:"Không chắc nên chọn chỗ nghỉ nào?"},
   'faq-help-oq':     {en:"Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife", vn:"Chọn MiaCasa Phố Cổ nếu bạn muốn ở trung tâm, gần các điểm tham quan và cuộc sống về đêm"},
   'faq-help-h':      {en:"Choose MiaCasaHanoi if you prefer a quieter, more local experience", vn:"Chọn MiaCasaHanoi nếu bạn thích trải nghiệm yên tĩnh và đậm chất địa phương hơn"},
+  
+  /* ── FAQ ──────────────────────────────────────────────────────── */
+  'faq-tag':         {en:"FAQ", vn:"Câu hỏi thường gặp"},
+  'faq-title':       {en:"Frequently Asked<br><em>Questions</em>", vn:"Câu Hỏi<br><em>Thường Gặp</em>"},
+  'faq-choosetitle': {en:'Not sure which property to choose?', vn:'Chưa biết chọn chỗ nghỉ nào?'},
+  'faq-choose-oq':   {en:'Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife.', vn:'Chọn MiaCasa Phố Cổ nếu bạn muốn ở trung tâm, gần các điểm tham quan và cuộc sống về đêm.'},
+  'faq-choose-h':    {en:'Choose MiaCasa Hanoi if you prefer a quieter, more local experience.', vn:'Chọn MiaCasa Hà Nội nếu bạn thích không khí yên tĩnh và đậm chất địa phương hơn.'},
+  'faq-help-title':  {en:"Not sure which property to choose?", vn:"Không chắc nên chọn chỗ nghỉ nào?"},
+  'faq-help-oq':     {en:"Choose MiaCasa Old Quarter if you want to stay in the center, close to attractions and nightlife", vn:"Chọn MiaCasa Phố Cổ nếu bạn muốn ở trung tâm, gần các điểm tham quan và cuộc sống về đêm"},
+  'faq-help-h':      {en:"Choose MiaCasaHanoi if you prefer a quieter, more local experience", vn:"Chọn MiaCasaHanoi nếu bạn thích trải nghiệm yên tĩnh và đậm chất địa phương hơn"},
   'h-faq-q1':        {en:"How far is MiaCasaHanoi from the Old Quarter?", vn:"MiaCasaHanoi cách Phố Cổ bao xa?"},
   'h-faq-a1':        {en:"MiaCasaHanoi is about 10–15 minutes by Grab or taxi from the Old Quarter and Hoàn Kiếm Lake. Close enough to explore easily, while staying in a quieter, more local neighborhood.", vn:"MiaCasaHanoi cách Phố Cổ và Hồ Hoàn Kiếm khoảng 10–15 phút bằng Grab hoặc taxi. Gần đủ để dễ dàng khám phá, trong khi vẫn ở trong một khu phố yên tĩnh và đậm chất địa phương hơn."},
   'h-faq-q2':        {en:"Is the area quiet?", vn:"Khu vực có yên tĩnh không?"},
@@ -486,6 +586,8 @@ const TRANSLATIONS = {
   'h-faq-a6':        {en:"We offer self check-in with clear instructions sent before your arrival. Simple and flexible, especially for late arrivals.", vn:"Chúng tôi cung cấp dịch vụ tự nhận phòng với hướng dẫn rõ ràng được gửi trước khi bạn đến. Đơn giản và linh hoạt, đặc biệt cho những người đến muộn."},
   'h-faq-q7':        {en:"Can I book directly through the website?", vn:"Tôi có thể đặt phòng trực tiếp qua website không?"},
   'h-faq-a7':        {en:"Yes. Booking directly gives you better rates compared to platforms like Airbnb or Booking.com.", vn:"Có. Đặt phòng trực tiếp qua website của chúng tôi sẽ cho bạn mức giá tốt hơn so với các nền tảng như Airbnb hoặc Booking.com."},
+  'h-faq-q8':        {en:'❓ Is there a laundry?', vn:'❓ Có máy giặt không?'},
+  'h-faq-a8':        {en:'Yes, free washing machine and dryer with detergent provided.', vn:'Có, máy giặt và máy sấy miễn phí kèm bột giặt.'},
   'oq-faq-q1':       {en:"Is MiaCasaOldQuarter located in the center of Hanoi?", vn:"MiaCasaOldQuarter có nằm ở trung tâm Hà Nội không?"},
   'oq-faq-a1':       {en:"Yes. The apartment is in the heart of the Old Quarter, within walking distance of Hoàn Kiếm Lake, night markets, and major attractions.", vn:"Có. Căn hộ nằm ngay trung tâm Phố Cổ, trong tầm đi bộ đến Hồ Hoàn Kiếm, chợ đêm và các điểm tham quan chính."},
   'oq-faq-q2':       {en:"Is it noisy at night?", vn:"Ban đêm có ồn không?"},
@@ -505,62 +607,6 @@ const TRANSLATIONS = {
   'hanoi-feel-2':    {en:'🏡 Live like a local in a real neighborhood', vn:'🏡 Sống như người địa phương'},
   'hanoi-feel-3':    {en:'🌿 Slower, more personal Hanoi experience', vn:'🌿 Trải nghiệm Hà Nội chậm rãi hơn'},
 
-  /* ── GALLERY ──────────────────────────────────────────────────── */
-  'gal-tag':         {en:'Gallery', vn:'Thư viện ảnh'},
-  'gal-title':       {en:'A look<br><em>inside</em>', vn:'Nhìn <em>bên trong</em>'},
-  'gal-view-all':    {en:'View full gallery →', vn:'Xem toàn bộ ảnh →'},
-  'gal-cta-h':       {en:'View full gallery at MiaCasa Hanoi →', vn:'Xem thư viện đầy đủ tại MiaCasa Hà Nội →'},
-  'gal-cta-oq':      {en:'View full gallery at MiaCasa Old Quarter →', vn:'Xem thư viện đầy đủ tại MiaCasa Phố Cổ →'},
-  'h-gal-tag':       {en:'Gallery', vn:'Thư viện ảnh'},
-  'h-gal-title':     {en:'Inside<br><em>MiaCasa Hanoi</em>', vn:'Bên trong<br><em>MiaCasa Hà Nội</em>'},
-  'oq-gal-tag':      {en:'Gallery', vn:'Thư viện ảnh'},
-  'oq-gal-title':    {en:'Inside<br><em>MiaCasa Old Quarter</em>', vn:'Bên trong<br><em>MiaCasa Phố Cổ</em>'},
-  'tease-tag':       {en:'A Glimpse Inside', vn:'Nhìn qua không gian'},
-  'tease-title':     {en:'A peek<br><em>inside</em>', vn:'Nhìn <em>bên trong</em>'},
-  'tease-sub':       {en:'Handcrafted spaces designed to feel lived-in and effortlessly beautiful.', vn:'Không gian thủ công mang cảm giác gần gũi và đẹp tự nhiên.'},
-  'tease-cta-h':     {en:'View MiaCasa Hanoi →', vn:'Xem MiaCasa Hà Nội →'},
-  'tease-cta-oq':    {en:'View Old Quarter Apartment →', vn:'Xem Căn hộ Phố Cổ →'},
-
-  /* ── HOUSE RULES ──────────────────────────────────────────────── */
-  'sec-rules':       {en:'House Rules', vn:'Nội quy'},
-  'rules-title':     {en:'A few things to keep in <em>mind</em>', vn:'Một vài điều cần <em>lưu ý</em>'},
-  'rules-sub':       {en:'To ensure everyone has a wonderful stay, we ask all guests to respect these simple guidelines.', vn:'Để đảm bảo mọi người có kỳ lưu trú tuyệt vời, chúng tôi đề nghị khách tuân thủ các quy định đơn giản sau.'},
-  'rule-checkinout': {en:'Check-in / Check-out', vn:'Nhận / Trả phòng'},
-  'rule-cio-1':      {en:'Check-in from 2:00 PM (self check-in)', vn:'Nhận phòng từ 14:00 (tự check-in)'},
-  'rule-cio-2':      {en:'MiaCasaHanoi: check-out by 12:00 PM (noon)', vn:'MiaCasaHanoi: trả phòng trước 12:00 (trưa)'},
-  'rule-cio-3':      {en:'MiaCasaOldQuarter: check-out by 11:00 AM', vn:'MiaCasaOldQuarter: trả phòng trước 11:00'},
-  'rule-cio-4':      {en:'Early/late check-in available on request', vn:'Nhận / trả phòng sớm / muộn theo yêu cầu'},
-  'rule-cio-5':      {en:'Luggage storage available at MiaCasaHanoi — longer durations may incur an extra charge', vn:'Có thể gửi hành lý tại MiaCasaHanoi — thời gian dài có thể tính thêm phí'},
-  'rule-noise':      {en:'Noise & Guests', vn:'Tiếng ồn & Khách'},
-  'rule-noise-1':    {en:'Quiet hours 10:00 PM – 7:00 AM', vn:'Giờ yên tĩnh 22:00 – 7:00'},
-  'rule-noise-2':    {en:'No unregistered overnight guests', vn:'Không đón khách qua đêm chưa đăng ký'},
-  'rule-noise-3':    {en:'Be mindful of neighbours', vn:'Tôn trọng hàng xóm'},
-  'rule-noise-4':    {en:'Groups of 4+ need prior notice', vn:'Nhóm từ 4 người trở lên cần thông báo trước'},
-  'rule-smoking':    {en:'Smoking & Pets', vn:'Hút thuốc & Thú cưng'},
-  'rule-smoke-1':    {en:'No smoking indoors', vn:'Không hút thuốc trong nhà'},
-  'rule-smoke-2':    {en:'Balcony/terrace smoking only', vn:'Chỉ hút thuốc ở ban công / sân thượng'},
-  'rule-smoke-3':    {en:'Pets welcome — additional charge applies, please inform the host in advance', vn:'Chào đón thú cưng — phụ phí áp dụng, vui lòng báo chủ nhà trước'},
-  'rule-smoke-4':    {en:'Candles permitted with care', vn:'Cho phép dùng nến cẩn thận'},
-  'rule-propcare':   {en:'Property Care', vn:'Bảo quản tài sản'},
-  'rule-prop-1':     {en:'Treat the space as your own home', vn:'Đối xử với không gian như ngôi nhà của bạn'},
-  'rule-prop-2':     {en:'Report damages promptly', vn:'Báo cáo hư hỏng ngay lập tức'},
-  'rule-prop-3':     {en:'No shoes inside — slippers provided', vn:'Không đi giày trong nhà — có dép'},
-  'rule-prop-4':     {en:'Use designated rubbish bins', vn:'Dùng thùng rác đúng nơi quy định'},
-  'rule-legal':      {en:'Legal Requirement', vn:'Yêu cầu pháp lý'},
-  'rule-legal-1':    {en:'Vietnamese law requires all guests to provide a copy of their passport or national ID', vn:'Pháp luật Việt Nam yêu cầu tất cả khách phải cung cấp bản sao hộ chiếu hoặc CMND/CCCD'},
-  'rule-legal-2':    {en:'Please send a photo to the host via WhatsApp or email before or upon check-in', vn:'Vui lòng gửi ảnh cho chủ nhà qua WhatsApp hoặc email trước hoặc khi nhận phòng'},
-  'rule-legal-3':    {en:'Bookings cannot be confirmed without this document', vn:'Đặt phòng không thể xác nhận nếu thiếu tài liệu này'},
-  'rule-legal-4':    {en:'Information is used solely for local authority registration', vn:'Thông tin chỉ dùng để đăng ký với cơ quan chức năng địa phương'},
-  'rule-payment':    {en:'Payments & Cancellation', vn:'Thanh toán & Hủy phòng'},
-  'rule-pay-1':      {en:'Free cancellation up to 48h prior', vn:'Miễn phí hủy trước 48 giờ'},
-  'rule-pay-2':      {en:'Bank transfer or PayPal accepted', vn:'Chấp nhận chuyển khoản ngân hàng hoặc PayPal'},
-  'rule-pay-3':      {en:'Security deposit for long stays', vn:'Đặt cọc bảo đảm cho lưu trú dài ngày'},
-  'rule-eco':        {en:'Eco Guidelines', vn:'Hướng dẫn sinh thái'},
-  'rule-eco-1':      {en:'Turn off A/C when leaving', vn:'Tắt điều hoà khi ra ngoài'},
-  'rule-eco-2':      {en:'Mineral water provided (2 bottles per room per stay)', vn:'Cung cấp nước khoáng (2 chai mỗi phòng mỗi lần ở)'},
-  'rule-eco-3':      {en:'We minimise single-use plastics where possible', vn:'Chúng tôi giảm thiểu đồ nhựa dùng một lần'},
-  'rule-eco-4':      {en:'Towel reuse encouraged', vn:'Khuyến khích tái sử dụng khăn tắm'},
-
   /* ── COMPARE STAYS SECTION (homepage) ────────────────────────── */
   'compare-tag':     {en:'Compare Stays', vn:'So sánh chỗ nghỉ'},
   'compare-title':   {en:'Not sure<br><em>which to choose?</em>', vn:'Chưa biết<br><em>nên chọn nơi nào?</em>'},
@@ -577,6 +623,7 @@ const TRANSLATIONS = {
   'compare-oq-li3':  {en:'Best for families, groups, Old Quarter lovers', vn:'Phù hợp cho gia đình, nhóm bạn, người yêu Phố Cổ'},
   'compare-oq-li4':  {en:'From <span id="compare-oldquarter-price">1,200,000</span>₫ / night', vn:'Từ <span id="compare-oldquarter-price">1.200.000</span>₫ / đêm'},
   'compare-oq-cta':  {en:'Explore Old Quarter →', vn:'Khám phá MiaCasa Phố Cổ →'},
+
   /* ── CHOOSE YOUR STAY SELECTOR ─────────────────────────────────── */
   'choose-title':        {en:'Choose Your Stay', vn:'Chọn Chỗ Nghỉ Của Bạn'},
   'selector-oq-title':   {en:'Entire Apartment', vn:'Toàn Bộ Căn Hộ'},
@@ -600,12 +647,12 @@ const TRANSLATIONS = {
   /* ── UPDATED CTA BUTTONS ───────────────────────────────────────── */
   'secondary-book':      {en:'Book Your Dates →', vn:'Đặt Ngày Của Bạn →'},
   'booking-book-dates':  {en:'Book Your Dates →', vn:'Đặt Ngày Của Bạn →'},
+  
   /* ── DIFFERENTIATORS STRIP ─────────────────────────────────────── */
   'diff-private':        {en:'🏠 Private stays, host nearby', vn:'🏠 Ở riêng tư, chủ nhà gần bên'},
   'diff-self':           {en:'🔓 Self check-in, arrive anytime', vn:'🔓 Tự nhận phòng, đến bất cứ lúc nào'},
   'diff-flex':           {en:'🛏️ Flexible: 1 room, 2 rooms, or full home', vn:'🛏️ Linh hoạt: 1 phòng, 2 phòng, hoặc cả căn hộ'},
   'diff-rate':           {en:'💰 Best rate when you book direct', vn:'💰 Giá tốt nhất khi đặt trực tiếp'},
-
 };
 
 /* ── Engine ────────────────────────────────────────────────────────────────── */
@@ -649,22 +696,149 @@ function setLang(lang){
 
 function applyTranslations(){
   var lang = currentLang;
-  // data-t  → textContent
+  
+  // data-t → textContent
   document.querySelectorAll('[data-t]').forEach(function(el){
     var e = TRANSLATIONS[el.getAttribute('data-t')];
     if(e && e[lang]!==undefined) el.textContent = e[lang];
   });
-  // data-th → innerHTML  (supports <em> <br> etc.)
+  
+  // data-th → innerHTML (supports <em> <br> etc.)
   document.querySelectorAll('[data-th]').forEach(function(el){
     var e = TRANSLATIONS[el.getAttribute('data-th')];
     if(e && e[lang]!==undefined) el.innerHTML = e[lang];
   });
+  
+  // Translate placeholders
+  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){
+    var key = el.getAttribute('data-t-placeholder');
+    var e = TRANSLATIONS[key];
+    if(e && e[lang]!==undefined) el.placeholder = e[lang];
+  });
+  
+  // Translate select options
+  document.querySelectorAll('select option[data-t]').forEach(function(opt){
+    var key = opt.getAttribute('data-t');
+    var e = TRANSLATIONS[key];
+    if(e && e[lang]!==undefined) opt.textContent = e[lang];
+  });
+  
+  // Re-run FAQ toggle display to ensure content is visible after translation
+  document.querySelectorAll('.faq-item.open .faq-a').forEach(function(el){
+    // Force reflow to ensure translated content is shown
+    el.style.maxHeight = el.scrollHeight + 'px';
+  });
+  
+  // Re-run room cards display
+  document.querySelectorAll('.room-card p[data-t]').forEach(function(el){
+    // Already handled by data-t above
+  });
+  
   // page-specific hooks
-  _hooks.forEach(function(fn){ try{ fn(lang); }catch(e){ console.warn('hook err:',e.message); } });
+  _hooks.forEach(function(fn){ 
+    try{ 
+      fn(lang); 
+    } catch(e){ 
+      console.warn('hook err:', e.message); 
+    } 
+  });
 }
 
 var _hooks = [];
 function registerTranslationHook(fn){ _hooks.push(fn); }
+
+// Register hooks for FAQ and Rules translation
+registerTranslationHook(function(lang) {
+  // Re-translate FAQ questions and answers
+  document.querySelectorAll('.faq-q').forEach(function(btn) {
+    var questionSpan = btn.querySelector('span:first-child');
+    if (questionSpan && questionSpan.hasAttribute('data-t')) {
+      var key = questionSpan.getAttribute('data-t');
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) {
+        var currentText = questionSpan.innerHTML;
+        var hasEmoji = currentText.match(/^[❓\s]*/);
+        if (hasEmoji && hasEmoji[0]) {
+          questionSpan.innerHTML = hasEmoji[0] + ' ' + e[lang];
+        } else {
+          questionSpan.textContent = e[lang];
+        }
+      }
+    }
+  });
+  
+  // Re-translate FAQ answers
+  document.querySelectorAll('.faq-a p').forEach(function(p) {
+    if (p.hasAttribute('data-t')) {
+      var key = p.getAttribute('data-t');
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) p.textContent = e[lang];
+    }
+  });
+  
+  // Re-translate House Rules
+  document.querySelectorAll('.rule-card .rule-title, .rule-card .rule-list li').forEach(function(el) {
+    if (el.hasAttribute('data-t')) {
+      var key = el.getAttribute('data-t');
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) {
+        if (el.tagName === 'LI') {
+          var hasPrefix = el.innerHTML.match(/^[•\-\s]*/);
+          if (hasPrefix) {
+            el.innerHTML = hasPrefix[0] + ' ' + e[lang];
+          } else {
+            el.textContent = e[lang];
+          }
+        } else {
+          el.textContent = e[lang];
+        }
+      }
+    }
+  });
+});
+
+// Register hook for Our Story page
+registerTranslationHook(function(lang) {
+  var storyElements = [
+    'story-hero-title', 'story-hero-subtitle', 'story-tag', 'story-h1', 'story-lead',
+    'story-back', 'story-p1', 'story-mobile-line1', 'story-mobile-line2', 'story-mobile-line3',
+    'story-mobile-line4', 'story-mobile-line5', 'story-mobile-line6', 'story-mobile-line7',
+    'story-mobile-line8', 'story-mobile-line9', 'story-p1-line1', 'story-p1-line2', 'story-p1-line3',
+    'story-p1-line4', 'story-quote', 'story-how-title', 'story-how-p1', 'story-how-p2', 'story-how-p3',
+    'story-building-title', 'story-building-p1', 'story-building-p1b', 'story-pause-2',
+    'story-before-title', 'story-before-desc', 'story-messy-title', 'story-messy-desc',
+    'story-furniture-title', 'story-furniture-desc', 'story-after-title', 'story-after-desc',
+    'story-pause-1', 'story-different-title', 'story-diff-1-title', 'story-diff-1-desc',
+    'story-diff-2-title', 'story-diff-2-desc', 'story-diff-3-title', 'story-diff-3-desc',
+    'story-diff-4-title', 'story-diff-4-desc', 'story-why-title', 'story-why-1-title',
+    'story-why-1-desc', 'story-why-2-title', 'story-why-2-desc', 'story-why-3-title',
+    'story-why-3-desc', 'story-why-4-title', 'story-why-4-desc', 'story-properties-title',
+    'story-hanoi-subtitle', 'story-oq-subtitle', 'story-hanoi-bullet-1', 'story-hanoi-bullet-2',
+    'story-hanoi-bullet-3', 'story-oq-bullet-1', 'story-oq-bullet-2', 'story-oq-bullet-3',
+    'story-hanoi-title', 'story-hanoi-p1', 'story-hanoi-gallery', 'story-oq-title', 'story-oq-p1',
+    'story-oq-p2', 'story-oq-p3', 'story-oq-gallery', 'story-hosts-title', 'story-hosts-p1',
+    'story-linh-detail', 'story-ngoc-detail', 'story-hosts-p2', 'story-same-title', 'story-same-p1',
+    'story-same-1', 'story-same-2', 'story-same-3', 'story-same-p2', 'story-belief',
+    'story-growing-title', 'story-growing-p1', 'story-growing-p2', 'story-growing-p3',
+    'story-growing-p4', 'story-growing-quote', 'story-closing-emphasis', 'story-closing-sub',
+    'story-cta-view-h', 'story-cta-view-oq', 'story-cta-avail', 'story-cta-wa',
+    'story-before', 'story-during', 'story-after', 'story-oq-before', 'story-oq-during', 'story-oq-after'
+  ];
+  
+  storyElements.forEach(function(key) {
+    var elements = document.querySelectorAll('[data-t="' + key + '"], [data-th="' + key + '"]');
+    elements.forEach(function(el) {
+      var e = TRANSLATIONS[key];
+      if (e && e[lang] !== undefined) {
+        if (el.hasAttribute('data-th')) {
+          el.innerHTML = e[lang];
+        } else {
+          el.textContent = e[lang];
+        }
+      }
+    });
+  });
+});
 
 document.addEventListener('DOMContentLoaded', function(){
   // Get saved language or default to 'en'

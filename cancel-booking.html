@@ -8,104 +8,289 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/style.css">
 <style>
-  .cancel-container { max-width: 550px; margin: 100px auto; padding: 2rem; }
-  .cancel-card { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid var(--border); }
-  .cancel-result { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; }
-  .cancel-result.pending { background: #fef3c7; border: 1px solid #d97706; color: #92400e; }
-  .cancel-result.error { background: #fee2e2; border: 1px solid #991b1b; color: #991b1b; }
-  .cancel-result.success { background: #d1fae5; border: 1px solid #065f46; color: #065f46; }
-  .info-box { background: #f5efe6; padding: 1rem; border-radius: 8px; margin: 1.5rem 0; font-size: 0.85rem; }
-  .btn-back { display: inline-block; margin-top: 1rem; color: var(--terracotta); text-decoration: none; }
-  .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #f3f3f3; border-top: 2px solid #c17a5a; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px; }
-  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  .field-error { border-color: #dc2626 !important; background-color: #fee2e2 !important; }
-  .error-text { color: #dc2626; font-size: 0.7rem; margin-top: 0.25rem; display: none; }
-  .lang-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  /* Page-specific styles */
+  body {
+    background: var(--sand);
+    min-height: 100vh;
     display: flex;
-    gap: 0.5rem;
-    z-index: 100;
+    flex-direction: column;
   }
-  .lang-btn {
-    background: none;
+  
+  .cancel-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .cancel-container {
+    max-width: 550px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .cancel-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(44, 36, 22, 0.08);
     border: 1px solid var(--border);
+  }
+  
+  .cancel-result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    display: none;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  
+  .cancel-result.pending {
+    background: #fef3c7;
+    border-left: 3px solid #d97706;
+    color: #92400e;
+  }
+  
+  .cancel-result.error {
+    background: #fee2e2;
+    border-left: 3px solid #991b1b;
+    color: #991b1b;
+  }
+  
+  .cancel-result.success {
+    background: #d1fae5;
+    border-left: 3px solid #065f46;
+    color: #065f46;
+  }
+  
+  .info-box {
+    background: var(--sand);
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  
+  .btn-back {
+    display: inline-block;
+    margin-top: 1.25rem;
+    color: var(--terracotta);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  
+  .btn-back:hover {
+    color: var(--terracotta-dark);
+    text-decoration: underline;
+  }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--terracotta);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .field-error {
+    border-color: #dc2626 !important;
+    background-color: #fee2e2 !important;
+  }
+  
+  .error-text {
+    color: #dc2626;
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+    display: none;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--ink-light);
-    padding: 0.3rem 0.8rem;
-    border-radius: 30px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    border-radius: 8px;
     font-family: 'Jost', sans-serif;
-    font-size: 0.72rem;
-    cursor: pointer;
+    font-size: 0.9rem;
     transition: all 0.2s;
   }
-  .lang-btn.active {
-    background: var(--terracotta);
-    color: white;
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
     border-color: var(--terracotta);
+    box-shadow: 0 0 0 2px rgba(193, 122, 90, 0.1);
   }
 </style>
 </head>
 <body>
 
-<!-- Language Toggle -->
-<div class="lang-toggle">
-  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-    <span class="flag-icon">🇬🇧</span> EN
-  </button>
-  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-    <span class="flag-icon">🇻🇳</span> VN
-  </button>
-</div>
+<!-- Full Navigation with data-t attributes for translation -->
+<nav>
+  <a class="nav-logo" href="index.html">MiaCasa<span> Homestays</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-t="nav-home">Home</a></li>
+    <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
+    <li><a href="miacasa-oldquarter.html" data-t="nav-oq">MiaCasa Old Quarter</a></li>
+    <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
+    <li><a href="blog.html" data-t="nav-blog">Blog</a></li>
+    <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
+    <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button id="lang-en" class="lang-btn active" onclick="switchCancelLanguage('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" onclick="switchCancelLanguage('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
 
-<div class="cancel-container">
-  <div class="cancel-card">
-    <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;" id="cancelTitle">Cancel Booking</h1>
-    <p style="color: var(--ink-light); margin-bottom: 1.5rem;" id="cancelSubtitle">Enter your booking details to submit a cancellation request.</p>
-    
-    <div class="info-box" id="policyBox">
-      <strong id="policyTitle">📌 Cancellation Policy</strong><br>
-      <span id="policy1">• ✅ Free cancellation up to 48 hours before check-in</span><br>
-      <span id="policy2">• ⚠️ Cancellations within 48 hours may incur a fee</span><br>
-      <span id="policy3">• ❌ No refunds after check-in date</span>
+<div class="cancel-wrapper">
+  <div class="cancel-container">
+    <div class="cancel-card">
+      <div style="text-align: center; margin-bottom: 0.5rem;">
+        <span style="font-size: 2.5rem;">📋</span>
+      </div>
+      <h1 id="cancelTitle" style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; text-align: center; margin-bottom: 0.5rem;">Cancel Booking</h1>
+      <p id="cancelSubtitle" style="color: var(--ink-light); text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem;">Enter your booking details to submit a cancellation request.</p>
+      
+      <div class="info-box" id="policyBox">
+        <strong id="policyTitle">📌 Cancellation Policy</strong><br>
+        <span id="policy1">• ✅ Free cancellation up to 48 hours before check-in</span><br>
+        <span id="policy2">• ⚠️ Cancellations within 48 hours may incur a fee</span><br>
+        <span id="policy3">• ❌ No refunds after check-in date</span>
+      </div>
+      
+      <form id="cancelForm">
+        <div class="form-group">
+          <label id="labelBid">Booking ID *</label>
+          <input type="text" id="bookingId" placeholder="e.g., MCH-SPR-0001">
+          <div class="error-text" id="error-bookingId">Please enter your Booking ID</div>
+        </div>
+        
+        <div class="form-group">
+          <label id="labelEmail">Email Address *</label>
+          <input type="email" id="email" placeholder="your@email.com">
+          <div class="error-text" id="error-email">Please enter a valid email address</div>
+        </div>
+        
+        <div class="form-group">
+          <label id="labelName">Full Name *</label>
+          <input type="text" id="name" placeholder="Your full name">
+          <div class="error-text" id="error-name">Please enter your full name</div>
+        </div>
+        
+        <div class="form-group">
+          <label id="labelReason">Reason (optional)</label>
+          <textarea id="reason" rows="2" placeholder="Tell us why (optional)"></textarea>
+        </div>
+        
+        <button type="submit" class="btn-primary" id="submitBtn" style="width: 100%; margin-top: 0.5rem;">
+          Submit Cancellation Request →
+        </button>
+      </form>
+      
+      <div id="result" class="cancel-result"></div>
+      <div style="text-align: center;">
+        <a href="/" class="btn-back" id="backLink">← Back to Home</a>
+      </div>
     </div>
-    
-    <form id="cancelForm">
-      <div class="form-group">
-        <label id="labelBid">Booking ID *</label>
-        <input type="text" id="bookingId" required placeholder="e.g., MCH-SPR-0001">
-        <div class="error-text" id="error-bookingId">Please enter your Booking ID</div>
-      </div>
-      <div class="form-group" style="margin-top: 1rem;">
-        <label id="labelEmail">Email Address *</label>
-        <input type="email" id="email" required placeholder="your@email.com">
-        <div class="error-text" id="error-email">Please enter a valid email address</div>
-      </div>
-      <div class="form-group" style="margin-top: 1rem;">
-        <label id="labelName">Full Name *</label>
-        <input type="text" id="name" required placeholder="Your full name">
-        <div class="error-text" id="error-name">Please enter your full name</div>
-      </div>
-      <div class="form-group" style="margin-top: 1rem;">
-        <label id="labelReason">Reason (optional)</label>
-        <textarea id="reason" rows="2" placeholder="Tell us why (optional)"></textarea>
-      </div>
-      <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;" id="submitBtn">
-        Submit Cancellation Request →
-      </button>
-    </form>
-    
-    <div id="result" class="cancel-result"></div>
-    <a href="/" class="btn-back" id="backLink">← Back to Home</a>
   </div>
 </div>
 
-<script>
-let currentCancelLang = localStorage.getItem('mia_lang') || 'en';
+<!-- Full Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
+                <p data-t="footer-brand-p">Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+                <div style="margin-top: 1rem;">
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);" data-t="footer-rating">⭐ 4.9★ · 200+ happy guests</p>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-our-stays">Our Stays</h4>
+                <ul>
+                    <li><a href="miacasa-hanoi.html" data-t="footer-hanoi-link">MiaCasa Hanoi</a></li>
+                    <li><a href="miacasa-oldquarter.html" data-t="footer-oq-link">MiaCasa Old Quarter</a></li>
+                    <li><a href="index.html#booking" data-t="footer-book-direct">Book Direct</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-info">Information</h4>
+                <ul>
+                    <li><a href="our-story.html" data-t="footer-story">Our Story</a></li>
+                    <li><a href="blog.html" data-t="footer-blog">Blog</a></li>
+                    <li><a href="index.html#contact" data-t="footer-contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h4 data-t="footer-contact-title">Contact</h4>
+                <ul>
+                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank" data-t="footer-whatsapp">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261" data-t="footer-call">Call +84 869 922 261</a></li>
+                    <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;" data-t="footer-response">⏱️ Response within 2 hours</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-facebook">Facebook</a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-instagram">Instagram</a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem;" data-t="social-tiktok">TikTok</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span data-t="footer-copyright">© 2025 MiaCasa Homestays</span>
+            <span data-t="footer-made">Made with ♡ in Hanoi</span>
+        </div>
+    </div>
+</footer>
 
-// Complete translations for the cancel page
+<script>
+// Complete translations for the cancel page (including nav and footer)
 const CANCEL_TRANSLATIONS = {
   en: {
+    // Page content
     title: 'Cancel Booking',
     subtitle: 'Enter your booking details to submit a cancellation request.',
     policyTitle: '📌 Cancellation Policy',
@@ -123,7 +308,6 @@ const CANCEL_TRANSLATIONS = {
     placeholderName: 'Your full name',
     placeholderReason: 'Tell us why (optional)',
     loading: 'Submitting cancellation request...',
-    // Result messages
     pendingTitle: '📋 Cancellation Request Submitted',
     pendingMessage: 'Your cancellation request has been submitted. The host will review and contact you within 24 hours.',
     emailSent: '📧 A confirmation email has been sent to you.',
@@ -132,9 +316,40 @@ const CANCEL_TRANSLATIONS = {
     errorTitle: '❌ Error',
     connectionError: 'Connection Error',
     connectionMsg: 'Unable to connect to the server. Please check your internet connection.',
-    contactWhatsapp: 'Contact us on WhatsApp: +84 869 922 261'
+    contactWhatsapp: 'Contact us on WhatsApp: +84 869 922 261',
+    
+    // Navigation
+    'nav-home': 'Home',
+    'nav-hanoi': 'MiaCasa Hanoi',
+    'nav-oq': 'MiaCasa Old Quarter',
+    'nav-story': 'Our Story',
+    'nav-blog': 'Blog',
+    'nav-contact': 'Contact Us',
+    'nav-book-now': 'Book Now',
+    
+    // Footer
+    'footer-brand-p': 'Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.',
+    'footer-rating': '⭐ 4.9★ · 200+ happy guests',
+    'footer-our-stays': 'Our Stays',
+    'footer-hanoi-link': 'MiaCasa Hanoi',
+    'footer-oq-link': 'MiaCasa Old Quarter',
+    'footer-book-direct': 'Book Direct',
+    'footer-info': 'Information',
+    'footer-story': 'Our Story',
+    'footer-blog': 'Blog',
+    'footer-contact': 'Contact',
+    'footer-contact-title': 'Contact',
+    'footer-whatsapp': 'WhatsApp +84 869 922 261',
+    'footer-call': 'Call +84 869 922 261',
+    'footer-response': '⏱️ Response within 2 hours',
+    'social-facebook': 'Facebook',
+    'social-instagram': 'Instagram',
+    'social-tiktok': 'TikTok',
+    'footer-copyright': '© 2025 MiaCasa Homestays',
+    'footer-made': 'Made with ♡ in Hanoi'
   },
   vn: {
+    // Page content
     title: 'Hủy Đặt Phòng',
     subtitle: 'Nhập thông tin đặt phòng của bạn để gửi yêu cầu hủy.',
     policyTitle: '📌 Chính Sách Hủy',
@@ -152,7 +367,6 @@ const CANCEL_TRANSLATIONS = {
     placeholderName: 'Họ và tên của bạn',
     placeholderReason: 'Cho chúng tôi biết lý do (tùy chọn)',
     loading: 'Đang gửi yêu cầu hủy...',
-    // Result messages in Vietnamese
     pendingTitle: '📋 Đã Gửi Yêu Cầu Hủy',
     pendingMessage: 'Yêu cầu hủy của bạn đã được gửi. Chủ nhà sẽ xem xét và liên hệ trong vòng 24 giờ.',
     emailSent: '📧 Email xác nhận đã được gửi đến bạn.',
@@ -161,53 +375,112 @@ const CANCEL_TRANSLATIONS = {
     errorTitle: '❌ Lỗi',
     connectionError: 'Lỗi kết nối',
     connectionMsg: 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra kết nối internet của bạn.',
-    contactWhatsapp: 'Liên hệ qua WhatsApp: +84 869 922 261'
+    contactWhatsapp: 'Liên hệ qua WhatsApp: +84 869 922 261',
+    
+    // Navigation
+    'nav-home': 'Trang chủ',
+    'nav-hanoi': 'MiaCasa Hà Nội',
+    'nav-oq': 'MiaCasa Phố Cổ',
+    'nav-story': 'Câu chuyện của chúng tôi',
+    'nav-blog': 'Blog',
+    'nav-contact': 'Liên hệ',
+    'nav-book-now': 'Đặt ngay',
+    
+    // Footer
+    'footer-brand-p': 'Hai homestay độc đáo tại Hà Nội — được tạo nên với tình yêu dành cho những du khách muốn một ngôi nhà thực sự, không chỉ là một chỗ ngủ.',
+    'footer-rating': '⭐ 4.9★ · Hơn 200 khách hài lòng',
+    'footer-our-stays': 'Chỗ ở của chúng tôi',
+    'footer-hanoi-link': 'MiaCasa Hà Nội',
+    'footer-oq-link': 'MiaCasa Phố Cổ',
+    'footer-book-direct': 'Đặt trực tiếp',
+    'footer-info': 'Thông tin',
+    'footer-story': 'Câu chuyện của chúng tôi',
+    'footer-blog': 'Blog',
+    'footer-contact': 'Liên hệ',
+    'footer-contact-title': 'Liên hệ',
+    'footer-whatsapp': 'WhatsApp +84 869 922 261',
+    'footer-call': 'Gọi +84 869 922 261',
+    'footer-response': '⏱️ Phản hồi trong vòng 2 giờ',
+    'social-facebook': 'Facebook',
+    'social-instagram': 'Instagram',
+    'social-tiktok': 'TikTok',
+    'footer-copyright': '© 2025 MiaCasa Homestays',
+    'footer-made': 'Được tạo với ♡ tại Hà Nội'
   }
 };
 
-function setCancelLang(lang) {
+let currentCancelLang = 'en';
+
+// Function to update all translatable elements
+function updateCancelTranslations(lang) {
+  const t = CANCEL_TRANSLATIONS[lang];
+  if (!t) return;
+  
+  // Update page content elements
+  const pageElements = {
+    cancelTitle: t.title,
+    cancelSubtitle: t.subtitle,
+    policyTitle: t.policyTitle,
+    policy1: t.policy1,
+    policy2: t.policy2,
+    policy3: t.policy3,
+    labelBid: t.labelBid,
+    labelEmail: t.labelEmail,
+    labelName: t.labelName,
+    labelReason: t.labelReason,
+    submitBtn: t.submitBtn,
+    backLink: t.backLink
+  };
+  
+  for (const [id, text] of Object.entries(pageElements)) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = text;
+  }
+  
+  // Update placeholders
+  const bookingIdInput = document.getElementById('bookingId');
+  const emailInput = document.getElementById('email');
+  const nameInput = document.getElementById('name');
+  const reasonTextarea = document.getElementById('reason');
+  
+  if (bookingIdInput) bookingIdInput.placeholder = t.placeholderBid;
+  if (emailInput) emailInput.placeholder = t.placeholderEmail;
+  if (nameInput) nameInput.placeholder = t.placeholderName;
+  if (reasonTextarea) reasonTextarea.placeholder = t.placeholderReason;
+  
+  // Update navigation (data-t attributes)
+  const navLinks = document.querySelectorAll('[data-t]');
+  navLinks.forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (t[key]) {
+      if (el.tagName === 'A' && el.querySelector('img')) {
+        // Skip if it has an image
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+}
+
+function switchCancelLanguage(lang) {
   currentCancelLang = lang;
   localStorage.setItem('mia_lang', lang);
   
   // Update button active states
-  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-  document.getElementById('lang-vn').classList.toggle('active', lang === 'vn');
+  const enBtn = document.getElementById('lang-en');
+  const vnBtn = document.getElementById('lang-vn');
+  if (enBtn) enBtn.classList.toggle('active', lang === 'en');
+  if (vnBtn) vnBtn.classList.toggle('active', lang === 'vn');
   
-  const t = CANCEL_TRANSLATIONS[lang];
-  
-  // Update all labels and text
-  document.getElementById('cancelTitle').textContent = t.title;
-  document.getElementById('cancelSubtitle').textContent = t.subtitle;
-  document.getElementById('policyTitle').innerHTML = t.policyTitle;
-  document.getElementById('policy1').innerHTML = t.policy1;
-  document.getElementById('policy2').innerHTML = t.policy2;
-  document.getElementById('policy3').innerHTML = t.policy3;
-  document.getElementById('labelBid').innerHTML = t.labelBid;
-  document.getElementById('labelEmail').innerHTML = t.labelEmail;
-  document.getElementById('labelName').innerHTML = t.labelName;
-  document.getElementById('labelReason').innerHTML = t.labelReason;
-  document.getElementById('submitBtn').innerHTML = t.submitBtn;
-  document.getElementById('backLink').innerHTML = t.backLink;
-  
-  // Update placeholders
-  document.getElementById('bookingId').placeholder = t.placeholderBid;
-  document.getElementById('email').placeholder = t.placeholderEmail;
-  document.getElementById('name').placeholder = t.placeholderName;
-  document.getElementById('reason').placeholder = t.placeholderReason;
+  // Update all translations
+  updateCancelTranslations(lang);
 }
 
-// Apply saved language on page load
-document.addEventListener('DOMContentLoaded', () => {
-  const savedLang = localStorage.getItem('mia_lang') || 'en';
-  setCancelLang(savedLang);
-});
-
-const API_URL = '/api/log-booking';
-const form = document.getElementById('cancelForm');
-const resultDiv = document.getElementById('result');
-const submitBtn = document.getElementById('submitBtn');
-
+// Function to show result messages
 function showResult(type, errorMessage) {
+  const resultDiv = document.getElementById('result');
+  if (!resultDiv) return;
+  
   const t = CANCEL_TRANSLATIONS[currentCancelLang];
   resultDiv.style.display = 'block';
   
@@ -220,13 +493,13 @@ function showResult(type, errorMessage) {
       <strong>${t.pendingTitle}</strong><br><br>
       ${t.pendingMessage}<br><br>
       ${t.emailSent}<br><br>
-      ${t.questions} <a href="https://wa.me/84869922261" style="color: #d97706;">${t.whatsapp}</a>
+      ${t.questions} <a href="https://wa.me/84869922261" style="color: #d97706; text-decoration: underline;">${t.whatsapp}</a>
     `;
   } else if (type === 'error') {
     resultDiv.className = 'cancel-result error';
     resultDiv.innerHTML = `
       <strong>${t.errorTitle}</strong><br><br>
-      ${errorMessage || 'Unknown error'}<br><br>
+      ${errorMessage || t.connectionMsg}<br><br>
       ${t.contactWhatsapp}
     `;
   } else if (type === 'connection_error') {
@@ -243,86 +516,153 @@ function showResult(type, errorMessage) {
 function validateForm() {
   let isValid = true;
   
-  const bookingId = document.getElementById('bookingId').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const name = document.getElementById('name').value.trim();
+  const bookingId = document.getElementById('bookingId')?.value.trim() || '';
+  const email = document.getElementById('email')?.value.trim() || '';
+  const name = document.getElementById('name')?.value.trim() || '';
   
-  document.getElementById('bookingId').classList.remove('field-error');
-  document.getElementById('email').classList.remove('field-error');
-  document.getElementById('name').classList.remove('field-error');
-  document.getElementById('error-bookingId').style.display = 'none';
-  document.getElementById('error-email').style.display = 'none';
-  document.getElementById('error-name').style.display = 'none';
+  // Clear previous errors
+  document.getElementById('bookingId')?.classList.remove('field-error');
+  document.getElementById('email')?.classList.remove('field-error');
+  document.getElementById('name')?.classList.remove('field-error');
+  document.getElementById('error-bookingId')?.style.setProperty('display', 'none');
+  document.getElementById('error-email')?.style.setProperty('display', 'none');
+  document.getElementById('error-name')?.style.setProperty('display', 'none');
   
   if (!bookingId) {
-    document.getElementById('bookingId').classList.add('field-error');
-    document.getElementById('error-bookingId').style.display = 'block';
+    const el = document.getElementById('bookingId');
+    if (el) el.classList.add('field-error');
+    const errorEl = document.getElementById('error-bookingId');
+    if (errorEl) errorEl.style.display = 'block';
     isValid = false;
   }
   
   if (!email || !email.includes('@')) {
-    document.getElementById('email').classList.add('field-error');
-    document.getElementById('error-email').style.display = 'block';
+    const el = document.getElementById('email');
+    if (el) el.classList.add('field-error');
+    const errorEl = document.getElementById('error-email');
+    if (errorEl) errorEl.style.display = 'block';
     isValid = false;
   }
   
   if (!name) {
-    document.getElementById('name').classList.add('field-error');
-    document.getElementById('error-name').style.display = 'block';
+    const el = document.getElementById('name');
+    if (el) el.classList.add('field-error');
+    const errorEl = document.getElementById('error-name');
+    if (errorEl) errorEl.style.display = 'block';
     isValid = false;
   }
   
   return isValid;
 }
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  if (!validateForm()) return;
-  
-  const bookingId = document.getElementById('bookingId').value.trim().toUpperCase();
-  const email = document.getElementById('email').value.trim();
-  const name = document.getElementById('name').value.trim();
-  const reason = document.getElementById('reason').value;
-  
-  showResult('loading');
-  submitBtn.disabled = true;
-  
-  try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        action: 'requestCancellation',
-        bookingId: bookingId,
-        guestEmail: email,
-        guestName: name,
-        reason: reason
-      })
-    });
+// Form submission handler
+const form = document.getElementById('cancelForm');
+const submitBtn = document.getElementById('submitBtn');
+const API_URL = '/api/log-booking';
+
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
     
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!validateForm()) return;
     
-    const data = await response.json();
+    const bookingId = document.getElementById('bookingId')?.value.trim().toUpperCase() || '';
+    const email = document.getElementById('email')?.value.trim() || '';
+    const name = document.getElementById('name')?.value.trim() || '';
+    const reason = document.getElementById('reason')?.value || '';
     
-    if (data.status === 'pending') {
-      showResult('pending');
-      form.reset();
-    } else if (data.status === 'error') {
-      showResult('error', data.message);
-    } else {
-      showResult('error', 'Unexpected response from server');
+    showResult('loading');
+    if (submitBtn) submitBtn.disabled = true;
+    
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'requestCancellation',
+          bookingId: bookingId,
+          guestEmail: email,
+          guestName: name,
+          reason: reason
+        })
+      });
+      
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const data = await response.json();
+      
+      if (data.status === 'pending') {
+        showResult('pending');
+        if (form) form.reset();
+      } else if (data.status === 'error') {
+        showResult('error', data.message);
+      } else {
+        showResult('error', 'Unexpected response from server');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showResult('connection_error');
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
     }
-  } catch (error) {
-    console.error('Error:', error);
-    showResult('connection_error');
-  } finally {
-    submitBtn.disabled = false;
-  }
+  });
+}
+
+// Initialize language on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('mia_lang') || 'en';
+  switchCancelLanguage(savedLang);
 });
+
+// Make functions globally available
+window.switchCancelLanguage = switchCancelLanguage;
+window.setCancelLang = switchCancelLanguage; // Alias for compatibility
+window.showResult = showResult;
 </script>
+
+<a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp">💬</a>
+<a href="index.html?property=hanoi#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
+
+<style>
+/* Ensure footer links have proper hover */
+footer a:hover {
+  color: var(--terracotta) !important;
+  transition: color 0.2s;
+}
+
+/* Language toggle hover */
+.lang-btn:hover:not(.active) {
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+/* Hamburger menu styling */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  z-index: 100;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+}
+</style>
 </body>
 </html>

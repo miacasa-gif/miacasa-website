@@ -153,7 +153,12 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
 <body>
-<a href="#booking" class="sticky-book-btn" data-t="sticky-book">📅 Book Now</a>
+<a href="#booking" class="sticky-book-btn" data-t="sticky-book">
+  <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+    <span>📅</span> 
+    <span>Book Now</span>
+  </span>
+</a>
 
 <!-- Navigation -->
 <nav>
@@ -444,7 +449,14 @@
   <div class="container">
     <div class="section-tag" data-t="h-loc-tag">Location</div>
     <h2 class="section-title" data-th="h-loc-title">Near Train Street<br><em>&amp; Old Quarter</em></h2>
-    <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;max-width:600px;margin-bottom:0.75rem;" data-t="h-loc-addr">📍 92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi</p>
+    <p style="font-size:0.96rem;color:var(--ink-light);line-height:1.9;max-width:600px;margin-bottom:0.75rem;" data-t="h-loc-addr">
+  📍 <a href="https://maps.google.com/?q=92+Ngh.+51+Ng.+Linh+Quang,+Văn+Chương,+Hanoi" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        style="color:var(--ink-light); text-decoration:underline; text-decoration-color:var(--border);">
+    92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi
+  </a>
+</p>
     <ul class="location-list" style="list-style:none;margin:0.75rem 0 1rem;padding:0;display:flex;flex-direction:column;gap:0.4rem;max-width:580px;">
       <li><span style="color:var(--terracotta);">~5 min</span> walk to Hanoi Train Street (Railway Street)</li>
       <li><span style="color:var(--terracotta);">~8 min</span> walk to Văn Miếu – Quốc Tử Giám (Temple of Literature)</li>
@@ -660,34 +672,18 @@
 <!-- Footer -->
 <footer>
     <div class="container">
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(0,0,0,0.05); text-align: left;">
-            <div>
-                <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;">MiaCasa Hanoi</strong>
-                <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
-                    92 Ngh. 51 Ng. Linh Quang, Văn Chương, Hanoi, Vietnam
-                </p>
-            </div>
-            <div>
-                <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;">MiaCasa Old Quarter</strong>
-                <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.6;">
-                    38 P. Lương Ngọc Quyến, Hàng Buồm, Hoàn Kiếm, Hanoi, Vietnam
-                </p>
-            </div>
-            <div>
-                <strong style="font-family: 'Cormorant Garamond', serif; font-size: 1rem;">Contact Us</strong>
-                <p style="font-size: 0.78rem; margin-top: 0.5rem; line-height: 1.8;">
-                    ✉️ <a href="mailto:miacasahanoi@gmail.com" style="color:var(--ink-light); text-decoration:none;">miacasahanoi@gmail.com</a><br>
-                    💬 <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" style="color:var(--ink-light); text-decoration:none;">WhatsApp +84 869 922 261</a><br>
-                    📞 <a href="tel:+84869922261" style="color:var(--ink-light); text-decoration:none;">Call +84 869 922 261</a>
-                </p>
-            </div>
-        </div>
-        
+        <!-- Main Footer Content - Clean 4 Column Layout -->
         <div class="footer-grid">
+            <!-- Brand Column -->
             <div class="footer-brand">
                 <a class="nav-logo" href="index.html" style="text-decoration:none;">MiaCasa<span> Homestays</span></a>
                 <p>Two distinct homestays in Hanoi — crafted with love for travellers who want a real home, not just a bed.</p>
+                <div style="margin-top: 1rem;">
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.4);">⭐ 4.9★ · 200+ happy guests</p>
+                </div>
             </div>
+            
+            <!-- Our Stays Column -->
             <div class="footer-col">
                 <h4>Our Stays</h4>
                 <ul>
@@ -696,47 +692,52 @@
                     <li><a href="index.html#booking">Book Direct</a></li>
                 </ul>
             </div>
+            
+            <!-- Information Column -->
             <div class="footer-col">
                 <h4>Information</h4>
                 <ul>
-                    <li><a href="#h-amenities-section">Amenities</a></li>
-                    <li><a href="#h-rules-section">House Rules</a></li>
-                    <li><a href="#h-gallery-section">Gallery</a></li>
-                    <li><a href="#h-testimonials-section">Reviews</a></li>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
+            
+            <!-- Contact Column -->
             <div class="footer-col">
-                <h4>Also on</h4>
+                <h4>Contact</h4>
                 <ul>
-                    <li><a href="https://www.airbnb.co.in/rooms/1141810113903225826" target="_blank">Airbnb – MiaCasaHanoi</a></li>
-                    <li><a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank">Booking.com – MiaCasaHanoi</a></li>
-                    <li><a href="https://www.agoda.com/en-in/miacasahanoi/hotel/hanoi-vn.html" target="_blank">Agoda – MiaCasaHanoi</a></li>
+                    <li>✉️ <a href="mailto:miacasahanoi@gmail.com">miacasahanoi@gmail.com</a></li>
+                    <li>💬 <a href="https://wa.me/84869922261" target="_blank">WhatsApp +84 869 922 261</a></li>
+                    <li>📞 <a href="tel:+84869922261">Call +84 869 922 261</a></li>
+                    <li style="font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.5rem;">⏱️ Response within 2 hours</li>
                 </ul>
             </div>
         </div>
-        <!-- Social Media Links -->
-<div style="text-align: center; margin: 2rem 0 1.5rem;">
-    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem;">Follow us on social media</p>
-    <div style="display: flex; gap: 1rem; justify-content: center;">
-        <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
-            📘 Facebook
-        </a>
-        <span style="color: rgba(255,255,255,0.3);">|</span>
-        <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
-            📷 Instagram
-        </a>
-        <span style="color: rgba(255,255,255,0.3);">|</span>
-        <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s;">
-            🎵 TikTok
-        </a>
-    </div>
-</div>
+        
+        <!-- Social Media Links - Subtle divider -->
+        <div style="text-align: center; margin: 2rem 0 1.5rem; padding-top: 0.5rem;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                <a href="https://www.facebook.com/profile.php?id=61558873260616" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s;">
+                    Facebook
+                </a>
+                <a href="https://www.instagram.com/miacasahanoi/" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s;">
+                    Instagram
+                </a>
+                <a href="https://www.tiktok.com/@miacasahanoi" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; transition: color 0.2s;">
+                    TikTok
+                </a>
+            </div>
+        </div>
+        
+        <!-- Bottom Bar - Clean and minimal -->
         <div class="footer-bottom">
-            <span>© 2025 MiaCasa Homestays. All rights reserved.</span>
+            <span>© 2025 MiaCasa Homestays</span>
             <span>Made with ♡ in Hanoi</span>
         </div>
     </div>
-</section>
+</footer>
 
 <style>
 /* Responsive rules grid for mobile */

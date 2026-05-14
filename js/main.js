@@ -416,60 +416,59 @@ if (typeof registerTranslationHook === 'function') {
 // PROPERTIES GRID RENDERING
 // ================================================================
 
+// Update your renderProperties function to match the "Choose Your Stay" card styling
 function renderProperties() {
-    const grid = document.getElementById('properties-grid');
-    if (!grid) return;
+    const propertiesGrid = document.getElementById('properties-grid');
+    if (!propertiesGrid) return;
     
-    const lang = window.currentLang || 'en';
+    const lang = currentLang || 'en';
     
-    // Get prices from PRICES object if available
-    const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
-    const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
-    
-    const properties = [
-        {
-            name: lang === 'vn' ? 'MiaCasa Hà Nội' : 'MiaCasa Hanoi',
-            tag: lang === 'vn' ? 'Yên tĩnh, địa phương' : 'Quiet, local, residential',
-            description: lang === 'vn' 
-                ? '3 phòng riêng gần Phố Tàu & Văn Miếu' 
-                : '3 private rooms near Train Street & Văn Miếu',
-            price: hanoiPrice,
-            link: 'miacasa-hanoi.html',
-            cta: lang === 'vn' ? 'Khám phá MiaCasa Hà Nội →' : 'Explore MiaCasa Hanoi →',
-            features: lang === 'vn'
-                ? ['Gần Phố Tàu & Văn Miếu', '3 phòng riêng có phòng tắm', 'Lý tưởng cho cặp đôi & khách solo']
-                : ['Near Train Street & Văn Miếu', '3 private en-suite rooms', 'Best for couples & solo travelers']
-        },
-        {
-            name: lang === 'vn' ? 'MiaCasa Phố Cổ' : 'MiaCasa Old Quarter',
-            tag: lang === 'vn' ? 'Trung tâm, sôi động' : 'Central, vibrant',
-            description: lang === 'vn'
-                ? 'Toàn bộ căn hộ ngay trung tâm Hoàn Kiếm'
-                : 'Entire apartment in heart of Hoàn Kiếm',
-            price: oldquarterPrice,
-            link: 'miacasa-oldquarter.html',
-            cta: lang === 'vn' ? 'Khám phá Phố Cổ →' : 'Explore Old Quarter →',
-            features: lang === 'vn'
-                ? ['Cách Hồ Hoàn Kiếm vài bước', '3 giường đôi · Ngủ 6 người', 'Sân thượng riêng']
-                : ['Steps from Hoàn Kiếm Lake', '3 queen beds · Sleeps 6', 'Private terrace']
-        }
+    const PROPERTIES = [
+    {
+        id: 'hanoi',
+        emoji: '🌿',
+        name: { en: 'MiaCasa Hanoi', vn: 'MiaCasa Hà Nội' },
+        sub: { en: '3 private rooms near Train Street & Văn Miếu', vn: '3 phòng riêng gần Phố Tàu & Văn Miếu' },
+        features: [
+            { en: 'Near Train Street & Văn Miếu', vn: 'Gần Phố Tàu & Văn Miếu' },
+            { en: '3 private en-suite rooms', vn: '3 phòng riêng có phòng tắm' },
+            { en: 'Best for couples & solo travelers', vn: 'Phù hợp cho cặp đôi & khách solo' }
+        ],
+        price: '650,000',
+        link: 'miacasa-hanoi.html',
+        cta: { en: 'Explore MiaCasa Hanoi →', vn: 'Khám phá MiaCasa Hà Nội →' }
+    },
+    {
+        id: 'oldquarter',
+        emoji: '🏙️',
+        name: { en: 'MiaCasa Old Quarter', vn: 'MiaCasa Phố Cổ' },
+        sub: { en: 'Entire apartment in heart of Hoàn Kiếm', vn: 'Toàn bộ căn hộ giữa lòng Hoàn Kiếm' },
+        features: [
+            { en: 'Steps from Hoàn Kiếm Lake', vn: 'Cách Hồ Hoàn Kiếm vài bước' },
+            { en: '3 queen beds · Sleeps 6', vn: '3 giường đôi · Ngủ 6 người' },
+            { en: 'Private terrace', vn: 'Sân thượng riêng' }
+        ],
+        price: '1,000,000',
+        link: 'miacasa-oldquarter.html',
+        cta: { en: 'Explore Old Quarter →', vn: 'Khám phá Phố Cổ →' }
+    }
     ];
     
-    grid.innerHTML = properties.map(prop => `
-        <div class="property-card">
-            <div class="card-tag">${prop.tag}</div>
-            <h3>${prop.name}</h3>
-            <p>${prop.description}</p>
-            <ul>
-                ${prop.features.map(f => `<li>${f}</li>`).join('')}
+    propertiesGrid.innerHTML = properties.map(prop => `
+        <div class="selector-card">
+            <div class="selector-emoji">${prop.emoji}</div>
+            <h3>${prop.name[lang]}</h3>
+            <p>${prop.sub[lang]}</p>
+            <ul class="selector-features">
+                ${prop.features.map(f => `<li>${f[lang]}</li>`).join('')}
             </ul>
-            <div class="price-prominent">
-                <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
-                <span class="amount">${prop.price.toLocaleString()}₫</span>
-                <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
-                <span class="price-save-badge">${lang === 'vn' ? 'Tiết kiệm 15% so với Airbnb' : 'Save 15% vs Airbnb'}</span>
+            <div class="price-row" style="margin: 0.5rem 0; display: inline-block;">
+                <span class="from-text">from</span>
+                <span class="price-number">${prop.price}</span>
+                <span class="per-night">₫ /night</span>
+                <span class="save-badge">Save 15% vs Airbnb</span>
             </div>
-            <a href="${prop.link}" class="btn-primary" style="margin-top: 1rem; display: inline-block;">${prop.cta}</a>
+            <a href="${prop.link}" class="selector-btn">${prop.cta[lang]}</a>
         </div>
     `).join('');
 }
