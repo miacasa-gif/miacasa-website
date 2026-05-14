@@ -3,8 +3,22 @@
 // ================================================================
 
 const API_URL = '/api/log-booking';
-const EXTRA_GUEST_FEE = 100000;
+// Get extra guest fee from PRICES, with fallback
+const EXTRA_GUEST_FEE = (typeof PRICES !== 'undefined' && PRICES['extra-guest-hanoi']) ? PRICES['extra-guest-hanoi'] : 100000;
 const INCLUDED_GUESTS = 2;
+
+// Make sure PRICES is loaded (don't redeclare with var/let/const)
+if (typeof PRICES === 'undefined') {
+    console.warn('prices.js not loaded, using fallback values');
+    window.PRICES = {  // <<< Use window.PRICES instead
+        'hanoi-spring': 750000,
+        'hanoi-summer': 750000,
+        'hanoi-autumn': 750000,
+        'oldquarter': 1200000,
+        'extra-guest-hanoi': 150000,
+        'extra-guest-oldquarter': 200000
+    };
+}
 
 // Room capacity mapping
 const ROOM_CAPACITY = {
@@ -90,11 +104,31 @@ function isWeekendNight(dateStr) {
     return day === 5 || day === 6;
 }
 
-const MCH_RATES = { weekday: 750000, weekend: 800000, special: 900000 };
-const MCOQ_RATES = { weekday: 1200000, weekend: 1350000, special: 1400000 };
+// Use PRICES from prices.js for base rates
+const MCH_RATES = { 
+    weekday: (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000, 
+    weekend: (typeof PRICES !== 'undefined' && PRICES['hanoi-weekend']) ? PRICES['hanoi-weekend'] : 800000, 
+    special: (typeof PRICES !== 'undefined' && PRICES['hanoi-special']) ? PRICES['hanoi-special'] : 900000 
+};
+const MCOQ_RATES = { 
+    weekday: (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000, 
+    weekend: (typeof PRICES !== 'undefined' && PRICES['oldquarter-weekend']) ? PRICES['oldquarter-weekend'] : 1350000, 
+    special: (typeof PRICES !== 'undefined' && PRICES['oldquarter-special']) ? PRICES['oldquarter-special'] : 1400000 
+};
 
 function nightRate(dateStr, propId) {
-    const r = propId === 'hanoi' ? MCH_RATES : MCOQ_RATES;
+    // Refresh rates from PRICES each time (in case admin changed them)
+    const hanoiRates = { 
+        weekday: (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000, 
+        weekend: (typeof PRICES !== 'undefined' && PRICES['hanoi-weekend']) ? PRICES['hanoi-weekend'] : 800000, 
+        special: (typeof PRICES !== 'undefined' && PRICES['hanoi-special']) ? PRICES['hanoi-special'] : 900000 
+    };
+    const oqRates = { 
+        weekday: (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000, 
+        weekend: (typeof PRICES !== 'undefined' && PRICES['oldquarter-weekend']) ? PRICES['oldquarter-weekend'] : 1350000, 
+        special: (typeof PRICES !== 'undefined' && PRICES['oldquarter-special']) ? PRICES['oldquarter-special'] : 1400000 
+    };
+    const r = propId === 'hanoi' ? hanoiRates : oqRates;
     if (isSpecialDay(dateStr)) return r.special;
     if (isWeekendNight(dateStr)) return r.weekend;
     return r.weekday;
@@ -114,7 +148,11 @@ function calcTotal(propId, checkIn, checkOut, guests) {
     
     let extra = 0;
     if (guests > INCLUDED_GUESTS) {
-        extra = (guests - INCLUDED_GUESTS) * EXTRA_GUEST_FEE * nights;
+        // Use property-specific extra guest fee
+        const extraFee = (propId === 'hanoi') 
+            ? (typeof PRICES !== 'undefined' && PRICES['extra-guest-hanoi']) ? PRICES['extra-guest-hanoi'] : 100000
+            : (typeof PRICES !== 'undefined' && PRICES['extra-guest-oldquarter']) ? PRICES['extra-guest-oldquarter'] : 100000;
+        extra = (guests - INCLUDED_GUESTS) * extraFee * nights;
     }
     return { nights, baseTotal, extra, total: baseTotal + extra };
 }
@@ -168,89 +206,95 @@ function renderProperties() {
     console.log('renderProperties called');
     const grid = document.getElementById('properties-grid');
     
-    // If this page doesn't have properties grid, exit immediately
     if (!grid) {
         console.log('No properties grid on this page - skipping renderProperties');
         return;
     }
-    console.log('grid element:', grid);
-    
-    if (!grid) {
-        console.error('properties-grid element not found!');
-        return;
-    }
     
     const lang = window.currentLang || 'en';
-    grid.innerHTML = '';
     
-    // Force grid styling to ensure visibility
-    grid.style.display = 'grid';
-    grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
-    grid.style.gap = '2rem';
-    grid.style.marginTop = '1rem';
+    // Get prices from PRICES
+    const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
+    const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
     
-    PROPERTIES.forEach((p) => {
-        const badge = getField(p, 'badge', lang);
-        const desc = getField(p, 'desc', lang);
-        const rooms = getField(p, 'rooms', lang);
-        
-        const card = document.createElement('div');
-        card.className = 'property-card';
-        // Add inline styles as fallback
-        card.style.border = '1px solid var(--border, #e0ddd5)';
-        card.style.borderRadius = '4px';
-        card.style.overflow = 'hidden';
-        card.style.transition = 'transform 0.3s, box-shadow 0.3s';
-        card.style.background = 'white';
-        card.style.display = 'flex';
-        card.style.flexDirection = 'column';
-        
-        // Build the notice HTML only for Old Quarter
-        let noticeHtml = '';
-        if (p.id === 'oldquarter') {
-            noticeHtml = `
-                <div style="margin-top: 1rem; padding: 0.5rem; background: #f5efe6; border-radius: 4px;">
-                    <p style="font-size: 0.65rem; color: #6b5c47; margin: 0;" data-t="oldquarter-notice">
-                        ⚠ Heads up: The neighbourhood is lively and can be noisy at night. Access is via steep stairs — not ideal for young children, elderly guests, or anyone with mobility concerns.
-                    </p>
-                </div>
-            `;
+    // Define properties
+    const properties = [
+        {
+            id: 'hanoi',
+            name: 'MiaCasa Hanoi',
+            badge: lang === 'vn' ? 'Phòng có bếp nhỏ' : 'Rooms with Kitchenette',
+            location: '92 Ngh. 51 Ng. Linh Quang, Văn Chương',
+            desc: lang === 'vn' ? '3 phòng riêng gần Phố Tàu & Văn Miếu' : '3 private rooms near Train Street & Văn Miếu',
+            price: hanoiPrice,
+            maxGuests: 8,
+            rating: '4.9',
+            features: [
+                lang === 'vn' ? 'Gần Phố Tàu & Văn Miếu' : 'Near Train Street & Văn Miếu',
+                lang === 'vn' ? '3 phòng riêng có phòng tắm · tối đa 3 khách' : '3 private en-suite rooms · up to 3 guests',
+                lang === 'vn' ? 'Lý tưởng cho cặp đôi & khách solo' : 'Best for couples & solo travelers'
+            ],
+            link: 'miacasa-hanoi.html',
+            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg'
+        },
+        {
+            id: 'oldquarter',
+            name: 'MiaCasa Old Quarter',
+            badge: lang === 'vn' ? 'Toàn bộ căn hộ' : 'Whole Apartment',
+            location: '38 P. Lương Ngọc Quyến, Hoàn Kiếm',
+            desc: lang === 'vn' ? 'Toàn bộ căn hộ giữa lòng Phố Cổ' : 'Full apartment in the heart of Old Quarter',
+            price: oldquarterPrice,
+            maxGuests: 6,
+            rating: '4.8',
+            features: [
+                lang === 'vn' ? 'Cách Hồ Hoàn Kiếm vài bước' : 'Steps from Hoàn Kiếm Lake',
+                lang === 'vn' ? '3 giường đôi · Ngủ tối đa 6' : '3 queen beds · Sleeps up to 6',
+                lang === 'vn' ? 'Sân thượng riêng · Khóa thông minh' : 'Private terrace · Smart lock'
+            ],
+            link: 'miacasa-oldquarter.html',
+            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg'
         }
-        
-        card.innerHTML = `
-            <div class="property-img" style="height: 240px; overflow: hidden; position: relative; flex-shrink: 0;">
-                <img src="${p.heroImg}" alt="${p.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="property-badge" style="position: absolute; top: 1rem; left: 1rem; background: #c17a5a; color: white; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 2px;">${badge}</div>
-            </div>
-            <div class="property-body" style="padding: 1.5rem; display: flex; flex-direction: column; flex: 1;">
-                <div class="property-name" style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: #2c2416; margin-bottom: 0.2rem;">${p.name}</div>
-                <div class="property-loc" style="font-size: 0.75rem; color: #c17a5a; letter-spacing: 0.05em; margin-bottom: 0.9rem;">📍 ${p.location}</div>
-                <p class="property-desc" style="font-size: 0.88rem; color: #6b5c47; line-height: 1.8; margin-bottom: 1.25rem; flex: 1;">${desc}</p>
-                <div class="property-meta" style="display: flex; justify-content: space-between; text-align: center; margin-bottom: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(193, 122, 90, 0.2);">
-                    <div class="meta-item" style="flex: 1; text-align: center;">
-                        <span class="meta-num" style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: #c17a5a; display: block;">${rooms.length}</span>
-                        <span class="meta-lbl" style="font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6b5c47; display: block;">${rooms.length > 1 ? (lang === 'vn' ? 'Phòng' : 'Rooms') : (lang === 'vn' ? 'Căn hộ' : 'Unit')}</span>
-                    </div>
-                    <div class="meta-item" style="flex: 1; text-align: center;">
-                        <span class="meta-num" style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: #c17a5a; display: block;">1–${p.maxGuests}</span>
-                        <span class="meta-lbl" style="font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6b5c47; display: block;">${lang === 'vn' ? 'Khách' : 'Guests'}</span>
-                    </div>
-                    <div class="meta-item" style="flex: 1; text-align: center;">
-                        <span class="meta-num" style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: #c17a5a; display: block;">${p.rating}★</span>
-                        <span class="meta-lbl" style="font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6b5c47; display: block;">${lang === 'vn' ? 'Đánh giá' : 'Rating'}</span>
-                    </div>
-                </div>
-                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                    <a href="${p.pageUrl}" class="btn-outline" style="flex: 1; background: transparent; color: #2c2416; padding: 0.85rem 2rem; border: 1px solid #6b5c47; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; text-decoration: none; display: inline-block; text-align: center;">${lang === 'vn' ? 'Khám phá →' : 'Explore →'}</a>
-                    <a href="#booking" class="btn-primary" style="flex: 1; background: #c17a5a; color: white; padding: 0.85rem 2rem; border: none; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; text-decoration: none; display: inline-block; text-align: center;" onclick="if(typeof selectAndScroll === 'function') selectAndScroll('${p.id}'); else window.location.href='#booking';">${lang === 'vn' ? 'Đặt ngay →' : 'Book Now →'}</a>
-                </div>
-                ${noticeHtml}
-            </div>
-        `;
-        grid.appendChild(card);
-    });
+    ];
     
-    console.log('Properties rendered successfully, cards added:', PROPERTIES.length);
+    // Build HTML - Using your existing CSS classes
+    grid.innerHTML = properties.map(prop => `
+        <div class="property-card">
+            <div class="property-img">
+                <img src="${prop.img}" alt="${prop.name}" loading="lazy">
+                <div class="property-badge">${prop.badge}</div>
+            </div>
+            <div class="property-body">
+                <div class="property-name">${prop.name}</div>
+                <div class="property-loc">📍 ${prop.location}</div>
+                <p class="property-desc">${prop.desc}</p>
+                <div class="property-meta">
+                    <div class="meta-item">
+                        <span class="meta-num">${prop.features.length}</span>
+                        <span class="meta-lbl">${lang === 'vn' ? 'Phòng' : 'Rooms'}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-num">1–${prop.maxGuests}</span>
+                        <span class="meta-lbl">${lang === 'vn' ? 'Khách' : 'Guests'}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-num">${prop.rating}★</span>
+                        <span class="meta-lbl">${lang === 'vn' ? 'Đánh giá' : 'Rating'}</span>
+                    </div>
+                </div>
+                <div class="price-prominent">
+                    <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
+                    <span class="amount">${prop.price.toLocaleString()}₫</span>
+                    <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
+                    <span class="price-save-badge">${lang === 'vn' ? 'Tiết kiệm 15%' : 'Save 15%'}</span>
+                </div>
+                <div class="property-buttons">
+                    <a href="${prop.link}" class="btn-outline">${lang === 'vn' ? 'Khám phá →' : 'Explore →'}</a>
+                    <a href="#booking" class="btn-primary" onclick="if(typeof selectAndScroll === 'function') selectAndScroll('${prop.id}'); else window.location.href='#booking';">${lang === 'vn' ? 'Đặt ngay →' : 'Book Now →'}</a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    console.log('Properties rendered with prices:', properties.map(p => p.price));
 }
 
 function renderBookingSelector() {
@@ -1285,6 +1329,8 @@ if (document.readyState === 'loading') {
 setInterval(checkAndShowContinueButton, 2000);
 
 console.log('Continue button auto-show fix loaded');
+
+
 
 // Make additional functions available globally
 window.handleContinueToPayment = handleContinueToPayment;

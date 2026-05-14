@@ -112,6 +112,53 @@
   </div>
 </section>
 
+<!-- Differentiators Strip - Immediately visible -->
+<div class="differentiators-strip">
+  <span data-t="diff-private">🏠 Private stays, host nearby</span>
+  <span data-t="diff-self">🔓 Self check-in, arrive anytime</span>
+  <span data-t="diff-flex">🛏️ Flexible: 1 room, 2 rooms, or full home</span>
+  <span data-t="diff-rate">💰 Best rate when you book direct</span>
+</div>
+
+<!-- Choose Your Stay Selector -->
+<div class="stay-selector" id="stay-selector">
+  <h2 data-t="choose-title">Choose Your Stay</h2>
+  <div class="selector-grid">
+    <!-- Option 1: Entire Apartment (Old Quarter) -->
+    <div class="selector-card" data-property="oldquarter">
+      <div class="selector-emoji">🏡</div>
+      <h3 data-t="selector-oq-title">Entire Apartment</h3>
+      <p data-t="selector-oq-desc">MiaCasa Old Quarter · Hoàn Kiếm</p>
+      <ul class="selector-features">
+        <li data-t="selector-oq-feat1">3 queen beds · Sleeps up to 6</li>
+        <li data-t="selector-oq-feat2">Private terrace · Smart lock</li>
+        <li data-t="selector-oq-feat3">Steps from Hoàn Kiếm Lake</li>
+      </ul>
+      <a href="index.html?property=oldquarter#booking" class="selector-btn" data-t="selector-oq-btn">Book Your Dates →</a>
+<div style="margin-top: 0.75rem; font-size: 0.6rem; color: #6b5c47;">
+  ✓ Instant confirmation · ✓ Best rate
+</div>
+    </div>
+
+    <!-- Option 2: Rooms or Full Home (Hanoi) -->
+    <div class="selector-card" data-property="hanoi">
+      <div class="selector-emoji">🛏️</div>
+      <h3 data-t="selector-h-title">Rooms or Full Home</h3>
+      <p data-t="selector-h-desc">MiaCasa Hanoi · Văn Miếu</p>
+      <ul class="selector-features">
+        <li data-t="selector-h-feat1">3 private rooms · Up to 3 guests each</li>
+        <li data-t="selector-h-feat2">Kitchenette · Free laundry</li>
+        <li data-t="selector-h-feat3">5 min walk to Train Street</li>
+      </ul>
+      <a href="index.html?property=hanoi#booking" class="selector-btn" data-t="selector-h-btn">Book Your Dates →</a>
+<div style="margin-top: 0.75rem; font-size: 0.6rem; color: #6b5c47;">
+  ✓ Instant confirmation · ✓ Best rate
+</div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Social Proof Banner -->
 <div style="background: var(--sand); border-radius: 12px; padding: 0.75rem; margin: 1rem 0 0 0; text-align: center;">
   <p style="font-size: 0.75rem; font-weight: 500; color: var(--ink);" data-t="social-proof-banner">
@@ -240,6 +287,14 @@
           <a href="#" style="color: var(--terracotta); font-size: 0.75rem;"></a>
         </div>
         <button id="booking-action-btn" class="btn-primary" style="width: 100%; margin-top: 1rem; display: none;">Continue to Payment →</button>
+
+
+<!-- TRUST BADGES - Add this -->
+<div class="trust-badges" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+  <span class="trust-badge" style="font-size: 0.7rem; color: #6b5c47; background: #f5efe6; padding: 0.3rem 0.8rem; border-radius: 30px; display: inline-flex; align-items: center; gap: 0.4rem;" data-t="trust-instant">✓ Instant confirmation</span>
+  <span class="trust-badge" style="font-size: 0.7rem; color: #6b5c47; background: #f5efe6; padding: 0.3rem 0.8rem; border-radius: 30px; display: inline-flex; align-items: center; gap: 0.4rem;" data-t="trust-best-rate">✓ Best rate guaranteed</span>
+  <span class="trust-badge" style="font-size: 0.7rem; color: #6b5c47; background: #f5efe6; padding: 0.3rem 0.8rem; border-radius: 30px; display: inline-flex; align-items: center; gap: 0.4rem;" data-t="trust-support">✓ Support within 2 hours</span>
+</div>
         <div class="form-group">
           <label id="lbl-name">Full Name</label>
           <input type="text" id="guest-name" placeholder="Your name">
@@ -371,12 +426,19 @@
       </div>
       
       <div style="text-align: center; margin: 1rem 0;">
-        <p style="font-size: 0.8rem; color: var(--ink-light); margin-bottom: 0.5rem;" data-t="secondary-text">Prefer to confirm first?</p>
-        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-          <a href="#contact" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem;" data-t="secondary-avail">Check Availability</a>
-          <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem;" data-t="secondary-wa">WhatsApp Us</a>
-        </div>
-      </div>
+  <p style="font-size: 0.8rem; color: var(--ink-light); margin-bottom: 0.5rem;" data-t="secondary-text">Prefer to confirm first?</p>
+  <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+    <a href="#contact" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem;" data-t="secondary-book">Book Your Dates →</a>
+    <a href="https://wa.me/84869922261" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.75rem;" data-t="secondary-wa">WhatsApp Us</a>
+  </div>
+  <!-- TRUST BADGES - Only ONE copy needed -->
+  <div class="trust-badges" style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem;">
+    <span style="font-size: 0.65rem; color: #6b5c47;">✓ Instant confirmation</span>
+    <span style="font-size: 0.65rem; color: #6b5c47;">✓ Best rate guaranteed</span>
+    <span style="font-size: 0.65rem; color: #6b5c47;">✓ Support within 2 hours</span>
+  </div>
+</div>
+
       
       <div style="text-align: center; margin-top: 1rem;">
         <p style="font-size: 0.7rem; color: var(--ink-light);" data-t="reassurance">Questions before booking? We usually respond within minutes on WhatsApp.</p>
@@ -452,18 +514,33 @@
     <h2 class="section-title" data-th="compare-title">Not sure<br><em>which to choose?</em></h2>
     <p class="section-sub" style="margin-bottom:2.5rem;" data-t="compare-sub">Both are women-owned, locally run, and book direct for the best price. The difference is in the vibe.</p>
     <div class="compare-stays-grid">
+      
+      <!-- MiaCasa Hanoi Card -->
       <div class="compare-card">
         <div class="section-tag" style="margin-bottom:0.75rem;">MiaCasa Hanoi</div>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ink);margin-bottom:1rem;" data-t="compare-h-title">Quiet, local, residential</h3>
-        <ul class="compare-list"><li data-th="compare-h-li1">Near Train Street &amp; Văn Miếu</li><li data-t="compare-h-li2">3 private en-suite rooms · up to 3 guests each</li><li data-t="compare-h-li3">Best for couples, solo travelers, remote workers</li><li data-t="compare-h-li4">From 750,000₫ / night</li></ul>
+        <ul class="compare-list">
+  <li data-th="compare-h-li1">Near Train Street &amp; Văn Miếu</li>
+  <li data-t="compare-h-li2">3 private en-suite rooms · up to 3 guests each</li>
+  <li data-t="compare-h-li3">Best for couples, solo travelers, remote workers</li>
+  <li data-th="compare-h-li4">From <span id="compare-hanoi-price">750,000</span>₫ / night</li>
+</ul>
         <a href="miacasa-hanoi.html" class="btn-primary" data-t="compare-h-cta">Explore MiaCasa Hanoi →</a>
       </div>
+      
+      <!-- MiaCasa Old Quarter Card -->
       <div class="compare-card">
         <div class="section-tag" style="margin-bottom:0.75rem;">MiaCasa Old Quarter</div>
         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ink);margin-bottom:1rem;" data-t="compare-oq-title">Central, vibrant, Old Quarter</h3>
-        <ul class="compare-list"><li data-t="compare-oq-li1">Heart of Hoàn Kiếm · steps from the lake</li><li data-t="compare-oq-li2">Entire apartment · 3 queen beds · up to 6 guests</li><li data-t="compare-oq-li3">Best for families, groups, Old Quarter lovers</li><li data-t="compare-oq-li4">From 1,200,000₫ / night</li></ul>
+        <ul class="compare-list">
+  <li data-t="compare-oq-li1">Heart of Hoàn Kiếm · steps from the lake</li>
+  <li data-t="compare-oq-li2">Entire apartment · 3 queen beds · up to 6 guests</li>
+  <li data-t="compare-oq-li3">Best for families, groups, Old Quarter lovers</li>
+  <li data-th="compare-oq-li4">From <span id="compare-oldquarter-price">1,200,000</span>₫ / night</li>
+</ul>
         <a href="miacasa-oldquarter.html" class="btn-primary" data-t="compare-oq-cta">Explore Old Quarter →</a>
       </div>
+      
     </div>
   </div>
 </section>
@@ -645,9 +722,10 @@
 </div>
 
 <!-- JavaScript Files - Deferred -->
-<script src="/js/main.js" defer></script>
-<script src="/js/booking.js" defer></script>
-<script src="/js/lang.js" defer></script>
+<script src="/js/prices.js?v=3" defer></script>
+<script src="/js/booking.js?v=3" defer></script>
+<script src="/js/main.js?v=3" defer></script>
+<script src="/js/lang.js?v=3" defer></script>
 
 <script>
     (function initializeCalendarsSafely() {
@@ -904,6 +982,106 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+</script>
+
+<script>
+// Update compare section prices from centralized PRICES
+function updateComparePrices() {
+    if (typeof PRICES !== 'undefined') {
+        const hanoiPriceSpan = document.getElementById('compare-hanoi-price');
+        const oldquarterPriceSpan = document.getElementById('compare-oldquarter-price');
+        
+        if (hanoiPriceSpan) {
+            hanoiPriceSpan.textContent = PRICES['hanoi-spring'].toLocaleString();
+            console.log('✅ Compare Hanoi price updated to:', PRICES['hanoi-spring']);
+        }
+        if (oldquarterPriceSpan) {
+            oldquarterPriceSpan.textContent = PRICES.oldquarter.toLocaleString();
+            console.log('✅ Compare Old Quarter price updated to:', PRICES.oldquarter);
+        }
+    } else {
+        console.log('⚠️ PRICES not loaded yet, retrying...');
+        setTimeout(updateComparePrices, 500);
+    }
+}
+
+// Run when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateComparePrices);
+} else {
+    updateComparePrices();
+}
+
+// Also update when language changes
+if (typeof registerTranslationHook === 'function') {
+    registerTranslationHook(updateComparePrices);
+}
+</script>
+<script>
+// Centralized function to update ALL prices on the page from PRICES
+function updateAllPricesFromPRICES() {
+    if (typeof PRICES === 'undefined') {
+        console.log('⚠️ PRICES not loaded yet, will retry');
+        setTimeout(updateAllPricesFromPRICES, 500);
+        return;
+    }
+    
+    console.log('💰 Updating all prices from PRICES...');
+    
+    // 1. Update compare section prices
+    const hanoiCompareSpan = document.getElementById('compare-hanoi-price');
+    const oldquarterCompareSpan = document.getElementById('compare-oldquarter-price');
+    
+    if (hanoiCompareSpan) {
+        hanoiCompareSpan.textContent = PRICES['hanoi-spring'].toLocaleString();
+    }
+    if (oldquarterCompareSpan) {
+        oldquarterCompareSpan.textContent = PRICES.oldquarter.toLocaleString();
+    }
+    
+    // 2. Update h-book-note and oq-book-note (replace placeholders)
+    const hBookNote = document.querySelector('[data-t="h-book-note"]');
+    const oqBookNote = document.querySelector('[data-t="oq-book-note"]');
+    
+    if (hBookNote) {
+        let text = hBookNote.innerHTML;
+        text = text.replace(/PRICE_PLACEHOLDER/g, PRICES['hanoi-spring'].toLocaleString());
+        hBookNote.innerHTML = text;
+    }
+    
+    if (oqBookNote) {
+        let text = oqBookNote.innerHTML;
+        text = text.replace(/PRICE_PLACEHOLDER/g, PRICES.oldquarter.toLocaleString());
+        oqBookNote.innerHTML = text;
+    }
+    
+    // 3. Update any other price elements with data-price attribute
+    document.querySelectorAll('[data-price]').forEach(el => {
+        const priceKey = el.getAttribute('data-price');
+        if (PRICES[priceKey]) {
+            el.textContent = PRICES[priceKey].toLocaleString();
+        }
+    });
+    
+    console.log('✅ All prices updated from PRICES');
+}
+
+// Run when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateAllPricesFromPRICES);
+} else {
+    updateAllPricesFromPRICES();
+}
+
+// Also run after language changes
+if (typeof registerTranslationHook === 'function') {
+    registerTranslationHook(updateAllPricesFromPRICES);
+}
+
+// Run multiple times to ensure it catches late-loading elements
+setTimeout(updateAllPricesFromPRICES, 100);
+setTimeout(updateAllPricesFromPRICES, 500);
+setTimeout(updateAllPricesFromPRICES, 1000);
 </script>
 </body>
 </html>

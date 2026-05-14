@@ -41,6 +41,14 @@ body {
     font-display: swap;
 }
 
+/* Prevent Horizontal Overflow */
+.container,
+section,
+.hero,
+.prop-hero {
+    overflow-x: clip;
+}
+
 /* Headings */
 h1, h2, h3, .hero h1, .section-title, .blog-title, .blog-header h1,
 .prop-hero-left h1, .story-section h2 {
@@ -457,6 +465,7 @@ nav {
 img {
     display: block;
     max-width: 100%;
+    height: auto;
 }
 
 .hero-mosaic {
@@ -2045,13 +2054,27 @@ footer {
     background: var(--terracotta);
     color: white;
     text-align: center;
-    padding: 0.85rem;
+    padding: 0.95rem 1rem calc(0.95rem + env(safe-area-inset-bottom));
     font-family: 'Jost', sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.06em;
     text-decoration: none;
     z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 60px;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
+
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.sticky-book-btn:hover {
+    background: var(--terracotta-dark);
 }
 
 @media (max-width: 768px) {
@@ -2095,6 +2118,46 @@ footer {
 }
 
 /* ============================================
+   ACCESSIBILITY
+   ============================================ */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--terracotta);
+    color: white;
+    padding: 8px 16px;
+    z-index: 100;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+/* Focus Visibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 2px;
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 @keyframes fadeInUp {
@@ -2105,6 +2168,17 @@ footer {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ============================================
+   REDUCED MOTION ACCESSIBILITY
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
     }
 }
 
@@ -2141,6 +2215,339 @@ footer {
 .reveal.visible {
     opacity: 1;
     transform: none;
+}
+
+
+  /* Choose Your Stay Selector */
+  .stay-selector {
+    background: #f5efe6;
+    border-radius: 24px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+  }
+  .stay-selector h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #2c2416;
+  }
+  .selector-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .selector-card {
+    flex: 1;
+    min-width: 260px;
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .selector-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  .selector-card.selected {
+    border-color: #c17a5a;
+    background: #fffaf5;
+  }
+  .selector-emoji {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .selector-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c2416;
+    margin-bottom: 0.5rem;
+  }
+  .selector-card p {
+    font-size: 0.85rem;
+    color: #6b5c47;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .selector-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+  .selector-features li {
+    font-size: 0.75rem;
+    color: #6b5c47;
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .selector-features li::before {
+    content: "✓";
+    color: #c17a5a;
+    font-weight: bold;
+  }
+  .selector-btn {
+    display: inline-block;
+    background: #c17a5a;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    margin-top: 0.5rem;
+  }
+  .selector-btn:hover {
+    background: #a05a3e;
+    color: white;
+  }
+
+  /* Differentiators Strip */
+  .differentiators-strip {
+    background: #2c2416;
+    color: rgba(255,255,255,0.8);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .differentiators-strip span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Trust Badges */
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .trust-badge {
+    font-size: 0.7rem;
+    color: #6b5c47;
+    background: #f5efe6;
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* Updated CTA Buttons */
+  .btn-book-dates {
+    background: #c17a5a;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-book-dates:hover {
+    background: #a05a3e;
+    transform: translateY(-2px);
+  }
+  .btn-secondary-book {
+    background: transparent;
+    border: 2px solid #c17a5a;
+    color: #c17a5a;
+    padding: 0.7rem 1.5rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  .btn-secondary-book:hover {
+    background: #c17a5a;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .stay-selector { padding: 1.5rem; margin: 1rem; }
+    .selector-grid { flex-direction: column; align-items: center; }
+    .selector-card { max-width: 100%; }
+    .differentiators-strip { gap: 1rem; font-size: 0.65rem; }
+  }
+
+/* Add these to your style.css - they're missing */
+
+.price-prominent {
+    background: linear-gradient(135deg, var(--ink) 0%, #1a1510 100%);
+    border-radius: 60px;
+    padding: 0.5rem 1.25rem;
+    display: inline-block;
+    margin: 0.75rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.price-prominent .currency {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+}
+
+.price-prominent .amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+}
+
+.price-prominent .night {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+}
+
+.price-save-badge {
+    background: var(--terracotta);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 30px;
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.property-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    align-items: stretch;
+}
+
+.property-buttons .btn-outline,
+.property-buttons .btn-primary {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    text-align: center;
+    padding: 0.9rem 1rem;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .property-buttons {
+        flex-direction: column;
+    }
+
+    .property-buttons .btn-outline,
+    .property-buttons .btn-primary {
+        width: 100%;
+    }
+}
+
+.property-notice {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: var(--sand);
+    border-radius: 4px;
+}
+
+.property-notice p {
+    font-size: 0.65rem;
+    color: var(--ink-light);
+    margin: 0;
+}
+
+/* Property Features List */
+.property-features {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.property-features li {
+    font-size: 0.86rem;
+    color: var(--ink-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.55rem;
+}
+
+.property-features li::before {
+    content: '✦';
+    color: var(--terracotta);
+    flex-shrink: 0;
+}
+
+/* Price Row */
+.price-row {
+    background: linear-gradient(135deg, var(--ink) 0%, #1a1510 100%);
+    border-radius: 60px;
+    padding: 0.5rem 1.25rem;
+    display: inline-block;
+    margin: 0.75rem 0;
+}
+
+.from-text {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+}
+
+.price-number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+}
+
+.per-night {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+}
+
+.save-badge {
+    background: var(--terracotta);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 30px;
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* Card Buttons */
+.card-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.card-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.7rem 1rem;
 }
 
 .d1 { transition-delay: 0.1s; }

@@ -411,6 +411,69 @@ if (typeof registerTranslationHook === 'function') {
     registerTranslationHook(updateDropdownsOnLangChange);
 }
 
+
+// ================================================================
+// PROPERTIES GRID RENDERING
+// ================================================================
+
+function renderProperties() {
+    const grid = document.getElementById('properties-grid');
+    if (!grid) return;
+    
+    const lang = window.currentLang || 'en';
+    
+    // Get prices from PRICES object if available
+    const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
+    const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
+    
+    const properties = [
+        {
+            name: lang === 'vn' ? 'MiaCasa Hà Nội' : 'MiaCasa Hanoi',
+            tag: lang === 'vn' ? 'Yên tĩnh, địa phương' : 'Quiet, local, residential',
+            description: lang === 'vn' 
+                ? '3 phòng riêng gần Phố Tàu & Văn Miếu' 
+                : '3 private rooms near Train Street & Văn Miếu',
+            price: hanoiPrice,
+            link: 'miacasa-hanoi.html',
+            cta: lang === 'vn' ? 'Khám phá MiaCasa Hà Nội →' : 'Explore MiaCasa Hanoi →',
+            features: lang === 'vn'
+                ? ['Gần Phố Tàu & Văn Miếu', '3 phòng riêng có phòng tắm', 'Lý tưởng cho cặp đôi & khách solo']
+                : ['Near Train Street & Văn Miếu', '3 private en-suite rooms', 'Best for couples & solo travelers']
+        },
+        {
+            name: lang === 'vn' ? 'MiaCasa Phố Cổ' : 'MiaCasa Old Quarter',
+            tag: lang === 'vn' ? 'Trung tâm, sôi động' : 'Central, vibrant',
+            description: lang === 'vn'
+                ? 'Toàn bộ căn hộ ngay trung tâm Hoàn Kiếm'
+                : 'Entire apartment in heart of Hoàn Kiếm',
+            price: oldquarterPrice,
+            link: 'miacasa-oldquarter.html',
+            cta: lang === 'vn' ? 'Khám phá Phố Cổ →' : 'Explore Old Quarter →',
+            features: lang === 'vn'
+                ? ['Cách Hồ Hoàn Kiếm vài bước', '3 giường đôi · Ngủ 6 người', 'Sân thượng riêng']
+                : ['Steps from Hoàn Kiếm Lake', '3 queen beds · Sleeps 6', 'Private terrace']
+        }
+    ];
+    
+    grid.innerHTML = properties.map(prop => `
+        <div class="property-card">
+            <div class="card-tag">${prop.tag}</div>
+            <h3>${prop.name}</h3>
+            <p>${prop.description}</p>
+            <ul>
+                ${prop.features.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+            <div class="price-prominent">
+                <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
+                <span class="amount">${prop.price.toLocaleString()}₫</span>
+                <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
+                <span class="price-save-badge">${lang === 'vn' ? 'Tiết kiệm 15% so với Airbnb' : 'Save 15% vs Airbnb'}</span>
+            </div>
+            <a href="${prop.link}" class="btn-primary" style="margin-top: 1rem; display: inline-block;">${prop.cta}</a>
+        </div>
+    `).join('');
+}
+
 // ================================================================
 // INITIALIZATION
 // ================================================================
@@ -424,6 +487,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate contact form dropdowns
     populateContactDropdowns();
     
+    // RENDER PROPERTIES GRID - ADD THIS LINE
+    if (document.getElementById('properties-grid')) {
+        renderProperties();
+    }
+
     // Close mobile menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
@@ -454,6 +522,11 @@ if (typeof registerTranslationHook === 'function') {
         const backToTop = document.querySelector('.back-to-top');
         if (backToTop) {
             backToTop.setAttribute('aria-label', lang === 'vn' ? 'Lên đầu trang' : 'Back to top');
+        }
+        
+        // Re-render properties grid when language changes
+        if (document.getElementById('properties-grid') && typeof renderProperties === 'function') {
+            renderProperties();
         }
     });
 }

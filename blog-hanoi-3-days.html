@@ -29,6 +29,12 @@
   .trust-signals { display: flex; gap: 1rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
   .trust-signals span { font-size: 0.7rem; color: #6b5c47; background: #f5efe6; padding: 0.3rem 0.8rem; border-radius: 30px; }
   @media (max-width: 768px) { .blog-container { padding: 1rem; } .blog-cta { padding: 1.5rem; } }
+  
+  .en-only, .vn-only { display: none; }
+  html[data-lang="en"] .en-only { display: block; }
+  html[data-lang="en"] .en-only-inline { display: inline; }
+  html[data-lang="vn"] .vn-only { display: block; }
+  html[data-lang="vn"] .vn-only-inline { display: inline; }
 </style>
 </head>
 <body>
@@ -45,125 +51,161 @@
     <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
-  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-    <span class="flag-icon">🇬🇧</span> EN
-  </button>
-  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-    <span class="flag-icon">🇻🇳</span> VN
-  </button>
-</div>
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+  </div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
 <main class="blog-container">
   <!-- Breadcrumbs -->
   <div style="font-size: 0.7rem; color: #6b5c47; margin-bottom: 1.5rem;">
-    <a href="index.html" style="color: #6b5c47; text-decoration: none;" data-t="breadcrumb-home">Home</a> → 
-    <a href="blog.html" style="color: #6b5c47; text-decoration: none;" data-t="breadcrumb-blog">Blog</a> → 
-    <span style="color: #c17a5a;" data-t="breadcrumb-3days">3 Days in Hanoi Itinerary</span>
+    <a href="index.html" style="color: #6b5c47; text-decoration: none;">
+      <span class="en-only-inline">Home</span><span class="vn-only-inline">Trang chủ</span>
+    </a> → 
+    <a href="blog.html" style="color: #6b5c47; text-decoration: none;">
+      <span class="en-only-inline">Blog</span><span class="vn-only-inline">Blog</span>
+    </a> → 
+    <span style="color: #c17a5a;">
+      <span class="en-only-inline">3 Days in Hanoi Itinerary</span>
+      <span class="vn-only-inline">Lịch Trình 3 Ngày Ở Hà Nội</span>
+    </span>
   </div>
 
   <article>
     <div class="blog-header">
-      <div class="blog-category" data-t="blog-3days-category">📍 HANOI TRAVEL GUIDE</div>
-      <h1 class="blog-title" data-t="blog-3days-title">3 Days in Hanoi: A Complete Itinerary (2026)</h1>
-      <div class="blog-meta" data-t="blog-3days-meta">📅 April 29, 2026 · ☕ 7 min read · ✍️ By MiaCasa Team</div>
+      <div class="blog-category">
+        <span class="en-only">📍 HANOI TRAVEL GUIDE</span>
+        <span class="vn-only">📍 CẨM NANG DU LỊCH HÀ NỘI</span>
+      </div>
+      <h1 class="blog-title">
+        <span class="en-only">3 Days in Hanoi: A Complete Itinerary (2026)</span>
+        <span class="vn-only">Lịch Trình 3 Ngày Ở Hà Nội (2026)</span>
+      </h1>
+      <div class="blog-meta">
+        <span class="en-only">📅 April 15, 2026 · ☕ 7 min read · ✍️ By MiaCasa Team</span>
+        <span class="vn-only">📅 15 Tháng 4, 2026 · ☕ 7 phút đọc · ✍️ MiaCasa Team</span>
+      </div>
     </div>
 
     <div class="blog-image">
       <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1777441691/pexels-tu-nguyen-477344610-19504816_itndf7.jpg" alt="Tortoise Tower on Hoan Kiem Lake at sunset Hanoi" loading="eager">
-      <div class="blog-image-caption" data-t="blog-3days-hero-caption">Hoàn Kiếm Lake at sunset — the perfect way to end a day in Hanoi</div>
+      <div class="blog-image-caption">
+        <span class="en-only">Hoàn Kiếm Lake at sunset — the perfect way to end a day in Hanoi</span>
+        <span class="vn-only">Hồ Hoàn Kiếm lúc hoàng hôn — cách hoàn hảo để kết thúc một ngày ở Hà Nội</span>
+      </div>
     </div>
 
     <div class="blog-content">
-      <p data-t="blog-3days-intro">Planning 3 days in Hanoi? This itinerary helps you experience the city beyond the usual tourist checklist—with local food, quieter neighborhoods, and places that make Hanoi memorable.</p>
+      <p><span class="en-only">Planning 3 days in Hanoi? This itinerary helps you experience the city beyond the usual tourist checklist—with local food, quieter neighborhoods, and places that make Hanoi memorable.</span><span class="vn-only">Đi Hà Nội 3 ngày nên làm gì? Lịch trình này giúp bạn trải nghiệm thành phố không theo danh sách thông thường—với ẩm thực địa phương, những khu phố yên tĩnh, và những nơi khiến Hà Nội đáng nhớ.</span></p>
 
-      <h2 data-t="blog-3days-day1-title">Day 1: Old Quarter, Street Food, and First Impressions</h2>
-      <p data-t="blog-3days-day1-p1">Start your trip in the heart of the chaotic, colorful historic center of Hanoi—the Old Quarter.</p>
+      <h2><span class="en-only">Day 1: Old Quarter, Street Food, and First Impressions</span><span class="vn-only">Ngày 1: Phố Cổ, Ẩm Thực Đường Phố và Ấn Tượng Đầu Tiên</span></h2>
+      <p><span class="en-only">Start your trip in the heart of the chaotic, colorful historic center of Hanoi—the Old Quarter.</span><span class="vn-only">Bắt đầu chuyến đi tại trung tâm Phố Cổ hỗn độn, đầy màu sắc của Hà Nội.</span></p>
 
-      <h3 data-t="blog-3days-morning-title">Morning</h3>
+      <h3><span class="en-only">Morning</span><span class="vn-only">Buổi sáng</span></h3>
       <ul>
-        <li data-t="blog-3days-morning-li1">Begin at Hoàn Kiếm Lake before the crowds arrive</li>
-        <li data-t="blog-3days-morning-li2">Walk across the red Thê Húc Bridge to Ngọc Sơn Temple</li>
-        <li data-t="blog-3days-morning-li3">Then wander into the maze of 36 ancient streets</li>
+        <li><span class="en-only">Begin at Hoàn Kiếm Lake (Lake of the Restored Sword) before the crowds arrive</span><span class="vn-only">Bắt đầu tại Hồ Hoàn Kiếm từ sớm, trước khi đông đúc</span></li>
+        <li><span class="en-only">Walk across the red Thê Húc Bridge to Ngọc Sơn Temple</span><span class="vn-only">Đi qua Cầu Thê Húc màu đỏ sang Đền Ngọc Sơn</span></li>
+        <li><span class="en-only">Then wander into the maze of 36 ancient streets, each named after the trade once practiced there</span><span class="vn-only">Sau đó, đi bộ vào mê cung 36 phố phường — mỗi con phố từng gắn với một nghề thủ công riêng</span></li>
       </ul>
 
-      <h3 data-t="blog-3days-afternoon-title">Afternoon</h3>
+      <h3><span class="en-only">Afternoon</span><span class="vn-only">Buổi chiều</span></h3>
       <ul>
-        <li data-t="blog-3days-afternoon-li1">Continue exploring the Old Quarter's narrow alleyways</li>
-        <li data-t="blog-3days-afternoon-li2">Sit at a sidewalk café and watch daily life unfold</li>
-        <li data-t="blog-3days-afternoon-li3">Visit Đồng Xuân Market for a glimpse of local commerce</li>
+        <li><span class="en-only">Continue exploring the Old Quarter's narrow alleyways</span><span class="vn-only">Tiếp tục khám phá những con ngõ nhỏ ở Phố Cổ</span></li>
+        <li><span class="en-only">Sit at a sidewalk café and watch daily life unfold—scooters, street vendors, and local conversations</span><span class="vn-only">Ngồi cà phê vỉa hè, quan sát cuộc sống hàng ngày: xe máy, người bán hàng rong, những câu chuyện thường nhật</span></li>
+        <li><span class="en-only">Visit Đồng Xuân Market for a glimpse of local commerce</span><span class="vn-only">Ghế Chợ Đồng Xuân để cảm nhận không khí buôn bán địa phương</span></li>
       </ul>
 
-      <h3 data-t="blog-3days-eat-title">What to Eat Today</h3>
+      <h3><span class="en-only">What to Eat Today</span><span class="vn-only">Ăn gì hôm nay</span></h3>
       <ul>
-        <li data-t="blog-3days-eat-li1">Phở for breakfast — find a busy street stall</li>
-        <li data-t="blog-3days-eat-li2">Bánh mì for lunch — the perfect sandwich</li>
-        <li data-t="blog-3days-eat-li3">Bún chả for dinner — what Obama ate with Bourdain</li>
+        <li><span class="en-only">Phở for breakfast — find a busy street stall, not a restaurant</span><span class="vn-only">Phở bữa sáng — tìm hàng đông khách, không phải nhà hàng sang</span></li>
+        <li><span class="en-only">Bánh mì for lunch — the perfect sandwich</span><span class="vn-only">Bánh mì bữa trưa — món sandwich hoàn hảo</span></li>
+        <li><span class="en-only">Bún chả for dinner — grilled pork with noodles (what Obama ate with Bourdain)</span><span class="vn-only">Bún chả bữa tối — món Obama từng ăn với Bourdain</span></li>
       </ul>
 
-      <h2 data-t="blog-3days-day2-title">Day 2: Culture, Cafés, and Train Street Hanoi</h2>
+      <h3><span class="en-only">Evening</span><span class="vn-only">Tối</span></h3>
+      <p><span class="en-only">Walk through the night market (weekends only) or find a rooftop café with lake views. The Old Quarter glows at night.</span><span class="vn-only">Đi bộ qua chợ đêm (cuối tuần) hoặc ngồi cà phê tầng thượng nhìn ra hồ. Phố Cổ về đêm rất đẹp.</span></p>
 
-      <h3 data-t="blog-3days-vanmieu-title">Morning: Văn Miếu Area</h3>
+      <h2><span class="en-only">Day 2: Culture, Cafés, and Train Street</span><span class="vn-only">Ngày 2: Văn Hóa, Cà Phê và Train Street</span></h2>
+      <p><span class="en-only">Slow things down on your second day. This is when Hanoi starts to feel real.</span><span class="vn-only">Chậm lại một chút vào ngày thứ hai. Đây là lúc Hà Nội bắt đầu trở nên chân thật.</span></p>
+
+      <h3><span class="en-only">Morning: Văn Miếu Area</span><span class="vn-only">Buổi sáng: Khu Văn Miếu</span></h3>
       <ul>
-        <li data-t="blog-3days-vanmieu-li1">Visit Văn Miếu – Quốc Tử Giám, Vietnam's first university</li>
-        <li data-t="blog-3days-vanmieu-li2">Walk through the surrounding streets — calmer and genuinely local</li>
-        <li data-t="blog-3days-vanmieu-li3">Stop at a small café that doesn't cater to tourists</li>
+        <li><span class="en-only">Visit Văn Miếu – Quốc Tử Giám (Temple of Literature), Vietnam's first university — one of Hanoi's most peaceful sites</span><span class="vn-only">Tham quan Văn Miếu – Quốc Tử Giám — trường đại học đầu tiên của Việt Nam, một trong những nơi yên bình nhất Hà Nội</span></li>
+        <li><span class="en-only">Afterward, walk through the surrounding streets. This area feels calmer, more residential, and genuinely local</span><span class="vn-only">Sau đó, đi bộ quanh các con phố lân cận. Khu vực này yên tĩnh và mang đậm chất địa phương</span></li>
+        <li><span class="en-only">Stop at a small café that doesn't cater to tourists</span><span class="vn-only">Dừng chân tại một quán cà phê nhỏ, không phải nơi đông khách du lịch</span></li>
       </ul>
-      <p><em data-t="blog-3days-vanmieu-tip">💡 Tip: <a href="miacasa-hanoi.html" style="color: #c17a5a;">MiaCasa Hanoi</a> is located in this neighborhood — <a href="miacasa-hanoi.html" style="color: #c17a5a;" data-t="micro-see-rooms">see rooms →</a></em></p>
+      <p><em><span class="en-only">💡 Tip: MiaCasa Hanoi is located in this neighborhood — you can see what local life actually looks like.</span><span class="vn-only">💡 Gợi ý: MiaCasa Hanoi nằm ngay trong khu phố này — bạn sẽ thấy cuộc sống địa phương thực sự.</span></em></p>
 
-      <h3 data-t="blog-3days-trainstreet-title">Afternoon: Train Street</h3>
-      <p data-t="blog-3days-trainstreet-p1">Head to one of Hanoi's most unique attractions — Train Street.</p>
-      <p><em><a href="blog-train-street.html" style="color: #c17a5a;" data-t="blog-3days-trainstreet-guide-link">Read our full guide to Train Street Hanoi →</a></em></p>
-
-      <h2 data-t="blog-3days-day3-title">Day 3: West Lake and a Slower Hanoi</h2>
-      <p data-t="blog-3days-day3-p1">By the third day, you'll want to slow down. That's exactly the right instinct.</p>
-
-      <h3 data-t="blog-3days-morning-title">Morning</h3>
+      <h3><span class="en-only">Afternoon: Train Street</span><span class="vn-only">Buổi chiều: Train Street (Phố Tàu)</span></h3>
+      <p><span class="en-only">Head to one of Hanoi's most unique attractions — Train Street, where trains pass just inches from homes and cafés.</span><span class="vn-only">Đến một trong những địa điểm độc đáo nhất Hà Nội — Phố Tàu, nơi tàu hỏa chạy sát ngay bên những ngôi nhà và quán cà phê.</span></p>
+      <p><em><a href="blog-train-street.html" style="color: #c17a5a;"><span class="en-only">Read our full guide to Train Street Hanoi →</span><span class="vn-only">Đọc hướng dẫn chi tiết về Phố Tàu Hà Nội →</span></a></em></p>
+      <p><strong><span class="en-only">How to experience it safely:</span><span class="vn-only">Cách trải nghiệm an toàn:</span></strong></p>
       <ul>
-        <li data-t="blog-3days-day3-morning-li1">Head to Hồ Tây (West Lake) — Hanoi's largest lake</li>
-        <li data-t="blog-3days-day3-morning-li2">Visit Trấn Quốc Pagoda, the oldest Buddhist temple in Hanoi</li>
-        <li data-t="blog-3days-day3-morning-li3">Walk along the water or cycle the lakeside path</li>
-        <li data-t="blog-3days-day3-morning-li4">Stop at a café overlooking the lake — order cà phê trứng</li>
+        <li><span class="en-only">Find a café along the tracks, order a drink, and wait</span><span class="vn-only">Chọn một quán cà phê dọc đường ray, gọi đồ uống và chờ</span></li>
+        <li><span class="en-only">Trains typically pass around late afternoon and evening (ask locals for exact times)</span><span class="vn-only">Tàu thường chạy vào chiều tối (hỏi người địa phương để biết giờ chính xác)</span></li>
+        <li><span class="en-only">Follow every instruction from café owners — they know when it's safe</span><span class="vn-only">Làm theo mọi hướng dẫn từ chủ quán — họ biết khi nào an toàn</span></li>
+      </ul>
+      <p><span class="en-only">📅 Trains typically run at 4:00pm, 7:00pm, and 9:00pm, but schedules change. Ask a local café owner—they always know.</span><span class="vn-only">📅 Tàu thường chạy lúc 16:00, 19:00 và 21:00, nhưng lịch có thể thay đổi. Hãy hỏi chủ quán cà phê địa phương — họ luôn biết.</span></p>
+      <p><span class="en-only">When the train passes, everything changes for a few seconds. Then life continues as if nothing happened. It's unforgettable.</span><span class="vn-only">Khi tàu chạy qua, mọi thứ thay đổi trong vài giây — rồi lại trở lại bình thường. Đó là trải nghiệm khó quên.</span></p>
+      <p><span class="en-only">📍 From MiaCasa Hanoi, it's a 5-minute walk. Many guests visit at 6am or 8pm to avoid crowds.</span><span class="vn-only">📍 Từ MiaCasa Hanoi, đi bộ 5 phút. Nhiều khách của chúng tôi đến lúc 6h sáng hoặc 8h tối để tránh đông đúc.</span></p>
+
+      <h3><span class="en-only">Evening</span><span class="vn-only">Tối</span></h3>
+      <p><span class="en-only">Take a Grab to Hồ Tây (West Lake) for sunset. Walk along the water, find a lakeside café, and enjoy Hanoi at its calmest.</span><span class="vn-only">Đi Grab ra Hồ Tây ngắm hoàng hôn. Đi bộ dọc hồ, tìm quán cà phê ven hồ, và tận hưởng Hà Nội lúc yên tĩnh nhất.</span></p>
+      <p><span class="en-only">Dinner: Try chả cá (turmeric fish with dill) or revisit a favorite street food spot.</span><span class="vn-only">Bữa tối: Thử chả cá hoặc quay lại món ăn đường phố yêu thích.</span></p>
+
+      <h2><span class="en-only">Day 3: West Lake and a Slower Hanoi</span><span class="vn-only">Ngày 3: Hồ Tây và Hà Nội Chậm Rãi</span></h2>
+      <p><span class="en-only">By the third day, you'll want to slow down. That's exactly the right instinct.</span><span class="vn-only">Đến ngày thứ ba, bạn sẽ muốn chậm lại. Đó chính xác là cảm giác đúng.</span></p>
+
+      <h3><span class="en-only">Morning</span><span class="vn-only">Buổi sáng</span></h3>
+      <ul>
+        <li><span class="en-only">Head to Hồ Tây (West Lake) — Hanoi's largest lake, surrounded by quiet neighborhoods</span><span class="vn-only">Ra Hồ Tây — hồ lớn nhất Hà Nội, quanh là những khu phố yên tĩnh</span></li>
+        <li><span class="en-only">Visit Trấn Quốc Pagoda, the oldest Buddhist temple in Hanoi (1,500 years old)</span><span class="vn-only">Thăm Chùa Trấn Quốc, ngôi chùa Phật giáo cổ nhất Hà Nội (hơn 1.500 năm tuổi)</span></li>
+        <li><span class="en-only">Walk along the water or cycle the lakeside path</span><span class="vn-only">Đi bộ dọc hồ hoặc đạp xe quanh bờ</span></li>
+        <li><span class="en-only">Stop at a café overlooking the lake — order cà phê trứng (egg coffee) if you haven't yet</span><span class="vn-only">Dừng ở quán cà phê ven hồ — gọi cà phê trứng nếu chưa thử</span></li>
       </ul>
 
-      <h2 data-t="blog-3days-stay-title">Where to Stay During Your 3 Days in Hanoi</h2>
-      <p data-t="blog-3days-stay-p1">Where you stay shapes your entire experience.</p>
-      <p><strong data-t="blog-3days-stay-center-title">🛵 Want to be in the center of everything?</strong><br>
-      <a href="miacasa-oldquarter.html" style="color: #c17a5a;" data-t="blog-3days-stay-center-desc">Choose MiaCasa Old Quarter</a> — a full apartment in the heart of Hoàn Kiếm.</p>
-      <p><strong data-t="blog-3days-stay-quiet-title">🌿 Prefer a quieter, more local experience?</strong><br>
-      <a href="miacasa-hanoi.html" style="color: #c17a5a;" data-t="blog-3days-stay-quiet-desc">Choose MiaCasa Hanoi</a> — three private rooms near Văn Miếu and Train Street.</p>
+      <h3><span class="en-only">Afternoon</span><span class="vn-only">Buổi chiều</span></h3>
+      <ul>
+        <li><span class="en-only">Return to the city center at your own pace</span><span class="vn-only">Quay lại trung tâm thành phố theo nhịp của riêng bạn</span></li>
+        <li><span class="en-only">Do some light shopping — look for silk, handicrafts, or local art</span><span class="vn-only">Mua sắm nhẹ — lụa, đồ thủ công, hoặc tranh nghệ thuật</span></li>
+        <li><span class="en-only">Revisit any streets or cafés that caught your attention earlier</span><span class="vn-only">Quay lại những con phố hoặc quán cà phê yêu thích</span></li>
+        <li><span class="en-only">Try any food you missed (bánh cuốn, bún riêu, or chè for dessert)</span><span class="vn-only">Thử món ăn còn thiếu (bánh cuốn, bún riêu, hoặc chè)</span></li>
+      </ul>
+
+      <h3><span class="en-only">Evening</span><span class="vn-only">Tối</span></h3>
+      <p><span class="en-only">End your trip with a relaxed dinner — no rushing, no schedule. Just enjoy Hanoi one last time.</span><span class="vn-only">Kết thúc chuyến đi bằng bữa tối thư giãn — không vội vàng. Chỉ là tận hưởng Hà Nội lần cuối.</span></p>
+      <p><span class="en-only">💡 Consider a local cooking class or water puppet show if time allows.</span><span class="vn-only">💡 Cân nhắc tham gia lớp học nấu ăn địa phương hoặc xem múa rối nước nếu có thời gian.</span></p>
+
+      <h2><span class="en-only">Where to Stay During Your 3 Days in Hanoi</span><span class="vn-only">Nên Ở Đâu Trong 3 Ngày Ở Hà Nội?</span></h2>
+      <p><span class="en-only">Where you stay shapes your entire experience. Choose based on your travel style:</span><span class="vn-only">Chỗ ở ảnh hưởng rất nhiều đến trải nghiệm của bạn. Lựa chọn dựa trên phong cách du lịch:</span></p>
+      <p><strong><span class="en-only">🛵 Want to be in the center of everything?</span><span class="vn-only">🛵 Muốn ở ngay trung tâm?</span></strong><br>
+      <a href="miacasa-oldquarter.html" style="color: #c17a5a;"><span class="en-only">Choose MiaCasa Old Quarter</span><span class="vn-only">Chọn MiaCasa Old Quarter</span></a> <span class="en-only">— a full apartment in the heart of Hoàn Kiếm, steps from the lake and nightlife. Best for groups and travelers who want energy at their doorstep.</span><span class="vn-only">— toàn bộ căn hộ giữa lòng Hoàn Kiếm, đi bộ ra hồ và phố đi bộ. Phù hợp cho nhóm và ai thích năng lượng sôi động.</span></p>
+      <p><strong><span class="en-only">🌿 Prefer a quieter, more local experience?</span><span class="vn-only">🌿 Thích yên tĩnh, gần gũi địa phương?</span></strong><br>
+      <a href="miacasa-hanoi.html" style="color: #c17a5a;"><span class="en-only">Choose MiaCasa Hanoi</span><span class="vn-only">Chọn MiaCasa Hanoi</span></a> <span class="en-only">— three private rooms near Văn Miếu and Train Street. A calm, residential neighborhood that's still a quick ride from everything. Best for couples, solo travelers, and anyone who needs good sleep.</span><span class="vn-only">— ba phòng riêng gần Văn Miếu và Train Street. Khu phố yên tĩnh, vẫn gần mọi thứ. Phù hợp cho cặp đôi, khách solo, hoặc ai cần ngủ ngon.</span></p>
+
+      <h2><span class="en-only">Final Thoughts</span><span class="vn-only">Lời Kết</span></h2>
+      <p><span class="en-only">Three days in Hanoi is not about doing everything.</span><span class="vn-only">Ba ngày ở Hà Nội không phải để làm hết mọi thứ.</span></p>
+      <p><span class="en-only">It's about finding a rhythm — between busy streets and quiet moments, between food and conversation, between chaos and calm.</span><span class="vn-only">Mà là để tìm nhịp điệu riêng — giữa phố đông và khoảnh khắc yên tĩnh, giữa ẩm thực và câu chuyện, giữa xô bồ và bình yên.</span></p>
+      <p><span class="en-only">That's what makes the city memorable.</span><span class="vn-only">Đó là điều khiến Hà Nội đáng nhớ.</span></p>
+      <p><span class="en-only">Enjoy your trip. And if you stay with us, we'd love to host you.</span><span class="vn-only">Chúc bạn có chuyến đi tuyệt vời. Và nếu ở cùng chúng tôi, chúng tôi rất vui được đón bạn.</span></p>
     </div>
 
     <!-- Trust Signals -->
     <div class="trust-signals">
-      <span data-t="trust-local-host">🏠 Hosted by locals in Hanoi</span>
-      <span data-t="trust-rating">⭐ 4.9★ from 200+ guests</span>
-      <span data-t="trust-direct">💰 Direct booking = better rate</span>
+      <span><span class="en-only">🏠 Hosted by locals in Hanoi</span><span class="vn-only">🏠 Do người địa phương làm chủ</span></span>
+      <span><span class="en-only">⭐ 4.9★ from 200+ guests</span><span class="vn-only">⭐ 4.9★ từ hơn 200 khách</span></span>
+      <span><span class="en-only">💰 Direct booking = better rate</span><span class="vn-only">💰 Đặt trực tiếp = giá tốt hơn</span></span>
     </div>
 
-    <!-- Strong Ending Hook -->
-    <div class="blog-cta">
-      <h3 style="margin-bottom: 0.5rem;" data-t="ending-3days-title">Your 3 days in Hanoi start here</h3>
-      <p style="margin-bottom: 1rem;" data-t="ending-3days-text">If you're planning your stay, where you choose to sleep shapes everything. A quiet neighborhood means better rest. A central location means more energy. Choose what fits your travel style.</p>
-      <a href="index.html?property=hanoi#booking" class="btn-primary" style="padding: 0.7rem 1.5rem; display: inline-block;" data-t="blog-3days-cta-button">📅 Check Availability →</a>
-    </div>
-
-    <!-- You Might Also Like -->
-    <div style="margin: 3rem 0 2rem; padding: 2rem; background: #f5efe6; border-radius: 16px;">
-      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1rem; text-align: center;" data-t="also-like-title">📖 You might also like</h3>
-      <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-        <a href="blog-train-street.html" style="text-decoration: none;">
-          <div style="background: white; border-radius: 12px; padding: 1rem; width: 250px; border: 1px solid #e5e0d8;">
-            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚂</div>
-            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;" data-t="also-like-train-title">Train Street Guide</h4>
-            <p style="font-size: 0.7rem; color: #6b5c47;" data-t="also-like-train-desc">Times, safety tips, and how to visit without crowds</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <a href="blog.html" class="blog-back" data-t="blog-3days-back-link">← Back to all blog posts</a>
+    <a href="blog.html" class="blog-back">
+      <span class="en-only">← Back to all blog posts</span>
+      <span class="vn-only">← Quay lại tất cả bài viết</span>
+    </a>
   </article>
 </main>
 
@@ -178,6 +220,32 @@
 <script src="/js/lang.js"></script>
 <script>
   function toggleMenu() { document.querySelector('.nav-links').classList.toggle('show'); }
+  
+  function updateLanguageVisibility() {
+    const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+    document.querySelectorAll('.en-only, .vn-only, .en-only-inline, .vn-only-inline').forEach(el => {
+      if ((isEn && el.classList.contains('en-only')) || 
+          (!isEn && el.classList.contains('vn-only')) ||
+          (isEn && el.classList.contains('en-only-inline')) ||
+          (!isEn && el.classList.contains('vn-only-inline'))) {
+        el.style.display = (el.classList.contains('en-only-inline') || el.classList.contains('vn-only-inline')) ? 'inline' : 'block';
+      } else if (!isEn && (el.classList.contains('en-only') || el.classList.contains('en-only-inline'))) {
+        el.style.display = 'none';
+      } else if (isEn && (el.classList.contains('vn-only') || el.classList.contains('vn-only-inline'))) {
+        el.style.display = 'none';
+      }
+    });
+  }
+  
+  const originalSetLang = window.setLang;
+  window.setLang = function(lang) {
+    originalSetLang(lang);
+    updateLanguageVisibility();
+  };
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    updateLanguageVisibility();
+  });
 </script>
 <a href="index.html?property=hanoi#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
 </body>

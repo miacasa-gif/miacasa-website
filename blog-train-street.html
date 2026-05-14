@@ -30,6 +30,12 @@
   .trust-signals { display: flex; gap: 1rem; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
   .trust-signals span { font-size: 0.7rem; color: #6b5c47; background: #f5efe6; padding: 0.3rem 0.8rem; border-radius: 30px; }
   @media (max-width: 768px) { .blog-container { padding: 1rem; } .blog-cta { padding: 1.5rem; } }
+  
+  .en-only, .vn-only { display: none; }
+  html[data-lang="en"] .en-only { display: block; }
+  html[data-lang="en"] .en-only-inline { display: inline; }
+  html[data-lang="vn"] .vn-only { display: block; }
+  html[data-lang="vn"] .vn-only-inline { display: inline; }
 </style>
 </head>
 <body>
@@ -46,122 +52,216 @@
     <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
-  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-    <span class="flag-icon">🇬🇧</span> EN
-  </button>
-  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-    <span class="flag-icon">🇻🇳</span> VN
-  </button>
-</div>
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+  </div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
 <main class="blog-container">
   <!-- Breadcrumbs -->
   <div style="font-size: 0.7rem; color: #6b5c47; margin-bottom: 1.5rem;">
-    <a href="index.html" style="color: #6b5c47; text-decoration: none;" data-t="breadcrumb-home">Home</a> → 
-    <a href="blog.html" style="color: #6b5c47; text-decoration: none;" data-t="breadcrumb-blog">Blog</a> → 
-    <span style="color: #c17a5a;" data-t="breadcrumb-train">Train Street Hanoi Guide</span>
+    <a href="index.html" style="color: #6b5c47; text-decoration: none;">
+      <span class="en-only-inline">Home</span><span class="vn-only-inline">Trang chủ</span>
+    </a> → 
+    <a href="blog.html" style="color: #6b5c47; text-decoration: none;">
+      <span class="en-only-inline">Blog</span><span class="vn-only-inline">Blog</span>
+    </a> → 
+    <span style="color: #c17a5a;">
+      <span class="en-only-inline">Train Street Hanoi Guide</span>
+      <span class="vn-only-inline">Hướng Dẫn Train Street Hà Nội</span>
+    </span>
   </div>
 
   <article>
     <div class="blog-header">
-      <div class="blog-category" data-t="blog-train-category">🚂 HANOI LOCAL GUIDE</div>
-      <h1 class="blog-title" data-t="blog-train-title">Train Street Hanoi: Full Guide (2026)</h1>
-      <div class="blog-meta" data-t="blog-train-meta">📅 April 29, 2026 · ☕ 6 min read · ✍️ By MiaCasa Team</div>
+      <div class="blog-category">
+        <span class="en-only">🚂 HANOI LOCAL GUIDE</span>
+        <span class="vn-only">🚂 CẨM NANG ĐỊA PHƯƠNG HÀ NỘI</span>
+      </div>
+      <h1 class="blog-title">
+        <span class="en-only">Train Street Hanoi: Full Guide (2026)</span>
+        <span class="vn-only">Train Street Hà Nội: Hướng Dẫn Chi Tiết (2026)</span>
+      </h1>
+      <div class="blog-meta">
+        <span class="en-only">📅 April 22, 2026 · ☕ 6 min read · ✍️ By MiaCasa Team</span>
+        <span class="vn-only">📅 22 Tháng 4, 2026 · ☕ 6 phút đọc · ✍️ MiaCasa Team</span>
+      </div>
     </div>
 
     <div class="blog-image">
       <img src="https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_1200,f_auto,q_auto/v1777443143/pexels-kaku-nguyen-1144098-2181428_smanuo.jpg" alt="Train passing through Train Street Hanoi" loading="eager">
-      <div class="blog-image-caption" data-t="blog-train-hero-caption">The train passing through Train Street — just inches from local homes and cafés</div>
+      <div class="blog-image-caption">
+        <span class="en-only">The train passing through Train Street — just inches from local homes and cafés</span>
+        <span class="vn-only">Đoàn tàu chạy qua Train Street — chỉ cách nhà dân và quán cà phê vài inch</span>
+      </div>
     </div>
 
     <div class="blog-content">
-      <p data-t="blog-train-intro-p1">Train Street is one of the most unusual places in Hanoi.</p>
-      <p data-t="blog-train-intro-p2">A narrow residential street. Homes just inches from the tracks. Cafés set up right beside them. And a train that passes through it all, just a few times each day.</p>
-      <p data-t="blog-train-intro-p3">It's not built for tourists—but that's exactly why people come.</p>
+      <p><span class="en-only">Train Street is one of the most unusual places in Hanoi.</span><span class="vn-only">Train Street là một trong những nơi độc đáo nhất ở Hà Nội.</span></p>
+      <p><span class="en-only">A narrow residential street. Homes just inches from the tracks. Cafés set up right beside them. And a train that passes through it all, just a few times each day.</span><span class="vn-only">Một con phố nhỏ. Nhà dân sát đường ray. Quán cà phê ngay bên cạnh. Và đoàn tàu chạy qua chỉ cách vài bước chân.</span></p>
+      <p><span class="en-only">It's not built for tourists—but that's exactly why people come.</span><span class="vn-only">Nơi này không được xây dựng cho du lịch—nhưng chính điều đó lại khiến nó trở nên đặc biệt.</span></p>
 
-      <h2 data-t="blog-train-what-title">What is Train Street?</h2>
-      <p data-t="blog-train-what-p1">Train Street is a stretch of railway running through a residential neighborhood in central Hanoi.</p>
-      <p data-t="blog-train-what-p2">Locals live, cook, and run small cafés right next to the tracks. When the train approaches, everything shifts. Chairs are moved. People step back. Then the train passes—and life continues.</p>
+      <h2><span class="en-only">What is Train Street?</span><span class="vn-only">Train Street là gì?</span></h2>
+      <p><span class="en-only">Train Street is a stretch of railway running through a residential neighborhood in central Hanoi.</span><span class="vn-only">Đây là đoạn đường ray chạy xuyên qua khu dân cư ở trung tâm Hà Nội.</span></p>
+      <p><span class="en-only">Locals live, cook, and run small cafés right next to the tracks. When the train approaches, everything shifts. Chairs are moved. People step back. Then the train passes—and life continues.</span><span class="vn-only">Người dân sinh sống, nấu ăn và kinh doanh ngay cạnh đường ray. Khi tàu đến, mọi thứ thay đổi—ghế được dọn đi, mọi người đứng lùi lại. Khi tàu qua, cuộc sống tiếp tục như bình thường.</span></p>
 
-      <h2 data-t="blog-train-open-title">Is Train Street still open in 2026?</h2>
-      <p data-t="blog-train-open-p1">This is one of the most common questions.</p>
-      <p data-t="blog-train-open-p2">Access to Train Street has been restricted at times for safety reasons. In practice, many visitors still enter through cafés or local access points.</p>
-
-      <h2 data-t="blog-train-times-title">Train Street Hanoi Train Times (2026 Guide)</h2>
-      <p data-t="blog-train-times-p1">Train times are not fixed, and this is important to understand.</p>
-      <p data-t="blog-train-times-p2">Trains usually pass several times a day, most often:</p>
+      <h2><span class="en-only">Is Train Street still open in 2026?</span><span class="vn-only">Train Street còn mở không năm 2026?</span></h2>
+      <p><span class="en-only">This is one of the most common questions.</span><span class="vn-only">Đây là câu hỏi rất nhiều người quan tâm.</span></p>
+      <p><span class="en-only">Access to Train Street has been restricted at times for safety reasons. In practice, many visitors still enter through cafés or local access points. The situation can depend on:</span><span class="vn-only">Việc vào Train Street đôi khi bị hạn chế vì lý do an toàn. Tuy nhiên, trên thực tế, nhiều du khách vẫn có thể vào thông qua các quán cà phê hoặc lối vào địa phương. Tình hình có thể phụ thuộc vào:</span></p>
       <ul>
-        <li data-t="blog-train-times-morning">Morning: around 8:30 AM – 12:00 PM</li>
-        <li data-t="blog-train-times-afternoon">Afternoon: around 3:00 PM – 4:30 PM</li>
-        <li data-t="blog-train-times-evening">Evening: around 7:00 PM – 10:00 PM</li>
+        <li><span class="en-only">Local conditions</span><span class="vn-only">Thời điểm</span></li>
+        <li><span class="en-only">Time of day</span><span class="vn-only">Tình hình thực tế</span></li>
+        <li><span class="en-only">Whether you enter through a café</span><span class="vn-only">Cách bạn vào</span></li>
       </ul>
+
+      <h2><span class="en-only">Train Street Hanoi Train Times (2026 Guide)</span><span class="vn-only">Giờ Tàu Train Street Hà Nội (2026)</span></h2>
+      <p><span class="en-only">Train times are not fixed, and this is important to understand.</span><span class="vn-only">Giờ tàu không cố định, và điều này rất quan trọng.</span></p>
+      <p><span class="en-only">Trains usually pass several times a day, most often:</span><span class="vn-only">Thông thường, tàu chạy vài lần mỗi ngày, thường là:</span></p>
+      <ul>
+        <li><span class="en-only">Morning: around 8:30 AM – 12:00 PM</span><span class="vn-only">Buổi sáng: khoảng 8:30 – 12:00</span></li>
+        <li><span class="en-only">Afternoon: around 3:00 PM – 4:30 PM</span><span class="vn-only">Buổi chiều: khoảng 15:00 – 16:30</span></li>
+        <li><span class="en-only">Evening: around 7:00 PM – 10:00 PM</span><span class="vn-only">Buổi tối: khoảng 19:00 – 22:00</span></li>
+      </ul>
+      <p><span class="en-only">You may also see specific times listed online, such as 4:10 PM, 7:20 PM, or 9:50 PM—but delays are common and schedules can change.</span><span class="vn-only">Bạn cũng có thể thấy một số giờ cụ thể trên mạng như 16:10, 19:20 hoặc 21:50—nhưng tàu có thể trễ và lịch có thể thay đổi.</span></p>
+      <p><span class="en-only">Unlike many guides that list exact times, Train Street operates on a flexible timetable.</span><span class="vn-only">Không giống nhiều bài viết liệt kê giờ cố định, Train Street hoạt động theo lịch linh hoạt.</span></p>
 
       <div class="info-box">
-        <span data-t="blog-train-infobox-text">👉 The best way to know the exact timing is simple: Ask a café owner when you arrive—they always have the most accurate information.</span>
+        <span class="en-only">👉 The best way to know the exact timing is simple: Ask a café owner when you arrive—they always have the most accurate information.</span>
+        <span class="vn-only">👉 Cách tốt nhất để biết giờ chính xác: Hỏi trực tiếp quán cà phê khi bạn đến—họ luôn có thông tin chính xác nhất.</span>
       </div>
 
-      <h2 data-t="blog-train-where-title">Where is Train Street?</h2>
-      <p data-t="blog-train-where-p1">Train Street is located near Hanoi Railway Station, not far from the Old Quarter.</p>
-      <p data-t="blog-train-where-p2">The most visited sections are along Trần Phú Street and Phùng Hưng Street.</p>
-      <p><em data-t="blog-train-where-location">📍 From <a href="miacasa-hanoi.html" style="color: #c17a5a; text-decoration: underline;">MiaCasa Hanoi</a>, it's about a 5-minute walk. <a href="index.html?property=hanoi#booking" style="color: #c17a5a; text-decoration: underline;" data-t="micro-check-availability">Check availability →</a></em></p>
-
-      <h2 data-t="blog-train-safety-title">How to visit Train Street safely</h2>
-      <p data-t="blog-train-safety-p1">This is not a controlled tourist attraction—it's an active railway.</p>
+      <h2><span class="en-only">Where is Train Street?</span><span class="vn-only">Train Street ở đâu?</span></h2>
+      <p><span class="en-only">Train Street is located near Hanoi Railway Station, not far from the Old Quarter.</span><span class="vn-only">Train Street nằm gần Ga Hà Nội, không xa Phố Cổ.</span></p>
+      <p><span class="en-only">The most visited sections are along:</span><span class="vn-only">Khu vực phổ biến nhất:</span></p>
       <ul>
-        <li data-t="blog-train-safety-li1">Always listen to café staff or locals</li>
-        <li data-t="blog-train-safety-li2">Stay clear of the tracks when told</li>
-        <li data-t="blog-train-safety-li3">Do not stand in the middle for photos</li>
-        <li data-t="blog-train-safety-li4">Avoid blocking the train</li>
-        <li data-t="blog-train-safety-li5">Choose a café instead of standing freely</li>
+        <li><span class="en-only">Trần Phú Street</span><span class="vn-only">Trần Phú</span></li>
+        <li><span class="en-only">Phùng Hưng Street</span><span class="vn-only">Phùng Hưng</span></li>
+      </ul>
+      <p><em><span class="en-only">📍 From <a href="miacasa-hanoi.html" style="color: #c17a5a; text-decoration: underline;">MiaCasa Hanoi</a>, it's about a 5-minute walk. <a href="index.html?property=hanoi#booking" style="color: #c17a5a; text-decoration: underline;">Book Your Dates →</a></span><span class="vn-only">📍 Từ <a href="miacasa-hanoi.html" style="color: #c17a5a; text-decoration: underline;">MiaCasa Hanoi</a>, chỉ mất khoảng 5 phút đi bộ. <a href="index.html?property=hanoi#booking" style="color: #c17a5a; text-decoration: underline;">Xem lịch trống →</a></span></em></p>
+
+      <h2><span class="en-only">How to visit Train Street safely</span><span class="vn-only">Cách tham quan an toàn</span></h2>
+      <p><span class="en-only">This is not a controlled tourist attraction—it's an active railway.</span><span class="vn-only">Đây là đường tàu đang hoạt động, không phải khu du lịch có kiểm soát.</span></p>
+      <ul>
+        <li><span class="en-only">Always listen to café staff or locals</span><span class="vn-only">Luôn nghe theo hướng dẫn của quán hoặc người dân</span></li>
+        <li><span class="en-only">Stay clear of the tracks when told</span><span class="vn-only">Không đứng gần đường ray khi được yêu cầu</span></li>
+        <li><span class="en-only">Do not stand in the middle for photos</span><span class="vn-only">Không đứng giữa đường ray để chụp ảnh</span></li>
+        <li><span class="en-only">Avoid blocking the train</span><span class="vn-only">Không cản trở tàu</span></li>
+        <li><span class="en-only">Choose a café instead of standing freely</span><span class="vn-only">Chọn quán cà phê thay vì đứng tự do</span></li>
+      </ul>
+      <p><span class="en-only">If something feels unsafe, step back.</span><span class="vn-only">Nếu thấy không an toàn, hãy lùi lại.</span></p>
+
+      <h2><span class="en-only">Best way to experience Train Street</span><span class="vn-only">Trải nghiệm tốt nhất</span></h2>
+      <p><span class="en-only">The best way is simple.</span><span class="vn-only">Cách tốt nhất rất đơn giản.</span></p>
+      <p><span class="en-only">Find a small café along the tracks. Sit down. Order a drink. Wait.</span><span class="vn-only">Chọn một quán cà phê nhỏ dọc đường ray. Ngồi xuống. Gọi đồ uống. Chờ.</span></p>
+      <ul>
+        <li><span class="en-only">A safer experience</span><span class="vn-only">An toàn hơn</span></li>
+        <li><span class="en-only">A better view</span><span class="vn-only">Có góc nhìn tốt hơn</span></li>
+        <li><span class="en-only">A more relaxed atmosphere</span><span class="vn-only">Cảm nhận rõ không khí</span></li>
+      </ul>
+      <p><span class="en-only">You'll also notice how the entire street prepares before the train arrives.</span><span class="vn-only">Bạn sẽ thấy cả con phố chuẩn bị như thế nào trước khi tàu đến.</span></p>
+
+      <h2><span class="en-only">What does it feel like?</span><span class="vn-only">Cảm giác khi tàu đi qua</span></h2>
+      <p><span class="en-only">A few minutes before the train arrives, everything changes.</span><span class="vn-only">Trước khi tàu đến vài phút, mọi thứ thay đổi.</span></p>
+      <p><span class="en-only">People move. Chairs disappear. The space clears.</span><span class="vn-only">Không gian được dọn dẹp. Mọi người di chuyển.</span></p>
+      <p><span class="en-only">Then suddenly, the train is there—loud, close, and surprisingly fast.</span><span class="vn-only">Rồi đoàn tàu xuất hiện—gần, nhanh và ồn.</span></p>
+      <p><span class="en-only">It passes in seconds.</span><span class="vn-only">Chỉ vài giây sau,</span></p>
+      <p><span class="en-only">Then just as quickly, the street returns to normal.</span><span class="vn-only">mọi thứ trở lại bình thường.</span></p>
+
+      <h2><span class="en-only">Best time to visit</span><span class="vn-only">Thời điểm nên đi</span></h2>
+      <p><strong><span class="en-only">🌅 Early morning</span><span class="vn-only">🌅 Sáng sớm</span></strong></p>
+      <ul>
+        <li><span class="en-only">Fewer people</span><span class="vn-only">Ít đông</span></li>
+        <li><span class="en-only">More local atmosphere</span><span class="vn-only">Không khí địa phương</span></li>
+      </ul>
+      <p><strong><span class="en-only">🌆 Evening</span><span class="vn-only">🌆 Buổi tối</span></strong></p>
+      <ul>
+        <li><span class="en-only">Livelier cafés</span><span class="vn-only">Nhiều quán mở</span></li>
+        <li><span class="en-only">Better lighting and energy</span><span class="vn-only">Không khí sôi động</span></li>
       </ul>
 
-      <h2 data-t="blog-train-best-title">Best way to experience Train Street</h2>
-      <p data-t="blog-train-best-p1">The best way is simple. Find a small café along the tracks. Sit down. Order a drink. Wait.</p>
-      <p data-t="blog-train-best-p2">This gives you a safer experience, a better view, and a more relaxed atmosphere.</p>
+      <h2><span class="en-only">Staying near Train Street</span><span class="vn-only">Ở gần Train Street</span></h2>
+      <p><span class="en-only">If you want to visit easily, staying nearby makes a big difference.</span><span class="vn-only">Ở gần sẽ thuận tiện hơn rất nhiều nếu bạn muốn ghé thăm.</span></p>
+      <p><span class="en-only">MiaCasa Hanoi is located in the Văn Miếu area, within walking distance of Train Street.</span><span class="vn-only">MiaCasa Hanoi nằm trong khu Văn Miếu, cách Train Street vài phút đi bộ.</span></p>
+      <ul>
+        <li><span class="en-only">Visit early or late</span><span class="vn-only">Đi sớm hoặc muộn</span></li>
+        <li><span class="en-only">Avoid crowds</span><span class="vn-only">Tránh đông</span></li>
+        <li><span class="en-only">Experience the area more naturally</span><span class="vn-only">Trải nghiệm tự nhiên hơn</span></li>
+      </ul>
 
-      <h2 data-t="blog-train-feel-title">What does it feel like?</h2>
-      <p data-t="blog-train-feel-p1">A few minutes before the train arrives, everything changes. People move. Chairs disappear. The space clears.</p>
-      <p data-t="blog-train-feel-p2">Then suddenly, the train is there—loud, close, and surprisingly fast. It passes in seconds. Then just as quickly, the street returns to normal.</p>
-
-      <h2 data-t="blog-train-stay-title">Staying near Train Street</h2>
-      <p data-t="blog-train-stay-p1">If you want to visit easily, staying nearby makes a big difference.</p>
-      <p><strong><a href="miacasa-hanoi.html" style="color: #c17a5a;">MiaCasa Hanoi</a></strong> is located in the Văn Miếu area, within walking distance of Train Street.</p>
-
-      <h2 data-t="blog-train-final-title">Final thoughts</h2>
-      <p data-t="blog-train-final-p1">Train Street is not just about the train. It's about the contrast—between daily life and something unexpected passing through it.</p>
+      <h2><span class="en-only">Final thoughts</span><span class="vn-only">Kết luận</span></h2>
+      <p><span class="en-only">Train Street is not just about the train.</span><span class="vn-only">Train Street không chỉ là nơi xem tàu.</span></p>
+      <p><span class="en-only">It's about the contrast—between daily life and something unexpected passing through it.</span><span class="vn-only">Đó là sự giao thoa giữa cuộc sống hàng ngày và một điều bất ngờ.</span></p>
+      <p><span class="en-only">If you visit with respect and awareness, it can be one of the most unique experiences in Hanoi.</span><span class="vn-only">Nếu trải nghiệm đúng cách, đây sẽ là một trong những điểm đáng nhớ nhất ở Hà Nội.</span></p>
     </div>
 
     <!-- Trust Signals -->
     <div class="trust-signals">
-      <span data-t="trust-local-host">🏠 Hosted by locals in Hanoi</span>
-      <span data-t="trust-rating">⭐ 4.9★ from 200+ guests</span>
-      <span data-t="trust-direct">💰 Direct booking = better rate</span>
+      <span><span class="en-only">🏠 Hosted by locals in Hanoi</span><span class="vn-only">🏠 Do người địa phương làm chủ</span></span>
+      <span><span class="en-only">⭐ 4.9★ from 200+ guests</span><span class="vn-only">⭐ 4.9★ từ hơn 200 khách</span></span>
+      <span><span class="en-only">💰 Direct booking = better rate</span><span class="vn-only">💰 Đặt trực tiếp = giá tốt hơn</span></span>
     </div>
 
     <!-- Strong Ending Hook -->
     <div class="blog-cta">
-      <h3 style="margin-bottom: 0.5rem;" data-t="ending-train-title">Ready to experience Train Street?</h3>
-      <p style="margin-bottom: 1rem;" data-t="ending-train-text">If you're planning your stay in Hanoi, choosing the right location makes all the difference. Being a 5-minute walk from Train Street means early mornings and late evenings without the crowds.</p>
-      <a href="index.html?property=hanoi#booking" class="btn-primary" style="padding: 0.7rem 1.5rem; display: inline-block;" data-t="blog-train-cta-button">🚂 Check Availability for MiaCasa Hanoi – 5 min walk to Train Street →</a>
+      <h3 style="margin-bottom: 0.5rem;">
+        <span class="en-only">✨ Planning your trip to Hanoi?</span>
+        <span class="vn-only">✨ Đang lên kế hoạch cho chuyến đi Hà Nội?</span>
+      </h3>
+      <p style="margin-bottom: 1rem;">
+        <span class="en-only">Read our complete 3-day itinerary for food, culture, and where to stay.</span>
+        <span class="vn-only">Đọc lịch trình 3 ngày chi tiết về ẩm thực, văn hóa và nơi ở.</span>
+      </p>
+      <a href="blog-hanoi-3-days.html" class="btn-primary" style="padding: 0.7rem 1.5rem; display: inline-block; background: #c17a5a; color: white; text-decoration: none; border-radius: 40px;">
+        <span class="en-only">📖 Read the 3-day Hanoi itinerary →</span>
+        <span class="vn-only">📖 Đọc lịch trình 3 ngày ở Hà Nội →</span>
+      </a>
     </div>
 
     <!-- You Might Also Like -->
     <div style="margin: 3rem 0 2rem; padding: 2rem; background: #f5efe6; border-radius: 16px;">
-      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1rem; text-align: center;" data-t="also-like-title">📖 You might also like</h3>
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1rem; text-align: center;">
+        <span class="en-only">📖 You might also like</span>
+        <span class="vn-only">📖 Có thể bạn cũng thích</span>
+      </h3>
       <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
         <a href="blog-hanoi-3-days.html" style="text-decoration: none;">
           <div style="background: white; border-radius: 12px; padding: 1rem; width: 250px; border: 1px solid #e5e0d8;">
             <div style="font-size: 2rem; margin-bottom: 0.5rem;">📌</div>
-            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;" data-t="also-like-3days-title">3 Days in Hanoi</h4>
-            <p style="font-size: 0.7rem; color: #6b5c47;" data-t="also-like-3days-desc">Complete itinerary with food, culture, and where to stay</p>
+            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;">
+              <span class="en-only">3 Days in Hanoi</span>
+              <span class="vn-only">3 Ngày Ở Hà Nội</span>
+            </h4>
+            <p style="font-size: 0.7rem; color: #6b5c47;">
+              <span class="en-only">Complete itinerary with food, culture, and where to stay</span>
+              <span class="vn-only">Lịch trình chi tiết với ẩm thực, văn hóa và nơi ở</span>
+            </p>
+          </div>
+        </a>
+        <a href="blog-where-to-stay.html" style="text-decoration: none;">
+          <div style="background: white; border-radius: 12px; padding: 1rem; width: 250px; border: 1px solid #e5e0d8;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏠</div>
+            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;">
+              <span class="en-only">Where to Stay in Hanoi</span>
+              <span class="vn-only">Nên Ở Đâu Ở Hà Nội</span>
+            </h4>
+            <p style="font-size: 0.7rem; color: #6b5c47;">
+              <span class="en-only">Old Quarter vs quiet local areas</span>
+              <span class="vn-only">Phố Cổ hay khu phố yên tĩnh</span>
+            </p>
           </div>
         </a>
       </div>
     </div>
 
-    <a href="blog.html" class="blog-back" data-t="blog-train-back-link">← Back to all blog posts</a>
+    <a href="blog.html" class="blog-back">
+      <span class="en-only">← Back to all blog posts</span>
+      <span class="vn-only">← Quay lại tất cả bài viết</span>
+    </a>
   </article>
 </main>
 
@@ -176,6 +276,32 @@
 <script src="/js/lang.js"></script>
 <script>
   function toggleMenu() { document.querySelector('.nav-links').classList.toggle('show'); }
+  
+  function updateLanguageVisibility() {
+    const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+    document.querySelectorAll('.en-only, .vn-only, .en-only-inline, .vn-only-inline').forEach(el => {
+      if ((isEn && el.classList.contains('en-only')) || 
+          (!isEn && el.classList.contains('vn-only')) ||
+          (isEn && el.classList.contains('en-only-inline')) ||
+          (!isEn && el.classList.contains('vn-only-inline'))) {
+        el.style.display = (el.classList.contains('en-only-inline') || el.classList.contains('vn-only-inline')) ? 'inline' : 'block';
+      } else if (!isEn && (el.classList.contains('en-only') || el.classList.contains('en-only-inline'))) {
+        el.style.display = 'none';
+      } else if (isEn && (el.classList.contains('vn-only') || el.classList.contains('vn-only-inline'))) {
+        el.style.display = 'none';
+      }
+    });
+  }
+  
+  const originalSetLang = window.setLang;
+  window.setLang = function(lang) {
+    originalSetLang(lang);
+    updateLanguageVisibility();
+  };
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    updateLanguageVisibility();
+  });
 </script>
 <a href="index.html?property=hanoi#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
 </body>

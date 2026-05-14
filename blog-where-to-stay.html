@@ -103,6 +103,12 @@
     .comparison-box { flex-direction: column; }
     .property-grid { grid-template-columns: 1fr; }
   }
+  
+  .en-only, .vn-only { display: none; }
+  html[data-lang="en"] .en-only { display: block; }
+  html[data-lang="en"] .en-only-inline { display: inline; }
+  html[data-lang="vn"] .vn-only { display: block; }
+  html[data-lang="vn"] .vn-only-inline { display: inline; }
 </style>
 </head>
 <body>
@@ -114,163 +120,207 @@
     <li><a href="miacasa-hanoi.html" data-t="nav-hanoi">MiaCasa Hanoi</a></li>
     <li><a href="miacasa-oldquarter.html" data-t="nav-oq">MiaCasa Old Quarter</a></li>
     <li><a href="our-story.html" data-t="nav-story">Our Story</a></li>
-    <li><a href="blog.html">Blog</a></li>
+    <li><a href="blog.html" class="active" data-t="nav-blog">Blog</a></li>
     <li><a href="index.html#contact" data-t="nav-contact">Contact Us</a></li>
     <li><a href="index.html?property=hanoi#booking" class="nav-book" data-t="nav-book-now">Book Now</a></li>
   </ul>
   <div class="lang-toggle">
-  <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
-    <span class="flag-icon">🇬🇧</span> EN
-  </button>
-  <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
-    <span class="flag-icon">🇻🇳</span> VN
-  </button>
-</div>
+    <button id="lang-en" class="lang-btn active" onclick="setLang('en')">
+      <span class="flag-icon">🇬🇧</span> EN
+    </button>
+    <button id="lang-vn" class="lang-btn" onclick="setLang('vn')">
+      <span class="flag-icon">🇻🇳</span> VN
+    </button>
+  </div>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
 <main class="blog-container">
   <!-- Breadcrumbs -->
   <div style="font-size: 0.7rem; color: #6b5c47; margin-bottom: 1.5rem;">
-    <a href="index.html" style="color: #6b5c47; text-decoration: none;" data-t="breadcrumb-home">Home</a> → 
-    <a href="blog.html" style="color: #6b5c47; text-decoration: none;" data-t="breadcrumb-blog">Blog</a> → 
-    <span style="color: #c17a5a;" data-t="breadcrumb-stay">Where to Stay in Hanoi</span>
+    <a href="index.html" style="color: #6b5c47; text-decoration: none;">
+      <span class="en-only-inline">Home</span><span class="vn-only-inline">Trang chủ</span>
+    </a> → 
+    <a href="blog.html" style="color: #6b5c47; text-decoration: none;">
+      <span class="en-only-inline">Blog</span><span class="vn-only-inline">Blog</span>
+    </a> → 
+    <span style="color: #c17a5a;">
+      <span class="en-only-inline">Where to Stay in Hanoi</span>
+      <span class="vn-only-inline">Nên Ở Đâu Ở Hà Nội</span>
+    </span>
   </div>
 
   <article>
     <div class="blog-header">
-      <div class="blog-category" data-t="blog-stay-category">🏠 ACCOMMODATION GUIDE</div>
-      <h1 class="blog-title" data-t="blog-stay-title">Where to Stay in Hanoi: Old Quarter vs Local Areas</h1>
-      <div class="blog-meta" data-t="blog-stay-meta">📅 April 29, 2026 · ☕ 5 min read · ✍️ By MiaCasa Team</div>
+      <div class="blog-category">
+        <span class="en-only">🏠 ACCOMMODATION GUIDE</span>
+        <span class="vn-only">🏠 HƯỚNG DẪN CHỖ Ở</span>
+      </div>
+      <h1 class="blog-title">
+        <span class="en-only">Where to Stay in Hanoi: Old Quarter vs Local Areas</span>
+        <span class="vn-only">Nên Ở Đâu Khi Đến Hà Nội: Phố Cổ Hay Khu Yên Tĩnh</span>
+      </h1>
+      <div class="blog-meta">
+        <span class="en-only">📅 April 29, 2026 · ☕ 5 min read · ✍️ By MiaCasa Team</span>
+        <span class="vn-only">📅 29 Tháng 4, 2026 · ☕ 5 phút đọc · ✍️ MiaCasa Team</span>
+      </div>
     </div>
 
     <div class="blog-content">
-      <p data-t="blog-stay-intro-p1">Choosing where to stay in Hanoi can completely shape your experience.</p>
-      <p data-t="blog-stay-intro-p2">Some travelers want to be in the center of everything. Others prefer a quieter, more local atmosphere.</p>
-      <p data-t="blog-stay-intro-p3">Most people end up choosing between two very different areas:</p>
+      <p><span class="en-only">Choosing where to stay in Hanoi can completely shape your experience.</span><span class="vn-only">Chỗ ở sẽ ảnh hưởng rất nhiều đến trải nghiệm của bạn ở Hà Nội.</span></p>
+      <p><span class="en-only">Some travelers want to be in the center of everything. Others prefer a quieter, more local atmosphere.</span><span class="vn-only">Có người muốn ở ngay trung tâm. Có người thích không gian yên tĩnh hơn.</span></p>
+      <p><span class="en-only">Most people end up choosing between two very different areas:</span><span class="vn-only">Hầu hết mọi người sẽ lựa chọn giữa hai khu vực rất khác nhau:</span></p>
       <ul>
-        <li data-t="blog-stay-intro-list1">The Old Quarter</li>
-        <li data-t="blog-stay-intro-list2">A quieter residential neighborhood</li>
+        <li><span class="en-only">The Old Quarter</span><span class="vn-only">Phố Cổ</span></li>
+        <li><span class="en-only">A quieter residential neighborhood</span><span class="vn-only">Khu dân cư yên tĩnh</span></li>
       </ul>
 
-      <!-- Quick Comparison Box WITH BUTTONS -->
+      <!-- Quick Comparison Box -->
       <div class="comparison-box">
         <div class="comparison-card">
           <div class="emoji">🏙️</div>
-          <div class="question" data-t="blog-stay-quick-energy">Want energy, food, nightlife?</div>
-          <div class="answer" data-t="blog-stay-quick-energy-answer">Old Quarter</div>
-          <a href="index.html?property=oldquarter#booking" class="btn-primary comparison-btn" data-t="blog-stay-oq-card-cta">👉 Check Availability for MiaCasa Old Quarter →</a>
+          <div class="question"><span class="en-only">Want energy, food, nightlife?</span><span class="vn-only">Thích sôi động, ẩm thực, nightlife?</span></div>
+          <div class="answer"><span class="en-only">Old Quarter</span><span class="vn-only">Phố Cổ</span></div>
+          <div class="book-link">
+            <a href="index.html?property=oldquarter#booking"><span class="en-only">Book Your Dates →</span><span class="vn-only">Xem lịch trống →</span></a>
+          </div>
         </div>
         <div class="comparison-card">
           <div class="emoji">🌿</div>
-          <div class="question" data-t="blog-stay-quick-calm">Want calm, space, better sleep?</div>
-          <div class="answer" data-t="blog-stay-quick-calm-answer">Local areas (like Văn Miếu)</div>
-          <a href="index.html?property=hanoi#booking" class="btn-primary comparison-btn" data-t="blog-stay-hanoi-card-cta">👉 Check Availability for MiaCasa Hanoi →</a>
+          <div class="question"><span class="en-only">Want calm, space, better sleep?</span><span class="vn-only">Thích yên tĩnh, thoải mái, ngủ ngon?</span></div>
+          <div class="answer"><span class="en-only">Local areas (like Văn Miếu)</span><span class="vn-only">Khu Văn Miếu</span></div>
+          <div class="book-link">
+            <a href="index.html?property=hanoi#booking"><span class="en-only">Book Your Dates →</span><span class="vn-only">Xem lịch trống →</span></a>
+          </div>
         </div>
       </div>
 
-      <h2 data-t="blog-stay-oq-title">Staying in the Old Quarter</h2>
-      <p data-t="blog-stay-oq-text">The Old Quarter is the heart of Hanoi. Everything happens here: street food, cafés, nightlife, markets. You can walk almost everywhere.</p>
+      <h2><span class="en-only">Staying in the Old Quarter</span><span class="vn-only">Ở Phố Cổ</span></h2>
+      <p><span class="en-only">The Old Quarter is the heart of Hanoi. Everything happens here: street food, cafés, nightlife, markets. You can walk almost everywhere.</span><span class="vn-only">Phố Cổ là trung tâm của Hà Nội. Mọi thứ đều ở đây: ẩm thực đường phố, quán cà phê, chợ, nightlife. Bạn có thể đi bộ hầu hết mọi nơi.</span></p>
 
-      <h3 data-t="blog-stay-oq-best-title">Best for:</h3>
+      <h3><span class="en-only">Best for:</span><span class="vn-only">Phù hợp với:</span></h3>
       <ul>
-        <li data-t="blog-stay-oq-best1">First-time visitors</li>
-        <li data-t="blog-stay-oq-best2">Short stays</li>
-        <li data-t="blog-stay-oq-best3">Travelers who want everything nearby</li>
+        <li><span class="en-only">First-time visitors</span><span class="vn-only">Người lần đầu đến Hà Nội</span></li>
+        <li><span class="en-only">Short stays</span><span class="vn-only">Lịch trình ngắn</span></li>
+        <li><span class="en-only">Travelers who want everything nearby</span><span class="vn-only">Thích sự tiện lợi</span></li>
       </ul>
 
-      <h3 data-t="blog-stay-oq-consider-title">Things to consider:</h3>
+      <h3><span class="en-only">Things to consider:</span><span class="vn-only">Lưu ý:</span></h3>
       <ul>
-        <li data-t="blog-stay-oq-consider1">It can be noisy</li>
-        <li data-t="blog-stay-oq-consider2">Streets are crowded</li>
-        <li data-t="blog-stay-oq-consider3">Rooms are often smaller</li>
+        <li><span class="en-only">It can be noisy</span><span class="vn-only">Có thể ồn</span></li>
+        <li><span class="en-only">Streets are crowded</span><span class="vn-only">Đông đúc</span></li>
+        <li><span class="en-only">Rooms are often smaller</span><span class="vn-only">Không gian nhỏ</span></li>
       </ul>
 
-      <h2 data-t="blog-stay-quiet-title">Staying in a quieter area (Văn Miếu and nearby)</h2>
-      <p data-t="blog-stay-quiet-text">Just a few minutes away, the atmosphere changes completely. Areas like Văn Miếu feel calmer, more local, and less crowded.</p>
-      <p data-t="blog-stay-quiet-note">You'll still be close to Train Street and the Old Quarter (just a short ride away).</p>
+      <h2><span class="en-only">Staying in a quieter area (Văn Miếu and nearby)</span><span class="vn-only">Ở khu yên tĩnh (Văn Miếu và lân cận)</span></h2>
+      <p><span class="en-only">Just a few minutes away, the atmosphere changes completely. Areas like Văn Miếu feel calmer, more local, and less crowded.</span><span class="vn-only">Chỉ cách trung tâm vài phút nhưng không khí hoàn toàn khác. Khu Văn Miếu yên tĩnh, địa phương hơn, ít đông đúc.</span></p>
+      <p><span class="en-only">You'll still be close to Train Street and the Old Quarter (just a short ride away).</span><span class="vn-only">Bạn vẫn gần Train Street và Phố Cổ (chỉ cách một quãng ngắn).</span></p>
 
-      <h3 data-t="blog-stay-quiet-best-title">Best for:</h3>
+      <h3><span class="en-only">Best for:</span><span class="vn-only">Phù hợp với:</span></h3>
       <ul>
-        <li data-t="blog-stay-quiet-best1">Couples</li>
-        <li data-t="blog-stay-quiet-best2">Remote workers</li>
-        <li data-t="blog-stay-quiet-best3">Light sleepers</li>
-        <li data-t="blog-stay-quiet-best4">Longer stays</li>
+        <li><span class="en-only">Couples</span><span class="vn-only">Cặp đôi</span></li>
+        <li><span class="en-only">Remote workers</span><span class="vn-only">Người làm việc từ xa</span></li>
+        <li><span class="en-only">Light sleepers</span><span class="vn-only">Người ngủ nhẹ</span></li>
+        <li><span class="en-only">Longer stays</span><span class="vn-only">Lưu trú dài ngày</span></li>
       </ul>
 
-      <h2 data-t="blog-stay-which-title">Which one should you choose?</h2>
-      <p data-t="blog-stay-which-text">There's no single "best" place. It depends on how you want to experience Hanoi.</p>
+      <h2><span class="en-only">Which one should you choose?</span><span class="vn-only">Nên chọn khu nào?</span></h2>
+      <p><span class="en-only">There's no single "best" place. It depends on how you want to experience Hanoi.</span><span class="vn-only">Không có lựa chọn "tốt nhất". Chỉ có lựa chọn phù hợp với bạn.</span></p>
       <ul>
-        <li data-t="blog-stay-which-energy">If you want energy → stay in the Old Quarter</li>
-        <li data-t="blog-stay-which-balance">If you want balance → stay in a quieter neighborhood</li>
+        <li><span class="en-only">If you want energy → stay in the Old Quarter</span><span class="vn-only">Nếu thích sôi động → ở Phố Cổ</span></li>
+        <li><span class="en-only">If you want balance → stay in a quieter neighborhood</span><span class="vn-only">Nếu thích cân bằng → ở khu yên tĩnh</span></li>
       </ul>
 
-      <h2 data-t="blog-stay-options-title">Two ways to stay with MiaCasa</h2>
-      <p data-t="blog-stay-options-text">MiaCasa offers both options, depending on your travel style.</p>
+      <h2><span class="en-only">Two ways to stay with MiaCasa</span><span class="vn-only">Hai lựa chọn tại MiaCasa</span></h2>
+      <p><span class="en-only">MiaCasa offers both options, depending on your travel style.</span><span class="vn-only">MiaCasa có cả hai lựa chọn, phù hợp với phong cách du lịch của bạn.</span></p>
 
-      <!-- Property Cards - SIDE BY SIDE (Grid layout) -->
+      <!-- Property Cards - Side by Side -->
       <div class="property-grid">
         <!-- MiaCasa Old Quarter Card -->
         <div class="property-card">
-          <h3 data-t="blog-stay-oq-card-title">🛵 MiaCasa Old Quarter</h3>
-          <p data-t="blog-stay-oq-card-text">Stay in the center of everything.</p>
+          <h3><span class="en-only">🛵 MiaCasa Old Quarter</span><span class="vn-only">🛵 MiaCasa Phố Cổ</span></h3>
+          <p><span class="en-only">Stay in the center of everything.</span><span class="vn-only">Ở ngay trung tâm.</span></p>
           <ul>
-            <li data-t="blog-stay-oq-card-li1">Full apartment</li>
-            <li data-t="blog-stay-oq-card-li2">Steps from Hoàn Kiếm Lake</li>
-            <li data-t="blog-stay-oq-card-li3">Ideal for groups and short stays</li>
+            <li><span class="en-only">Full apartment</span><span class="vn-only">Toàn bộ căn hộ</span></li>
+            <li><span class="en-only">Steps from Hoàn Kiếm Lake</span><span class="vn-only">Cách Hồ Hoàn Kiếm vài bước</span></li>
+            <li><span class="en-only">Ideal for groups and short stays</span><span class="vn-only">Lý tưởng cho nhóm và lưu trú ngắn</span></li>
           </ul>
-          <a href="index.html?property=oldquarter#booking" class="btn-primary" style="padding: 0.5rem 1rem; display: inline-block; font-size: 0.75rem; margin-top: 0.5rem;" data-t="blog-stay-oq-card-cta">👉 Check availability →</a>
+          <a href="index.html?property=oldquarter#booking" class="btn-primary" style="padding: 0.5rem 1rem; display: inline-block; font-size: 0.75rem; margin-top: 0.5rem;">
+            <span class="en-only">👉 Book Your Dates →</span>
+            <span class="vn-only">👉 Đặt ngày lưu trú →</span>
+          </a>
         </div>
 
         <!-- MiaCasa Hanoi Card -->
         <div class="property-card">
-          <h3 data-t="blog-stay-hanoi-card-title">🌿 MiaCasa Hanoi</h3>
-          <p data-t="blog-stay-hanoi-card-text">A quieter, more local experience.</p>
+          <h3><span class="en-only">🌿 MiaCasa Hanoi</span><span class="vn-only">🌿 MiaCasa Hà Nội</span></h3>
+          <p><span class="en-only">A quieter, more local experience.</span><span class="vn-only">Không gian yên tĩnh, gần gũi.</span></p>
           <ul>
-            <li data-t="blog-stay-hanoi-card-li1">Private rooms</li>
-            <li data-t="blog-stay-hanoi-card-li2">Near Văn Miếu and Train Street</li>
-            <li data-t="blog-stay-hanoi-card-li3">Calm neighborhood, better sleep</li>
+            <li><span class="en-only">Private rooms</span><span class="vn-only">Phòng riêng</span></li>
+            <li><span class="en-only">Near Văn Miếu and Train Street</span><span class="vn-only">Gần Văn Miếu và Train Street</span></li>
+            <li><span class="en-only">Calm neighborhood, better sleep</span><span class="vn-only">Khu phố yên tĩnh, ngủ ngon hơn</span></li>
           </ul>
-          <a href="index.html?property=hanoi#booking" class="btn-primary" style="padding: 0.5rem 1rem; display: inline-block; font-size: 0.75rem; margin-top: 0.5rem;" data-t="blog-stay-hanoi-card-cta">👉 Check availability →</a>
+          <a href="index.html?property=hanoi#booking" class="btn-primary" style="padding: 0.5rem 1rem; display: inline-block; font-size: 0.75rem; margin-top: 0.5rem;">
+            <span class="en-only">👉 Book Your Dates →</span>
+            <span class="vn-only">👉 Đặt ngày lưu trú →</span>
+          </a>
         </div>
       </div>
 
-      <h2 data-t="blog-stay-final-title">Final thoughts</h2>
-      <p data-t="blog-stay-final-p1">Where you stay in Hanoi is not just about location.</p>
-      <p data-t="blog-stay-final-p2">It's about how you want to feel during your trip.</p>
-      <p data-t="blog-stay-final-p3">Busy and energetic. Or calm and local.</p>
-      <p data-t="blog-stay-final-p4">Choose the one that fits you—and the city will feel completely different.</p>
+      <h2><span class="en-only">Final thoughts</span><span class="vn-only">Kết luận</span></h2>
+      <p><span class="en-only">Where you stay in Hanoi is not just about location.</span><span class="vn-only">Chỗ ở không chỉ là vị trí.</span></p>
+      <p><span class="en-only">It's about how you want to feel during your trip.</span><span class="vn-only">Mà là cảm giác bạn muốn có trong chuyến đi.</span></p>
+      <p><span class="en-only">Busy and energetic. Or calm and local.</span><span class="vn-only">Sôi động. Hoặc yên tĩnh.</span></p>
+      <p><span class="en-only">Choose the one that fits you—and the city will feel completely different.</span><span class="vn-only">Chọn nơi phù hợp—và Hà Nội sẽ hoàn toàn khác biệt.</span></p>
     </div>
 
     <!-- Trust Signals -->
     <div class="trust-signals">
-      <span data-t="trust-local-host">🏠 Hosted by locals in Hanoi</span>
-      <span data-t="trust-rating">⭐ 4.9★ from 200+ guests</span>
-      <span data-t="trust-direct">💰 Direct booking = better rate</span>
+      <span><span class="en-only">🏠 Hosted by locals in Hanoi</span><span class="vn-only">🏠 Do người địa phương làm chủ</span></span>
+      <span><span class="en-only">⭐ 4.9★ from 200+ guests</span><span class="vn-only">⭐ 4.9★ từ hơn 200 khách</span></span>
+      <span><span class="en-only">💰 Direct booking = better rate</span><span class="vn-only">💰 Đặt trực tiếp = giá tốt hơn</span></span>
     </div>
 
     <!-- You Might Also Like -->
     <div style="margin: 3rem 0 2rem; padding: 2rem; background: #f5efe6; border-radius: 16px;">
-      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1rem; text-align: center;" data-t="also-like-title">📖 You might also like</h3>
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 1rem; text-align: center;">
+        <span class="en-only">📖 You might also like</span>
+        <span class="vn-only">📖 Có thể bạn cũng thích</span>
+      </h3>
       <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
         <a href="blog-hanoi-3-days.html" style="text-decoration: none;">
           <div style="background: white; border-radius: 12px; padding: 1rem; width: 250px; border: 1px solid #e5e0d8;">
             <div style="font-size: 2rem; margin-bottom: 0.5rem;">📌</div>
-            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;" data-t="also-like-3days-title">3 Days in Hanoi</h4>
-            <p style="font-size: 0.7rem; color: #6b5c47;" data-t="also-like-3days-desc">Complete itinerary with food, culture, and where to stay</p>
+            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;">
+              <span class="en-only">3 Days in Hanoi</span>
+              <span class="vn-only">3 Ngày Ở Hà Nội</span>
+            </h4>
+            <p style="font-size: 0.7rem; color: #6b5c47;">
+              <span class="en-only">Complete itinerary with food, culture, and where to stay</span>
+              <span class="vn-only">Lịch trình chi tiết với ẩm thực, văn hóa và nơi ở</span>
+            </p>
           </div>
         </a>
         <a href="blog-train-street.html" style="text-decoration: none;">
           <div style="background: white; border-radius: 12px; padding: 1rem; width: 250px; border: 1px solid #e5e0d8;">
             <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚂</div>
-            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;" data-t="also-like-train-title">Train Street Guide</h4>
-            <p style="font-size: 0.7rem; color: #6b5c47;" data-t="also-like-train-desc">Times, safety tips, and how to visit without crowds</p>
+            <h4 style="font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.25rem; color: #2c2416;">
+              <span class="en-only">Train Street Guide</span>
+              <span class="vn-only">Hướng Dẫn Train Street</span>
+            </h4>
+            <p style="font-size: 0.7rem; color: #6b5c47;">
+              <span class="en-only">Times, safety tips, and how to visit without crowds</span>
+              <span class="vn-only">Giờ tàu, mẹo an toàn, và cách tham quan tránh đông đúc</span>
+            </p>
           </div>
         </a>
       </div>
     </div>
 
-    <a href="blog.html" class="blog-back" data-t="blog-stay-back-link">← Back to all blog posts</a>
+    <a href="blog.html" class="blog-back">
+      <span class="en-only">← Back to all blog posts</span>
+      <span class="vn-only">← Quay lại tất cả bài viết</span>
+    </a>
   </article>
 </main>
 
@@ -285,6 +335,32 @@
 <script src="/js/lang.js"></script>
 <script>
   function toggleMenu() { document.querySelector('.nav-links').classList.toggle('show'); }
+  
+  function updateLanguageVisibility() {
+    const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+    document.querySelectorAll('.en-only, .vn-only, .en-only-inline, .vn-only-inline').forEach(el => {
+      if ((isEn && el.classList.contains('en-only')) || 
+          (!isEn && el.classList.contains('vn-only')) ||
+          (isEn && el.classList.contains('en-only-inline')) ||
+          (!isEn && el.classList.contains('vn-only-inline'))) {
+        el.style.display = (el.classList.contains('en-only-inline') || el.classList.contains('vn-only-inline')) ? 'inline' : 'block';
+      } else if (!isEn && (el.classList.contains('en-only') || el.classList.contains('en-only-inline'))) {
+        el.style.display = 'none';
+      } else if (isEn && (el.classList.contains('vn-only') || el.classList.contains('vn-only-inline'))) {
+        el.style.display = 'none';
+      }
+    });
+  }
+  
+  const originalSetLang = window.setLang;
+  window.setLang = function(lang) {
+    originalSetLang(lang);
+    updateLanguageVisibility();
+  };
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    updateLanguageVisibility();
+  });
 </script>
 <a href="index.html?property=hanoi#booking" class="floating-book-btn" data-t="floating-book">📅 Book Now</a>
 </body>
