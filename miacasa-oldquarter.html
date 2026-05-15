@@ -191,11 +191,16 @@
     <div class="section-tag" data-t="oq-tag">MiaCasa Old Quarter · Hoan Kiem, Hanoi</div>
     <h1 data-th="oq-h1">Stay in the Heart<br><em>of Hoàn Kiếm</em></h1>
     <p class="prop-sub" data-t="oq-sub">A full apartment in Hanoi's Old Quarter — perfect for groups and families.</p>
+    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem;">
+      <span style="font-size: 0.72rem; background: #d1fae5; color: #065f46; padding: 0.3rem 0.75rem; border-radius: 20px;">✓ Free cancellation up to 48h before</span>
+      <span style="font-size: 0.72rem; background: var(--sand); color: var(--ink-light); padding: 0.3rem 0.75rem; border-radius: 20px;">✓ Best rate direct</span>
+    </div>
     <div class="hero-btns">
       <a href="index.html#booking" class="btn-primary" data-t="book-now-home">Book Now →</a>
       <a href="https://wa.me/84869922261?text=Hi%20MiaCasa!%20I%27d%20like%20to%20book%20the%20Old%20Quarter%20apartment." target="_blank" rel="noopener" class="btn-outline" data-t="oq-cta2">Book via WhatsApp</a>
     </div>
-    <p style="font-size: 0.75rem; color: var(--terracotta); margin-top: 1rem;" data-t="social-proof">⭐ Loved by guests visiting Hanoi · 4.8★ from recent stays</p>
+    <p style="font-size: 0.75rem; color: var(--ink-light); margin-top: 0.75rem;" data-t="urgency-signal">🔥 Popular pick — booked most weekends this season</p>
+    <p style="font-size: 0.75rem; color: var(--terracotta); margin-top: 0.4rem;" data-t="social-proof">⭐ Loved by guests visiting Hanoi · 4.8★ from recent stays</p>
   </div>
   <div class="prop-hero-img">
     <img 
@@ -592,6 +597,9 @@
     <div class="reviews-load-more" id="reviews-load-more">
       <button class="btn-outline" style="color:white;border-color:rgba(255,255,255,0.3);" onclick="loadMoreReviews()" data-t="reviews-loadmore">Load more reviews</button>
     </div>
+    <p style="text-align: center; margin-top: 1.25rem; font-size: 0.78rem; color: rgba(255,255,255,0.5);">
+      Verified on <a href="https://www.airbnb.vn/rooms/1141810113903225826" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.75); text-decoration: underline;">Airbnb ↗</a> &nbsp;·&nbsp; <a href="https://www.booking.com/hotel/vn/miacasahanoi.html" target="_blank" rel="noopener noreferrer" style="color: rgba(255,255,255,0.75); text-decoration: underline;">Booking.com ↗</a>
+    </p>
   </div>
 </section>
 
@@ -666,6 +674,7 @@
 </footer>
 
 <!-- External JavaScript Files -->
+<script src="/js/prices.js"></script>
 <script src="/js/main.js" defer></script>
 <script src="/js/calendar.js" defer></script>
 <script src="/js/booking.js" defer></script>
@@ -684,6 +693,7 @@ const OLDQUARTER_REVIEWS = [
 ];
 
 const PLATFORM_LABELS = { airbnb: 'Airbnb', booking: 'Booking.com', agoda: 'Agoda' };
+const PLATFORM_URLS = { airbnb: 'https://www.airbnb.vn/rooms/1141810113903225826', booking: 'https://www.booking.com/hotel/vn/miacasahanoi.html', agoda: 'https://www.agoda.com/miacasahanoi' };
 
 let reviewsShown = 6;
 let activeReviewFilter = 'all';
@@ -695,7 +705,7 @@ function renderReviews() {
     
     grid.innerHTML = filtered.slice(0, reviewsShown).map((r, i) => `
         <div class="testimonial-card">
-            <div class="platform-tag ${r.platform}">${PLATFORM_LABELS[r.platform]}</div>
+            <a href="${PLATFORM_URLS[r.platform]}" target="_blank" rel="noopener noreferrer" class="platform-tag ${r.platform}" style="text-decoration:none; cursor:pointer;" title="View on ${PLATFORM_LABELS[r.platform]}">${PLATFORM_LABELS[r.platform]} ↗</a>
             <div class="stars">${'★'.repeat(r.rating)}</div>
             <div class="testimonial-text">"${r.text}"</div>
             <div class="reviewer">

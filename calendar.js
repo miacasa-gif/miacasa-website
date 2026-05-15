@@ -3,7 +3,7 @@
 // Updated to use Google Script for iCal feeds
 // ================================================================
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkHj6gfhBxcEJwhxloF2ZfLrycZbKVmbS9IHVEzRoMf4ey63qrA4iL13H7D2E8ADCZzw/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqeuwzG4Idr9A_UTp2ibeR5QHAxvaG1uz-lz1TlItnr6QxcIBH4oBUM-ghlQANsMJcyA/exec';
 
 const ROOM_CALS = [
     {

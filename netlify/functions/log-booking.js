@@ -2,13 +2,19 @@
 // LOG-BOOKING.JS - Netlify Function Proxy to Google Script
 // ================================================================
 
-const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyL-KTne96-AxuWIj0ZrZxihFXBQe1Y8gZoIpKU5cPwe11cMOj-s2L4riHFcXfyVdTU8g/exec";
+// Credentials loaded from Netlify environment variables (never hardcode these)
+// Set GOOGLE_SHEETS_URL, ADMIN_USER, ADMIN_PASSWORD, ADMIN_TOKEN in the Netlify dashboard
+// under Site Settings → Environment variables
+const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
+const ADMIN_USER = process.env.ADMIN_USER;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
+
+if (!GOOGLE_SHEETS_URL || !ADMIN_USER || !ADMIN_PASSWORD || !ADMIN_TOKEN) {
+  console.error('Missing required environment variables. Set GOOGLE_SHEETS_URL, ADMIN_USER, ADMIN_PASSWORD, ADMIN_TOKEN in Netlify.');
+}
 
 let pendingPayments = new Map();
-
-const ADMIN_USER = 'miacasahanoi@gmail.com';
-const ADMIN_PASSWORD = '0869922261@Mi';
-const ADMIN_TOKEN = 'super_secure_token_123';
 
 function corsHeaders() {
   return {

@@ -446,6 +446,17 @@ section {
     font-weight: 500;
 }
 
+/* Remove empty black bar if it exists */
+#availability-message:empty,
+#cancellation-message:empty {
+    display: none;
+}
+
+/* Ensure the guest details section transitions smoothly */
+#guest-details {
+    transition: all 0.3s ease;
+}
+
 /* ============================================
    PROPERTY PAGES (MiaCasa Hanoi & Old Quarter)
    ============================================ */
@@ -984,43 +995,6 @@ section {
     background: var(--sand);
 }
 
-/* ============================================
-   COMPARE STAYS
-   ============================================ */
-.compare-stays-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-
-.compare-card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 2rem;
-}
-
-.compare-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    margin-bottom: 1.5rem;
-}
-
-.compare-list li {
-    font-size: 0.86rem;
-    color: var(--ink-light);
-    display: flex;
-    gap: 0.5rem;
-}
-
-.compare-list li::before {
-    content: '✦';
-    color: var(--terracotta);
-    flex-shrink: 0;
-}
 
 /* ============================================
    BOOKING FORM
@@ -1208,6 +1182,96 @@ section {
     padding: 0.85rem 1rem;
     background: rgba(122, 158, 126, 0.1);
     border-radius: 2px;
+    border-left: 3px solid var(--sage);
+}
+
+/* Contact Form Styles */
+.contact-form-box .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.contact-form-box .form-group label {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+.contact-form-box .form-group input,
+.contact-form-box .form-group select,
+.contact-form-box .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--cream);
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.contact-form-box .form-group input:focus,
+.contact-form-box .form-group select:focus,
+.contact-form-box .form-group textarea:focus {
+    outline: none;
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 2px rgba(193, 122, 90, 0.1);
+}
+
+.contact-form-box .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Form grid layout */
+.contact-form-box .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.contact-form-box .form-full {
+    grid-column: span 2;
+}
+
+/* Responsive form */
+@media (max-width: 768px) {
+    .contact-form-box .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .contact-form-box .form-full {
+        grid-column: span 1;
+    }
+}
+
+/* Contact info links - ensure terracotta color */
+.contact-item-text a {
+    color: var(--terracotta);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.contact-item-text a:hover {
+    color: var(--terracotta-dark);
+    text-decoration: underline;
+}
+
+/* Confirm message styling */
+.confirm-msg {
+    display: none;
+    margin-top: 1rem;
+    color: var(--sage);
+    font-size: 0.88rem;
+    padding: 0.85rem 1rem;
+    background: rgba(122, 158, 126, 0.1);
+    border-radius: 8px;
     border-left: 3px solid var(--sage);
 }
 
@@ -1621,8 +1685,8 @@ footer a,
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 20px;
+    right: 20px;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -1651,19 +1715,19 @@ footer a,
 /* WhatsApp Float Button */
 .whatsapp-float {
     position: fixed;
-    bottom: 100px;
-    right: 20px;
+    bottom: 20px;
+    right: 80px;
     background-color: #25D366;
     color: white;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: none;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 150;
+    z-index: 99;
     transition: all 0.3s ease;
     text-decoration: none;
 }
@@ -1688,34 +1752,13 @@ footer a,
     font-size: 0.85rem;
     letter-spacing: 0.06em;
     box-shadow: 0 4px 15px rgba(193, 122, 90, 0.3);
-    z-index: 100;
+    z-index: 99;
     transition: all 0.3s ease;
 }
 
 .floating-book-btn:hover {
     background: var(--terracotta-dark);
     transform: scale(1.02);
-}
-
-/* Story Link Styling - Button version */
-.story-link {
-    display: inline-block;
-    background: transparent;
-    color: var(--terracotta);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.8rem;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--terracotta);
-    border-radius: 40px;
-    transition: all 0.2s ease;
-}
-
-.story-link:hover {
-    background: var(--terracotta);
-    color: white;
-    transform: translateY(-2px);
 }
 
 /* Sticky Book Button (Mobile Bottom Bar) */
@@ -1747,11 +1790,10 @@ footer a,
 /* Chatbot FAB */
 .chatbot-fab {
     position: fixed;
-    bottom: 140px;
+    bottom: 20px;
     right: 20px;
-    z-index: 200;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: var(--terracotta);
     color: white;
@@ -1762,6 +1804,7 @@ footer a,
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 20px rgba(193, 122, 90, 0.38);
+    z-index: 100;
     transition: transform 0.2s;
 }
 
@@ -1769,15 +1812,33 @@ footer a,
     transform: scale(1.08);
 }
 
-/* Mobile Floating Buttons - Proper Spacing */
-@media (max-width: 768px) {
-    /* Show mobile-specific buttons */
-    .whatsapp-float {
-        display: flex;
-        bottom: 100px;
-        right: 16px;
+/* Desktop layout - side by side */
+@media (min-width: 769px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
     }
     
+    .chatbot-fab {
+        bottom: 20px;
+        right: 90px;
+    }
+    
+    .whatsapp-float {
+        display: none;
+    }
+    
+    .sticky-book-btn {
+        display: none;
+    }
+    
+    .floating-book-btn {
+        display: flex;
+    }
+}
+
+/* Mobile layout - stacked vertically */
+@media (max-width: 768px) {
     .sticky-book-btn {
         display: block;
     }
@@ -1786,43 +1847,38 @@ footer a,
         display: none;
     }
     
-    /* Back to top - above sticky book button */
+    .whatsapp-float {
+        display: flex;
+        bottom: 140px;
+        right: 16px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        z-index: 98;
+    }
+    
     .back-to-top {
         bottom: 80px;
         right: 16px;
         width: 44px;
         height: 44px;
         font-size: 1rem;
-        z-index: 101;
+        z-index: 99;
     }
     
-    /* WhatsApp - above back to top */
-    .whatsapp-float {
-        bottom: 140px;
-        width: 44px;
-        height: 44px;
-        font-size: 20px;
-    }
-    
-    /* Chatbot - above WhatsApp */
     .chatbot-fab {
         bottom: 200px;
+        right: 16px;
         width: 44px;
         height: 44px;
         font-size: 1rem;
+        z-index: 100;
     }
     
-    /* Mobile Navigation FAB */
     .fab-nav {
         bottom: 100px;
         left: 16px;
         z-index: 1000;
-    }
-    
-    .fab-nav-toggle {
-        width: 44px;
-        height: 44px;
-        font-size: 1.1rem;
     }
     
     body {
@@ -1830,22 +1886,22 @@ footer a,
     }
 }
 
-/* Very Small Screens (iPhone SE, 375px and below) */
+/* Very small screens */
 @media (max-width: 480px) {
-    .back-to-top {
-        bottom: 75px;
-        right: 12px;
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
-    }
-    
     .whatsapp-float {
         bottom: 130px;
         right: 12px;
         width: 40px;
         height: 40px;
         font-size: 18px;
+    }
+    
+    .back-to-top {
+        bottom: 75px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
     }
     
     .chatbot-fab {
@@ -1868,130 +1924,25 @@ footer a,
     }
 }
 
-/* Desktop (hide mobile-only buttons) */
-@media (min-width: 769px) {
-    .whatsapp-float {
-        display: none;
-    }
-    
-    .sticky-book-btn {
-        display: none;
-    }
-    
-    .floating-book-btn {
-        display: flex;
-    }
+/* Story Link Styling */
+.story-link {
+    display: inline-block;
+    background: transparent;
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--terracotta);
+    border-radius: 40px;
+    transition: all 0.2s ease;
 }
 
-/* ============================================
-   MOBILE FLOATING BUTTONS - FIXED CLUSTERING
-   ============================================ */
-
-/* Stack floating buttons with proper spacing on mobile */
-@media (max-width: 768px) {
-    /* Container for floating buttons to prevent overlap */
-    .fab-nav {
-        bottom: 100px;  /* Moved up to give space below */
-        left: 16px;
-        z-index: 1000;
-    }
-    
-    .whatsapp-float {
-        bottom: 100px;
-        right: 16px;
-        z-index: 150;
-        display: flex;  /* Ensure it shows on mobile */
-    }
-    
-    .floating-book-btn {
-        bottom: 20px;
-        right: 16px;
-        z-index: 100;
-        display: flex;
-    }
-    
-    .sticky-book-btn {
-        bottom: 0;
-        z-index: 1000;
-    }
-    
-    .chatbot-fab {
-        bottom: 160px;  /* Higher than WhatsApp to avoid overlap */
-        right: 16px;
-        z-index: 200;
-    }
-    
-    /* If chatbot window is open, reposition buttons */
-    .chatbot-window.open ~ .whatsapp-float,
-    .chatbot-window.open ~ .fab-nav,
-    .chatbot-window.open ~ .floating-book-btn {
-        opacity: 0.5;
-        pointer-events: none;
-    }
-}
-
-/* For very small screens (iPhone SE, 375px and below) */
-@media (max-width: 480px) {
-    .back-to-top {
-        bottom: 75px;
-        right: 0.75rem;
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
-    }
-}
-    
-    .whatsapp-float {
-        bottom: 90px;
-        right: 12px;
-        width: 44px;
-        height: 44px;
-        font-size: 20px;
-    }
-    
-    .fab-nav-toggle {
-        width: 44px;
-        height: 44px;
-        font-size: 1.1rem;
-    }
-    
-    .chatbot-fab {
-        bottom: 150px;
-        width: 44px;
-        height: 44px;
-        font-size: 1rem;
-    }
-    
-    .floating-book-btn {
-        bottom: 16px;
-        right: 12px;
-        padding: 0.6rem 1.2rem;
-        font-size: 0.75rem;
-    }
-}
-
-/* Update existing back-to-top */
-.back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+.story-link:hover {
     background: var(--terracotta);
     color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 99;
-}
-
-.back-to-top.visible {
-    display: flex;
+    transform: translateY(-2px);
 }
 
 .nav-anchor {
@@ -2003,32 +1954,8 @@ footer a,
 }
 
 /* ============================================
-   CHATBOT
+   CHATBOT WINDOW
    ============================================ */
-.chatbot-fab {
-    position: fixed;
-    bottom: 140px;
-    right: 20px;
-    z-index: 200;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--terracotta);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 20px rgba(193, 122, 90, 0.38);
-    transition: transform 0.2s;
-}
-
-.chatbot-fab:hover {
-    transform: scale(1.08);
-}
-
 .chatbot-window {
     position: fixed;
     bottom: 200px;
@@ -2421,7 +2348,7 @@ footer a,
 .selector-card {
     flex: 1;
     min-width: 260px;
-    max-width: 360px;  /* Prevents excessive width */
+    max-width: 360px;
     background: white;
     border-radius: 20px;
     padding: 1.5rem;

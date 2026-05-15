@@ -4,14 +4,14 @@
 // Centralized Price Configuration
 const PRICES = {
     // Base prices (per night)
-    'hanoi-spring': 650000,
-    'hanoi-summer': 650000,
-    'hanoi-autumn': 650000,
-    'hanoi-weekend': 700000,    // ADD THIS
-    'hanoi-special': 800000,    // ADD THIS
-    'oldquarter': 1000000,
-    'oldquarter-weekend': 1250000,  // ADD THIS
-    'oldquarter-special': 1300000,  // ADD THIS
+    'hanoi-spring': 750000,
+    'hanoi-summer': 750000,
+    'hanoi-autumn': 750000,
+    'hanoi-weekend': 800000,    // ADD THIS
+    'hanoi-special': 900000,    // ADD THIS
+    'oldquarter': 1200000,
+    'oldquarter-weekend': 1350000,  // ADD THIS
+    'oldquarter-special': 1400000,  // ADD THIS
     
     // Extra guest charges (per person per night beyond base)
     'extra-guest-hanoi': 100000,

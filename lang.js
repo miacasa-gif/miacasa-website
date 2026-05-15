@@ -52,12 +52,12 @@ const TRANSLATIONS = {
   'wl-cta':          {en:'Learn about Our Story →',      vn:'Tìm hiểu câu chuyện của chúng tôi →'},
 
   /* ── HOMEPAGE PROPERTIES ──────────────────────────────────────── */
-  'sec-stays':       {en:'Our Homestays in Hanoi',       vn:'Chỗ nghỉ của chúng tôi tại Hà Nội'},
+  /* 'sec-stays':       {en:'Our Homestays in Hanoi',       vn:'Chỗ nghỉ của chúng tôi tại Hà Nội'},
   'stays-title':     {en:'Two stays, <em>one spirit</em>', vn:'Hai nơi, <em>một tinh thần</em>'},
   'stays-sub':       {en:'Choose the quiet neighbourhood charm of MiaCasa Hanoi, or the electric energy of MiaCasa Old Quarter.',
                       vn:'Chọn sự yên tĩnh của MiaCasa Hà Nội, hoặc năng lượng sôi động của MiaCasa Phố Cổ.'},
   'card-h-cta':      {en:'Explore MiaCasa Hanoi →',      vn:'Khám phá MiaCasa Hà Nội →'},
-  'card-oq-cta':     {en:'Explore MiaCasa Old Quarter →', vn:'Khám phá MiaCasa Phố Cổ →'},
+  'card-oq-cta':     {en:'Explore MiaCasa Old Quarter →', vn:'Khám phá MiaCasa Phố Cổ →'}, */
 
   /* ── HOMEPAGE WHY BOOK DIRECT ─────────────────────────────────── */
   'sec-direct':      {en:'Why Book Direct',              vn:'Tại sao đặt trực tiếp'},
@@ -74,6 +74,9 @@ const TRANSLATIONS = {
   'book-title':      {en:'Book Your Stay <em>Direct</em>', vn:'Đặt phòng <em>trực tiếp</em>'},
   'book-sub':        {en:'Better rates. No platform fees. Instant confirmation.', vn:'Giá tốt hơn. Không phí nền tảng. Xác nhận ngay lập tức.'},
   'choose-stay':     {en:'Choose your stay',            vn:'Chọn chỗ nghỉ của bạn'},
+  // Add to your TRANSLATIONS object
+  'selector-oq-explore': {en:'Explore →', vn:'Khám phá →'},
+  'selector-h-explore': {en:'Explore →', vn:'Khám phá →'},
   'lbl-room':        {en:'Room / Space',                vn:'Phòng / Không gian'},
   'lbl-checkin':     {en:'Check-in',                   vn:'Nhận phòng'},
   'lbl-checkout':    {en:'Check-out',                  vn:'Trả phòng'},
@@ -187,6 +190,11 @@ const TRANSLATIONS = {
   'contact-email-lbl': {en:'Email', vn:'Email'},
   'contact-response-lbl': {en:'Response time', vn:'Thời gian phản hồi'},
   'contact-response-val': {en:'Within 2 hours · 7am – 10pm ICT', vn:'Trong vòng 2 giờ · 7h – 22h hàng ngày'},
+  'hosts-tag': {en:'Your Hosts', vn:'Chủ nhà của bạn'},
+  'hosts-title': {en:'Hosted by <em>Linh &amp; Ngọc</em>', vn:'Được dẫn dắt bởi <em>Linh &amp; Ngọc</em>'},
+  'hosts-desc': {en:'Two friends who built every room themselves. Real people who answer your messages and care how your stay goes.', vn:'Hai người bạn đã tự tay xây dựng mọi căn phòng. Những người thật, trả lời tin nhắn và quan tâm đến kỳ nghỉ của bạn.'},
+  'hosts-story': {en:'Read our story →', vn:'Đọc câu chuyện của chúng tôi →'},
+  'urgency-signal': {en:'🔥 Popular pick — booked most weekends this season', vn:'🔥 Được yêu thích — thường hết phòng vào cuối tuần'},
   'lbl-cname':       {en:'Name', vn:'Họ tên'},
   'lbl-cemail':      {en:'Email', vn:'Email'},
   'lbl-cprop':       {en:'Property', vn:'Chỗ ở'},
@@ -609,7 +617,7 @@ const TRANSLATIONS = {
 
   /* ── COMPARE STAYS SECTION (homepage) ────────────────────────── */
   'compare-tag':     {en:'Compare Stays', vn:'So sánh chỗ nghỉ'},
-  'compare-title':   {en:'Not sure<br><em>which to choose?</em>', vn:'Chưa biết<br><em>nên chọn nơi nào?</em>'},
+  'compare-title': {en:'Not sure <em>which to choose?</em>', vn:'Chưa biết <em>nên chọn nơi nào?</em>'},
   'compare-sub':     {en:'Both are women-owned, locally run, and book direct for the best price. The difference is in the vibe.', vn:'Cả hai đều do phụ nữ làm chủ, vận hành địa phương, và đặt trực tiếp để có giá tốt nhất. Sự khác biệt nằm ở không khí.'},
   'compare-h-title': {en:'Quiet, local, residential', vn:'Yên tĩnh, đậm chất địa phương'},
   'compare-h-li1':   {en:'Near Train Street &amp; Văn Miếu', vn:'Gần Phố Tàu Hỏa &amp; Văn Miếu'},
@@ -661,27 +669,27 @@ var currentLang = (function(){
 })();
 
 function setLang(lang){
-  currentLang = lang;
-  window.currentLang = lang;
-  
-  // Save to localStorage
-  try{ 
-    localStorage.setItem('mia_lang', lang); 
-  } catch(e){}
-  
-  // Update active button styles
-  var en = document.getElementById('lang-en');
-  var vn = document.getElementById('lang-vn');
-  if(en) en.classList.toggle('active', lang === 'en');
-  if(vn) vn.classList.toggle('active', lang === 'vn');
-  
-  // Apply translations to the page
-  applyTranslations();
+    currentLang = lang;
+    window.currentLang = lang;  // Make sure window.currentLang is also set
+    
+    // Save to localStorage
+    try{ 
+        localStorage.setItem('mia_lang', lang); 
+    } catch(e){}
+    
+    // Update active button styles
+    var en = document.getElementById('lang-en');
+    var vn = document.getElementById('lang-vn');
+    if(en) en.classList.toggle('active', lang === 'en');
+    if(vn) vn.classList.toggle('active', lang === 'vn');
+    
+    // Apply translations to the page
+    applyTranslations();
   
   // Re-render dynamic sections - ONLY if the grid exists on this page
-  if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
+  /* if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
     renderProperties();  // Remove the false parameter
-  }
+  } */
   if (typeof renderAmenities === 'function') renderAmenities();
   if (typeof renderBookingSelector === 'function' && document.getElementById('booking-prop-sel')) {
     renderBookingSelector();
@@ -695,53 +703,57 @@ function setLang(lang){
 }
 
 function applyTranslations(){
-  var lang = currentLang;
-  
-  // data-t → textContent
-  document.querySelectorAll('[data-t]').forEach(function(el){
-    var e = TRANSLATIONS[el.getAttribute('data-t')];
-    if(e && e[lang]!==undefined) el.textContent = e[lang];
-  });
-  
-  // data-th → innerHTML (supports <em> <br> etc.)
-  document.querySelectorAll('[data-th]').forEach(function(el){
-    var e = TRANSLATIONS[el.getAttribute('data-th')];
-    if(e && e[lang]!==undefined) el.innerHTML = e[lang];
-  });
-  
-  // Translate placeholders
-  document.querySelectorAll('[data-t-placeholder]').forEach(function(el){
-    var key = el.getAttribute('data-t-placeholder');
-    var e = TRANSLATIONS[key];
-    if(e && e[lang]!==undefined) el.placeholder = e[lang];
-  });
-  
-  // Translate select options
-  document.querySelectorAll('select option[data-t]').forEach(function(opt){
-    var key = opt.getAttribute('data-t');
-    var e = TRANSLATIONS[key];
-    if(e && e[lang]!==undefined) opt.textContent = e[lang];
-  });
-  
-  // Re-run FAQ toggle display to ensure content is visible after translation
-  document.querySelectorAll('.faq-item.open .faq-a').forEach(function(el){
-    // Force reflow to ensure translated content is shown
-    el.style.maxHeight = el.scrollHeight + 'px';
-  });
-  
-  // Re-run room cards display
-  document.querySelectorAll('.room-card p[data-t]').forEach(function(el){
-    // Already handled by data-t above
-  });
-  
-  // page-specific hooks
-  _hooks.forEach(function(fn){ 
-    try{ 
-      fn(lang); 
-    } catch(e){ 
-      console.warn('hook err:', e.message); 
-    } 
-  });
+    var lang = currentLang;
+    
+    // data-t → textContent
+    document.querySelectorAll('[data-t]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-t')];
+        if(e && e[lang]!==undefined) el.textContent = e[lang];
+    });
+    
+    // data-th → innerHTML
+    document.querySelectorAll('[data-th]').forEach(function(el){
+        var e = TRANSLATIONS[el.getAttribute('data-th')];
+        if(e && e[lang]!==undefined) el.innerHTML = e[lang];
+    });
+    
+    // Translate placeholders
+    document.querySelectorAll('[data-t-placeholder]').forEach(function(el){
+        var key = el.getAttribute('data-t-placeholder');
+        var e = TRANSLATIONS[key];
+        if(e && e[lang]!==undefined) el.placeholder = e[lang];
+    });
+    
+    // Translate select options
+    document.querySelectorAll('select option[data-t]').forEach(function(opt){
+        var key = opt.getAttribute('data-t');
+        var e = TRANSLATIONS[key];
+        if(e && e[lang]!==undefined) opt.textContent = e[lang];
+    });
+    
+    // ADD THIS - Re-render properties when language changes
+    if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
+        try {
+            renderProperties();
+            console.log('Properties re-rendered after language change');
+        } catch(e) {
+            console.warn('Failed to re-render properties:', e.message);
+        }
+    }
+    
+    // Re-run FAQ toggle display to ensure content is visible after translation
+    document.querySelectorAll('.faq-item.open .faq-a').forEach(function(el){
+        el.style.maxHeight = el.scrollHeight + 'px';
+    });
+    
+    // page-specific hooks
+    _hooks.forEach(function(fn){ 
+        try{ 
+            fn(lang); 
+        } catch(e){ 
+            console.warn('hook err:', e.message); 
+        } 
+    });
 }
 
 var _hooks = [];

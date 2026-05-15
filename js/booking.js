@@ -3,14 +3,12 @@
 // ================================================================
 
 const API_URL = '/api/log-booking';
-// Get extra guest fee from PRICES, with fallback
-const EXTRA_GUEST_FEE = (typeof PRICES !== 'undefined' && PRICES['extra-guest-hanoi']) ? PRICES['extra-guest-hanoi'] : 100000;
+const EXTRA_GUEST_FEE = PRICES['extra-guest-hanoi'];
 const INCLUDED_GUESTS = 2;
 
-// Make sure PRICES is loaded (don't redeclare with var/let/const)
+// Make sure PRICES is loaded
 if (typeof PRICES === 'undefined') {
-    console.warn('prices.js not loaded, using fallback values');
-    window.PRICES = {  // <<< Use window.PRICES instead
+    window.PRICES = {
         'hanoi-spring': 750000,
         'hanoi-summer': 750000,
         'hanoi-autumn': 750000,
@@ -28,9 +26,17 @@ const ROOM_CAPACITY = {
     "Entire Apartment (3 king beds)": 6
 };
 
+// ================================================================
+// OPTIMIZATION: Caching & Debouncing
+// ================================================================
+const availabilityCache = new Map();
+let availabilityCheckInProgress = false;
+let lastAvailabilityResult = null;
+let availabilityDebounceTimer = null;
+let slowConnectionTimeout = null;
+
 let currentAvailabilityStatus = { available: false, checked: false };
 
-// Room to property mapping
 function getPropertyFromRoom(room) {
     const map = {
         "Spring Room": "MiaCasaHanoi",
@@ -52,11 +58,11 @@ const PROPERTIES = [
         maxGuests: 8,
         maxGuestsPerRoom: 3,
         rating: '4.9',
-        priceNote: 'From 750,000₫ (~$30 USD) / room / night',
+        priceNote: 'From ' + PRICES['hanoi-spring'].toLocaleString() + '₫ / room / night',
         vn: {
             badge: 'Phòng có bếp nhỏ',
             desc: 'Ba phòng boho riêng tư — Xuân, Hạ và Thu — mỗi phòng có phòng tắm riêng và bếp nhỏ.',
-            priceNote: 'Từ 750.000₫ (~30 USD) / phòng / đêm',
+            priceNote: 'Từ ' + PRICES['hanoi-spring'].toLocaleString('vi-VN') + '₫ / phòng / đêm',
             rooms: ['Phòng Xuân', 'Phòng Hạ', 'Phòng Thu']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg',
@@ -71,11 +77,11 @@ const PROPERTIES = [
         desc: 'A whole apartment in the heart of the Old Quarter. Two beds on the main level and one in the upper attic.',
         maxGuests: 6,
         rating: '4.8',
-        priceNote: 'From 1,200,000₫ (~$48 USD) / night · Base rate for 2 guests',
+        priceNote: 'From ' + PRICES.oldquarter.toLocaleString() + '₫ / night · Base rate for 2 guests',
         vn: {
             badge: 'Toàn bộ căn hộ',
             desc: 'Toàn bộ căn hộ giữa lòng Phố Cổ. Hai giường ở tầng chính và một giường ở gác xép phía trên.',
-            priceNote: 'Từ 1.200.000₫ (~48 USD) / đêm · Giá cơ bản cho 2 khách',
+            priceNote: 'Từ ' + PRICES.oldquarter.toLocaleString('vi-VN') + '₫ / đêm · Giá cơ bản cho 2 khách',
             rooms: ['Toàn bộ căn hộ (3 giường đôi)']
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
@@ -104,29 +110,16 @@ function isWeekendNight(dateStr) {
     return day === 5 || day === 6;
 }
 
-// Use PRICES from prices.js for base rates
-const MCH_RATES = { 
-    weekday: (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000, 
-    weekend: (typeof PRICES !== 'undefined' && PRICES['hanoi-weekend']) ? PRICES['hanoi-weekend'] : 800000, 
-    special: (typeof PRICES !== 'undefined' && PRICES['hanoi-special']) ? PRICES['hanoi-special'] : 900000 
-};
-const MCOQ_RATES = { 
-    weekday: (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000, 
-    weekend: (typeof PRICES !== 'undefined' && PRICES['oldquarter-weekend']) ? PRICES['oldquarter-weekend'] : 1350000, 
-    special: (typeof PRICES !== 'undefined' && PRICES['oldquarter-special']) ? PRICES['oldquarter-special'] : 1400000 
-};
-
 function nightRate(dateStr, propId) {
-    // Refresh rates from PRICES each time (in case admin changed them)
-    const hanoiRates = { 
-        weekday: (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000, 
-        weekend: (typeof PRICES !== 'undefined' && PRICES['hanoi-weekend']) ? PRICES['hanoi-weekend'] : 800000, 
-        special: (typeof PRICES !== 'undefined' && PRICES['hanoi-special']) ? PRICES['hanoi-special'] : 900000 
+    const hanoiRates = {
+        weekday: PRICES['hanoi-spring'],
+        weekend: PRICES['hanoi-weekend'],
+        special: PRICES['hanoi-special']
     };
-    const oqRates = { 
-        weekday: (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000, 
-        weekend: (typeof PRICES !== 'undefined' && PRICES['oldquarter-weekend']) ? PRICES['oldquarter-weekend'] : 1350000, 
-        special: (typeof PRICES !== 'undefined' && PRICES['oldquarter-special']) ? PRICES['oldquarter-special'] : 1400000 
+    const oqRates = {
+        weekday: PRICES.oldquarter,
+        weekend: PRICES['oldquarter-weekend'],
+        special: PRICES['oldquarter-special']
     };
     const r = propId === 'hanoi' ? hanoiRates : oqRates;
     if (isSpecialDay(dateStr)) return r.special;
@@ -148,10 +141,7 @@ function calcTotal(propId, checkIn, checkOut, guests) {
     
     let extra = 0;
     if (guests > INCLUDED_GUESTS) {
-        // Use property-specific extra guest fee
-        const extraFee = (propId === 'hanoi') 
-            ? (typeof PRICES !== 'undefined' && PRICES['extra-guest-hanoi']) ? PRICES['extra-guest-hanoi'] : 100000
-            : (typeof PRICES !== 'undefined' && PRICES['extra-guest-oldquarter']) ? PRICES['extra-guest-oldquarter'] : 100000;
+        const extraFee = propId === 'hanoi' ? PRICES['extra-guest-hanoi'] : PRICES['extra-guest-oldquarter'];
         extra = (guests - INCLUDED_GUESTS) * extraFee * nights;
     }
     return { nights, baseTotal, extra, total: baseTotal + extra };
@@ -194,190 +184,33 @@ let lastPriceResult = null;
 let selectedPayTab = 'paypal';
 
 // ================================================================
-// RENDER FUNCTIONS - MOVE THESE UP BEFORE INITIALIZATION
-// ================================================================
-
-function getField(p, field, lang) {
-    if (lang === 'vn' && p.vn && p.vn[field] !== undefined) return p.vn[field];
-    return p[field];
-}
-
-function renderProperties() {
-    console.log('renderProperties called');
-    const grid = document.getElementById('properties-grid');
-    
-    if (!grid) {
-        console.log('No properties grid on this page - skipping renderProperties');
-        return;
-    }
-    
-    const lang = window.currentLang || 'en';
-    
-    // Get prices from PRICES
-    const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
-    const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
-    
-    // Define properties
-    const properties = [
-        {
-            id: 'hanoi',
-            name: 'MiaCasa Hanoi',
-            badge: lang === 'vn' ? 'Phòng có bếp nhỏ' : 'Rooms with Kitchenette',
-            location: '92 Ngh. 51 Ng. Linh Quang, Văn Chương',
-            desc: lang === 'vn' ? '3 phòng riêng gần Phố Tàu & Văn Miếu' : '3 private rooms near Train Street & Văn Miếu',
-            price: hanoiPrice,
-            maxGuests: 8,
-            rating: '4.9',
-            features: [
-                lang === 'vn' ? 'Gần Phố Tàu & Văn Miếu' : 'Near Train Street & Văn Miếu',
-                lang === 'vn' ? '3 phòng riêng có phòng tắm · tối đa 3 khách' : '3 private en-suite rooms · up to 3 guests',
-                lang === 'vn' ? 'Lý tưởng cho cặp đôi & khách solo' : 'Best for couples & solo travelers'
-            ],
-            link: 'miacasa-hanoi.html',
-            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg'
-        },
-        {
-            id: 'oldquarter',
-            name: 'MiaCasa Old Quarter',
-            badge: lang === 'vn' ? 'Toàn bộ căn hộ' : 'Whole Apartment',
-            location: '38 P. Lương Ngọc Quyến, Hoàn Kiếm',
-            desc: lang === 'vn' ? 'Toàn bộ căn hộ giữa lòng Phố Cổ' : 'Full apartment in the heart of Old Quarter',
-            price: oldquarterPrice,
-            maxGuests: 6,
-            rating: '4.8',
-            features: [
-                lang === 'vn' ? 'Cách Hồ Hoàn Kiếm vài bước' : 'Steps from Hoàn Kiếm Lake',
-                lang === 'vn' ? '3 giường đôi · Ngủ tối đa 6' : '3 queen beds · Sleeps up to 6',
-                lang === 'vn' ? 'Sân thượng riêng · Khóa thông minh' : 'Private terrace · Smart lock'
-            ],
-            link: 'miacasa-oldquarter.html',
-            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg'
-        }
-    ];
-    
-    // Build HTML - Using your existing CSS classes
-    grid.innerHTML = properties.map(prop => `
-        <div class="property-card">
-            <div class="property-img">
-                <img src="${prop.img}" alt="${prop.name}" loading="lazy">
-                <div class="property-badge">${prop.badge}</div>
-            </div>
-            <div class="property-body">
-                <div class="property-name">${prop.name}</div>
-                <div class="property-loc">📍 ${prop.location}</div>
-                <p class="property-desc">${prop.desc}</p>
-                <div class="property-meta">
-                    <div class="meta-item">
-                        <span class="meta-num">${prop.features.length}</span>
-                        <span class="meta-lbl">${lang === 'vn' ? 'Phòng' : 'Rooms'}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-num">1–${prop.maxGuests}</span>
-                        <span class="meta-lbl">${lang === 'vn' ? 'Khách' : 'Guests'}</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-num">${prop.rating}★</span>
-                        <span class="meta-lbl">${lang === 'vn' ? 'Đánh giá' : 'Rating'}</span>
-                    </div>
-                </div>
-                <div class="price-prominent">
-                    <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
-                    <span class="amount">${prop.price.toLocaleString()}₫</span>
-                    <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
-                    <span class="price-save-badge">${lang === 'vn' ? 'Tiết kiệm 15%' : 'Save 15%'}</span>
-                </div>
-                <div class="property-buttons">
-                    <a href="${prop.link}" class="btn-outline">${lang === 'vn' ? 'Khám phá →' : 'Explore →'}</a>
-                    <a href="#booking" class="btn-primary" onclick="if(typeof selectAndScroll === 'function') selectAndScroll('${prop.id}'); else window.location.href='#booking';">${lang === 'vn' ? 'Đặt ngay →' : 'Book Now →'}</a>
-                </div>
-            </div>
-        </div>
-    `).join('');
-    
-    console.log('Properties rendered with prices:', properties.map(p => p.price));
-}
-
-function renderBookingSelector() {
-    const sel = document.getElementById('booking-prop-sel');
-    if (!sel) return;
-    
-    const lang = window.currentLang || 'en';
-    sel.innerHTML = '';
-    
-    PROPERTIES.forEach((p, i) => {
-        const badge = getField(p, 'badge', lang);
-        const btn = document.createElement('button');
-        btn.className = 'prop-select-btn' + (i === 0 ? ' active' : '');
-        btn.id = 'bsb-' + p.id;
-        btn.onclick = () => selectProp(p.id);
-        btn.setAttribute('data-prop', p.id === 'hanoi' ? 'hanoi' : 'oldquarter');
-        btn.innerHTML = `<span class="pbn">${p.name}</span><span class="pbs">${badge} · ${p.rating}★</span>`;
-        sel.appendChild(btn);
-    });
-}
-
-// ================================================================
-// CORE FUNCTIONS - Define these BEFORE they're called
-// ================================================================
-
-function selectProp(id) {
-    console.log('selectProp called with id:', id);
-    activeProp = id;
-    document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
-    const activeBtn = document.getElementById('bsb-' + id);
-    if (activeBtn) activeBtn.classList.add('active');
-    
-    const p = PROPERTIES.find(x => x.id === id);
-    const lang = window.currentLang || 'en';
-    const rooms = getField(p, 'rooms', lang);
-    const roomSelect = document.getElementById('room-type-sel');
-    if (roomSelect) {
-        roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
-    }
-    
-    const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
-    const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
-    const guestWordPl = lang === 'vn' ? 'Khách' : 'Guests';
-    const guestSelect = document.getElementById('guests-sel');
-    if (guestSelect) {
-        guestSelect.innerHTML = Array.from({ length: bookingMaxGuests }, (_, i) => 
-            `<option value="${i + 1}">${i + 1} ${i === 0 ? guestWord : guestWordPl}</option>`
-        ).join('');
-    }
-    
-    const priceNote = getField(p, 'priceNote', lang);
-    const pricingNote = document.getElementById('pricing-note');
-    if (pricingNote) {
-        pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú. Chúng tôi luôn đưa ra mức giá tốt nhất có thể.' : 'Final pricing depends on dates, number of guests, and length of stay. We\'ll always share the best available direct rate.'}`;
-    }
-    
-    updateAvailabilityAndUI();
-}
-
-function selectAndScroll(id) {
-    selectProp(id);
-    setTimeout(() => {
-        document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-    }, 50);
-}
-
-// ================================================================
-// AVAILABILITY CHECKING FUNCTIONS
+// OPTIMIZED AVAILABILITY CHECK (Non-blocking + Cached)
 // ================================================================
 
 async function checkRoomAvailability(room, checkIn, checkOut) {
+    const cacheKey = `${room}_${checkIn}_${checkOut}`;
+    const cached = availabilityCache.get(cacheKey);
+    
+    // Use cache if less than 2 minutes old
+    if (cached && (Date.now() - cached.timestamp) < 120000) {
+        console.log('✓ Using cached availability');
+        return cached.data;
+    }
+    
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: 'checkRoomAvailability',
-                room: room,
-                checkIn: checkIn,
-                checkOut: checkOut
-            })
+            body: JSON.stringify({ action: 'checkRoomAvailability', room, checkIn, checkOut })
         });
         const data = await response.json();
+        
+        // Store in cache
+        availabilityCache.set(cacheKey, {
+            data: data,
+            timestamp: Date.now()
+        });
+        
         return data;
     } catch (error) {
         console.error('Availability check failed:', error);
@@ -385,43 +218,103 @@ async function checkRoomAvailability(room, checkIn, checkOut) {
     }
 }
 
-function areBookingInputsFilled() {
-    const room = document.getElementById('room-type-sel')?.value;
-    const ci = document.getElementById('checkin')?.value;
-    const co = document.getElementById('checkout')?.value;
-    const guests = document.getElementById('guests-sel')?.value;
+// Background availability check (does not block UI)
+function checkAvailabilityInBackground(room, ci, co) {
+    if (!room || !ci || !co) return;
+    if (availabilityCheckInProgress) return;
     
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const checkInDate = ci ? new Date(ci) : null;
-    checkInDate?.setHours(0, 0, 0, 0);
+    availabilityCheckInProgress = true;
     
-    const hasValidDates = ci && co && new Date(co) > new Date(ci) && checkInDate >= today;
+    const availabilityMsgDiv = document.getElementById('availability-message');
+    if (availabilityMsgDiv && availabilityMsgDiv.innerHTML === '⏳ Checking availability...') {
+        // Message already showing, don't change
+    } else if (availabilityMsgDiv) {
+        availabilityMsgDiv.innerHTML = '⏳ Checking availability...';
+        availabilityMsgDiv.className = 'loading';
+        availabilityMsgDiv.style.display = 'block';
+    }
     
-    return room && hasValidDates && guests;
+    // Set a timeout to show if it's taking too long
+    slowConnectionTimeout = setTimeout(() => {
+        if (availabilityMsgDiv && availabilityMsgDiv.innerHTML === '⏳ Checking availability...') {
+            availabilityMsgDiv.innerHTML = '⏳ Still checking... you can continue filling your details';
+        }
+    }, 2000);
+    
+    checkRoomAvailability(room, ci, co).then(availability => {
+        clearTimeout(slowConnectionTimeout);
+        currentAvailabilityStatus = availability;
+        lastAvailabilityResult = availability;
+        availabilityCheckInProgress = false;
+        
+        if (availability.available) {
+            if (availabilityMsgDiv) {
+                availabilityMsgDiv.innerHTML = '✅ Room available! You can proceed.';
+                availabilityMsgDiv.className = 'available';
+            }
+            // Show payment section if user details are already filled
+            if (areUserDetailsFilled()) {
+                const paymentSection = document.getElementById('mia-payment-section');
+                if (paymentSection) paymentSection.style.display = 'block';
+                if (typeof generateQRCode === 'function') generateQRCode();
+            }
+        } else {
+            if (availabilityMsgDiv) {
+                availabilityMsgDiv.innerHTML = availability.bothPropertiesBooked 
+                    ? '❌ Both properties are booked for these dates. Please try different dates.'
+                    : '❌ This room is booked. Try our other property or choose different dates.';
+                availabilityMsgDiv.className = 'unavailable';
+            }
+            const paymentSection = document.getElementById('mia-payment-section');
+            if (paymentSection) paymentSection.style.display = 'none';
+        }
+        
+        // Update price again with confirmed availability
+        const guests = document.getElementById('guests-sel')?.value;
+        if (availability.available && ci && co && guests) {
+            const result = calcTotal(activeProp, ci, co, parseInt(guests));
+            if (result) {
+                lastPriceResult = result;
+                updatePriceDisplayContent(result, ci, co, room);
+                const priceBox = document.getElementById('mia-price-box');
+                if (priceBox) priceBox.style.display = 'block';
+            }
+        }
+    }).catch(error => {
+        clearTimeout(slowConnectionTimeout);
+        console.error('Availability check error:', error);
+        availabilityCheckInProgress = false;
+        const availabilityMsgDiv = document.getElementById('availability-message');
+        if (availabilityMsgDiv) {
+            availabilityMsgDiv.innerHTML = '⚠️ Unable to check availability. Please try again.';
+            availabilityMsgDiv.className = 'error';
+        }
+    });
+}
+
+// Debounced version to prevent multiple rapid calls
+function debouncedUpdateAvailability() {
+    clearTimeout(availabilityDebounceTimer);
+    availabilityDebounceTimer = setTimeout(() => {
+        updateAvailabilityAndUI();
+    }, 500);
 }
 
 function setMinDates() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const todayStr = today.toISOString().split('T')[0];
-    
     const checkin = document.getElementById('checkin');
     const checkout = document.getElementById('checkout');
-    
-    if (checkin) {
-        checkin.min = todayStr;
-    }
-    if (checkout) {
-        checkout.min = todayStr;
-    }
+    if (checkin) checkin.min = todayStr;
+    if (checkout) checkout.min = todayStr;
 }
 
 function areUserDetailsFilled() {
     const name = document.getElementById('guest-name')?.value?.trim();
     const email = document.getElementById('guest-email')?.value?.trim();
     const phone = document.getElementById('guest-phone-number')?.value?.trim();
-    return name && email && phone;
+    return !!(name && email && phone);
 }
 
 function updateGuestOptions() {
@@ -432,7 +325,6 @@ function updateGuestOptions() {
     const maxGuests = ROOM_CAPACITY[room] || 2;
     const currentValue = parseInt(guestSelect.value || '1');
     guestSelect.innerHTML = '';
-    
     for (let i = 1; i <= maxGuests; i++) {
         const opt = document.createElement('option');
         opt.value = i;
@@ -472,22 +364,19 @@ function showCancellationMessage(checkInDate) {
     
     const cancellationDate = new Date(checkInDate);
     cancellationDate.setDate(cancellationDate.getDate() - 2);
-    
     const lang = window.currentLang || 'en';
     const formattedDate = cancellationDate.toLocaleDateString(lang === 'vn' ? 'vi-VN' : 'en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+        year: 'numeric', month: 'long', day: 'numeric'
     });
-    
-    const message = lang === 'vn' 
+    msgDiv.innerHTML = lang === 'vn' 
         ? `✓ Hủy miễn phí đến ${formattedDate}`
         : `✓ Free cancellation until ${formattedDate}`;
-    
-    msgDiv.innerHTML = message;
     msgDiv.style.display = 'block';
 }
 
+// ================================================================
+// UPDATED: Non-blocking updateAvailabilityAndUI
+// ================================================================
 async function updateAvailabilityAndUI() {
     const room = document.getElementById('room-type-sel')?.value;
     const ci = document.getElementById('checkin')?.value;
@@ -498,44 +387,38 @@ async function updateAvailabilityAndUI() {
     const cancellationMsgDiv = document.getElementById('cancellation-message');
     const priceBox = document.getElementById('mia-price-box');
     const paymentSection = document.getElementById('mia-payment-section');
-    const continueBtn = document.getElementById('booking-action-btn');
+    const guestDetailsSection = document.getElementById('guest-details');
+    
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const checkInDateObj = new Date(ci);
-    checkInDateObj.setHours(0, 0, 0, 0);
+    const checkInDateObj = ci ? new Date(ci) : null;
+    if (checkInDateObj) checkInDateObj.setHours(0, 0, 0, 0);
 
+    // Past date check
     if (ci && checkInDateObj < today) {
         if (availabilityMsgDiv) {
-            availabilityMsgDiv.innerHTML = window.currentLang === 'vn' 
-                ? '❌ Không thể chọn ngày trong quá khứ' 
-                : '❌ Cannot select past dates';
-            availabilityMsgDiv.className = 'unavailable';
+            availabilityMsgDiv.innerHTML = window.currentLang === 'vn' ? '❌ Không thể chọn ngày trong quá khứ' : '❌ Cannot select past dates';
             availabilityMsgDiv.style.display = 'block';
         }
         if (priceBox) priceBox.style.display = 'none';
-        if (continueBtn) continueBtn.style.display = 'none';
+        if (paymentSection) paymentSection.style.display = 'none';
+        if (guestDetailsSection) guestDetailsSection.style.display = 'none';
         return;
     }
     
     // Check if all required inputs are filled
     if (!room || !ci || !co || !guests) {
         if (availabilityMsgDiv) {
-            if (!ci || !co) {
-                availabilityMsgDiv.innerHTML = '📅 Please select check-in and check-out dates';
-            } else if (!room) {
-                availabilityMsgDiv.innerHTML = '🏠 Please select a room';
-            } else if (!guests) {
-                availabilityMsgDiv.innerHTML = '👥 Please select number of guests';
-            } else {
-                availabilityMsgDiv.innerHTML = '📋 Please complete all booking details';
-            }
-            availabilityMsgDiv.className = 'loading';
+            if (!ci || !co) availabilityMsgDiv.innerHTML = '📅 Please select check-in and check-out dates';
+            else if (!room) availabilityMsgDiv.innerHTML = '🏠 Please select a room';
+            else if (!guests) availabilityMsgDiv.innerHTML = '👥 Please select number of guests';
+            else availabilityMsgDiv.innerHTML = '📋 Please complete all booking details';
             availabilityMsgDiv.style.display = 'block';
         }
         if (priceBox) priceBox.style.display = 'none';
         if (paymentSection) paymentSection.style.display = 'none';
-        if (continueBtn) continueBtn.style.display = 'none';
         if (cancellationMsgDiv) cancellationMsgDiv.style.display = 'none';
+        if (guestDetailsSection) guestDetailsSection.style.display = 'none';
         return;
     }
     
@@ -543,56 +426,27 @@ async function updateAvailabilityAndUI() {
     if (new Date(co) <= new Date(ci)) {
         if (availabilityMsgDiv) {
             availabilityMsgDiv.innerHTML = '⚠️ Check-out date must be after check-in date';
-            availabilityMsgDiv.className = 'unavailable';
             availabilityMsgDiv.style.display = 'block';
         }
         if (priceBox) priceBox.style.display = 'none';
+        if (guestDetailsSection) guestDetailsSection.style.display = 'none';
         return;
     }
     
-    // Show loading state
-    if (availabilityMsgDiv) {
-        availabilityMsgDiv.innerHTML = '⏳ Checking availability...';
-        availabilityMsgDiv.className = 'loading';
-        availabilityMsgDiv.style.display = 'block';
+    // SHOW GUEST DETAILS SECTION IMMEDIATELY (don't wait for availability)
+    if (guestDetailsSection && guestDetailsSection.style.display !== 'block') {
+        guestDetailsSection.style.display = 'block';
+        console.log('✅ Guest details section shown immediately');
     }
     
-    // Check availability
-    const availability = await checkRoomAvailability(room, ci, co);
-    currentAvailabilityStatus = availability;
-    currentAvailabilityStatus.checked = true;
-    
-    if (!availability.available) {
-        if (availabilityMsgDiv) {
-            if (availability.bothPropertiesBooked) {
-                availabilityMsgDiv.innerHTML = '❌ Both properties are booked for these dates. Please try different dates.';
-            } else {
-                availabilityMsgDiv.innerHTML = `❌ This room is booked. Try our other property or choose different dates.`;
-            }
-            availabilityMsgDiv.className = 'unavailable';
-        }
-        if (priceBox) priceBox.style.display = 'none';
-        if (paymentSection) paymentSection.style.display = 'none';
-        if (continueBtn) continueBtn.style.display = 'none';
-        if (cancellationMsgDiv) cancellationMsgDiv.style.display = 'none';
-        return;
-    }
-    
-    // Room is available
-    if (availabilityMsgDiv) {
-        availabilityMsgDiv.innerHTML = '✅ Room available! Enter your details to continue.';
-        availabilityMsgDiv.className = 'available';
-        availabilityMsgDiv.style.display = 'block';
-    }
-    
-    // Generate booking ID
+    // Generate booking ID immediately
     const newKey = activeProp + '|' + room;
     if (!currentBookingId || currentBookingKey !== newKey) {
         currentBookingId = makeBookingId(activeProp, room);
         currentBookingKey = newKey;
     }
     
-    // Calculate and show price
+    // Calculate and show price immediately (estimate)
     const result = calcTotal(activeProp, ci, co, parseInt(guests));
     if (result) {
         lastPriceResult = result;
@@ -600,41 +454,64 @@ async function updateAvailabilityAndUI() {
         if (priceBox) priceBox.style.display = 'block';
     }
     
-    // Check if user details are filled
-    // Check if user details are filled
-if (areUserDetailsFilled()) {
-    if (continueBtn) {
-        continueBtn.style.display = 'block';
-        console.log('Continue button should be visible now');
-        continueBtn.textContent = window.currentLang === 'vn' ? 'Tiếp tục thanh toán →' : 'Continue to Payment →';
+    // Show cancellation message immediately
+    if (ci) showCancellationMessage(ci);
+    
+    // Check availability in background (non-blocking)
+    // But first, check if we have a recent cached result
+    const cacheKey = `${room}_${ci}_${co}`;
+    const cached = availabilityCache.get(cacheKey);
+    
+    if (cached && (Date.now() - cached.timestamp) < 120000) {
+        // Use cached result instantly
+        currentAvailabilityStatus = cached.data;
+        lastAvailabilityResult = cached.data;
         
-        // Attach event listener to the continue button
-        const newContinueBtn = continueBtn.cloneNode(true);
-        continueBtn.parentNode.replaceChild(newContinueBtn, continueBtn);
-        newContinueBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            handleContinueToPayment();
-        });
+        if (cached.data.available) {
+            if (availabilityMsgDiv) {
+                availabilityMsgDiv.innerHTML = '✅ Room available! You can proceed.';
+                availabilityMsgDiv.className = 'available';
+            }
+            // Show payment section if user details are already filled
+            if (areUserDetailsFilled()) {
+                if (paymentSection) paymentSection.style.display = 'block';
+                if (typeof generateQRCode === 'function') generateQRCode();
+            }
+        } else {
+            if (availabilityMsgDiv) {
+                availabilityMsgDiv.innerHTML = cached.data.bothPropertiesBooked 
+                    ? '❌ Both properties are booked for these dates. Please try different dates.'
+                    : '❌ This room is booked. Try our other property or choose different dates.';
+                availabilityMsgDiv.className = 'unavailable';
+            }
+            if (paymentSection) paymentSection.style.display = 'none';
+        }
+    } else {
+        // No cache - show loading and check in background
+        if (availabilityMsgDiv) {
+            availabilityMsgDiv.innerHTML = '⏳ Checking availability...';
+            availabilityMsgDiv.className = 'loading';
+            availabilityMsgDiv.style.display = 'block';
+        }
+        // Check in background (non-blocking)
+        checkAvailabilityInBackground(room, ci, co);
     }
-    if (ci) {
-        showCancellationMessage(ci);
+    
+    // Show payment section if user details are filled AND we have availability confirmation
+    if (areUserDetailsFilled() && lastAvailabilityResult && lastAvailabilityResult.available) {
+        if (paymentSection && paymentSection.style.display !== 'block') {
+            paymentSection.style.display = 'block';
+            if (typeof generateQRCode === 'function') generateQRCode();
+        }
+    } else if (!areUserDetailsFilled()) {
+        if (paymentSection) paymentSection.style.display = 'none';
     }
-} else {
-    if (continueBtn) continueBtn.style.display = 'none';
-    if (cancellationMsgDiv) cancellationMsgDiv.style.display = 'none';
-}
 }
 
 function resetBookingForm() {
-    const confBox = document.getElementById('mia-confirm-box');
-    const priceBox = document.getElementById('mia-price-box');
-    const paySection = document.getElementById('mia-payment-section');
-    const continueBtn = document.getElementById('booking-action-btn');
-    
-    if (confBox) confBox.style.display = 'none';
-    if (priceBox) priceBox.style.display = 'none';
-    if (paySection) paySection.style.display = 'none';
-    if (continueBtn) continueBtn.style.display = 'none';
+    document.getElementById('mia-confirm-box')?.setAttribute('style', 'display: none');
+    document.getElementById('mia-price-box')?.setAttribute('style', 'display: none');
+    document.getElementById('mia-payment-section')?.setAttribute('style', 'display: none');
     
     const gn = document.getElementById('guest-name');
     const ge = document.getElementById('guest-email');
@@ -652,71 +529,180 @@ function resetBookingForm() {
     currentBookingId = '';
     currentBookingKey = '';
     currentAvailabilityStatus = { available: false, checked: false };
+    lastAvailabilityResult = null;
+    availabilityCache.clear(); // Clear cache on reset
     
     updateAvailabilityAndUI();
 }
 
 // ================================================================
-// INITIALIZATION - Put this at the VERY END
+// RENDER FUNCTIONS
 // ================================================================
 
-function initializeProperties() {
-    console.log('Initializing properties...');
-    if (document.getElementById('properties-grid')) {
-        renderProperties();
-        renderBookingSelector();
-        selectProp(PROPERTIES[0].id);
-        setMinDates();
-        updateGuestOptions();
-        updateAvailabilityAndUI();
-        return true;
+function getField(p, field, lang) {
+    if (lang === 'vn' && p.vn && p.vn[field] !== undefined) return p.vn[field];
+    return p[field];
+}
+
+function renderProperties() {
+    const grid = document.getElementById('properties-grid');
+    if (!grid) return;
+    
+    let lang = window.currentLang;
+    if (!lang) {
+        try {
+            lang = localStorage.getItem('mia_lang') || 'en';
+        } catch(e) {
+            lang = 'en';
+        }
     }
+    
+    const hanoiPrice = (typeof PRICES !== 'undefined' && PRICES['hanoi-spring']) ? PRICES['hanoi-spring'] : 750000;
+    const oldquarterPrice = (typeof PRICES !== 'undefined' && PRICES.oldquarter) ? PRICES.oldquarter : 1200000;
+    
+    const properties = [
+        {
+            id: 'hanoi',
+            name: lang === 'vn' ? 'MiaCasa Hà Nội' : 'MiaCasa Hanoi',
+            badge: lang === 'vn' ? 'Phòng có bếp nhỏ' : 'Rooms with Kitchenette',
+            location: lang === 'vn' ? '92 Ngõ 51 Ng. Linh Quang, Văn Chương' : '92 Ngh. 51 Ng. Linh Quang, Văn Chương',
+            desc: lang === 'vn' ? '3 phòng riêng gần Phố Tàu & Văn Miếu' : '3 private rooms near Train Street & Văn Miếu',
+            price: hanoiPrice,
+            maxGuests: 8,
+            rating: '4.9',
+            roomsLabel: lang === 'vn' ? 'Phòng' : 'Rooms',
+            guestsLabel: lang === 'vn' ? 'Khách' : 'Guests',
+            ratingLabel: lang === 'vn' ? 'Đánh giá' : 'Rating',
+            saveLabel: lang === 'vn' ? 'Tiết kiệm 15%' : 'Save 15%',
+            exploreBtn: lang === 'vn' ? 'Khám phá →' : 'Explore →',
+            bookBtn: lang === 'vn' ? 'Đặt ngay →' : 'Book Now →',
+            link: 'miacasa-hanoi.html',
+            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775638632/DSC_6634_pwmg8r.jpg'
+        },
+        {
+            id: 'oldquarter',
+            name: lang === 'vn' ? 'MiaCasa Phố Cổ' : 'MiaCasa Old Quarter',
+            badge: lang === 'vn' ? 'Toàn bộ căn hộ' : 'Whole Apartment',
+            location: '38 P. Lương Ngọc Quyến, Hoàn Kiếm',
+            desc: lang === 'vn' ? 'Toàn bộ căn hộ giữa lòng Phố Cổ' : 'Full apartment in the heart of Old Quarter',
+            price: oldquarterPrice,
+            maxGuests: 6,
+            rating: '4.8',
+            roomsLabel: lang === 'vn' ? 'Phòng' : 'Rooms',
+            guestsLabel: lang === 'vn' ? 'Khách' : 'Guests',
+            ratingLabel: lang === 'vn' ? 'Đánh giá' : 'Rating',
+            saveLabel: lang === 'vn' ? 'Tiết kiệm 15%' : 'Save 15%',
+            exploreBtn: lang === 'vn' ? 'Khám phá →' : 'Explore →',
+            bookBtn: lang === 'vn' ? 'Đặt ngay →' : 'Book Now →',
+            link: 'miacasa-oldquarter.html',
+            img: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg'
+        }
+    ];
+    
+    grid.innerHTML = properties.map(prop => `
+        <div class="property-card">
+            <div class="property-img">
+                <img src="${prop.img}" alt="${prop.name}" loading="lazy">
+                <div class="property-badge">${prop.badge}</div>
+            </div>
+            <div class="property-body">
+                <div class="property-name">${prop.name}</div>
+                <div class="property-loc">📍 ${prop.location}</div>
+                <p class="property-desc">${prop.desc}</p>
+                <div class="property-meta">
+                    <div class="meta-item"><span class="meta-num">3</span><span class="meta-lbl">${prop.roomsLabel}</span></div>
+                    <div class="meta-item"><span class="meta-num">1–${prop.maxGuests}</span><span class="meta-lbl">${prop.guestsLabel}</span></div>
+                    <div class="meta-item"><span class="meta-num">${prop.rating}★</span><span class="meta-lbl">${prop.ratingLabel}</span></div>
+                </div>
+                <div class="price-prominent">
+                    <span class="currency">${lang === 'vn' ? 'từ' : 'from'}</span>
+                    <span class="amount">${prop.price.toLocaleString()}₫</span>
+                    <span class="night">/${lang === 'vn' ? 'đêm' : 'night'}</span>
+                    <span class="price-save-badge">${prop.saveLabel}</span>
+                </div>
+                <div class="property-buttons">
+                    <a href="${prop.link}" class="btn-outline">${prop.exploreBtn}</a>
+                    <a href="javascript:void(0)" class="btn-primary" onclick="selectAndScroll('${prop.id}'); return false;">${prop.bookBtn}</a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderBookingSelector() {
+    const sel = document.getElementById('booking-prop-sel');
+    if (!sel) return;
+    
+    const lang = window.currentLang || 'en';
+    sel.innerHTML = '';
+    
+    PROPERTIES.forEach((p, i) => {
+        const badge = getField(p, 'badge', lang);
+        const btn = document.createElement('button');
+        btn.className = 'prop-select-btn' + (i === 0 ? ' active' : '');
+        btn.id = 'bsb-' + p.id;
+        btn.onclick = () => selectProp(p.id);
+        btn.innerHTML = `<span class="pbn">${p.name}</span><span class="pbs">${badge} · ${p.rating}★</span>`;
+        sel.appendChild(btn);
+    });
+}
+
+// ================================================================
+// CORE FUNCTIONS
+// ================================================================
+
+function selectProp(id) {
+    activeProp = id;
+    document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.getElementById('bsb-' + id);
+    if (activeBtn) activeBtn.classList.add('active');
+    
+    const p = PROPERTIES.find(x => x.id === id);
+    const lang = window.currentLang || 'en';
+    const rooms = getField(p, 'rooms', lang);
+    const roomSelect = document.getElementById('room-type-sel');
+    if (roomSelect) roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
+    
+    const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
+    const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
+    const guestWordPl = lang === 'vn' ? 'Khách' : 'Guests';
+    const guestSelect = document.getElementById('guests-sel');
+    if (guestSelect) {
+        guestSelect.innerHTML = Array.from({ length: bookingMaxGuests }, (_, i) => 
+            `<option value="${i + 1}">${i + 1} ${i === 0 ? guestWord : guestWordPl}</option>`
+        ).join('');
+    }
+    
+    const priceNote = getField(p, 'priceNote', lang);
+    const pricingNote = document.getElementById('pricing-note');
+    if (pricingNote) {
+        pricingNote.innerHTML = `💡 ${priceNote}. ${lang === 'vn' ? 'Giá phụ thuộc vào ngày, số lượng khách và độ dài lưu trú. Chúng tôi luôn đưa ra mức giá tốt nhất có thể.' : 'Final pricing depends on dates, number of guests, and length of stay. We\'ll always share the best available direct rate.'}`;
+    }
+    
+    updateAvailabilityAndUI();
+}
+
+function selectAndScroll(id) {
+    // Select the property
+    selectProp(id);
+    
+    // Scroll to booking section after a short delay
+    setTimeout(() => {
+        const bookingSection = document.getElementById('booking');
+        if (bookingSection) {
+            bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 150);
+    
+    // Always return false to prevent link jump
     return false;
 }
-
-// Start initialization when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeProperties);
-} else {
-    initializeProperties();
-}
-
-// Make functions available globally
-window.renderProperties = renderProperties;
-window.renderBookingSelector = renderBookingSelector;
-window.selectProp = selectProp;
-window.selectAndScroll = selectAndScroll;
-window.updateAvailabilityAndUI = updateAvailabilityAndUI;
-window.updateGuestOptions = updateGuestOptions;
-window.setMinDates = setMinDates;
-window.resetBookingForm = resetBookingForm;
-window.checkRoomAvailability = checkRoomAvailability;
-window.areBookingInputsFilled = areBookingInputsFilled;
-window.areUserDetailsFilled = areUserDetailsFilled;
 
 // ================================================================
 // PAYMENT & BOOKING FUNCTIONS
 // ================================================================
 
-function handleContinueToPayment() {
-    console.log('handleContinueToPayment called');
-    
-    const paymentSection = document.getElementById('mia-payment-section');
-    const continueBtn = document.getElementById('booking-action-btn');
-    
-    if (paymentSection) {
-        paymentSection.style.display = 'block';
-        console.log('Payment section displayed');
-        generateQRCode();
-    }
-    
-    if (continueBtn) {
-        continueBtn.style.display = 'none';
-    }
-}
-
 function selectPayTab(type) {
-    console.log('selectPayTab called with:', type);
     selectedPayTab = type;
     
     const paypalPanel = document.getElementById('paypal-panel');
@@ -731,7 +717,7 @@ function selectPayTab(type) {
         if (paypalPanel) paypalPanel.style.display = 'block';
         if (vietqrPanel) vietqrPanel.style.display = 'none';
         if (paypalTab) paypalTab.classList.add('active');
-    } else if (type === 'vietqr') {
+    } else {
         if (paypalPanel) paypalPanel.style.display = 'none';
         if (vietqrPanel) vietqrPanel.style.display = 'block';
         if (vietqrTab) vietqrTab.classList.add('active');
@@ -745,8 +731,6 @@ function generateQRCode() {
     
     const amount = lastPriceResult?.total;
     const bookingId = currentBookingId;
-    
-    console.log('Generating QR for amount:', amount, 'booking:', bookingId);
     
     if (amount && bookingId) {
         const qrUrl = `https://img.vietqr.io/image/SACOMBANK-021091408386-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(bookingId)}&accountName=Ba%20Thi%20Bich%20Ngoc`;
@@ -767,24 +751,13 @@ function collectBookingData() {
     const phoneCode = document.getElementById('guest-phone-code')?.value || '+84';
     const phoneNum = document.getElementById('guest-phone-number')?.value?.trim() || '';
     const guestPhone = phoneCode + ' ' + phoneNum;
-    
     const result = lastPriceResult || calcTotal(activeProp, ci, co, guests);
     
     return {
-        bookingId: currentBookingId,
-        property: propName,
-        room: room,
-        checkIn: ci,
-        checkOut: co,
-        guests: guests,
-        nights: result?.nights || 0,
-        amount: result?.total || 0,
-        guestName: guestName,
-        guestEmail: guestEmail,
-        guestPhone: guestPhone,
-        bookedAt: new Date().toISOString(),
-        paymentMethod: selectedPayTab,
-        paymentStatus: 'pending'
+        bookingId: currentBookingId, property: propName, room: room,
+        checkIn: ci, checkOut: co, guests: guests, nights: result?.nights || 0,
+        amount: result?.total || 0, guestName, guestEmail, guestPhone,
+        bookedAt: new Date().toISOString(), paymentMethod: selectedPayTab, paymentStatus: 'pending'
     };
 }
 
@@ -804,17 +777,9 @@ function showBookingConfirmation(data) {
         confBox.style.display = 'block';
         const bidEl = document.getElementById('conf-bid');
         const detailsEl = document.getElementById('conf-details');
-        
         if (bidEl) bidEl.textContent = 'Booking ID: ' + data.bookingId;
         if (detailsEl) {
-            detailsEl.innerHTML = `
-                <div><strong>Property:</strong> ${data.property}</div>
-                <div><strong>Room:</strong> ${data.room}</div>
-                <div><strong>Check-in:</strong> ${fmtDateVN(data.checkIn)}</div>
-                <div><strong>Check-out:</strong> ${fmtDateVN(data.checkOut)}</div>
-                <div><strong>Guests:</strong> ${data.guests}</div>
-                <div><strong>Total:</strong> ${fmtVND(data.amount)} (~${fmtUSD(data.amount)})</div>
-            `;
+            detailsEl.innerHTML = `<div><strong>Property:</strong> ${data.property}</div><div><strong>Room:</strong> ${data.room}</div><div><strong>Check-in:</strong> ${fmtDateVN(data.checkIn)}</div><div><strong>Check-out:</strong> ${fmtDateVN(data.checkOut)}</div><div><strong>Guests:</strong> ${data.guests}</div><div><strong>Total:</strong> ${fmtVND(data.amount)} (~${fmtUSD(data.amount)})</div>`;
         }
     }
 }
@@ -846,501 +811,131 @@ function showPayError(msg) {
 
 async function callSheetsAPI(payload) {
     try {
-        const res = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+        const res = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return await res.json();
     } catch (err) {
-        console.warn('API error:', err);
         return { status: 'error', message: err.toString() };
     }
 }
 
 async function processPayPal() {
     const err = validateBookingForm();
-    if (err) {
-        showPayError(err);
-        return;
-    }
-    
-    const room = document.getElementById('room-type-sel')?.value;
-    const checkIn = document.getElementById('checkin')?.value;
-    const checkOut = document.getElementById('checkout')?.value;
-    const guests = parseInt(document.getElementById('guests-sel')?.value) || 1;
-    const guestName = document.getElementById('guest-name')?.value?.trim();
-    const guestEmail = document.getElementById('guest-email')?.value?.trim();
-    const phoneCode = document.getElementById('guest-phone-code')?.value || '+84';
-    const phoneNum = document.getElementById('guest-phone-number')?.value?.trim() || '';
-    const guestPhone = phoneCode + ' ' + phoneNum;
-    
-    if (!room || !checkIn || !checkOut || !guestName || !guestEmail) {
-        showPayError('Please fill all required fields.');
-        return;
-    }
-    
-    const property = getPropertyFromRoom(room);
-    if (!property) {
-        showPayError('Unable to determine property.');
-        return;
-    }
-    
-    if (!currentBookingId) {
-        showPayError('Booking ID not generated yet. Please select dates first.');
-        return;
-    }
-    
-    const nights = Math.ceil((new Date(checkOut) - new Date(checkIn)) / (1000 * 60 * 60 * 24));
-    const amount = (() => {
-        let total = 0;
-        let current = new Date(checkIn);
-        while (current < new Date(checkOut)) {
-            total += nightRate(current.toISOString().slice(0, 10), activeProp);
-            current.setDate(current.getDate() + 1);
-        }
-        if (guests > INCLUDED_GUESTS) {
-            total += (guests - INCLUDED_GUESTS) * EXTRA_GUEST_FEE * nights;
-        }
-        return total;
-    })();
-    
+    if (err) { showPayError(err); return; }
+    if (!currentBookingId) { showPayError('Booking ID not generated yet. Please select dates first.'); return; }
+
+    const data = collectBookingData();
     const payload = {
+        ...data,
         action: 'createBooking',
-        bookingId: currentBookingId,
-        property: property,
-        room: room,
-        checkIn: checkIn,
-        checkOut: checkOut,
-        nights: nights,
-        guests: guests,
-        amount: amount,
-        guestName: guestName,
-        guestEmail: guestEmail,
-        guestPhone: guestPhone,
         paymentMethod: 'paypal',
         paymentStatus: 'pending',
+        language: window.currentLang || 'en',
         bookedAt: new Date().toISOString()
     };
-    
+
     try {
         const res = await callSheetsAPI(payload);
-        if (res.status !== 'ok') {
-            throw new Error(res.message || 'Failed to save booking');
-        }
-        
-        const amountUSD = (amount / 25000).toFixed(2);
-        const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick` +
-            `&business=miacasahanoi@gmail.com` +
-            `&amount=${amountUSD}` +
-            `&currency_code=USD` +
-            `&item_name=MiaCasa%20Booking%20${currentBookingId}` +
-            `&invoice=${currentBookingId}`;
-        
+        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
+        const amountUSD = (data.amount / 25000).toFixed(2);
+        const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi@gmail.com&amount=${amountUSD}&currency_code=USD&item_name=MiaCasa%20Booking%20${currentBookingId}&invoice=${currentBookingId}`;
         window.open(paypalLink, '_blank');
-        
         alert('Booking saved! Please complete payment on PayPal.');
     } catch (error) {
         showPayError(error.message);
     }
 }
 
-function confirmVietQR() {
+async function confirmVietQR() {
     const err = validateBookingForm();
-    if (err) {
-        showPayError(err);
+    if (err) { showPayError(err); return; }
+    if (!currentBookingId) { showPayError('Booking ID not generated yet. Please select dates first.'); return; }
+
+    const data = collectBookingData();
+    const payload = {
+        ...data,
+        action: 'createBooking',
+        paymentMethod: 'vietqr',
+        paymentStatus: 'pending',
+        language: window.currentLang || 'en',
+        bookedAt: new Date().toISOString()
+    };
+
+    try {
+        const res = await callSheetsAPI(payload);
+        if (res.status !== 'ok') throw new Error(res.message || 'Failed to save booking');
+    } catch (error) {
+        showPayError('Could not save booking: ' + error.message + '. Please try again or contact us on WhatsApp.');
         return;
     }
-    
-    const data = collectBookingData();
+
     saveBookingToLocal(data);
     showBookingConfirmation(data);
 }
 
 // ================================================================
-// EVENT LISTENERS - Connect buttons to functions
+// INITIALIZATION
 // ================================================================
 
-function setupPaymentEventListeners() {
-    console.log('Setting up payment event listeners...');
-    
-    // Continue button handler
-    const continueBtn = document.getElementById('booking-action-btn');
-    if (continueBtn) {
-        // Clone and replace to remove any existing listeners
-        const newContinueBtn = continueBtn.cloneNode(true);
-        continueBtn.parentNode.replaceChild(newContinueBtn, continueBtn);
-        
-        newContinueBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Continue button clicked');
-            handleContinueToPayment();
-        });
-        console.log('Continue button listener attached');
-    } else {
-        console.log('Continue button not found yet');
+function initializeProperties() {
+    if (document.getElementById('properties-grid')) {
+        renderProperties();
+        renderBookingSelector();
+        selectProp(PROPERTIES[0].id);
+        setMinDates();
+        updateGuestOptions();
+        updateAvailabilityAndUI();
     }
-    
-    // Payment tab handlers
+}
+
+function setupPaymentEventListeners() {
     const paypalTab = document.getElementById('pay-tab-paypal');
     const vietqrTab = document.getElementById('pay-tab-vietqr');
     const paypalPayBtn = document.getElementById('paypal-pay-btn');
     const vietqrConfirmBtn = document.getElementById('vietqr-confirm-btn');
     
-    if (paypalTab) {
-        paypalTab.onclick = function() { 
-            console.log('PayPal tab clicked');
-            selectPayTab('paypal'); 
-        };
-    }
-    if (vietqrTab) {
-        vietqrTab.onclick = function() { 
-            console.log('VietQR tab clicked');
-            selectPayTab('vietqr'); 
-        };
-    }
-    if (paypalPayBtn) {
-        paypalPayBtn.onclick = function() { 
-            console.log('PayPal pay button clicked');
-            processPayPal(); 
-        };
-    }
-    if (vietqrConfirmBtn) {
-        vietqrConfirmBtn.onclick = function() { 
-            console.log('VietQR confirm button clicked');
-            confirmVietQR(); 
-        };
-    }
+    if (paypalTab) paypalTab.onclick = () => selectPayTab('paypal');
+    if (vietqrTab) vietqrTab.onclick = () => selectPayTab('vietqr');
+    if (paypalPayBtn) paypalPayBtn.onclick = () => processPayPal();
+    if (vietqrConfirmBtn) vietqrConfirmBtn.onclick = () => confirmVietQR();
 }
 
-// Also update the continue button visibility check in updateAvailabilityAndUI
-// Add this to ensure the continue button gets the event listener when it becomes visible
-const originalUpdateUI = updateAvailabilityAndUI;
-window.updateAvailabilityAndUI = async function() {
-    await originalUpdateUI();
-    // After UI updates, attach event listeners if the button is visible
-    const continueBtn = document.getElementById('booking-action-btn');
-    if (continueBtn && continueBtn.style.display !== 'none') {
-        setupPaymentEventListeners();
-    }
-};
-
-// Run setup when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupPaymentEventListeners);
-} else {
-    setupPaymentEventListeners();
-}
-
-// Also run after a short delay to catch dynamically created buttons
-setTimeout(setupPaymentEventListeners, 1000);
-setTimeout(setupPaymentEventListeners, 3000);
-
-// ================================================================
-// FIX: Make Continue to Payment button work
-// ================================================================
-
-// Function to show payment section
-function showPaymentSection() {
-    const paymentSection = document.getElementById('mia-payment-section');
-    const continueBtn = document.getElementById('booking-action-btn');
-    const priceBox = document.getElementById('mia-price-box');
-    
-    console.log('showPaymentSection called');
-    console.log('paymentSection element:', paymentSection);
-    console.log('continueBtn element:', continueBtn);
-    
-    if (paymentSection) {
-        paymentSection.style.display = 'block';
-        console.log('Payment section displayed');
-        
-        // Generate QR code if VietQR is selected
-        if (typeof generateQRCode === 'function') {
-            generateQRCode();
-        }
-    }
-    
-    if (continueBtn) {
-        continueBtn.style.display = 'none';
-    }
-    
-    // Scroll to payment section
-    if (paymentSection) {
-        paymentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-}
-
-// Override the handleContinueToPayment function
-window.handleContinueToPayment = function() {
-    console.log('handleContinueToPayment called - DIRECT');
-    showPaymentSection();
-};
-
-// Also override the global function
-handleContinueToPayment = function() {
-    console.log('handleContinueToPayment called - GLOBAL');
-    showPaymentSection();
-};
-
-// Directly attach click handler to continue button
-function attachContinueButtonHandler() {
-    const continueBtn = document.getElementById('booking-action-btn');
-    if (continueBtn) {
-        console.log('Found continue button, attaching handler');
-        
-        // Remove any existing listeners by cloning
-        const newBtn = continueBtn.cloneNode(true);
-        continueBtn.parentNode.replaceChild(newBtn, continueBtn);
-        
-        // Add click handler
-        newBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Continue button CLICKED!');
-            showPaymentSection();
-            return false;
-        };
-        
-        return true;
-    }
-    return false;
-}
-
-// Try to attach immediately
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(attachContinueButtonHandler, 500);
-        setTimeout(attachContinueButtonHandler, 1000);
-        setTimeout(attachContinueButtonHandler, 2000);
-    });
-} else {
-    setTimeout(attachContinueButtonHandler, 500);
-    setTimeout(attachContinueButtonHandler, 1000);
-    setTimeout(attachContinueButtonHandler, 2000);
-}
-
-// Also add a mutation observer to watch for the button appearing
-const observer = new MutationObserver(function(mutations) {
-    const btn = document.getElementById('booking-action-btn');
-    if (btn && btn.style.display !== 'none') {
-        attachContinueButtonHandler();
-        observer.disconnect(); // Stop observing once attached
-    }
-});
-
-observer.observe(document.body, { childList: true, subtree: true });
-
-console.log('Payment button fix loaded - waiting for continue button');
-
-// ================================================================
-// FIX: Override areUserDetailsFilled to ensure it returns boolean
-// ================================================================
-
-// Save the original function if it exists
-const originalAreUserDetailsFilled = window.areUserDetailsFilled;
-
-// Override with a robust version
-window.areUserDetailsFilled = function() {
-    const name = document.getElementById('guest-name')?.value?.trim();
-    const email = document.getElementById('guest-email')?.value?.trim();
-    const phone = document.getElementById('guest-phone-number')?.value?.trim();
-    
-    const result = !!(name && email && phone);
-    console.log('areUserDetailsFilled - name:', name, 'email:', email, 'phone:', phone, 'result:', result);
-    return result;
-};
-
-// Also override the global variable
-areUserDetailsFilled = window.areUserDetailsFilled;
-
-console.log('areUserDetailsFilled function has been fixed');
-
-// ================================================================
-// FIX: Auto-detect when guest details are filled
-// ================================================================
-
-function initGuestDetailListeners() {
-    const nameInput = document.getElementById('guest-name');
-    const emailInput = document.getElementById('guest-email');
-    const phoneInput = document.getElementById('guest-phone-number');
-    
-    if (!nameInput || !emailInput || !phoneInput) {
-        console.log('Guest detail inputs not found yet');
-        return;
-    }
-    
-    function onGuestDetailChange() {
-        console.log('Guest details changed - checking if button should show');
-        
-        // Force re-check availability and update UI
-        if (typeof updateAvailabilityAndUI === 'function') {
-            updateAvailabilityAndUI();
-        }
-    }
-    
-    nameInput.addEventListener('input', onGuestDetailChange);
-    emailInput.addEventListener('input', onGuestDetailChange);
-    phoneInput.addEventListener('input', onGuestDetailChange);
-    
-    console.log('Guest detail listeners attached');
-}
-
-// Also ensure the continue button click handler works
-function initContinueButtonHandler() {
-    const continueBtn = document.getElementById('booking-action-btn');
-    if (!continueBtn) return;
-    
-    // Remove any existing listeners
-    const newBtn = continueBtn.cloneNode(true);
-    continueBtn.parentNode.replaceChild(newBtn, continueBtn);
-    
-    newBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('Continue button clicked - showing payment section');
-        
-        const paymentSection = document.getElementById('mia-payment-section');
-        if (paymentSection) {
-            paymentSection.style.display = 'block';
-            console.log('Payment section displayed');
-            
-            // Generate QR code if needed
-            if (typeof generateQRCode === 'function') {
-                generateQRCode();
-            }
-            
-            // Scroll to payment section
-            paymentSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Hide continue button
-        this.style.display = 'none';
-    });
-    
-    console.log('Continue button handler attached');
-}
-
-// Initialize everything
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(initGuestDetailListeners, 500);
-        setTimeout(initContinueButtonHandler, 500);
-    });
-} else {
-    setTimeout(initGuestDetailListeners, 500);
-    setTimeout(initContinueButtonHandler, 500);
-}
-
-// Also try after a delay
-setTimeout(initGuestDetailListeners, 1500);
-setTimeout(initContinueButtonHandler, 1500);
-
-console.log('Guest detail and continue button handlers initialized');
-
-// ================================================================
-// FINAL FIX: Make Continue Button Appear Automatically
-// ================================================================
-
-// Force check and show continue button
-function checkAndShowContinueButton() {
-    const name = document.getElementById('guest-name')?.value?.trim();
-    const email = document.getElementById('guest-email')?.value?.trim();
-    const phone = document.getElementById('guest-phone-number')?.value?.trim();
-    const continueBtn = document.getElementById('booking-action-btn');
-    
-    // Check if all conditions are met
-    const hasDetails = !!(name && email && phone);
-    const isAvailable = currentAvailabilityStatus && currentAvailabilityStatus.available === true;
-    const hasDates = document.getElementById('checkin')?.value && document.getElementById('checkout')?.value;
-    const hasRoom = document.getElementById('room-type-sel')?.value;
-    
-    console.log('Check continue button - hasDetails:', hasDetails, 'isAvailable:', isAvailable, 'hasDates:', hasDates, 'hasRoom:', hasRoom);
-    
-    if (hasDetails && isAvailable && hasDates && hasRoom) {
-        if (continueBtn) {
-            continueBtn.style.display = 'block';
-            console.log('✅ Continue button is now VISIBLE');
-            
-            // Also attach click handler
-            const newBtn = continueBtn.cloneNode(true);
-            continueBtn.parentNode.replaceChild(newBtn, continueBtn);
-            newBtn.onclick = function(e) {
-                e.preventDefault();
-                console.log('Continue button clicked - showing payment');
-                const paymentSection = document.getElementById('mia-payment-section');
-                if (paymentSection) {
-                    paymentSection.style.display = 'block';
-                    if (typeof generateQRCode === 'function') generateQRCode();
-                    paymentSection.scrollIntoView({ behavior: 'smooth' });
-                }
-                this.style.display = 'none';
-            };
-        }
-    } else {
-        if (continueBtn) {
-            continueBtn.style.display = 'none';
-        }
-    }
-}
-
-// Add event listeners to all relevant inputs
-function setupAutoShowButton() {
-    const inputs = [
-        'guest-name',
-        'guest-email', 
-        'guest-phone-number',
-        'checkin',
-        'checkout',
-        'room-type-sel',
-        'guests-sel'
-    ];
-    
+// Auto-show payment when guest details are filled (non-blocking)
+function setupAutoPayment() {
+    const inputs = ['guest-name', 'guest-email', 'guest-phone-number', 'checkin', 'checkout', 'room-type-sel', 'guests-sel'];
     inputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            el.addEventListener('change', checkAndShowContinueButton);
-            el.addEventListener('input', checkAndShowContinueButton);
-            el.addEventListener('keyup', checkAndShowContinueButton);
+            // Use debounced version to prevent rapid calls
+            el.addEventListener('change', () => debouncedUpdateAvailability());
+            el.addEventListener('input', () => debouncedUpdateAvailability());
+            el.addEventListener('keyup', () => debouncedUpdateAvailability());
         }
     });
-    
-    // Also watch for availability status changes
-    const originalUpdateUI = window.updateAvailabilityAndUI;
-    window.updateAvailabilityAndUI = async function() {
-        await originalUpdateUI();
-        setTimeout(checkAndShowContinueButton, 100);
-    };
-    
-    console.log('Auto-show button setup complete');
 }
 
-// Run setup when DOM is ready
+// Start everything
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(setupAutoShowButton, 500);
-        setTimeout(checkAndShowContinueButton, 1000);
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeProperties();
+        setupPaymentEventListeners();
+        setupAutoPayment();
     });
 } else {
-    setTimeout(setupAutoShowButton, 500);
-    setTimeout(checkAndShowContinueButton, 1000);
+    initializeProperties();
+    setupPaymentEventListeners();
+    setupAutoPayment();
 }
 
-// Also run check whenever availability might change
-setInterval(checkAndShowContinueButton, 2000);
-
-console.log('Continue button auto-show fix loaded');
-
-
-
-// Make additional functions available globally
-window.handleContinueToPayment = handleContinueToPayment;
+// Make functions available globally
+window.renderProperties = renderProperties;
+window.renderBookingSelector = renderBookingSelector;
+window.selectProp = selectProp;
+window.selectAndScroll = selectAndScroll;
+window.updateAvailabilityAndUI = updateAvailabilityAndUI;
+window.updateGuestOptions = updateGuestOptions;
+window.resetBookingForm = resetBookingForm;
 window.selectPayTab = selectPayTab;
 window.generateQRCode = generateQRCode;
-window.collectBookingData = collectBookingData;
-window.saveBookingToLocal = saveBookingToLocal;
-window.showBookingConfirmation = showBookingConfirmation;
-window.validateBookingForm = validateBookingForm;
-window.showPayError = showPayError;
-window.callSheetsAPI = callSheetsAPI;
 window.processPayPal = processPayPal;
 window.confirmVietQR = confirmVietQR;

@@ -19,11 +19,11 @@
   to = "/robots.txt"
   status = 200
 
-# SPA fallback (if you are using frontend routing)
+# 404 fallback - serves 404.html for unknown routes
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200
+  to = "/404.html"
+  status = 404
 
 [[headers]]
   for = "/*"

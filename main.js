@@ -417,7 +417,7 @@ if (typeof registerTranslationHook === 'function') {
 // ================================================================
 
 // Update your renderProperties function to match the "Choose Your Stay" card styling
-function renderProperties() {
+/* function renderProperties() {
     const propertiesGrid = document.getElementById('properties-grid');
     if (!propertiesGrid) return;
     
@@ -471,7 +471,7 @@ function renderProperties() {
             <a href="${prop.link}" class="selector-btn">${prop.cta[lang]}</a>
         </div>
     `).join('');
-}
+} */
 
 // ================================================================
 // INITIALIZATION
@@ -487,9 +487,9 @@ document.addEventListener('DOMContentLoaded', () => {
     populateContactDropdowns();
     
     // RENDER PROPERTIES GRID - ADD THIS LINE
-    if (document.getElementById('properties-grid')) {
+    /* if (document.getElementById('properties-grid')) {
         renderProperties();
-    }
+    } */
 
     // Close mobile menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
@@ -524,9 +524,9 @@ if (typeof registerTranslationHook === 'function') {
         }
         
         // Re-render properties grid when language changes
-        if (document.getElementById('properties-grid') && typeof renderProperties === 'function') {
+        /* if (document.getElementById('properties-grid') && typeof renderProperties === 'function') {
             renderProperties();
-        }
+        } */
     });
 }
 
