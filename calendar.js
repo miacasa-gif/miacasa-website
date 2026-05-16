@@ -3,8 +3,8 @@
 // Updated to use Google Script for iCal feeds
 // ================================================================
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxqeuwzG4Idr9A_UTp2ibeR5QHAxvaG1uz-lz1TlItnr6QxcIBH4oBUM-ghlQANsMJcyA/exec';
-
+/* const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlgyCXc-S80tKtUgoX_8ZxnSRZl3rlCGoyaswB5NbK5cSqaoApZsHH8mg72Vmnok1pFA/exec'; */
+const GOOGLE_SHEETS_URL = process.env.GOOGLE_SHEETS_URL;
 const ROOM_CALS = [
     {
         id: 'spring',

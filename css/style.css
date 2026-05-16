@@ -869,26 +869,180 @@ section {
 /* ============================================
    ROOMS GRID (Property Pages)
    ============================================ */
+/* ============================================
+   ROOMS CARDS (Property Pages - Enhanced)
+   ============================================ */
 .rooms-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
     margin-top: 2rem;
 }
 
 .room-card {
     background: white;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-.room-card p {
-    font-size: 0.88rem;
+.room-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(44, 36, 22, 0.1);
+}
+
+/* Image wrapper inside room card */
+.room-card-img-wrap {
+    display: block;
+    overflow: hidden;
+    height: 220px;
+}
+
+.room-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover .room-card-img-wrap img {
+    transform: scale(1.03);
+}
+
+/* Card body */
+.room-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.room-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+}
+
+.room-card-desc {
+    font-size: 0.85rem;
     color: var(--ink-light);
-    line-height: 1.7;
-    margin-top: 0.3rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.room-card-specs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.room-card-specs li {
+    font-size: 0.75rem;
+    color: var(--ink-light);
+    background: var(--cream);
+    padding: 0.25rem 0.6rem;
+    border-radius: 30px;
+    display: inline-block;
+}
+
+.room-card-price {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    margin: 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.room-card-price strong {
+    font-size: 1.1rem;
+    color: var(--terracotta);
+    font-weight: 600;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .rooms-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .room-card-img-wrap {
+        height: 180px;
+    }
+    
+    .room-card-body {
+        padding: 1rem;
+    }
+    
+    .room-card-name {
+        font-size: 1.2rem;
+    }
+}
+
+/* ============================================
+   FEATURE CARDS (For Apartment Features)
+   ============================================ */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(44, 36, 22, 0.1);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+}
+
+.feature-desc {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 900px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ============================================

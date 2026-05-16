@@ -1,9 +1,11 @@
 User-agent: *
 Allow: /
-Disallow: /admin.html
+Disallow: /admin
 Disallow: /api/
-Disallow: /maintenance.html
+Disallow: /maintenance
 Disallow: /js/
 Disallow: /css/
+Disallow: /invoice
+Disallow: /cancel-booking
 
 Sitemap: https://miacasa.netlify.app/sitemap.xml

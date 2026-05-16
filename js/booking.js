@@ -110,7 +110,15 @@ function isWeekendNight(dateStr) {
     return day === 5 || day === 6;
 }
 
-function nightRate(dateStr, propId) {
+function nightRate(dateStr, propId, room) {
+    // 1. Check server-side price overrides first (admin panel → Price Overrides)
+    //    Override is matched by room name + date range.
+    if (room) {
+        const overridePrice = getOverridePrice(room, dateStr);
+        if (overridePrice !== null) return overridePrice;
+    }
+
+    // 2. Fall back to standard seasonal/weekend rates from prices.js
     const hanoiRates = {
         weekday: PRICES['hanoi-spring'],
         weekend: PRICES['hanoi-weekend'],
@@ -130,15 +138,18 @@ function nightRate(dateStr, propId) {
 function calcTotal(propId, checkIn, checkOut, guests) {
     const ci = new Date(checkIn), co = new Date(checkOut);
     if (isNaN(ci) || isNaN(co) || co <= ci) return null;
-    
+
+    // Get the selected room name so nightRate() can match overrides precisely
+    const room = document.getElementById('room-type-sel')?.value || null;
+
     let nights = 0, baseTotal = 0;
     const d = new Date(ci);
     while (d < co) {
-        baseTotal += nightRate(d.toISOString().slice(0, 10), propId);
+        baseTotal += nightRate(d.toISOString().slice(0, 10), propId, room);
         nights++;
         d.setDate(d.getDate() + 1);
     }
-    
+
     let extra = 0;
     if (guests > INCLUDED_GUESTS) {
         const extraFee = propId === 'hanoi' ? PRICES['extra-guest-hanoi'] : PRICES['extra-guest-oldquarter'];
@@ -165,6 +176,57 @@ function makeBookingId(propId, room) {
     const rc = ROOM_CODE[room] || 'GEN';
     const n = getBookingCounter(pc + '_' + rc);
     return pc + '-' + rc + '-' + String(n).padStart(4, '0');
+}
+
+// ================================================================
+// PRICE OVERRIDES — fetched once from the server on page load
+// Overrides take precedence over the standard PRICES rates.
+// Each override: [id, room, fromDate, toDate, price, note]
+// ================================================================
+let _priceOverrides = [];        // populated by fetchPriceOverrides()
+let _overridesFetched = false;   // guard against duplicate fetches
+
+async function fetchPriceOverrides() {
+    if (_overridesFetched) return;
+    _overridesFetched = true;
+    try {
+        const res = await fetch('/api/log-booking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'getPriceOverrides' })
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.status === 'ok' && Array.isArray(data.data)) {
+            // Each row: [id, room, from, to, price, note]
+            _priceOverrides = data.data.map(row => ({
+                id:    row[0],
+                room:  String(row[1] || '').trim(),
+                from:  String(row[2] || '').trim(),
+                to:    String(row[3] || '').trim(),
+                price: Number(row[4]) || 0,
+                note:  row[5] || ''
+            })).filter(o => o.room && o.from && o.to && o.price > 0);
+        }
+    } catch (e) {
+        // Silently fail — standard prices will be used
+    }
+}
+
+// Returns the override price for a given room + date, or null if none applies.
+// room: exact room name e.g. "Spring Room" or "Entire Apartment (3 king beds)"
+// dateStr: "YYYY-MM-DD"
+function getOverridePrice(room, dateStr) {
+    if (!_priceOverrides.length) return null;
+    const d = new Date(dateStr);
+    for (const o of _priceOverrides) {
+        if (o.room !== room) continue;
+        const from = new Date(o.from);
+        const to   = new Date(o.to);
+        // Inclusive range
+        if (d >= from && d <= to) return o.price;
+    }
+    return null;
 }
 
 // UI HELPERS
@@ -917,11 +979,13 @@ function setupAutoPayment() {
 // Start everything
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        fetchPriceOverrides(); // load admin price overrides in background
         initializeProperties();
         setupPaymentEventListeners();
         setupAutoPayment();
     });
 } else {
+    fetchPriceOverrides(); // load admin price overrides in background
     initializeProperties();
     setupPaymentEventListeners();
     setupAutoPayment();

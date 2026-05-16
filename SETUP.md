@@ -2,30 +2,31 @@
 
 ## Required Environment Variables
 
-Before deploying, set these in **Netlify → Site Settings → Environment variables**:
+Set these in **Netlify → Site Settings → Environment variables**:
 
 | Variable | Description |
 |---|---|
 | `GOOGLE_SHEETS_URL` | Your Google Apps Script deployment URL |
 | `ADMIN_USER` | Admin panel login email |
-| `ADMIN_PASSWORD` | Admin panel password (use a strong password) |
-| `ADMIN_TOKEN` | Auth token for protected API actions — generate with `openssl rand -hex 32` |
+| `ADMIN_PASSWORD` | Admin panel password |
+| `GAS_ADMIN_TOKEN` | The `ADMIN_TOKEN` value from your `Code.gs` file |
 
-**Never commit real values to source control.** Use `.env.example` as a reference template only.
+## What is GAS_ADMIN_TOKEN?
+
+Open your `Code.gs` in Google Apps Script. Find this line near the top:
+
+```js
+const ADMIN_TOKEN = "super_secure_token_123";
+```
+
+Copy that value and set it as `GAS_ADMIN_TOKEN` in Netlify.
+It lets the Netlify function authenticate with Google Apps Script for admin actions
+(room status, price overrides, cancellations).
 
 ## Deployment
 
 1. Push to GitHub
 2. Connect to Netlify
-3. Set all four environment variables above in Netlify dashboard
+3. Set all 4 environment variables above
 4. Deploy
-
-## Local Development
-
-Netlify CLI can inject env vars locally:
-```bash
-npm install -g netlify-cli
-netlify dev
-```
-
-Create a `.env` file (gitignored) with your local values.
+5. Trigger a new deploy after setting env vars: Deploys → Trigger deploy → Deploy site
