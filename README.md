@@ -1,6 +1,6 @@
 # MiaCasa Homestays Website
 
-A fast, multilingual boutique homestay website for [MiaCasa Hanoi](https://miacasahanoi.com?utm_source=chatgpt.com) built with vanilla HTML, CSS, and JavaScript.
+A fast, multilingual boutique homestay website for [MiaCasa Hanoi](https://miacasahanoi.com) built with vanilla HTML, CSS, and JavaScript.
 
 The project focuses on:
 
