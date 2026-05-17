@@ -265,6 +265,10 @@ body {
   gap: 0.4rem;
 }
 
+.price-field-wide {
+  grid-column: 1 / -1;
+}
+
 .price-field label {
   font-size: 0.68rem;
   letter-spacing: 0.1em;
@@ -288,6 +292,60 @@ body {
 .price-field input:focus,
 .price-field select:focus {
   border-color: var(--terracotta);
+}
+
+.weekday-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--cream);
+}
+
+.weekday-picker label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 70px;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--ink);
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.weekday-picker label:has(input:checked) {
+  border-color: var(--terracotta);
+  background: rgba(193, 122, 90, 0.08);
+}
+
+.weekday-picker input {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.month-picker label {
+  min-width: 64px;
+}
+
+.rule-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(193, 122, 90, 0.12);
+  color: var(--terracotta-dark);
+  font-size: 0.68rem;
+  font-weight: 500;
 }
 
 .add-override-btn {

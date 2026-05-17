@@ -55,7 +55,7 @@ const ROOM_CALS = [
             { platform: 'Google', platform_vn: 'Google', url: `https://calendar.google.com/calendar/ical/81d1ef063261354d380e1f80b38325d413a118e15b1819b9b8aff47fa1069f79%40group.calendar.google.com/public/basic.ics` },
             { platform: 'Airbnb', platform_vn: 'Airbnb', url: `https://www.airbnb.co.in/calendar/ical/1444661721704448383.ics?t=cce83927bc29402eb49e1b816d4293bb` },
             { platform: 'Booking', platform_vn: 'Booking', url: `https://ical.booking.com/v1/export/t/eb318a0d-65ba-45e8-b3e0-53d59c08b135.ics` },
-            { platform: 'MiaCasa', platform_vn: 'MiaCasa', isDynamic: true, roomId: 'Entire Apartment (3 king beds)' }
+            { platform: 'MiaCasa', platform_vn: 'MiaCasa', isDynamic: true, roomId: 'Entire Apartment (3 queen beds)' }
         ]
     }
 ];

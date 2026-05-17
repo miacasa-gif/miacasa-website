@@ -263,13 +263,18 @@ function sendWhatsApp() {
     const message = document.getElementById('contact-message')?.value?.trim() || '';
     
     if (!name || !message) {
-        alert(currentLang === 'vn' ? 'Vui lòng điền tên và tin nhắn.' : 'Please fill in your name and message.');
+        showContactNotice(currentLang === 'vn' ? 'Vui lòng điền tên và tin nhắn.' : 'Please fill in your name and message.', true);
         return;
     }
     
     const text = `Hi MiaCasa! 👋\n\n*Name:* ${name}\n*Email:* ${email || 'not provided'}\n*Property:* ${prop}\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
     const url = 'https://wa.me/84869922261?text=' + encodeURIComponent(text);
-    window.open(url, '_blank');
+    const opened = window.open(url, '_blank');
+    if (!opened) {
+        window.location.href = `mailto:miacasahanoi@gmail.com?subject=${encodeURIComponent('MiaCasa enquiry: ' + subject)}&body=${encodeURIComponent(text)}`;
+        showContactNotice(currentLang === 'vn' ? 'WhatsApp bị chặn, chúng tôi đã mở email thay thế.' : 'WhatsApp was blocked, so we opened an email fallback instead.');
+        return;
+    }
     
     const confirmMsg = document.getElementById('contact-confirm');
     if (confirmMsg) {
@@ -278,6 +283,27 @@ function sendWhatsApp() {
             confirmMsg.style.display = 'none';
         }, 3000);
     }
+}
+
+function showContactNotice(message, isError = false) {
+    const form = document.querySelector('.contact-form-box');
+    if (!form) return;
+
+    let notice = document.getElementById('contact-inline-notice');
+    if (!notice) {
+        notice = document.createElement('div');
+        notice.id = 'contact-inline-notice';
+        notice.className = 'confirm-msg';
+        const submitBtn = document.getElementById('btn-whatsapp');
+        submitBtn?.insertAdjacentElement('beforebegin', notice);
+    }
+
+    notice.textContent = message;
+    notice.style.display = 'block';
+    notice.style.margin = '0.75rem 0';
+    notice.style.background = isError ? 'rgba(139,32,32,0.08)' : '#d1fae5';
+    notice.style.color = isError ? '#8B2020' : '#065f46';
+    notice.style.borderLeft = isError ? '3px solid #8B2020' : '3px solid #065f46';
 }
 
 // ================================================================
@@ -328,24 +354,40 @@ function populateContactDropdowns() {
     }
     
     // Populate booking room dropdown if it exists and is empty
-    const roomSelect = document.getElementById('room-type-sel');
-    if (roomSelect && roomSelect.options.length <= 1) {
-        const lang = window.currentLang || 'en';
-        const rooms = [
-            { value: 'Spring Room', textEn: '🌸 Spring Room (MiaCasa Hanoi)', textVn: '🌸 Phòng Xuân (MiaCasa Hà Nội)' },
-            { value: 'Summer Room', textEn: '☀️ Summer Room (MiaCasa Hanoi)', textVn: '☀️ Phòng Hạ (MiaCasa Hà Nội)' },
-            { value: 'Autumn Room', textEn: '🍂 Autumn Room (MiaCasa Hanoi)', textVn: '🍂 Phòng Thu (MiaCasa Hà Nội)' },
-            { value: 'Entire Apartment (3 king beds)', textEn: '🏠 Entire Old Quarter Apartment (up to 6 guests)', textVn: '🏠 Toàn bộ căn hộ Phố Cổ (tối đa 6 khách)' }
-        ];
-        
-        roomSelect.innerHTML = '';
-        rooms.forEach(room => {
-            const option = document.createElement('option');
-            option.value = room.value;
-            option.textContent = lang === 'vn' ? room.textVn : room.textEn;
-            roomSelect.appendChild(option);
-        });
+     const roomSelect = document.getElementById('room-type-sel');
+if (roomSelect && roomSelect.options.length <= 1) {
+    const lang = window.currentLang || 'en';
+    
+    // Get the currently selected property from the active button
+    let activeProp = 'hanoi'; // default
+    const activeBtn = document.querySelector('.prop-select-btn.active');
+    if (activeBtn && activeBtn.id) {
+        const id = activeBtn.id.replace('bsb-', '');
+        if (id === 'oldquarter') activeProp = 'oldquarter';
+        else activeProp = 'hanoi';
     }
+    
+    let rooms = [];
+    if (activeProp === 'hanoi') {
+        rooms = [
+            { value: 'Spring Room', textEn: '🌸 Spring Room', textVn: '🌸 Phòng Xuân' },
+            { value: 'Summer Room', textEn: '☀️ Summer Room', textVn: '☀️ Phòng Hạ' },
+            { value: 'Autumn Room', textEn: '🍂 Autumn Room', textVn: '🍂 Phòng Thu' }
+        ];
+    } else {
+        rooms = [
+            { value: 'Entire Apartment (3 queen beds)', textEn: '🏠 Entire Old Quarter Apartment (up to 6 guests)', textVn: '🏠 Toàn bộ căn hộ Phố Cổ (tối đa 6 khách)' }
+        ];
+    }
+    
+    roomSelect.innerHTML = '';
+    rooms.forEach(room => {
+        const option = document.createElement('option');
+        option.value = room.value;
+        option.textContent = lang === 'vn' ? room.textVn : room.textEn;
+        roomSelect.appendChild(option);
+    });
+} 
     
     // Populate guests dropdown if it exists and is empty
     const guestsSelect = document.getElementById('guests-sel');
@@ -386,15 +428,25 @@ function updateDropdownsOnLangChange() {
     }
     
     // Update room dropdown
-    if (roomSelect && roomSelect.options.length > 0) {
-        const rooms = [
-            { value: 'Spring Room', textEn: '🌸 Spring Room (MiaCasa Hanoi)', textVn: '🌸 Phòng Xuân (MiaCasa Hà Nội)' },
-            { value: 'Summer Room', textEn: '☀️ Summer Room (MiaCasa Hanoi)', textVn: '☀️ Phòng Hạ (MiaCasa Hà Nội)' },
-            { value: 'Autumn Room', textEn: '🍂 Autumn Room (MiaCasa Hanoi)', textVn: '🍂 Phòng Thu (MiaCasa Hà Nội)' },
-            { value: 'Entire Apartment (3 king beds)', textEn: '🏠 Entire Old Quarter Apartment (up to 6 guests)', textVn: '🏠 Toàn bộ căn hộ Phố Cổ (tối đa 6 khách)' }
-        ];
+     // Get the active property from booking.js if available
+    const activeProp = window.activeProp || 'hanoi';
+
+    if (roomSelect && roomSelect.options.length <= 1) {
+        const lang = window.currentLang || 'en';
         
-        const currentValue = roomSelect.value;
+        let rooms = [];
+        if (activeProp === 'hanoi') {
+            rooms = [
+                { value: 'Spring Room', textEn: '🌸 Spring Room', textVn: '🌸 Phòng Xuân' },
+                { value: 'Summer Room', textEn: '☀️ Summer Room', textVn: '☀️ Phòng Hạ' },
+                { value: 'Autumn Room', textEn: '🍂 Autumn Room', textVn: '🍂 Phòng Thu' }
+            ];
+        } else {
+            rooms = [
+                { value: 'Entire Apartment (3 queen beds)', textEn: '🏠 Entire Old Quarter Apartment (up to 6 guests)', textVn: '🏠 Toàn bộ căn hộ Phố Cổ (tối đa 6 khách)' }
+            ];
+        }
+        
         roomSelect.innerHTML = '';
         rooms.forEach(room => {
             const option = document.createElement('option');
@@ -402,8 +454,7 @@ function updateDropdownsOnLangChange() {
             option.textContent = lang === 'vn' ? room.textVn : room.textEn;
             roomSelect.appendChild(option);
         });
-        if (currentValue) roomSelect.value = currentValue;
-    }
+    } 
 }
 
 // Register language change hook
@@ -597,27 +648,6 @@ function updateActiveNav() {
 
 window.addEventListener('scroll', updateActiveNav);
 window.addEventListener('load', updateActiveNav);
-
-// Smooth scroll for navigation links
-document.querySelectorAll('.section-nav a, .fab-nav-menu a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href');
-    if (targetId && targetId !== '#') {
-      const target = document.querySelector(targetId);
-      if (target) {
-        const mobileMenu = document.getElementById('mobileNavMenu');
-        if (mobileMenu) mobileMenu.classList.remove('show');
-        
-        const targetPosition = target.offsetTop - 80;
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
-    }
-  });
-});
 
 // Mobile navigation toggle
 function toggleMobileNav() {

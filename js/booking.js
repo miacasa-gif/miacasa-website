@@ -23,7 +23,7 @@ const ROOM_CAPACITY = {
     "Spring Room": 3,
     "Summer Room": 3,
     "Autumn Room": 3,
-    "Entire Apartment (3 king beds)": 6
+    "Entire Apartment (3 queen beds)": 6
 };
 
 // ================================================================
@@ -42,7 +42,7 @@ function getPropertyFromRoom(room) {
         "Spring Room": "MiaCasaHanoi",
         "Summer Room": "MiaCasaHanoi",
         "Autumn Room": "MiaCasaHanoi",
-        "Entire Apartment (3 king beds)": "MiaCasaOldQuarter"
+        "Entire Apartment (3 queen beds)": "MiaCasaOldQuarter"
     };
     return map[room] || "MiaCasaHanoi";
 }
@@ -86,7 +86,7 @@ const PROPERTIES = [
         },
         heroImg: 'https://res.cloudinary.com/dczfocztf/image/upload/c_scale,w_600,f_auto,q_60/v1775735576/att.dQ-7EPkykJ12fIQMeB_uBO8MXd0D5gsS8gmaVrRL7Rg_e86yd8.jpg',
         pageUrl: 'miacasa-oldquarter.html',
-        rooms: ['Entire Apartment (3 king beds)']
+        rooms: ['Entire Apartment (3 queen beds)']
     }
 ];
 
@@ -161,7 +161,7 @@ function calcTotal(propId, checkIn, checkOut, guests) {
 // BOOKING ID GENERATOR
 const ROOM_CODE = {
     'Spring Room': 'SPR', 'Summer Room': 'SUM', 'Autumn Room': 'AUT',
-    'Entire Apartment (3 king beds)': 'OLQ'
+    'Entire Apartment (3 queen beds)': 'OLQ'
 };
 const PROP_CODE = { 'hanoi': 'MCH', 'oldquarter': 'MCOQ' };
 
@@ -182,51 +182,242 @@ function makeBookingId(propId, room) {
 // PRICE OVERRIDES — fetched once from the server on page load
 // Overrides take precedence over the standard PRICES rates.
 // Each override: [id, room, fromDate, toDate, price, note]
+// Recurring rules are stored in note as: MIA_PRICE_RULE:{"type":"weekday","days":[1,2,3],"months":[1..12]}
 // ================================================================
 let _priceOverrides = [];        // populated by fetchPriceOverrides()
 let _overridesFetched = false;   // guard against duplicate fetches
+const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
 
 async function fetchPriceOverrides() {
     if (_overridesFetched) return;
     _overridesFetched = true;
+
     try {
         const res = await fetch('/api/log-booking', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'getPriceOverrides' })
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: 'getPriceOverrides'
+            })
         });
+
         if (!res.ok) return;
-        const data = await res.json();
-        if (data.status === 'ok' && Array.isArray(data.data)) {
-            // Each row: [id, room, from, to, price, note]
-            _priceOverrides = data.data.map(row => ({
-                id:    row[0],
-                room:  String(row[1] || '').trim(),
-                from:  String(row[2] || '').trim(),
-                to:    String(row[3] || '').trim(),
+
+        const json = await res.json();
+
+        // FIX: Support BOTH response shapes
+        const rows =
+            json?.data?.data ||
+            json?.data ||
+            [];
+
+        if (Array.isArray(rows)) {
+
+            _priceOverrides = rows.map(row => ({
+                id: row[0],
+                room: String(row[1] || '').trim(),
+                from: String(row[2] || '').trim(),
+                to: String(row[3] || '').trim(),
                 price: Number(row[4]) || 0,
-                note:  row[5] || ''
-            })).filter(o => o.room && o.from && o.to && o.price > 0);
+                note: row[5] || '',
+                rule: parsePriceOverrideRule(row[5])
+            }))
+            .filter(o =>
+                o.room &&
+                o.from &&
+                o.to &&
+                o.price > 0
+            );
+
+            console.log('Loaded price overrides:', _priceOverrides);
         }
+
     } catch (e) {
-        // Silently fail — standard prices will be used
+        console.error('Failed loading price overrides:', e);
     }
+
+    refreshAllPriceDisplays();
 }
 
+function parseLocalDate(dateStr) {
+
+    if (!dateStr) return null;
+
+    // Handle full ISO timestamps from Google Sheets / Apps Script
+    const iso = new Date(dateStr);
+
+    if (!isNaN(iso)) {
+        iso.setHours(0, 0, 0, 0);
+        return iso;
+    }
+
+    // Fallback for YYYY-MM-DD
+    const parts = String(dateStr).split('-').map(Number);
+
+    if (parts.length !== 3 || parts.some(n => !Number.isFinite(n))) {
+        return null;
+    }
+
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+}
+
+function parsePriceOverrideRule(note) {
+    const raw = String(note || '');
+    const index = raw.indexOf(PRICE_RULE_PREFIX);
+    if (index === -1) return null;
+
+    try {
+        const rule = JSON.parse(raw.slice(index + PRICE_RULE_PREFIX.length).trim());
+        if (rule && rule.type === 'weekday' && Array.isArray(rule.days)) {
+            return {
+                type: 'weekday',
+                days: rule.days.map(Number).filter(n => n >= 0 && n <= 6),
+                months: Array.isArray(rule.months)
+                    ? rule.months.map(Number).filter(n => n >= 1 && n <= 12)
+                    : []
+            };
+        }
+    } catch (e) {}
+
+    return null;
+}
+
+function overrideAppliesToDate(override, date) {
+    const from = parseLocalDate(override.from);
+    const to = parseLocalDate(override.to);
+    if (!from || !to || date < from || date > to) return false;
+
+    if (!override.rule) return true;
+
+    if (override.rule.type === 'weekday') {
+        const dayMatches = override.rule.days.includes(date.getDay());
+        const months = override.rule.months || [];
+        const monthMatches = months.length === 0 || months.includes(date.getMonth() + 1);
+        return dayMatches && monthMatches;
+    }
+
+    return false;
+}
+
+function overridePriority(override) {
+    if (!override.rule) return 20;
+    if (override.rule.type === 'weekday') return 10;
+    return 0;
+}
+
+// Returns the lowest effective nightly rate for a property,
+// checking active price overrides first, then falling back to PRICES.
+// Used to keep ALL "From X₫" displays in sync with admin overrides.
+function getEffectiveFromPrice(propId) {
+    const basePrice = propId === 'hanoi'
+        ? PRICES['hanoi-spring']
+        : PRICES.oldquarter;
+
+    if (!_priceOverrides.length) return basePrice;
+
+    const rooms = propId === 'hanoi'
+        ? ['Spring Room', 'Summer Room', 'Autumn Room']
+        : ['Entire Apartment (3 queen beds)', 'Entire Apartment (3 king beds)'];
+
+    // Scan overrides that are currently active or start within the next 90 days
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const horizon = new Date(today);
+    horizon.setDate(horizon.getDate() + 90);
+
+    let lowest = basePrice;
+    for (const o of _priceOverrides) {
+        if (!rooms.includes(o.room)) continue;
+        if (o.price <= 0) continue;
+        const from = parseLocalDate(o.from);
+        const to   = parseLocalDate(o.to);
+        if (!from || !to) continue;
+        // Only consider overrides that overlap the next 90 days
+        if (to < today || from > horizon) continue;
+        if (o.price < lowest) lowest = o.price;
+    }
+    return lowest;
+}
+
+// Call this after overrides are fetched to refresh every price display on the page.
+function refreshAllPriceDisplays() {
+    const hanoiFrom = getEffectiveFromPrice('hanoi');
+    const oqFrom    = getEffectiveFromPrice('oldquarter');
+    const lang = window.currentLang || localStorage.getItem('mia_lang') || 'en';
+
+    // 1. Property selector "from" prices (index.html)
+    const selHanoi = document.getElementById('selector-hanoi-price');
+    if (selHanoi) selHanoi.textContent = hanoiFrom.toLocaleString('vi-VN');
+
+    const selOQ = document.getElementById('selector-oldquarter-price');
+    if (selOQ) selOQ.textContent = oqFrom.toLocaleString('vi-VN');
+
+    // 2. Compare section (index.html)
+    const cmpHanoi = document.getElementById('compare-hanoi-price');
+    if (cmpHanoi) cmpHanoi.textContent = hanoiFrom.toLocaleString('vi-VN');
+
+    const cmpOQ = document.getElementById('compare-oldquarter-price');
+    if (cmpOQ) cmpOQ.textContent = oqFrom.toLocaleString('vi-VN');
+
+    // 3. Room cards (miacasa-hanoi.html / miacasa-oldquarter.html)
+    document.querySelectorAll('.room-card-price-amount').forEach(el => {
+        const prop = el.dataset.prop;
+        if (prop === 'hanoi') el.textContent = hanoiFrom.toLocaleString('vi-VN') + '₫';
+        if (prop === 'oldquarter') el.textContent = oqFrom.toLocaleString('vi-VN') + '₫';
+    });
+
+    // 4. Save% badges — recalculate against the effective price
+    const airbnbHanoi = PRICES['airbnb-price-hanoi'] || 880000;
+    const airbnbOQ    = PRICES['airbnb-price-oldquarter'] || 1410000;
+    const savedHanoi  = Math.round(((airbnbHanoi - hanoiFrom) / airbnbHanoi) * 100);
+    const savedOQ     = Math.round(((airbnbOQ - oqFrom) / airbnbOQ) * 100);
+
+    const saveHanoiEl = document.getElementById('selector-hanoi-save');
+    if (saveHanoiEl) {
+        saveHanoiEl.textContent = lang === 'vn'
+            ? `Tiết kiệm ${savedHanoi}% so với Airbnb`
+            : `Save ${savedHanoi}% vs Airbnb`;
+    }
+    const saveOQEl = document.getElementById('selector-oldquarter-save');
+    if (saveOQEl) {
+        saveOQEl.textContent = lang === 'vn'
+            ? `Tiết kiệm ${savedOQ}% so với Airbnb`
+            : `Save ${savedOQ}% vs Airbnb`;
+    }
+
+    // 5. Price estimate strip (if present)
+    const estHanoi = document.getElementById('price-est-hanoi-val');
+    if (estHanoi) estHanoi.textContent = (hanoiFrom * 2).toLocaleString('vi-VN') + '₫';
+    const estOQ = document.getElementById('price-est-oq-val');
+    if (estOQ) estOQ.textContent = (oqFrom * 2).toLocaleString('vi-VN') + '₫';
+}
+
+
 // Returns the override price for a given room + date, or null if none applies.
-// room: exact room name e.g. "Spring Room" or "Entire Apartment (3 king beds)"
+// room: exact room name e.g. "Spring Room" or "Entire Apartment (3 queen beds)"
 // dateStr: "YYYY-MM-DD"
 function getOverridePrice(room, dateStr) {
     if (!_priceOverrides.length) return null;
-    const d = new Date(dateStr);
+    const d = parseLocalDate(dateStr);
+    if (!d) return null;
+
+    let bestMatch = null;
     for (const o of _priceOverrides) {
         if (o.room !== room) continue;
-        const from = new Date(o.from);
-        const to   = new Date(o.to);
-        // Inclusive range
-        if (d >= from && d <= to) return o.price;
+        if (!overrideAppliesToDate(o, d)) continue;
+
+        if (
+            !bestMatch ||
+            overridePriority(o) > overridePriority(bestMatch) ||
+            (overridePriority(o) === overridePriority(bestMatch) && Number(o.id) > Number(bestMatch.id))
+        ) {
+            bestMatch = o;
+        }
     }
-    return null;
+
+    return bestMatch ? bestMatch.price : null;
 }
 
 // UI HELPERS
@@ -664,7 +855,7 @@ function renderProperties() {
     grid.innerHTML = properties.map(prop => `
         <div class="property-card">
             <div class="property-img">
-                <img src="${prop.img}" alt="${prop.name}" loading="lazy">
+                <img src="${prop.img}" alt="${prop.name}" loading="lazy" decoding="async">
                 <div class="property-badge">${prop.badge}</div>
             </div>
             <div class="property-body">
@@ -701,6 +892,7 @@ function renderBookingSelector() {
     PROPERTIES.forEach((p, i) => {
         const badge = getField(p, 'badge', lang);
         const btn = document.createElement('button');
+        // First property (index 0) gets 'active' class
         btn.className = 'prop-select-btn' + (i === 0 ? ' active' : '');
         btn.id = 'bsb-' + p.id;
         btn.onclick = () => selectProp(p.id);
@@ -714,16 +906,33 @@ function renderBookingSelector() {
 // ================================================================
 
 function selectProp(id) {
+    console.log('=== selectProp DEBUG ===');
+    console.log('1. Selected property ID:', id);
+    
     activeProp = id;
     document.querySelectorAll('.prop-select-btn').forEach(b => b.classList.remove('active'));
     const activeBtn = document.getElementById('bsb-' + id);
     if (activeBtn) activeBtn.classList.add('active');
     
     const p = PROPERTIES.find(x => x.id === id);
+    console.log('2. Found property object:', p);
+    console.log('3. p.rooms:', p?.rooms);
+    console.log('4. p.vn?.rooms:', p?.vn?.rooms);
+    
     const lang = window.currentLang || 'en';
+    console.log('5. Current language:', lang);
+    
     const rooms = getField(p, 'rooms', lang);
+    console.log('6. getField returned rooms:', rooms);
+    
     const roomSelect = document.getElementById('room-type-sel');
-    if (roomSelect) roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
+    if (roomSelect) {
+        roomSelect.innerHTML = rooms.map(r => `<option>${r}</option>`).join('');
+        console.log('7. Room dropdown updated with:', rooms);
+        console.log('8. Room dropdown HTML:', roomSelect.innerHTML);
+    } else {
+        console.log('8. roomSelect element not found!');
+    }
     
     const bookingMaxGuests = p.maxGuestsPerRoom || p.maxGuests;
     const guestWord = lang === 'vn' ? 'Khách' : 'Guest';
@@ -796,7 +1005,7 @@ function generateQRCode() {
     
     if (amount && bookingId) {
         const qrUrl = `https://img.vietqr.io/image/SACOMBANK-021091408386-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(bookingId)}&accountName=Ba%20Thi%20Bich%20Ngoc`;
-        qrContainer.innerHTML = `<img src="${qrUrl}" style="width:200px;height:200px;border-radius:4px;" alt="VietQR">`;
+        qrContainer.innerHTML = `<img loading="lazy" decoding="async" src="${qrUrl}" style="width:200px;height:200px;border-radius:4px;" alt="VietQR">`;
     } else {
         qrContainer.innerHTML = '<p style="font-size:0.75rem;">Loading QR code...</p>';
     }
@@ -843,6 +1052,21 @@ function showBookingConfirmation(data) {
         if (detailsEl) {
             detailsEl.innerHTML = `<div><strong>Property:</strong> ${data.property}</div><div><strong>Room:</strong> ${data.room}</div><div><strong>Check-in:</strong> ${fmtDateVN(data.checkIn)}</div><div><strong>Check-out:</strong> ${fmtDateVN(data.checkOut)}</div><div><strong>Guests:</strong> ${data.guests}</div><div><strong>Total:</strong> ${fmtVND(data.amount)} (~${fmtUSD(data.amount)})</div>`;
         }
+    }
+}
+
+function showPaymentRedirectConfirmation(data, paymentLabel) {
+    showBookingConfirmation(data);
+    const titleEl = document.querySelector('#mia-confirm-box .booking-confirm-title');
+    const detailsEl = document.getElementById('conf-details');
+    if (titleEl) {
+        titleEl.textContent = `✓ Booking saved. Complete payment on ${paymentLabel}.`;
+    }
+    if (detailsEl) {
+        detailsEl.insertAdjacentHTML(
+            'beforeend',
+            `<div style="margin-top:0.75rem;color:#065f46;">We opened ${paymentLabel} in a new tab. If it did not open, please allow pop-ups or contact us on WhatsApp.</div>`
+        );
     }
 }
 
@@ -902,7 +1126,8 @@ async function processPayPal() {
         const amountUSD = (data.amount / 25000).toFixed(2);
         const paypalLink = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=miacasahanoi@gmail.com&amount=${amountUSD}&currency_code=USD&item_name=MiaCasa%20Booking%20${currentBookingId}&invoice=${currentBookingId}`;
         window.open(paypalLink, '_blank');
-        alert('Booking saved! Please complete payment on PayPal.');
+        saveBookingToLocal(data);
+        showPaymentRedirectConfirmation(data, 'PayPal');
     } catch (error) {
         showPayError(error.message);
     }
@@ -943,7 +1168,7 @@ function initializeProperties() {
     if (document.getElementById('properties-grid')) {
         renderProperties();
         renderBookingSelector();
-        selectProp(PROPERTIES[0].id);
+        selectProp('hanoi');  // ← Hardcode 'hanoi' instead of PROPERTIES[0].id
         setMinDates();
         updateGuestOptions();
         updateAvailabilityAndUI();

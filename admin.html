@@ -72,7 +72,7 @@
               <option value="Spring Room">Spring Room (MCH)</option>
               <option value="Summer Room">Summer Room (MCH)</option>
               <option value="Autumn Room">Autumn Room (MCH)</option>
-              <option value="Entire Apartment (3 king beds)">OldQuarter Apartment</option>
+              <option value="Entire Apartment (3 queen beds)">OldQuarter Apartment</option>
             </select>
           </div>
           <div class="price-field">
@@ -86,8 +86,8 @@
           <div class="price-field">
             <label id="lbl-rs-status">Status</label>
             <select id="rs-status">
-              <option value="closed">🔒 Closed (unavailable)</option>
               <option value="open">🔓 Open (available)</option>
+              <option value="closed">🔒 Closed (unavailable)</option>
             </select>
           </div>
           <div class="price-field">
@@ -119,7 +119,14 @@
               <option value="Spring Room">Spring Room (MCH)</option>
               <option value="Summer Room">Summer Room (MCH)</option>
               <option value="Autumn Room">Autumn Room (MCH)</option>
-              <option value="Entire Apartment (3 king beds)">OldQuarter Apartment</option>
+              <option value="Entire Apartment (3 queen beds)">OldQuarter Apartment</option>
+            </select>
+          </div>
+          <div class="price-field">
+            <label id="lbl-ov-rule-type">Rule type</label>
+            <select id="ov-rule-type" onchange="updatePriceRuleFields()">
+              <option value="date">Specific date / date range</option>
+              <option value="weekday">Recurring weekdays</option>
             </select>
           </div>
           <div class="price-field">
@@ -129,6 +136,35 @@
           <div class="price-field">
             <label id="lbl-ov-to">To date</label>
             <input type="date" id="ov-to">
+          </div>
+          <div class="price-field price-field-wide" id="ov-weekday-field" style="display:none;">
+            <label id="lbl-ov-weekdays">Apply on weekdays</label>
+            <div class="weekday-picker" id="ov-weekdays">
+              <label><input type="checkbox" value="1"> Mon</label>
+              <label><input type="checkbox" value="2"> Tue</label>
+              <label><input type="checkbox" value="3"> Wed</label>
+              <label><input type="checkbox" value="4"> Thu</label>
+              <label><input type="checkbox" value="5"> Fri</label>
+              <label><input type="checkbox" value="6"> Sat</label>
+              <label><input type="checkbox" value="0"> Sun</label>
+            </div>
+          </div>
+          <div class="price-field price-field-wide" id="ov-month-field" style="display:none;">
+            <label id="lbl-ov-months">Apply in months</label>
+            <div class="weekday-picker month-picker" id="ov-months">
+              <label><input type="checkbox" value="1" checked> Jan</label>
+              <label><input type="checkbox" value="2" checked> Feb</label>
+              <label><input type="checkbox" value="3" checked> Mar</label>
+              <label><input type="checkbox" value="4" checked> Apr</label>
+              <label><input type="checkbox" value="5" checked> May</label>
+              <label><input type="checkbox" value="6" checked> Jun</label>
+              <label><input type="checkbox" value="7" checked> Jul</label>
+              <label><input type="checkbox" value="8" checked> Aug</label>
+              <label><input type="checkbox" value="9" checked> Sep</label>
+              <label><input type="checkbox" value="10" checked> Oct</label>
+              <label><input type="checkbox" value="11" checked> Nov</label>
+              <label><input type="checkbox" value="12" checked> Dec</label>
+            </div>
           </div>
           <div class="price-field">
             <label id="lbl-ov-price">Price per night (VND)</label>

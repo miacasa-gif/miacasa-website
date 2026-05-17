@@ -3,9 +3,7 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 Disallow: /maintenance
-Disallow: /js/
-Disallow: /css/
 Disallow: /invoice
 Disallow: /cancel-booking
 
-Sitemap: https://miacasa.netlify.app/sitemap.xml
+Sitemap: https://miacasahanoi.com/sitemap.xml

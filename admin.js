@@ -31,8 +31,11 @@ const ADMIN_TRANSLATIONS = {
     'no-rules': 'No room status rules set. All rooms are open by default.',
     'ov-form-title': 'Add price override',
     'lbl-ov-room': 'Room',
+    'lbl-ov-rule-type': 'Rule type',
     'lbl-ov-from': 'From date',
     'lbl-ov-to': 'To date',
+    'lbl-ov-weekdays': 'Apply on weekdays',
+    'lbl-ov-months': 'Apply in months',
     'lbl-ov-price': 'Price per night (VND)',
     'lbl-ov-note': 'Note (optional)',
     'btn-ov-add': 'Add Override',
@@ -49,6 +52,9 @@ const ADMIN_TRANSLATIONS = {
     'th-note': 'Note',
     'th-price': 'Price / night',
     'th-usd': '~USD',
+    'th-rule': 'Rule',
+    'rule-once': 'Specific dates',
+    'rule-weekday': 'Recurring weekdays',
     'opt-rs-closed': '🔒 Closed (unavailable)',
     'opt-rs-open': '🔓 Open (available)',
     'maintenance-on': 'Turn Maintenance Off',
@@ -79,8 +85,11 @@ const ADMIN_TRANSLATIONS = {
     'no-rules': 'Chưa có quy tắc nào. Tất cả phòng đang mở mặc định.',
     'ov-form-title': 'Thêm giá tùy chỉnh',
     'lbl-ov-room': 'Phòng',
+    'lbl-ov-rule-type': 'Loại quy tắc',
     'lbl-ov-from': 'Từ ngày',
     'lbl-ov-to': 'Đến ngày',
+    'lbl-ov-weekdays': 'Áp dụng vào thứ',
+    'lbl-ov-months': 'Áp dụng trong tháng',
     'lbl-ov-price': 'Giá mỗi đêm (VND)',
     'lbl-ov-note': 'Ghi chú (tuỳ chọn)',
     'btn-ov-add': 'Thêm',
@@ -97,6 +106,9 @@ const ADMIN_TRANSLATIONS = {
     'th-note': 'Ghi chú',
     'th-price': 'Giá / đêm',
     'th-usd': '~USD',
+    'th-rule': 'Quy tắc',
+    'rule-once': 'Ngày cụ thể',
+    'rule-weekday': 'Lặp lại theo thứ',
     'opt-rs-closed': '🔒 Đóng (không nhận khách)',
     'opt-rs-open': '🔓 Mở (nhận khách)',
     'maintenance-on': 'Tắt chế độ bảo trì',
@@ -111,8 +123,18 @@ const ROOMS = [
   { id: 'spring', name: 'Spring Room', property: 'MiaCasaHanoi' },
   { id: 'summer', name: 'Summer Room', property: 'MiaCasaHanoi' },
   { id: 'autumn', name: 'Autumn Room', property: 'MiaCasaHanoi' },
-  { id: 'oldquarter', name: 'Entire Apartment (3 king beds)', property: 'MiaCasaOldQuarter' }
+  { id: 'oldquarter', name: 'Entire Apartment (3 queen beds)', property: 'MiaCasaOldQuarter' }
 ];
+
+const PRICE_RULE_PREFIX = 'MIA_PRICE_RULE:';
+const WEEKDAY_NAMES = {
+  en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  vn: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']
+};
+const MONTH_NAMES = {
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  vn: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12']
+};
 
 // ================================================================
 // TOKEN MANAGEMENT
@@ -209,6 +231,7 @@ async function showAdmin() {
   const userName = sessionStorage.getItem('mia_admin_user') || 'Admin';
   document.getElementById('admin-greeting').textContent = 
     adminLang === 'vn' ? `Xin chào, ${userName}!` : `Welcome, ${userName}!`;
+  updatePriceRuleFields();
   
   // Load all data
   await Promise.all([
@@ -305,6 +328,7 @@ async function addRoomStatus() {
       document.getElementById('rs-note').value = '';
       document.getElementById('rs-from').value = '';
       document.getElementById('rs-to').value = '';
+      document.getElementById('rs-status').value = 'open';
       
       // Refresh list
       await renderRoomStatusList();
@@ -375,16 +399,20 @@ async function renderRoomStatusList() {
           </tr>
         </thead>
         <tbody>
-          ${rows.map(r => `
+          ${rows.map(r => {
+            const isClosed = r[3] === 'closed';
+            const statusLabel = isClosed ? ADMIN_TRANSLATIONS[adminLang]['opt-rs-closed'] : ADMIN_TRANSLATIONS[adminLang]['opt-rs-open'];
+            return `
             <tr>
               <td>${escapeHtml(r[0])}</td>
               <td>${formatDateForDisplay(r[1])}</td>
               <td>${formatDateForDisplay(r[2])}</td>
-              <td><span style="font-weight:500;color:${r[3] === 'closed' ? '#991B1B' : '#065F46'}">${r[3] === 'closed' ? '🔒 Closed' : '🔓 Open'}</span></td>
+              <td><span style="font-weight:500;color:${isClosed ? '#991B1B' : '#065F46'}">${statusLabel}</span></td>
               <td style="color:var(--ink-light);">${escapeHtml(r[4] || '—')}</td>
               <td><button class="del-btn" onclick="deleteRoomStatus('${r[5]}')">✕</button></td>
             </tr>
-          `).join('')}
+          `;
+          }).join('')}
         </tbody>
       </table>
     `;
@@ -409,12 +437,108 @@ async function fetchOverrides() {
   return data.data || [];
 }
 
+function updatePriceRuleFields() {
+  const type = document.getElementById('ov-rule-type')?.value || 'date';
+  const showRecurring = type === 'weekday';
+  const weekdayField = document.getElementById('ov-weekday-field');
+  const monthField = document.getElementById('ov-month-field');
+  const toLabel = document.getElementById('lbl-ov-to');
+  const fromInput = document.getElementById('ov-from');
+  const toInput = document.getElementById('ov-to');
+
+  if (weekdayField) weekdayField.style.display = showRecurring ? 'flex' : 'none';
+  if (monthField) monthField.style.display = showRecurring ? 'flex' : 'none';
+  if (toLabel) {
+    toLabel.textContent = showRecurring
+      ? (adminLang === 'vn' ? 'Đến ngày (hiệu lực)' : 'To date (active until)')
+      : ADMIN_TRANSLATIONS[adminLang]['lbl-ov-to'];
+  }
+
+  if (showRecurring && fromInput && toInput && !fromInput.value && !toInput.value) {
+    const today = new Date();
+    const nextYear = new Date(today);
+    nextYear.setFullYear(today.getFullYear() + 1);
+    fromInput.value = formatDateInput(today);
+    toInput.value = formatDateInput(nextYear);
+  }
+}
+
+function getCheckedValues(containerId) {
+  return Array.from(document.querySelectorAll(`#${containerId} input:checked`))
+    .map(input => Number(input.value))
+    .filter(value => Number.isFinite(value));
+}
+
+function formatDateInput(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function buildPriceRuleNote(note, ruleType) {
+  const cleanNote = note.replace(new RegExp(`\\s*${PRICE_RULE_PREFIX}.*$`), '').trim();
+  if (ruleType !== 'weekday') return cleanNote;
+
+  const days = getCheckedValues('ov-weekdays');
+  const months = getCheckedValues('ov-months');
+  const rule = {
+    type: 'weekday',
+    days,
+    months: months.length ? months : [1,2,3,4,5,6,7,8,9,10,11,12]
+  };
+
+  return `${cleanNote ? cleanNote + ' ' : ''}${PRICE_RULE_PREFIX}${JSON.stringify(rule)}`;
+}
+
+function parsePriceRuleNote(note) {
+  const raw = String(note || '');
+  const index = raw.indexOf(PRICE_RULE_PREFIX);
+  if (index === -1) return { userNote: raw, rule: null };
+
+  const userNote = raw.slice(0, index).trim();
+  const encoded = raw.slice(index + PRICE_RULE_PREFIX.length).trim();
+  try {
+    return { userNote, rule: JSON.parse(encoded) };
+  } catch (e) {
+    return { userNote: raw, rule: null };
+  }
+}
+
+function compactNumberList(values, labels) {
+  if (!Array.isArray(values) || values.length === 0) return '—';
+  return values
+    .slice()
+    .sort((a, b) => a - b)
+    .map(value => labels[value] || labels[value - 1] || value)
+    .join(', ');
+}
+
+function formatPriceRule(rule) {
+  const L = ADMIN_TRANSLATIONS[adminLang];
+  if (!rule || rule.type !== 'weekday') {
+    return `<span class="rule-pill">${L['rule-once']}</span>`;
+  }
+
+  const dayNames = WEEKDAY_NAMES[adminLang] || WEEKDAY_NAMES.en;
+  const monthNames = MONTH_NAMES[adminLang] || MONTH_NAMES.en;
+  const months = Array.isArray(rule.months) ? rule.months : [];
+  const monthText = months.length === 12 || months.length === 0
+    ? (adminLang === 'vn' ? 'Tất cả tháng' : 'All months')
+    : compactNumberList(months, monthNames);
+  const dayText = compactNumberList(rule.days, dayNames);
+
+  return `<span class="rule-pill">${L['rule-weekday']}</span><div style="margin-top:0.25rem;color:var(--ink-light);">${dayText} · ${monthText}</div>`;
+}
+
 async function addOverride() {
   const room = document.getElementById('ov-room').value;
+  const ruleType = document.getElementById('ov-rule-type')?.value || 'date';
   const from = document.getElementById('ov-from').value;
   const to = document.getElementById('ov-to').value;
   const price = parseInt(document.getElementById('ov-price').value);
-  const note = document.getElementById('ov-note').value.trim();
+  const noteInput = document.getElementById('ov-note').value.trim();
+  const note = buildPriceRuleNote(noteInput, ruleType);
 
   const errBar = document.getElementById('price-error-bar');
   const saveBar = document.getElementById('price-save-bar');
@@ -431,9 +555,15 @@ async function addOverride() {
     errBar.style.display = 'block';
     return;
   }
+
+  if (ruleType === 'weekday' && getCheckedValues('ov-weekdays').length === 0) {
+    errBar.textContent = adminLang === 'vn' ? 'Vui lòng chọn ít nhất một thứ trong tuần.' : 'Please select at least one weekday.';
+    errBar.style.display = 'block';
+    return;
+  }
   
-  if (new Date(to) <= new Date(from)) {
-    errBar.textContent = adminLang === 'vn' ? 'Ngày kết thúc phải sau ngày bắt đầu.' : 'End date must be after start date.';
+  if (new Date(to) < new Date(from)) {
+    errBar.textContent = adminLang === 'vn' ? 'Ngày kết thúc phải bằng hoặc sau ngày bắt đầu.' : 'End date must be on or after start date.';
     errBar.style.display = 'block';
     return;
   }
@@ -524,6 +654,7 @@ async function renderOverrides() {
         <thead>
           <tr>
             <th>${AL['th-room']}</th>
+            <th>${AL['th-rule']}</th>
             <th>${AL['th-from']}</th>
             <th>${AL['th-to']}</th>
             <th>${AL['th-price']}</th>
@@ -533,17 +664,21 @@ async function renderOverrides() {
           </tr>
         </thead>
         <tbody>
-          ${overrides.map(o => `
-            <tr>
-              <td>${escapeHtml(o[1])}${' '}${escapeHtml(o[1])}</td>
-              <td>${formatDateForDisplay(o[2])}</td>
-              <td>${formatDateForDisplay(o[3])}</td>
-              <td style="font-weight:500;color:var(--terracotta);">${formatVND(o[4])}</td>
-              <td style="color:var(--ink-light);">~$${Math.round(o[4] / 25000)}</td>
-              <td style="color:var(--ink-light);">${escapeHtml(o[5] || '—')}</td>
-              <td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td>
-            </tr>
-          `).join('')}
+          ${overrides.map(o => {
+            const parsed = parsePriceRuleNote(o[5]);
+            return `
+              <tr>
+                <td>${escapeHtml(o[1])}</td>
+                <td>${formatPriceRule(parsed.rule)}</td>
+                <td>${formatDateForDisplay(o[2])}</td>
+                <td>${formatDateForDisplay(o[3])}</td>
+                <td style="font-weight:500;color:var(--terracotta);">${formatVND(o[4])}</td>
+                <td style="color:var(--ink-light);">~$${Math.round(o[4] / 25000)}</td>
+                <td style="color:var(--ink-light);">${escapeHtml(parsed.userNote || '—')}</td>
+                <td><button class="del-btn" onclick="deleteOverride(${o[0]})">✕</button></td>
+              </tr>
+            `;
+          }).join('')}
         </tbody>
       </table>
     `;
@@ -691,6 +826,8 @@ function setAdminLang(lang) {
   const vnBtn = document.getElementById('lang-vn');
   if (enBtn) enBtn.classList.toggle('active', lang === 'en');
   if (vnBtn) vnBtn.classList.toggle('active', lang === 'vn');
+  const roomStatusSelect = document.getElementById('rs-status');
+  if (roomStatusSelect && !roomStatusSelect.value) roomStatusSelect.value = 'open';
 
   const L = ADMIN_TRANSLATIONS[lang];
   if (!L) return;
@@ -715,8 +852,11 @@ function setAdminLang(lang) {
     'rs-list-title': 'textContent',
     'ov-form-title': 'textContent',
     'lbl-ov-room': 'textContent',
+    'lbl-ov-rule-type': 'textContent',
     'lbl-ov-from': 'textContent',
     'lbl-ov-to': 'textContent',
+    'lbl-ov-weekdays': 'textContent',
+    'lbl-ov-months': 'textContent',
     'lbl-ov-price': 'textContent',
     'lbl-ov-note': 'textContent',
     'btn-ov-add': 'textContent',
@@ -732,12 +872,13 @@ function setAdminLang(lang) {
   const tabs = document.querySelectorAll('.admin-tab');
   if (tabs[0]) tabs[0].textContent = L['tab-rooms'];
   if (tabs[1]) tabs[1].textContent = L['tab-prices'];
+  updatePriceRuleFields();
 
   // Update select options
   const rsSel = document.getElementById('rs-status');
   if (rsSel && rsSel.options.length >= 2) {
-    rsSel.options[0].text = L['opt-rs-closed'];
-    rsSel.options[1].text = L['opt-rs-open'];
+    rsSel.options[0].text = L['opt-rs-open'];
+    rsSel.options[1].text = L['opt-rs-closed'];
   }
 
   // Update room select options

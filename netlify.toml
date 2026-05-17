@@ -2,6 +2,19 @@
   publish = "."
   functions = "netlify/functions"
 
+# Canonical domain redirects
+[[redirects]]
+  from = "https://miacasa.netlify.app/*"
+  to = "https://miacasahanoi.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.miacasahanoi.com/*"
+  to = "https://miacasahanoi.com/:splat"
+  status = 301
+  force = true
+
 # API routes
 [[redirects]]
   from = "/api/*"

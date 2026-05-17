@@ -371,7 +371,7 @@ const TRANSLATIONS = {
   'oq-apt-title':    {en:'Entire apartment,<br><em>yours alone</em>', vn:'Toàn bộ căn hộ,<br><em>của riêng bạn</em>'},
   'oq-apt-sub':      {en:'Complete privacy for your group — across two levels with an open terrace above the Old Quarter.',
                       vn:'Sự riêng tư hoàn toàn cho nhóm — trên hai tầng với sân thượng mở nhìn ra Phố Cổ.'},
-  'oq-feat1':        {en:'3 Queen Beds', vn:'3 Giường Đôi'},
+  'oq-feat1':        {en:'3 queen beds', vn:'3 Giường Đôi'},
   'oq-feat1s':       {en:'2 on main level + 1 attic bed — sleeps up to 6', vn:'2 tầng chính + 1 gác xép — ngủ tối đa 6 người'},
   'oq-feat2':        {en:'Open Terrace', vn:'Sân thượng mở'},
   'oq-feat2s':       {en:'Your quiet corner above the Old Quarter', vn:'Góc thư giãn của bạn trên Phố Cổ'},
@@ -631,13 +631,13 @@ const TRANSLATIONS = {
   'compare-h-li1':   {en:'Near Train Street &amp; Văn Miếu', vn:'Gần Phố Tàu Hỏa &amp; Văn Miếu'},
   'compare-h-li2':   {en:'3 private en-suite rooms · up to 3 guests each', vn:'3 phòng riêng có phòng tắm · tối đa 3 khách mỗi phòng'},
   'compare-h-li3':   {en:'Best for couples, solo travelers, remote workers', vn:'Phù hợp cho cặp đôi, khách solo, người làm việc từ xa'},
-  'compare-h-li4':   {en:'From <span id="compare-hanoi-price">750,000</span>₫ / night', vn:'Từ <span id="compare-hanoi-price">750.000</span>₫ / đêm'},
+  'compare-h-li4':   {en:'From <span id="compare-hanoi-price">550,000</span>₫ / night', vn:'Từ <span id="compare-hanoi-price">550.000</span>₫ / đêm'},
   'compare-h-cta':   {en:'Explore MiaCasa Hanoi →', vn:'Khám phá MiaCasa Hà Nội →'},
   'compare-oq-title':{en:'Central, vibrant, Old Quarter', vn:'Trung tâm, sôi động, Phố Cổ'},
   'compare-oq-li1':  {en:'Heart of Hoàn Kiếm · steps from the lake', vn:'Trung tâm Hoàn Kiếm · ngay cạnh hồ'},
   'compare-oq-li2':  {en:'Entire apartment · 3 queen beds · up to 6 guests', vn:'Toàn bộ căn hộ · 3 giường đôi · tối đa 6 khách'},
   'compare-oq-li3':  {en:'Best for families, groups, Old Quarter lovers', vn:'Phù hợp cho gia đình, nhóm bạn, người yêu Phố Cổ'},
-  'compare-oq-li4':  {en:'From <span id="compare-oldquarter-price">1,200,000</span>₫ / night', vn:'Từ <span id="compare-oldquarter-price">1.200.000</span>₫ / đêm'},
+  'compare-oq-li4':  {en:'From <span id="compare-oldquarter-price">900,000</span>₫ / night', vn:'Từ <span id="compare-oldquarter-price">900.000</span>₫ / đêm'},
   'compare-oq-cta':  {en:'Explore Old Quarter →', vn:'Khám phá MiaCasa Phố Cổ →'},
 
   /* ── CHOOSE YOUR STAY SELECTOR ─────────────────────────────────── */
@@ -693,6 +693,10 @@ function setLang(lang){
     
     // Apply translations to the page
     applyTranslations();
+
+    if (typeof window.updateMiaCasaChatbotLanguage === 'function') {
+        try { window.updateMiaCasaChatbotLanguage(lang); } catch(e) {}
+    }
   
   // Re-render dynamic sections - ONLY if the grid exists on this page
   /* if (typeof renderProperties === 'function' && document.getElementById('properties-grid')) {
