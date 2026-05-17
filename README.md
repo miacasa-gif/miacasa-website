@@ -1,217 +1,272 @@
-# MiaCasa Website
+# MiaCasa Homestays Website
 
-Official website for MiaCasa Homestays in Hanoi, Vietnam.
+A fast, multilingual boutique homestay website for [MiaCasa Hanoi](https://miacasahanoi.com?utm_source=chatgpt.com) built with vanilla HTML, CSS, and JavaScript.
 
-Live site: https://miacasa.netlify.app
+The project focuses on:
 
----
-
-## About
-
-MiaCasa is a boutique homestay brand in Hanoi focused on calm, local, design conscious stays for travelers seeking a more personal experience than traditional hotels.
-
-The website includes:
-
-* Property pages
-* Direct booking system
-* Travel blog
-* Bilingual English/Vietnamese support
-* Booking management utilities
-* SEO optimized travel guides
-
-Properties:
-
-* MiaCasa Hanoi
-* MiaCasa Old Quarter
+* Direct bookings without OTA commissions
+* Dynamic room pricing and admin controlled overrides
+* Multilingual support (English / Vietnamese)
+* SEO optimized travel content
+* Mobile first responsive design
+* Lightweight performance focused architecture
+* Google Sheets powered booking management
 
 ---
 
-# Features
+## Live Website
 
-## Hospitality & Booking
+* Production: [miacasahanoi.com](https://miacasahanoi.com?utm_source=chatgpt.com)
+* Legacy Netlify URL: [miacasa.netlify.app](https://miacasa.netlify.app?utm_source=chatgpt.com)
 
-* Direct booking flow
-* PayPal integration
-* VietQR payment support
+---
+
+## Features
+
+### Property Booking System
+
+* Multiple properties:
+
+  * MiaCasa Hanoi
+  * MiaCasa Old Quarter
+* Room selection
+* Dynamic nightly pricing
+* Seasonal and weekend rates
+* Admin controlled price overrides
+* Booking total calculation
+* Extra guest pricing
+* Booking ID generation
 * Availability checking
-* Booking invoice generation
-* Booking cancellation flow
-* WhatsApp inquiry integration
-* Mobile optimized booking UX
 
-## Content & SEO
+### Admin Features
 
-* Travel blog articles
-* Structured data (JSON-LD)
+* Google Sheets integration
+* Price override management
+* Booking logging
+* Recurring pricing rules
+* Admin dashboard
+
+### SEO & Content
+
+* SEO optimized blog system
+* Structured travel guides
+* Multilingual blog support
+* Internal linking strategy
 * Open Graph metadata
-* Canonical URLs
-* Sitemap.xml
-* Google Search Console verification
-* Long form SEO content targeting Hanoi travel searches
+* Mobile optimized layouts
 
-## User Experience
+### UI / UX
 
-* Responsive mobile first design
-* Bilingual EN/VN support
-* Language persistence with localStorage
-* Sticky mobile booking CTA
-* Smooth scroll reveal animations
-* Floating navigation controls
-
-## Design System
-
-* Boutique hospitality inspired branding
-* Cormorant + Jost typography pairing
-* Terracotta and cream color palette
-* Soft editorial style layouts
-* Custom room and property galleries
+* Fully responsive
+* Language toggle
+* Sticky booking CTA
+* Optimized mobile experience
+* Lightweight animations
+* Performance optimized images
 
 ---
 
-# Pages
+## Tech Stack
 
-## Main Pages
-
-* `/`
-* `/miacasa-hanoi`
-* `/miacasa-oldquarter`
-* `/our-story`
-* `/blog`
-
-## Blog Articles
-
-* `/best-cafes-hanoi`
-* `/blog-hanoi-3-days`
-* `/blog-train-street`
-* `/blog-where-to-stay`
-
-## Booking Utilities
-
-* `/invoice`
-* `/cancel-booking`
-
----
-
-# Tech Stack
+### Frontend
 
 * HTML5
 * CSS3
 * Vanilla JavaScript
+
+### Backend / Services
+
+* Google Apps Script
+* Google Sheets
 * Netlify Hosting
-* Google Sheets API
-* PayPal Checkout
-* VietQR Integration
+* Cloudinary Image CDN
 
-No frontend framework is currently used.
+### Infrastructure
 
----
-
-# SEO Features
-
-* BlogPosting schema
-* LodgingBusiness schema
-* FAQPage schema
-* Open Graph tags
-* Twitter card support
-* Canonical URLs
-* XML sitemap
-* Optimized internal linking
+* Netlify deployment
+* Porkbun DNS
+* Cloudinary media hosting
 
 ---
 
-# Localization
+## Project Structure
+
+```bash
+/
+├── index.html
+├── old-quarter.html
+├── miacasa-hanoi.html
+├── blog.html
+├── css/
+│   ├── style.css
+│   └── blog.css
+├── js/
+│   ├── booking.js
+│   ├── prices.js
+│   ├── main.js
+│   └── translations.js
+├── api/
+│   └── log-booking
+├── images/
+└── README.md
+```
+
+---
+
+## Dynamic Pricing Logic
+
+The booking system supports:
+
+* Base weekday pricing
+* Weekend pricing
+* Special event pricing
+* Admin override pricing
+* Recurring weekday/month pricing rules
+
+### Pricing Priority
+
+```text
+Price Override
+↓
+Special Day Rate
+↓
+Weekend Rate
+↓
+Default Weekday Rate
+```
+
+Overrides are fetched from Google Sheets and become the single source of truth across:
+
+* Booking engine
+* Property cards
+* Compare sections
+* Price estimate widgets
+
+---
+
+## Language System
 
 The website supports:
 
 * English
 * Vietnamese
 
-Translations are managed via:
+Language switching is handled using:
 
-* `lang.js`
+```html
+.en-only
+.vn-only
+```
 
-Language preference is stored using:
+and:
 
-* `localStorage`
-
----
-
-# Repository Structure
-
-```bash
-/
-├── index.html
-├── miacasa-hanoi.html
-├── miacasa-oldquarter.html
-├── our-story.html
-├── blog.html
-├── style.css
-├── lang.js
-├── script.js
-├── sitemap.xml
-├── robots.txt
-└── assets/
+```javascript
+document.documentElement.setAttribute("data-lang", lang);
 ```
 
 ---
 
-# Future Improvements
+## Performance
 
-Planned improvements include:
+### Current Lighthouse Scores
 
-* Custom domain migration
-* Breadcrumb schema
-* Expanded review system
-* Enhanced room comparison UX
-* Performance optimization
-* Reduced inline styling
-* Improved booking confirmations
-* Additional Hanoi travel guides
+#### Desktop
+
+* Performance: 100
+* LCP: ~0.6s
+* CLS: 0.014
+
+#### Mobile
+
+* Performance: ~90+
+* LCP: ~3.8s on Slow 4G
+* CLS: 0.012
+
+Optimizations include:
+
+* WebP image delivery
+* Lazy loading
+* Minimal JavaScript
+* Optimized CSS
+* Cloudinary CDN
+* Responsive images
 
 ---
 
-# Development
+## Deployment
 
-To run locally:
+### Netlify
+
+The site is deployed on Netlify.
+
+### Custom Domain Setup
+
+Domain managed via Porkbun.
+
+DNS configuration:
+
+```text
+ALIAS @ → apex-loadbalancer.netlify.com
+CNAME www → your-site.netlify.app
+```
+
+---
+
+## Local Development
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/miacasa-homestays/miacasa-website.git
+```
+
+Open locally:
+
+```bash
 cd miacasa-website
 ```
 
-Open:
+Then launch with any static server:
 
 ```bash
-index.html
+python -m http.server
 ```
 
-with a local development server.
-
-Example:
-
-```bash
-python -m http.server 8000
-```
+or use VS Code Live Server.
 
 ---
 
-# Brand Positioning
+## Environment / Integrations
 
-MiaCasa focuses on:
+The project integrates with:
 
-* calm boutique hospitality
-* local Hanoi experiences
-* café culture
-* slow travel
-* thoughtful design
-* direct human connection
+* Google Apps Script endpoints
+* Google Sheets
+* Cloudinary image hosting
 
-The goal is to create a stay experience that feels warm, personal, and authentically local.
+Make sure API endpoints are configured correctly before deployment.
 
 ---
 
-# License
+## Future Improvements
 
-All content, branding, photography, and design assets are property of MiaCasa unless otherwise stated.
+* Online payments
+* Real time availability sync
+* Full CMS integration
+* AI powered travel recommendations
+* Enhanced analytics dashboard
+* Multi currency support
 
-Unauthorized commercial reuse is prohibited.
+---
+
+## License
+
+Private project for MiaCasa Homestays.
+
+All rights reserved.
+
+---
+
+## Author
+
+Built for [MiaCasa Homestays](https://miacasahanoi.com?utm_source=chatgpt.com) in Hanoi.
